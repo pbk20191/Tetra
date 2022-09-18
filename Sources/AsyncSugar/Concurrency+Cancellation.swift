@@ -6,6 +6,8 @@
 //
 
 import Foundation
+import Combine
+
 
 /// Launch  operation and suspend the current Task, current Task is resumed immediately when operation is cancelled.
 /// - Parameter operation: task to launch
@@ -14,59 +16,39 @@ import Foundation
 ///
 /// Event though launched task does not support cancellation. this function will resume the suspension point while launched task is still running
 @inlinable
-func withThrowingCancellation<T>(operation: @Sendable @escaping () async throws -> T) async throws -> T {
-    let stream = AsyncThrowingStream<T,Error> { continuation in
-        let task = Task<Void,Never> {
-            let childTask = Task(operation: operation)
-            await withTaskCancellationHandler {
-                childTask.cancel()
-                continuation.finish(throwing: CancellationError())
-            } operation: {
-                switch await childTask.result {
-                case .failure(let error):
-                    continuation.finish(throwing: error)
-                case .success(let value):
-                    continuation.yield(value)
-                    continuation.finish()
-                }
-            }
+func withThrowingCancellation<T:Sendable>(operation: @Sendable @escaping () async throws -> T) async throws -> T {
+    try await withThrowingTaskGroup(of: T.self) { group in
+        group.addTask(operation: operation)
+        group.addTask {
+            try await Task.sleep(nanoseconds: .max)
+            throw CancellationError()
         }
-        continuation.onTermination = { @Sendable _ in
-            task.cancel()
+        while let value = try await group.next() {
+            return value
         }
-    }
-    if let value = try await stream.first(where: { _ in true }) {
-        return value
-    } else {
-        try Task.checkCancellation()
-        assertionFailure("reached undefined endpoint")
+        group.cancelAll()
         throw CancellationError()
     }
 }
 
-///**
-//    When task is cancelled this function return with nil
-//
-// */
-//@inlinable
-//func withReturningCancellation<T>(operation: @Sendable @escaping () async -> T) async -> T? {
-//    let stream = AsyncStream<T> { continuation in
-//        let task = Task<Void,Never> {
-//            let childTask = Task(operation: operation)
-//            await withTaskCancellationHandler {
-//                childTask.cancel()
-//                continuation.finish()
-//            } operation: {
-//                await continuation.yield(childTask.value)
-//                continuation.finish()
-//            }
-//        }
-//        continuation.onTermination = { @Sendable _ in
-//            task.cancel()
-//        }
-//    }
-//    return await stream.first{ _ in true }
-//}
+/**
+    When task is cancelled this function return with nil
+ */
+@inlinable
+func withReturningCancellation<T>(operation: @Sendable @escaping () async -> T) async -> T? {
+    await withTaskGroup(of: T?.self) { group in
+        group.addTask(operation: operation)
+        group.addTask{
+            try? await Task.sleep(nanoseconds: .max)
+            return nil
+        }
+        while let value = await group.next() {
+            return value
+        }
+        group.cancelAll()
+        return nil
+    }
+}
 
 
 
@@ -79,38 +61,27 @@ func withThrowingCancellation<T>(operation: @Sendable @escaping () async throws 
 ///
 /// Event though launched task does not support cancellation. this function will resume the suspension point while launched task is still running
 @inlinable
-func withTimeOut<T>(timeout: DispatchTimeInterval, operation: @escaping @Sendable () async throws -> T) async throws -> T {
-    let childTask:Task<T,Error> = Task {
-        try await withThrowingCancellation(operation: operation)
-    }
-    let timeoutTask = Task {
-        do {
-            switch timeout {
-            case .seconds(let int):
-                try await Task.sleep(nanoseconds: UInt64(int) * 1000 * 1000 * 1000)
-            case .milliseconds(let int):
-                try await Task.sleep(nanoseconds: UInt64(int) * 1000 * 1000)
-            case .microseconds(let int):
-                try await Task.sleep(nanoseconds: UInt64(int) * 1000)
-            case .nanoseconds(let int):
-                try await Task.sleep(nanoseconds: UInt64(int))
-            case .never:
-                return
-            @unknown default:
-                assertionFailure()
-            }
-        } catch {
-            childTask.cancel()
+func withTimeOut<T:Sendable,S:Scheduler>(scheduler:S, timeout: S.SchedulerTimeType.Stride, operation: @escaping @Sendable () async throws -> T) async throws -> T {
+    try await withThrowingTaskGroup(of: T.self) { group in
+        let deadLine = scheduler.now.advanced(by: timeout)
+        group.addTask(operation: operation)
+        group.addTask {
+            try await Task.sleep(nanoseconds: .max)
+            throw CancellationError()
         }
+        group.addTask {
+            try Task.checkCancellation()
+            await withUnsafeContinuation{
+                scheduler.schedule(after: deadLine, $0.resume)
+            }
+            throw CancellationError()
+        }
+        while let value = try await group.next() {
+            return value
+        }
+        group.cancelAll()
+        throw CancellationError()
     }
-    
-    return try await withTaskCancellationHandler {
-        timeoutTask.cancel()
-        childTask.cancel()
-    } operation: {
-        try await childTask.value
-    }
-
 }
 
 /// Launch  operation and suspend the current Task, current Task is resumed immediately when operation is cancelled.
@@ -119,24 +90,19 @@ func withTimeOut<T>(timeout: DispatchTimeInterval, operation: @escaping @Sendabl
 ///   - operation: task to launch
 /// - Throws: CancellationError if task is cancelled or reached the timeout, otherwise propagates underlying Error
 /// - Returns: operation result
-@inlinable @available(iOS 16.0, *)
-func withTimeOut<T, C>(clock:C, timeout: C.Duration, operation: @escaping @Sendable () async throws -> T) async throws -> T where C:Clock {
-    let childTask:Task<T,Error> = Task {
-        try await withThrowingCancellation(operation: operation)
-    }
-    let deadline = clock.now.advanced(by: timeout)
-    let timeoutTask = Task {
-        do {
-            try await Task.sleep(until: deadline, clock: clock)
-        } catch {
-            childTask.cancel()
+@inlinable @available(iOS 16.0, tvOS 16.0, *)
+func withTimeOut<T:Sendable, C>(clock:C, timeout: C.Duration, operation: @escaping @Sendable () async throws -> T) async throws -> T where C:Clock {
+    try await withThrowingTaskGroup(of: T.self) { group in
+        let deadLine = clock.now.advanced(by: timeout)
+        group.addTask(operation: operation)
+        group.addTask {
+            try await Task.sleep(until: deadLine, clock: clock)
+            throw CancellationError()
         }
+        while let value = try await group.next() {
+            return value
+        }
+        group.cancelAll()
+        throw CancellationError()
     }
-    return try await withTaskCancellationHandler {
-        timeoutTask.cancel()
-        childTask.cancel()
-    } operation: {
-        try await childTask.value
-    }
-
 }
