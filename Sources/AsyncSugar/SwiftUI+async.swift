@@ -35,11 +35,7 @@ private struct TaskModifier: ViewModifier {
 //@available(macCatalyst, introduced: 14.0, obsoleted: 15.0)
 //@available(macOS, introduced: 11.0, obsoleted: 12.0)
 //@available(watchOS, introduced: 7.0, obsoleted: 8.0)
-@available(iOS 14.0, *)
-@available(tvOS 14.0, *)
-@available(macCatalyst 14.0, *)
-@available(macOS 11.0, *)
-@available(watchOS 7.0, *)
+@available(iOS 14.0, tvOS 14.0, macCatalyst 14.0, macOS 11.0, watchOS 7.0, *)
 private struct TaskIdentityModifer<T:Equatable>: ViewModifier {
     var id:T
     var priority: TaskPriority
@@ -63,18 +59,14 @@ private struct TaskIdentityModifer<T:Equatable>: ViewModifier {
 }
 
 
-
-@available(iOS 14.0, *)
-@available(tvOS 14.0, *)
-@available(macCatalyst 14.0, *)
-@available(macOS 11.0, *)
-@available(watchOS 7.0, *)
+@available(iOS, deprecated: 15, renamed: "task")
+@available(tvOS, deprecated: 15, message: "task")
+@available(macCatalyst, deprecated: 15, message: "task")
+@available(macOS, deprecated: 12, message: "task")
+@available(watchOS, deprecated: 8, message: "task")
 public extension View {
-    @available(iOS, deprecated: 15, renamed: "task")
-    @available(tvOS, deprecated: 15, message: "task")
-    @available(macCatalyst, deprecated: 15, message: "task")
-    @available(macOS, deprecated: 12, message: "task")
-    @available(watchOS, deprecated: 8, message: "task")
+    
+    @available(iOS 14.0, tvOS 14.0, macCatalyst 14.0, macOS 11.0, watchOS 7.0, *)
     @ViewBuilder
     func async<T:Equatable>(id value: T, priority: TaskPriority = .userInitiated, _ action: @Sendable @escaping () async -> Void) -> some View {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
@@ -83,14 +75,7 @@ public extension View {
             modifier(TaskIdentityModifer(id: value, priority: priority, action: action))
         }
     }
-}
 
-public extension View {
-    @available(iOS, deprecated: 15, renamed: "task")
-    @available(tvOS, deprecated: 15, message: "task")
-    @available(macCatalyst, deprecated: 15, message: "task")
-    @available(macOS, deprecated: 12, message: "task")
-    @available(watchOS, deprecated: 8, message: "task")
     @ViewBuilder
     func async(priority: TaskPriority = .userInitiated, _ action: @Sendable @escaping () async -> Void) -> some View {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {

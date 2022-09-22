@@ -202,7 +202,7 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         
         private var token:AnyCancellable?
         private var subscription:Subscription?
-        private let store = ContinuationStore()
+        private var store = ContinuationStore()
         func receive(_ input: Element) -> Subscribers.Demand {
             store.mutate { list in
                 list.forEach { $0.resume(returning: input) }
@@ -261,15 +261,14 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         fileprivate init() {}
     }
 
-    final class ContinuationStore {
+    private struct ContinuationStore {
         private let lock = NSLock()
-        var list:[UnsafeContinuation<Element?,Never>] = []
-        func mutate(operation: (inout [UnsafeContinuation<Element?,Never>]) -> Void) {
+        private var list:[UnsafeContinuation<Element?,Never>] = []
+        internal mutating func mutate(operation: (inout [UnsafeContinuation<Element?,Never>]) -> Void) {
             lock.lock()
             operation(&list)
             lock.unlock()
         }
-        fileprivate init() {}
     }
 
     
@@ -321,7 +320,7 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence {
         
         private var token:AnyCancellable?
         private var subscription:Subscription?
-        private let store = ContinuationThrowingStore()
+        private var store = ContinuationThrowingStore()
         func receive(_ input: Element) -> Subscribers.Demand {
             store.mutate { list in
                 list.forEach { $0.resume(returning: input) }
@@ -383,18 +382,15 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence {
         fileprivate init() {}
     }
 
-    final class ContinuationThrowingStore {
+    private struct ContinuationThrowingStore {
         private let lock = NSLock()
         private var list:[UnsafeContinuation<Element?,Error>] = []
-        internal func mutate(operation: (inout [UnsafeContinuation<Element?,Error>]) -> Void) {
+        internal mutating func mutate(operation: (inout [UnsafeContinuation<Element?,Error>]) -> Void) {
             lock.lock()
             operation(&list)
             lock.unlock()
         }
-        
-        fileprivate init() {}
     }
 
     
 }
-
