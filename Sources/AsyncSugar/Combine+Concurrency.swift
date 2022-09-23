@@ -99,14 +99,13 @@ public struct WrappedThrowingAsyncSequence<Element>:AsyncSequence {
         private var iterator:any AsyncIteratorProtocol
         
         mutating public func next() async throws -> Element? {
-            let value = try await iterator.next()
-            switch (value) {
+            switch try await iterator.next() {
             case .none:
                 return nil
-            case let e as Element:
-                return e
-            default:
-                let msg = "Expected \(Element.self) but found \(Swift.type(of: value.unsafelyUnwrapped)) instead"
+            case let wrapped as Element:
+                return wrapped
+            case .some(let wrapped):
+                let msg = "Expected \(Element.self) but found \(Swift.type(of: wrapped)) instead"
                 print(msg)
                 assertionFailure(msg)
                 return nil
@@ -136,16 +135,22 @@ public struct WrappedAsyncSequence<Element>:AsyncSequence {
         private var iterator:any AsyncIteratorProtocol
         
         mutating public func next() async -> Element? {
-            let value = try? await iterator.next()
-            switch (value) {
-            case .none:
-                return nil
-            case let e as Element:
-                return e
-            default:
-                let msg = "Expected \(Element.self) but found \(Swift.type(of: value.unsafelyUnwrapped)) instead"
-                print(msg)
-                assertionFailure(msg)
+            do {
+                let value = try await iterator.next()
+                switch value {
+                case .none:
+                    return nil
+                case .some(let wrapped as Element):
+                    return wrapped
+                case .some(let wrapped):
+                    let msg = "Expected \(Element.self) but found \(Swift.type(of: wrapped)) instead"
+                    print(msg)
+                    assertionFailure(msg)
+                    return nil
+                }
+            } catch {
+                print(error)
+                assertionFailure(error.localizedDescription)
                 return nil
             }
         }
