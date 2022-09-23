@@ -116,6 +116,7 @@ extension CodablePrimitive: Codable {
         switch boolResult {
         case .success(let success):
             self = .bool(success)
+            return
         case .failure(let failure):
             errorContainer.append(failure)
             break
@@ -124,6 +125,7 @@ extension CodablePrimitive: Codable {
         switch integerResult {
         case .success(let success):
             self = .integer(success)
+            return
         case .failure(let failure):
             errorContainer.append(failure)
         }
@@ -131,6 +133,7 @@ extension CodablePrimitive: Codable {
         switch floatingResult {
         case .success(let success):
             self = .double(success)
+            return
         case .failure(let failure):
             errorContainer.append(failure)
         }
