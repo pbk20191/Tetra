@@ -67,9 +67,7 @@ extension CodablePrimitive: Codable {
             try container.encode(double)
         case .array(let array):
             var container = encoder.unkeyedContainer()
-            try array.forEach { value in
-                try container.encode(value)
-            }
+            try container.encode(contentsOf: array)
         case .object(let dictionary):
             var container = encoder.container(keyedBy: CodingKeys.self)
             try dictionary.forEach { key, value in
@@ -89,7 +87,9 @@ extension CodablePrimitive: Codable {
         } else if var container = try? decoder.unkeyedContainer() {
             var array = [Self]()
             while (!container.isAtEnd) {
-                try array.append(container.decode(Self.self))
+                if let value = try container.decodeIfPresent(Self.self) {
+                    array.append(value)
+                }
             }
             self = .array(array)
             return
