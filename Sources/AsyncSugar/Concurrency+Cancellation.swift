@@ -109,6 +109,7 @@ public extension Task where Success == Never, Failure == Never {
         }
     }
 
+    @inline(__always)
     static func withIsolation<Target:Actor,T:Sendable>(_ target:Target, operation: (isolated Target) throws -> T) async rethrows -> T {
         return try await operation(target)
     }

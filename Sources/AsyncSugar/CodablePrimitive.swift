@@ -78,9 +78,8 @@ extension CodablePrimitive: Codable {
     
     public init(from decoder: Decoder) throws {
         if let container = try? decoder.container(keyedBy: CodingKeys.self) {
-            var dictionary:[String:Self] = [:]
-            try container.allKeys.forEach { key in
-                dictionary[key.stringValue] = try container.decodeIfPresent(Self.self, forKey: key)
+            let dictionary = try container.allKeys.reduce(into: [String:Self]()) { partialResult, key in
+                partialResult[key.stringValue] = try container.decodeIfPresent(Self.self, forKey: key)
             }
             self = .object(dictionary)
             return
@@ -150,41 +149,7 @@ extension CodablePrimitive: Codable {
 
 
 // MARK: - Hashable
-extension CodablePrimitive: Hashable {
-    public static func == (lhs: Self, rhs: Self) -> Bool {
-        switch (lhs, rhs) {
-        case (.bool(let left), .bool(let right)):
-            return left == right
-        case (.integer(let left), .integer(let right)):
-            return left == right
-        case (.double(let left), .double(let right)):
-            return left == right
-        case (.array(let left), .array(let right)):
-            return left == right
-        case (.object(let left), .object(let right)):
-            return left == right
-        default:
-            return false
-        }
-    }
-    
-    public func hash(into hasher: inout Hasher) {
-        switch self {
-        case .bool(let bool):
-            hasher.combine(bool)
-        case .string(let string):
-            hasher.combine(string)
-        case .integer(let value):
-            hasher.combine(value)
-        case .double(let value):
-            hasher.combine(value)
-        case .array(let array):
-            hasher.combine(array)
-        case .object(let dictionary):
-            hasher.combine(dictionary)
-        }
-    }
-}
+extension CodablePrimitive: Hashable {}
 
 // MARK: - Expressible Initializer
 extension CodablePrimitive: ExpressibleByStringLiteral, ExpressibleByBooleanLiteral, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral, ExpressibleByDictionaryLiteral, ExpressibleByArrayLiteral, CustomStringConvertible {

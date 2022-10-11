@@ -11,17 +11,15 @@ import Combine
 public extension Publisher {
     
     func mapTask<T:Sendable>(maxTaskCount:Subscribers.Demand = .max(1), transform: @escaping @Sendable (Output) async -> T) -> AnyPublisher<T,Never> where Failure == Never, Output:Sendable {
-        map{ output in
-            Task {
+        flatMap(maxPublishers: maxTaskCount){ output in
+            let task = Task {
                 await withTaskCancellationHandler {
                     Swift.print("\(#function) taskCancel")
                 } operation: {
                     await transform(output)
                 }
             }
-        }
-        .flatMap(maxPublishers: maxTaskCount){ task in
-            Future<T,Never> { promise in
+            return Future<T,Never> { promise in
                 Task { await promise(task.result) }
             }
             .handleEvents(receiveCompletion: { _ in task.cancel() }, receiveCancel: task.cancel)
@@ -31,17 +29,15 @@ public extension Publisher {
     
     func tryMapTask<T:Sendable>(maxTaskCount:Subscribers.Demand = .max(1), transform: @escaping @Sendable (Output) async throws -> T) -> AnyPublisher<T,Error> where Output:Sendable {
         mapError{ $0 }
-            .map{ output in
-                Task {
+            .flatMap(maxPublishers: maxTaskCount){ output in
+                let task = Task {
                     try await withTaskCancellationHandler {
                         Swift.print("\(#function) taskCancel")
                     } operation: {
                         try await transform(output)
                     }
                 }
-            }
-            .flatMap(maxPublishers: maxTaskCount){ task in
-                Future<T,Error> { promise in
+                return Future<T,Error> { promise in
                     Task { await promise(task.result) }
                 }
                 .handleEvents(receiveCompletion: { _ in task.cancel() }, receiveCancel: task.cancel)
@@ -54,11 +50,11 @@ public extension Publisher {
     @available(tvOS, deprecated: 15.0, renamed: "values")
     @available(macOS, deprecated: 12.0, renamed: "values")
     @available(watchOS, deprecated: 8.0, renamed: "values")
-    var sequence:WrappedThrowingAsyncSequence<Output> {
+    var sequence:AnyAsyncTypeSequence<Output> {
         if #available(iOS 15.0, macOS 12.0, macCatalyst 15.0, tvOS 15.0, watchOS 8.0, *) {
-            return WrappedThrowingAsyncSequence(base: values)
+            return AnyAsyncTypeSequence(source: WrappedAsyncThrowingPublisher(source: values))
         } else {
-            return WrappedThrowingAsyncSequence(base: CompatAsyncThrowingPublisher(publisher: self))
+            return AnyAsyncTypeSequence(source: CompatAsyncThrowingPublisher(publisher: self))
         }
     }
     
@@ -82,41 +78,61 @@ public extension Publisher where Failure == Never {
     
 }
 
-public struct WrappedThrowingAsyncSequence<Element>:AsyncSequence {
-    public func makeAsyncIterator() -> Iterator {
-        Iterator(base: (source.makeAsyncIterator() as any AsyncIteratorProtocol))
+
+@available(iOS 15.0, macOS 12.0, macCatalyst 15.0, tvOS 15.0, watchOS 8.0, *)
+struct WrappedAsyncPublisher<P:Publisher>: AsyncSequence, AsyncTypedSequence where P.Failure == Never {
+
+    typealias AsyncIterator = Iterator
+    typealias Element = P.Output
+    
+    var source:AsyncPublisher<P>
+    
+    func makeAsyncIterator() -> Iterator {
+        .init(iterator: source.makeAsyncIterator())
     }
     
-    
-    public typealias AsyncIterator = Iterator
-    private let source:any AsyncSequence
-    
-    public init<T:AsyncSequence>(base:T) where T.Element == Element {
-        source = base
-    }
-    
-    public struct Iterator: AsyncIteratorProtocol {
-        private var iterator:any AsyncIteratorProtocol
+    struct Iterator: AsyncIteratorProtocol, AsyncTypedIteratorProtocol {
         
-        mutating public func next() async throws -> Element? {
-            switch try await iterator.next() {
-            case .none:
-                return nil
-            case let wrapped as Element:
-                return wrapped
-            case .some(let wrapped):
-                let msg = "Expected \(Element.self) but found \(Swift.type(of: wrapped)) instead"
-                print(msg)
-                assertionFailure(msg)
-                return nil
-            }
+        private var iterator:AsyncPublisher<P>.AsyncIterator
+        
+        mutating func next() async -> Element? {
+            await iterator.next()
         }
         
-        fileprivate init(base:some AsyncIteratorProtocol) {
-            iterator = base
+        internal init(iterator: AsyncPublisher<P>.AsyncIterator) {
+            self.iterator = iterator
         }
+        
     }
 }
+
+@available(iOS 15.0, macOS 12.0, macCatalyst 15.0, tvOS 15.0, watchOS 8.0, *)
+struct WrappedAsyncThrowingPublisher<P:Publisher>: AsyncTypedSequence {
+
+    typealias AsyncIterator = Iterator
+    typealias Element = P.Output
+
+    var source:AsyncThrowingPublisher<P>
+    
+    func makeAsyncIterator() -> AsyncIterator {
+        .init(iterator: source.makeAsyncIterator())
+    }
+    
+    struct Iterator: AsyncIteratorProtocol, AsyncTypedIteratorProtocol {
+        
+        private var iterator:AsyncThrowingPublisher<P>.Iterator
+        
+        mutating func next() async throws -> Element? {
+            try await iterator.next()
+        }
+        
+        internal init(iterator: AsyncThrowingPublisher<P>.AsyncIterator) {
+            self.iterator = iterator
+        }
+    }
+    
+}
+
 
 public struct WrappedAsyncSequence<Element>:AsyncSequence {
     public func makeAsyncIterator() -> Iterator {
@@ -172,7 +188,7 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         Iterator(source: publisher)
     }
     
-    public struct Iterator: AsyncIteratorProtocol {
+    public struct Iterator: AsyncIteratorProtocol, AsyncTypedIteratorProtocol {
         
         public typealias Element = P.Output
         
@@ -275,11 +291,10 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
             lock.unlock()
         }
     }
-
     
 }
 
-public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence {
+public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTypedSequence {
 
     public typealias AsyncIterator = Iterator
     public typealias Element = P.Output
@@ -290,7 +305,7 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence {
         Iterator(source: publisher)
     }
     
-    public struct Iterator: AsyncIteratorProtocol {
+    public struct Iterator: AsyncIteratorProtocol, AsyncTypedIteratorProtocol {
         
         public typealias Element = P.Output
         

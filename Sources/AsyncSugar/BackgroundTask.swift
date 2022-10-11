@@ -14,8 +14,18 @@ import UIKit
 
 @available(macCatalystApplicationExtension 13.1, *)
 public extension MainActor {
-    static func performBackground<T:Sendable>(resultType: T.Type = T.self, body: @escaping @Sendable () async throws -> T) async rethrows -> T {
+    static func performBackground<T:Sendable>(resultType: T.Type = T.self, body: @escaping @Sendable () async throws -> T) async throws -> T {
+        let isExtension:Bool
         if #available(iOSApplicationExtension 8.2, macCatalystApplicationExtension 13.1, tvOSApplicationExtension 9.0, *) {
+            if #available(iOS 8.2, macCatalyst 13.1, tvOS 9.0, *) {
+                isExtension = false
+            } else {
+                isExtension = true
+            }
+        } else {
+            isExtension = false
+        }
+        if isExtension {
             let task = Task(operation: body)
             ProcessInfo.processInfo.performExpiringActivity(withReason: "applicationExtensionExtraLife " + Date().description) { aboutToSuspend in
                 if aboutToSuspend {
@@ -29,48 +39,52 @@ public extension MainActor {
             }
 
         } else {
-            return try await extraTask(body: body)
+            return try await UIApplication.shared.backgroundTask(operation: body)
         }
     }
 }
 
-@available(iOSApplicationExtension, unavailable)
-@available(tvOSApplicationExtension, unavailable)
-@available(macCatalystApplicationExtension, unavailable)
-extension MainActor {
-    static func extraTask<T:Sendable>(resultType: T.Type = T.self, body: @escaping @Sendable () async throws -> T) async rethrows -> T {
+
+#endif
+
+
+#if canImport(UIKit)
+
+public extension UIApplication {
         
-        let underlyingTask = Task<T,Error>(operation: body)
-        let task:Task<T,Error> = await run {
-            let app = UIApplication.shared
-            var taskReference:Task<T,Error>?
-            let id = app.beginBackgroundTask() {
-                taskReference?.cancel()
+    func stateRestoration(operation: @Sendable () async -> Void) async {
+        extendStateRestoration()
+        await operation()
+        completeStateRestoration()
+    }
+    
+    func backgroundTask<T:Sendable>(resultType:T.Type = T.self, operation: @escaping @Sendable () async throws -> T) async rethrows -> T{
+        let set = NSMutableSet()
+        let task = Task{
+            let id = await MainActor.run(resultType: UIBackgroundTaskIdentifier.self) {
+                var taskId = UIBackgroundTaskIdentifier.invalid
+                let id = beginBackgroundTask(withName: #function){ [unowned self] in
+                    set.compactMap{ $0 as? Task<T,Error> }.forEach{ $0.cancel() }
+                    endBackgroundTask(taskId)
+                }
+                taskId = id
+                return id
             }
             guard id != .invalid else {
-                underlyingTask.cancel()
-                return Task<T,Error>{ throw CancellationError() }
+                withUnsafeCurrentTask{ $0?.cancel() }
+                return try await operation()
             }
-            let cancelAction = {
-                app.endBackgroundTask(id)
-            }
-            let task = Task<T,Error> {
-                let value:T = try await withTaskCancellationHandler{
-                    underlyingTask.cancel()
-                    cancelAction()
-                } operation: {
-                    let result = await underlyingTask.result
-                    if !Task.isCancelled {
-                        app.endBackgroundTask(id)
-                    }
-                    return try result.get()
-                }
+            do {
+                let value = try await operation()
+                endBackgroundTask(id)
                 return value
+            } catch {
+                endBackgroundTask(id)
+                throw error
             }
-            taskReference = task
-            return task
         }
-        return try await withTaskCancellationHandler{
+        set.add(task)
+        return try await withTaskCancellationHandler {
             task.cancel()
         } operation: {
             try await task.value
