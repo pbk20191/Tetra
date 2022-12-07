@@ -119,6 +119,10 @@ public extension URLSession {
         }
     }
     
+    /// Convenience method to resume download, creates and resumes an URLSessionDownloadTask internally.
+    ///
+    /// - Parameter resumeData: Resume data from an incomplete download.
+    /// - Returns: Downloaded file URL and response. The file will not be removed automatically.
     @available(iOS, deprecated: 15, message: "Use `download(resumeFrom:delegate:)` instead", renamed: "download(resumeFrom:)")
     @available(tvOS, deprecated: 15, message: "Use `download(resumeFrom:delegate:)` instead", renamed: "download(resumeFrom:)")
     @available(macCatalyst, deprecated: 15, message: "Use `download(resumeFrom:delegate:)` instead", renamed: "download(resumeFrom:)")
@@ -166,6 +170,102 @@ public extension URLSession {
                 try await underlyingTask.value
             } onCancel: {
                 downloadTask.cancel()
+            }
+        }
+    }
+
+    /// Convenience method to upload data using an URLRequest, creates and resumes an URLSessionUploadTask internally.
+    ///
+    /// - Parameter request: The URLRequest for which to upload data.
+    /// - Parameter fileURL: File to upload.
+    /// - Returns: Data and response.
+    @available(iOS, deprecated: 15, message: "Use `upload(for:fromFile:delegate:)` instead", renamed: "upload(for:fromFile:)")
+    @available(tvOS, deprecated: 15, message: "Use `upload(for:fromFile:delegate:)` instead", renamed: "upload(for:fromFile:)")
+    @available(macCatalyst, deprecated: 15, message: "Use `upload(for:fromFile:delegate:)` instead", renamed: "upload(for:fromFile:)")
+    @available(macOS, deprecated: 12, message: "Use `upload(for:fromFile:delegate:)` instead", renamed: "upload(for:fromFile:)")
+    @available(watchOS, deprecated: 8, message: "Use `upload(for:fromFile:delegate:)` instead", renamed: "upload(for:fromFile:)")
+    func upload(with request:URLRequest, fromFile fileURL:URL) async throws -> (Data, URLResponse) {
+        if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
+            return try await upload(for: request, fromFile: fileURL)
+        } else {
+            let sema = DispatchSemaphore(value: 0)
+            let reference = UnsafeReference<URLSessionUploadTask>()
+            let underlyingTask = Task {
+                return try await withCheckedThrowingContinuation { continuation in
+                    let sessionTask = self.uploadTask(with: request, fromFile: fileURL) { data, response, error in
+                        do {
+                            guard let data, let response else {
+                                throw (error ?? URLError(.badServerResponse))
+                            }
+                            continuation.resume(returning: (data, response))
+                        } catch {
+                            continuation.resume(throwing: error)
+                        }
+                    }
+                    reference.value = sessionTask
+                    sema.signal()
+                }
+            }
+            let uploadTask = await withUnsafeContinuation { continuation in
+                sema.wait()
+                continuation.resume(returning: reference.value.unsafelyUnwrapped)
+            }
+            uploadTask.resume()
+            if Task.isCancelled {
+                uploadTask.cancel()
+            }
+            return try await withTaskCancellationHandler {
+                try await underlyingTask.value
+            } onCancel: {
+                uploadTask.cancel()
+            }
+        }
+    }
+    
+    /// Convenience method to upload data using an URLRequest, creates and resumes an URLSessionUploadTask internally.
+    ///
+    /// - Parameter request: The URLRequest for which to upload data.
+    /// - Parameter bodyData: Data to upload.
+    /// - Returns: Data and response
+    @available(iOS, deprecated: 15, message: "Use `upload(for:from:delegate:)` instead", renamed: "upload(for:from:)")
+    @available(tvOS, deprecated: 15, message: "Use `upload(for:from:delegate:)` instead", renamed: "upload(for:from:)")
+    @available(macCatalyst, deprecated: 15, message: "Use `upload(for:from:delegate:)` instead", renamed: "upload(for:from:)")
+    @available(macOS, deprecated: 12, message: "Use `upload(for:from:delegate:)` instead", renamed: "upload(for:from:)")
+    @available(watchOS, deprecated: 8, message: "Use `upload(for:from:delegate:)` instead", renamed: "upload(for:from:)")
+    func upload(with request:URLRequest, from bodyData:Data) async throws -> (Data, URLResponse) {
+        if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
+            return try await upload(for: request, from: bodyData)
+        } else {
+            let sema = DispatchSemaphore(value: 0)
+            let reference = UnsafeReference<URLSessionUploadTask>()
+            let underlyingTask = Task {
+                return try await withCheckedThrowingContinuation { continuation in
+                    let sessionTask = self.uploadTask(with: request, from: bodyData) { data, response, error in
+                        do {
+                            guard let data, let response else {
+                                throw (error ?? URLError(.badServerResponse))
+                            }
+                            continuation.resume(returning: (data, response))
+                        } catch {
+                            continuation.resume(throwing: error)
+                        }
+                    }
+                    reference.value = sessionTask
+                    sema.signal()
+                }
+            }
+            let uploadTask = await withUnsafeContinuation { continuation in
+                sema.wait()
+                continuation.resume(returning: reference.value.unsafelyUnwrapped)
+            }
+            uploadTask.resume()
+            if Task.isCancelled {
+                uploadTask.cancel()
+            }
+            return try await withTaskCancellationHandler {
+                try await underlyingTask.value
+            } onCancel: {
+                uploadTask.cancel()
             }
         }
     }
