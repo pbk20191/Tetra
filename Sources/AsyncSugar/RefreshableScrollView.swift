@@ -25,9 +25,9 @@ public struct RefreshableScrollView<Content:View>: View {
     
     public var body: some View {
         ScrollView(axes, showsIndicators: showsIndicators) {
-            if #available(iOS 16.0, *) {
+            if #available(iOS 16.0, tvOS 16.0, macCatalyst 16.0, macOS 13.0, watchOS 9.0, *) {
                 content
-            } else if #available(iOS 15.0, *) {
+            } else if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
                 content.background(
                     RefreshControlHostingView1(task: $task, refreshing: $flag)
                         .frame(width: 0, height: 0)
@@ -63,7 +63,7 @@ public extension View {
     @available(watchOS, deprecated: 9, renamed: "refreshable")
     @ViewBuilder
     func refreshControl(action: @escaping @Sendable () async -> Void) -> some View {
-        if #available(iOS 15.0, *) {
+        if #available(iOS 15.0, tvOS 15.0, macOS 12.0, macCatalyst 15.0, watchOS 8.0, *) {
             self.refreshable(action: action)
         } else {
             self.environment(\.refreshControl, .init(action: action))
@@ -72,7 +72,7 @@ public extension View {
     
 }
 
-@available(iOS 15.0, *)
+@available(iOS 15.0, tvOS 15.0, macOS 12.0, macCatalyst 15.0, watchOS 8.0, *)
 struct RefreshControlHostingView1: View {
     
     @Environment(\.refresh) private var refresh
@@ -80,6 +80,7 @@ struct RefreshControlHostingView1: View {
     @Binding var refreshing:Bool
     
     var body: some View {
+        #if os(iOS)
         if let refresh {
             ScrollRefreshImp(task: $task, refreshing: refreshing) {
                 refreshing = true
@@ -87,6 +88,9 @@ struct RefreshControlHostingView1: View {
                 refreshing = false
             }
         }
+        #else
+        EmptyView()
+        #endif
     }
 }
 
@@ -97,6 +101,7 @@ struct RefreshControlHostingView2: View {
     @Binding var refreshing:Bool
     
     var body: some View {
+        #if os(iOS)
         if let refresh = refreshControl {
             ScrollRefreshImp(task: $task, refreshing: refreshing) {
                 refreshing = true
@@ -104,6 +109,9 @@ struct RefreshControlHostingView2: View {
                 refreshing = false
             }
         }
+        #else
+        EmptyView()
+        #endif
     }
 }
 
@@ -129,7 +137,8 @@ fileprivate extension EnvironmentValues {
     }
 }
 
-
+#if os(iOS)
+import UIKit
 
 public struct ScrollRefreshImp: UIViewRepresentable {
 
@@ -173,6 +182,7 @@ public struct ScrollRefreshImp: UIViewRepresentable {
     
     public func updateUIView(_ uiView: UIViewType, context: Context) {
         print(#function)
+        context.coordinator.parent = self
         if !refreshing && context.coordinator.control.isRefreshing {
             context.coordinator.control.endRefreshing()
         } else if refreshing && !context.coordinator.control.isRefreshing {
@@ -202,7 +212,7 @@ public final class RefreshingCoordinator: NSObject {
     }
     
     let control:UIRefreshControl
-    let parent:ScrollRefreshImp
+    var parent:ScrollRefreshImp
     
     @objc func refresh() {
         parent.task?.cancel()
@@ -210,3 +220,4 @@ public final class RefreshingCoordinator: NSObject {
     }
     
 }
+#endif
