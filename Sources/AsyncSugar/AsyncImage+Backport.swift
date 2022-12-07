@@ -6,8 +6,15 @@
 //
 
 import Foundation
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
+
 #if canImport(SwiftUI)
 import SwiftUI
+
 @available(iOS, introduced: 13.0, obsoleted: 15.0)
 @available(tvOS, introduced: 13.0, obsoleted: 15.0)
 @available(macCatalyst, introduced: 13.0, obsoleted: 15.0)
@@ -48,7 +55,13 @@ public struct AsyncImage<Content: View>: View {
         } else if case let .success(image) = imagePhase {
             image
         } else {
-            Color(.secondarySystemBackground)
+            #if canImport(UIKit)
+            Color(UIColor.secondarySystemBackground)
+            #elseif canImport(AppKit)
+            Color(NSColor.systemGray)
+            #else
+            Color.gray
+            #endif
         }
     }
 
@@ -62,13 +75,20 @@ public struct AsyncImage<Content: View>: View {
                     fallthrough
                 case .empty:
                     do {
-                        
                         let (data, _) = try await URLSession.shared.data(from: url)
+                        #if canImport(UIKit)
                         if let image = UIImage(data: data, scale: scale) {
                             imagePhase = .success(Image(uiImage: image))
                         } else {
                             throw URLError(.cannotDecodeContentData)
                         }
+                        #elseif canImport(AppKit)
+                        if let image = NSImage(data: data) {
+                            imagePhase = .success(Image(nsImage: image))
+                        } else {
+                            throw URLError(.cannotDecodeContentData)
+                        }
+                        #endif
                     } catch {
                         imagePhase = .failure(error)
                     }
