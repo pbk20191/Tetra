@@ -26,7 +26,6 @@ public extension URLSession {
             let marker = try await downloadFrom(url: url)
             try await withUnsafeThrowingContinuation { continuation in
                 do {
-                    print(marker.target, FileManager.default.fileExists(atPath: marker.target.path))
                     try FileManager.default.moveItem(at: marker.temporal, to: marker.target)
                     continuation.resume()
                 } catch {
