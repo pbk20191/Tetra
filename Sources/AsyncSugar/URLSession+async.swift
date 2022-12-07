@@ -18,51 +18,26 @@ public extension URLSession {
     @available(macCatalyst, deprecated: 15, message: "Use `download(from:delegate:)` instead", renamed: "download(from:)")
     @available(macOS, deprecated: 12, message: "Use `download(from:delegate:)` instead", renamed: "download(from:)")
     @available(watchOS, deprecated: 8, message: "Use `download(from:delegate:)` instead", renamed: "download(from:)")
+    nonisolated
     func download(for url: URL) async throws -> (URL, URLResponse) {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
             return try await download(from: url)
         } else {
-            let sema = DispatchSemaphore(value: 0)
-            let reference = UnsafeReference<URLSessionDownloadTask>()
-            let underlyingTask = Task {
-                let marker:DownloadURLMarker = try await withCheckedThrowingContinuation { continuation in
-                    let sessionTask = self.downloadTask(with: url) { url, response, error in
-                        do {
-                            guard let url, let response else {
-                                throw (error ?? URLError(.badServerResponse))
-                            }
-                            let marker = DownloadURLMarker(
-                                target: url,
-                                temporal: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".tmp", isDirectory: false),
-                                response: response
-                            )
-                            try FileManager.default.moveItem(at: marker.target, to: marker.temporal)
-                            continuation.resume(returning: marker)
-                        } catch {
-                            continuation.resume(throwing: error)
-                        }
-                    }
-                    reference.value = sessionTask
-                    sema.signal()
+            let marker = try await downloadFrom(url: url)
+            try await withUnsafeThrowingContinuation { continuation in
+                do {
+                    print(marker.target, FileManager.default.fileExists(atPath: marker.target.path))
+                    try FileManager.default.moveItem(at: marker.temporal, to: marker.target)
+                    continuation.resume()
+                } catch {
+                    continuation.resume(throwing: error)
                 }
-                try FileManager.default.moveItem(at: marker.temporal, to: marker.target)
-                return (marker.target, marker.response)
             }
-            let downloadTask = await withUnsafeContinuation { continuation in
-                sema.wait()
-                continuation.resume(returning: reference.value.unsafelyUnwrapped)
-            }
-            downloadTask.resume()
-            if Task.isCancelled {
-                downloadTask.cancel()
-            }
-            return try await withTaskCancellationHandler {
-                try await underlyingTask.value
-            } onCancel: {
-                downloadTask.cancel()
-            }
+            return (marker.target, marker.response)
         }
     }
+    
+
     
     /// Convenience method to download using an URLRequest, creates and resumes an URLSessionDownloadTask internally.
     ///
@@ -77,45 +52,16 @@ public extension URLSession {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
             return try await download(for: request)
         } else {
-            let sema = DispatchSemaphore(value: 0)
-            let reference = UnsafeReference<URLSessionDownloadTask>()
-            let underlyingTask = Task {
-                let marker:DownloadURLMarker = try await withCheckedThrowingContinuation { continuation in
-                    let sessionTask = self.downloadTask(with: request) { url, response, error in
-                        do {
-                            guard let url, let response else {
-                                throw (error ?? URLError(.badServerResponse))
-                            }
-                            let marker = DownloadURLMarker(
-                                target: url,
-                                temporal: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".tmp", isDirectory: false),
-                                response: response
-                            )
-                            try FileManager.default.moveItem(at: marker.target, to: marker.temporal)
-                            continuation.resume(returning: marker)
-                        } catch {
-                            continuation.resume(throwing: error)
-                        }
-                    }
-                    reference.value = sessionTask
-                    sema.signal()
+            let marker = try await downloadFor(request: request)
+            try await withUnsafeThrowingContinuation { continuation in
+                do {
+                    try FileManager.default.moveItem(at: marker.temporal, to: marker.target)
+                    continuation.resume()
+                } catch {
+                    continuation.resume(throwing: error)
                 }
-                try FileManager.default.moveItem(at: marker.temporal, to: marker.target)
-                return (marker.target, marker.response)
             }
-            let downloadTask = await withUnsafeContinuation { continuation in
-                sema.wait()
-                continuation.resume(returning: reference.value.unsafelyUnwrapped)
-            }
-            downloadTask.resume()
-            if Task.isCancelled {
-                downloadTask.cancel()
-            }
-            return try await withTaskCancellationHandler {
-                try await underlyingTask.value
-            } onCancel: {
-                downloadTask.cancel()
-            }
+            return (marker.target, marker.response)
         }
     }
     
@@ -132,48 +78,19 @@ public extension URLSession {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
             return try await download(resumeFrom: data, delegate: nil)
         } else {
-            let sema = DispatchSemaphore(value: 0)
-            let reference = UnsafeReference<URLSessionDownloadTask>()
-            let underlyingTask = Task {
-                let marker:DownloadURLMarker = try await withCheckedThrowingContinuation { continuation in
-                    let sessionTask = self.downloadTask(withResumeData: data) { url, response, error in
-                        do {
-                            guard let url, let response else {
-                                throw (error ?? URLError(.badServerResponse))
-                            }
-                            let marker = DownloadURLMarker(
-                                target: url,
-                                temporal: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".tmp", isDirectory: false),
-                                response: response
-                            )
-                            try FileManager.default.moveItem(at: marker.target, to: marker.temporal)
-                            continuation.resume(returning: marker)
-                        } catch {
-                            continuation.resume(throwing: error)
-                        }
-                    }
-                    reference.value = sessionTask
-                    sema.signal()
+            let marker = try await downloadResume(data: data)
+            try await withUnsafeThrowingContinuation { continuation in
+                do {
+                    try FileManager.default.moveItem(at: marker.temporal, to: marker.target)
+                    continuation.resume()
+                } catch {
+                    continuation.resume(throwing: error)
                 }
-                try FileManager.default.moveItem(at: marker.temporal, to: marker.target)
-                return (marker.target, marker.response)
             }
-            let downloadTask = await withUnsafeContinuation { continuation in
-                sema.wait()
-                continuation.resume(returning: reference.value.unsafelyUnwrapped)
-            }
-            downloadTask.resume()
-            if Task.isCancelled {
-                downloadTask.cancel()
-            }
-            return try await withTaskCancellationHandler {
-                try await underlyingTask.value
-            } onCancel: {
-                downloadTask.cancel()
-            }
+            return (marker.target, marker.response)
         }
     }
-
+    
     /// Convenience method to upload data using an URLRequest, creates and resumes an URLSessionUploadTask internally.
     ///
     /// - Parameter request: The URLRequest for which to upload data.
@@ -267,6 +184,139 @@ public extension URLSession {
             } onCancel: {
                 uploadTask.cancel()
             }
+        }
+    }
+    
+    @nonobjc
+    @usableFromInline
+    internal func downloadFor(request: URLRequest) async throws -> (temporal:URL, target:URL, response:URLResponse) {
+        let sema = DispatchSemaphore(value: 0)
+        let reference = UnsafeReference<URLSessionDownloadTask>()
+        let underlyingTask = Task {
+            try await withCheckedThrowingContinuation { continuation in
+                let sessionTask = self.downloadTask(with: request) { url, response, error in
+                    do {
+                        guard let url, let response else {
+                            throw (error ?? URLError(.badServerResponse))
+                        }
+                        let marker = DownloadURLMarker(
+                            target: url,
+                            temporal: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".tmp", isDirectory: false),
+                            response: response
+                        )
+                        
+                        try FileManager.default.moveItem(at: marker.target, to: marker.temporal)
+                        continuation.resume(returning: marker)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                }
+                reference.value = sessionTask
+                sema.signal()
+            }
+        }
+        let downloadTask = await withUnsafeContinuation { continuation in
+            sema.wait()
+            continuation.resume(returning: reference.value.unsafelyUnwrapped)
+        }
+        downloadTask.resume()
+        if Task.isCancelled {
+            downloadTask.cancel()
+        }
+        return try await withTaskCancellationHandler {
+            let marker = try await underlyingTask.value
+            return (marker.temporal, marker.target, marker.response)
+        } onCancel: {
+            downloadTask.cancel()
+        }
+    }
+    
+    @nonobjc
+    @usableFromInline
+    internal func downloadFrom(url:URL) async throws -> (temporal:URL, target:URL, response:URLResponse) {
+        let sema = DispatchSemaphore(value: 0)
+        let reference = UnsafeReference<URLSessionDownloadTask>()
+        let underlyingTask = Task {
+            try await withCheckedThrowingContinuation { continuation in
+                let sessionTask = self.downloadTask(with: url) { url, response, error in
+                    do {
+                        guard let url, let response else {
+                            throw (error ?? URLError(.badServerResponse))
+                        }
+                        let marker = DownloadURLMarker(
+                            target: url,
+                            temporal: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".tmp", isDirectory: false),
+                            response: response
+                        )
+                        
+                        try FileManager.default.moveItem(at: marker.target, to: marker.temporal)
+                        continuation.resume(returning: marker)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                }
+                reference.value = sessionTask
+                sema.signal()
+            }
+        }
+        let downloadTask = await withUnsafeContinuation { continuation in
+            sema.wait()
+            continuation.resume(returning: reference.value.unsafelyUnwrapped)
+        }
+        downloadTask.resume()
+        if Task.isCancelled {
+            downloadTask.cancel()
+        }
+        return try await withTaskCancellationHandler {
+            let marker = try await underlyingTask.value
+            return (marker.temporal, marker.target, marker.response)
+        } onCancel: {
+            downloadTask.cancel()
+        }
+
+    }
+    
+    @nonobjc
+    @usableFromInline
+    internal func downloadResume(data: Data) async throws -> (temporal:URL, target:URL, response:URLResponse) {
+        let sema = DispatchSemaphore(value: 0)
+        let reference = UnsafeReference<URLSessionDownloadTask>()
+        let underlyingTask = Task {
+            try await withCheckedThrowingContinuation { continuation in
+                let sessionTask = self.downloadTask(withResumeData: data) { url, response, error in
+                    do {
+                        guard let url, let response else {
+                            throw (error ?? URLError(.badServerResponse))
+                        }
+                        let marker = DownloadURLMarker(
+                            target: url,
+                            temporal: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".tmp", isDirectory: false),
+                            response: response
+                        )
+                        
+                        try FileManager.default.moveItem(at: marker.target, to: marker.temporal)
+                        continuation.resume(returning: marker)
+                    } catch {
+                        continuation.resume(throwing: error)
+                    }
+                }
+                reference.value = sessionTask
+                sema.signal()
+            }
+        }
+        let downloadTask = await withUnsafeContinuation { continuation in
+            sema.wait()
+            continuation.resume(returning: reference.value.unsafelyUnwrapped)
+        }
+        downloadTask.resume()
+        if Task.isCancelled {
+            downloadTask.cancel()
+        }
+        return try await withTaskCancellationHandler {
+            let marker = try await underlyingTask.value
+            return (marker.temporal, marker.target, marker.response)
+        } onCancel: {
+            downloadTask.cancel()
         }
     }
     
