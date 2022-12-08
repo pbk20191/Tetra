@@ -25,3 +25,9 @@ struct DownloadURLMarker: Sendable {
     let response:URLResponse
     
 }
+
+@inline(__always)
+@usableFromInline
+internal func wrapRethrow<T>(body: () async throws -> T) async rethrows -> T {
+    try await body()
+}

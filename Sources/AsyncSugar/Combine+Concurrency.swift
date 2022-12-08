@@ -10,15 +10,10 @@ import Combine
 
 public extension Publisher {
     
+    @inlinable
     func mapTask<T:Sendable>(maxTaskCount:Subscribers.Demand = .max(1), transform: @escaping @Sendable (Output) async -> T) -> AnyPublisher<T,Never> where Failure == Never, Output:Sendable {
         flatMap(maxPublishers: maxTaskCount){ output in
-            let task = Task {
-                await withTaskCancellationHandler {
-                    await transform(output)
-                } onCancel: {
-//                    Swift.print("\(#function) taskCancel")
-                }
-            }
+            let task = Task { await transform(output) }
             return Future<T,Never> { promise in
                 Task { await promise(task.result) }
             }
@@ -27,16 +22,11 @@ public extension Publisher {
         .eraseToAnyPublisher()
     }
     
+    @inlinable
     func tryMapTask<T:Sendable>(maxTaskCount:Subscribers.Demand = .max(1), transform: @escaping @Sendable (Output) async throws -> T) -> AnyPublisher<T,Error> where Output:Sendable {
         mapError{ $0 }
             .flatMap(maxPublishers: maxTaskCount){ output in
-                let task = Task {
-                    try await withTaskCancellationHandler {
-                        try await transform(output)
-                    } onCancel: {
-//                        Swift.print("\(#function) taskCancel")
-                    }
-                }
+                let task = Task { try await transform(output) }
                 return Future<T,Error> { promise in
                     Task { await promise(task.result) }
                 }

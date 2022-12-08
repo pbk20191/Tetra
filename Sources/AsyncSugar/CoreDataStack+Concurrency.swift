@@ -37,14 +37,12 @@ public extension NSPersistentContainer {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 6.0, macOS 12.0, *) {
             return try await performBackgroundTask(body)
         } else {
-            return try await withTaskCancellationHandler {
-                try await withCheckedThrowingContinuation { continuation in
+            return try await wrapRethrow {
+                try await withUnsafeThrowingContinuation { continuation in
                     performBackgroundTask { newContext in
                         continuation.resume(with: Result{ try body(newContext) })
                     }
                 }
-            } onCancel: {
-                
             }
         }
     }
@@ -64,14 +62,11 @@ public extension NSManagedObjectContext {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 6.0, macOS 12.0, *) {
             return try await perform(body)
         } else {
-            return try await withTaskCancellationHandler {
-                try await withCheckedThrowingContinuation { continuation in
+            return try await wrapRethrow {
+                try await withUnsafeThrowingContinuation { continuation in
                     perform { continuation.resume(with: Result{ try body() }) }
                 }
-            } onCancel: {
-                
             }
-
         }
     }
     
@@ -90,14 +85,11 @@ public extension NSPersistentStoreCoordinator {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 6.0, macOS 12.0, *) {
             return try await perform(body)
         } else {
-            return try await withTaskCancellationHandler {
-                try await withCheckedThrowingContinuation { continuation in
+            return try await wrapRethrow {
+                try await withUnsafeThrowingContinuation { continuation in
                     perform { continuation.resume(with: Result{ try body() }) }
                 }
-            } onCancel: {
-                
             }
-
         }
     }
     
