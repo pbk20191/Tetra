@@ -1,6 +1,6 @@
 //
 //  CodablePrimitive.swift
-//  
+//
 //
 //  Created by pbk on 2022/09/23.
 //
@@ -25,6 +25,7 @@ extension CodablePrimitive: Sendable {}
 // MARK: - Codable
 extension CodablePrimitive: Codable {
     
+    @inlinable
     public func encode(to encoder: Encoder) throws {
         switch self {
         case .bool(let bool):
@@ -133,30 +134,37 @@ extension CodablePrimitive: Hashable {}
 // MARK: - Expressible Initializer
 extension CodablePrimitive: ExpressibleByStringLiteral, ExpressibleByBooleanLiteral, ExpressibleByIntegerLiteral, ExpressibleByFloatLiteral, ExpressibleByDictionaryLiteral, ExpressibleByArrayLiteral, CustomStringConvertible {
     
+    @inlinable
     public init(stringLiteral value: StringLiteralType) {
         self = .string(value)
     }
     
+    @inlinable
     public init(booleanLiteral value: BooleanLiteralType) {
         self = .bool(value)
     }
     
+    @inlinable
     public init(integerLiteral value: IntegerLiteralType) {
         self = .integer(value)
     }
     
+    @inlinable
     public init(floatLiteral value: FloatLiteralType) {
         self = .double(value)
     }
     
+    @inlinable
     public init(dictionaryLiteral elements: (String, Self)...) {
         self = .object(.init(elements) { old, new in new })
     }
     
+    @inlinable
     public init(arrayLiteral elements: Self...) {
         self = .array(elements)
     }
     
+    @inlinable
     public var description: String {
         """
         \(Self.self)(\(propertyObject))
@@ -185,6 +193,7 @@ public extension CodablePrimitive {
         }
     }
     
+    @inlinable
     subscript(_ key: String) -> Self? {
         get {
             switch self {
@@ -196,6 +205,7 @@ public extension CodablePrimitive {
         }
     }
     
+    @inlinable
     subscript(_ index: Int) -> Self? {
         get {
             switch self {
@@ -207,6 +217,7 @@ public extension CodablePrimitive {
         }
     }
     
+    @inlinable
     var object:[String:Self]? {
         switch self {
         case .object(let object):
@@ -216,6 +227,7 @@ public extension CodablePrimitive {
         }
     }
     
+    @inlinable
     var array:[Self]? {
         switch self {
         case .array(let array):
@@ -225,6 +237,7 @@ public extension CodablePrimitive {
         }
     }
     
+    @inlinable
     var bool:Bool? {
         switch self {
         case .bool(let bool):
@@ -234,6 +247,7 @@ public extension CodablePrimitive {
         }
     }
     
+    @inlinable
     var integer:Int? {
         switch self {
         case .integer(let int):
@@ -243,6 +257,7 @@ public extension CodablePrimitive {
         }
     }
     
+    @inlinable
     var string:String? {
         switch self {
         case .string(let string):
@@ -252,6 +267,7 @@ public extension CodablePrimitive {
         }
     }
     
+    @inlinable
     var double:Double? {
         switch self {
         case .double(let double):

@@ -1,22 +1,33 @@
 //
-//  File.swift
+//  SwiftUI+Concurrency.swift
 //  
 //
-//  Created by pbk on 2022/05/23.
+//  Created by pbk on 2022/12/08.
 //
+
+import Foundation
+import _Concurrency
 #if canImport(SwiftUI)
 import SwiftUI
-import _Concurrency
 
-//@available(iOS, introduced: 13.0, obsoleted: 15.0)
-//@available(tvOS, introduced: 13.0, obsoleted: 15.0)
-//@available(macCatalyst, introduced: 13.0, obsoleted: 15.0)
-//@available(macOS, introduced: 10.15, obsoleted: 12.0)
-//@available(watchOS, introduced: 6.0, obsoleted: 8.0)
-private struct TaskModifier: ViewModifier {
+@usableFromInline
+struct TaskModifier: ViewModifier {
+    
+    @usableFromInline
+    init(priority:TaskPriority, action:@escaping @Sendable () async -> Void) {
+        self.priority = priority
+        self.action = action
+    }
+    
+    @usableFromInline
     var priority: TaskPriority
+    
+    @usableFromInline
     var action: @Sendable () async -> Void
+    
     @State private var task: Task<Void,Never>?
+    
+    @usableFromInline
     func body(content: Content) -> some View {
         content
             .onAppear{
@@ -30,17 +41,30 @@ private struct TaskModifier: ViewModifier {
     }
 }
 
-//@available(iOS, introduced: 14.0, obsoleted: 15.0)
-//@available(tvOS, introduced: 14.0, obsoleted: 15.0)
-//@available(macCatalyst, introduced: 14.0, obsoleted: 15.0)
-//@available(macOS, introduced: 11.0, obsoleted: 12.0)
-//@available(watchOS, introduced: 7.0, obsoleted: 8.0)
+
 @available(iOS 14.0, tvOS 14.0, macCatalyst 14.0, macOS 11.0, watchOS 7.0, *)
-private struct TaskIdentityModifer<T:Equatable>: ViewModifier {
+@usableFromInline
+struct TaskIdentityModifer<T:Equatable>: ViewModifier {
+
+    @usableFromInline
+    init(id:T, priority:TaskPriority, action:@escaping @Sendable () async -> Void) {
+        self.id = id
+        self.priority = priority
+        self.action = action
+    }
+    
+    @usableFromInline
     var id:T
+
+    @usableFromInline
     var priority: TaskPriority
+
+    @usableFromInline
     var action: @Sendable () async -> Void
+
     @State private var task: Task<Void,Never>?
+    
+    @usableFromInline
     func body(content: Content) -> some View {
         content
             .onChange(of: id) { newValue in
@@ -56,6 +80,7 @@ private struct TaskIdentityModifer<T:Equatable>: ViewModifier {
                 task = nil
             }
     }
+    
 }
 
 
@@ -67,6 +92,7 @@ private struct TaskIdentityModifer<T:Equatable>: ViewModifier {
 public extension View {
     
     @available(iOS 14.0, tvOS 14.0, macCatalyst 14.0, macOS 11.0, watchOS 7.0, *)
+    @inlinable
     @ViewBuilder
     func async<T:Equatable>(id value: T, priority: TaskPriority = .userInitiated, _ action: @Sendable @escaping () async -> Void) -> some View {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
@@ -76,6 +102,7 @@ public extension View {
         }
     }
 
+    @inlinable
     @ViewBuilder
     func async(priority: TaskPriority = .userInitiated, _ action: @Sendable @escaping () async -> Void) -> some View {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
@@ -84,6 +111,8 @@ public extension View {
             modifier(TaskModifier(priority: priority, action: action))
         }
     }
+    
 }
+
 
 #endif

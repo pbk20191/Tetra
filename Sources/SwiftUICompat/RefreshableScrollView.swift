@@ -1,6 +1,6 @@
 //
 //  RefreshableScrollView.swift
-//  
+//
 //
 //  Created by pbk on 2022/09/30.
 //
@@ -22,6 +22,7 @@ public struct RefreshableScrollView<Content:View>: View {
     public var content:Content
     public var axes: Axis.Set = .vertical
     public var showsIndicators: Bool = true
+    
     
     public var body: some View {
         ScrollView(axes, showsIndicators: showsIndicators) {
@@ -46,6 +47,7 @@ public struct RefreshableScrollView<Content:View>: View {
         }
     }
     
+    @inlinable
     public init(_ axes: Axis.Set = .vertical, showsIndicators: Bool = true, @ViewBuilder content: () -> Content) {
         self.content = content()
         self.axes = axes
@@ -61,6 +63,7 @@ public extension View {
     @available(macCatalyst, deprecated: 16, renamed: "refreshable")
     @available(macOS, deprecated: 13, renamed: "refreshable")
     @available(watchOS, deprecated: 9, renamed: "refreshable")
+    @inlinable
     @ViewBuilder
     func refreshControl(action: @escaping @Sendable () async -> Void) -> some View {
         if #available(iOS 15.0, tvOS 15.0, macOS 12.0, macCatalyst 15.0, watchOS 8.0, *) {
@@ -73,14 +76,16 @@ public extension View {
 }
 
 @available(iOS 15.0, tvOS 15.0, macOS 12.0, macCatalyst 15.0, watchOS 8.0, *)
+@usableFromInline
 struct RefreshControlHostingView1: View {
     
     @Environment(\.refresh) private var refresh
     @Binding var task:Task<Void,Never>?
     @Binding var refreshing:Bool
     
+    @usableFromInline
     var body: some View {
-        #if os(iOS)
+        #if os(iOS) || targetEnvironment(macCatalyst)
         if let refresh {
             ScrollRefreshImp(task: $task, refreshing: refreshing) {
                 refreshing = true
@@ -94,14 +99,16 @@ struct RefreshControlHostingView1: View {
     }
 }
 
+@usableFromInline
 struct RefreshControlHostingView2: View {
     
     @Environment(\.refreshControl) private var refreshControl
     @Binding var task:Task<Void,Never>?
     @Binding var refreshing:Bool
     
+    @usableFromInline
     var body: some View {
-        #if os(iOS)
+        #if os(iOS) || targetEnvironment(macCatalyst)
         if let refresh = refreshControl {
             ScrollRefreshImp(task: $task, refreshing: refreshing) {
                 refreshing = true
@@ -123,9 +130,15 @@ public struct RefreshableControl {
     
     internal(set) public var action:@Sendable () async -> Void
 
+    @usableFromInline
+    init(action: @Sendable @escaping () async -> Void) {
+        self.action = action
+    }
+    
 }
 
-fileprivate extension EnvironmentValues {
+extension EnvironmentValues {
+    @usableFromInline
     var refreshControl: RefreshableControl? {
         get {
             return self[RefreshControlKey.self]
@@ -137,18 +150,21 @@ fileprivate extension EnvironmentValues {
     }
 }
 
-#if os(iOS)
+#if os(iOS) || targetEnvironment(macCatalyst)
 import UIKit
 
 public struct ScrollRefreshImp: UIViewRepresentable {
 
     public typealias UIViewType = UIView
     public typealias Coordinator = RefreshingCoordinator
+    @usableFromInline
     @Binding var task:Task<Void,Never>?
+    @usableFromInline
     var refreshing:Bool
+    @usableFromInline
     let operation:@Sendable () async -> Void
     
-    
+    @usableFromInline
     internal init(
         task: Binding<Task<Void, Never>?>,
         refreshing: Bool,
@@ -159,12 +175,13 @@ public struct ScrollRefreshImp: UIViewRepresentable {
         self.operation = operation
     }
     
-    
+    @inlinable
     public func makeCoordinator() -> Coordinator {
         let coordinator = Coordinator(parent: self)
         return coordinator
     }
     
+    @inlinable
     public func makeUIView(context: Context) -> UIViewType {
         let view = UIView()
         view.isUserInteractionEnabled = false
@@ -180,6 +197,7 @@ public struct ScrollRefreshImp: UIViewRepresentable {
         return view
     }
     
+    @inlinable
     public func updateUIView(_ uiView: UIViewType, context: Context) {
         print(#function)
         context.coordinator.parent = self
@@ -190,6 +208,7 @@ public struct ScrollRefreshImp: UIViewRepresentable {
         }
     }
     
+    @inlinable
     public static func dismantleUIView(_ uiView: UIViewType, coordinator: Coordinator) {
         print("RefreshImp \(#function)")
         let scrollView = sequence(first: coordinator.control, next: \.superview).first{ $0 is UIScrollView } as? UIScrollView
@@ -205,15 +224,19 @@ public struct ScrollRefreshImp: UIViewRepresentable {
 @MainActor
 public final class RefreshingCoordinator: NSObject {
     
+    @usableFromInline
     internal init(parent: ScrollRefreshImp) {
         self.parent = parent
         self.control = UIRefreshControl()
         super.init()
     }
     
+    @usableFromInline
     let control:UIRefreshControl
+    @usableFromInline
     var parent:ScrollRefreshImp
     
+    @usableFromInline
     @objc func refresh() {
         parent.task?.cancel()
         parent.task = Task(operation: parent.operation)
@@ -221,3 +244,4 @@ public final class RefreshingCoordinator: NSObject {
     
 }
 #endif
+
