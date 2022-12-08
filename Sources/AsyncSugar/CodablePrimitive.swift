@@ -24,73 +24,52 @@ extension CodablePrimitive: Sendable {}
 
 // MARK: - Codable
 extension CodablePrimitive: Codable {
-    internal struct CodingKeys: CodingKey, Sendable, RawRepresentable, ExpressibleByStringLiteral {
-        
-        var stringValue: String
-        
-        init(stringValue: String) {
-            self.stringValue = stringValue
-        }
-        
-        init(stringLiteral value: String) {
-            self.stringValue = value
-        }
-        
-        init(rawValue: String) {
-            self.stringValue = rawValue
-        }
-        
-        var intValue: Int? = nil
-        
-        init?(intValue: Int) {
-            return nil
-        }
-        
-        var rawValue: String { stringValue }
-        
-    }
-
     
     public func encode(to encoder: Encoder) throws {
         switch self {
         case .bool(let bool):
-            var container = encoder.singleValueContainer()
-            try container.encode(bool)
+            try bool.encode(to: encoder)
         case .string(let string):
-            var container = encoder.singleValueContainer()
-            try container.encode(string)
+            try string.encode(to: encoder)
         case .integer(let integer):
-            var container = encoder.singleValueContainer()
-            try container.encode(integer)
+            try integer.encode(to: encoder)
         case .double(let double):
-            var container = encoder.singleValueContainer()
-            try container.encode(double)
+            try double.encode(to: encoder)
         case .array(let array):
-            var container = encoder.unkeyedContainer()
-            try container.encode(contentsOf: array)
+            try array.encode(to: encoder)
         case .object(let dictionary):
-            var container = encoder.container(keyedBy: CodingKeys.self)
-            try dictionary.forEach { key, value in
-                try container.encode(value, forKey: CodingKeys(stringValue: key))
-            }
+            try dictionary.encode(to: encoder)
         }
     }
     
     public init(from decoder: Decoder) throws {
-        if let container = try? decoder.container(keyedBy: CodingKeys.self) {
-            let dictionary = try container.allKeys.reduce(into: [String:Self]()) { partialResult, key in
-                partialResult[key.stringValue] = try container.decodeIfPresent(Self.self, forKey: key)
+        var isKeyedContainer = false
+        do {
+            let _ = try decoder.container(keyedBy: StringCodingKey.self)
+            isKeyedContainer = true
+            
+        } catch DecodingError.typeMismatch(_, let context) {
+            if let underlyingError = context.underlyingError {
+                throw underlyingError
             }
-            self = .object(dictionary)
+        }
+        if isKeyedContainer {
+            let container = try [String:Self?](from: decoder)
+            self = .object(container.compactMapValues { $0 })
             return
-        } else if var container = try? decoder.unkeyedContainer() {
-            var array = [Self]()
-            while (!container.isAtEnd) {
-                if let value = try container.decodeIfPresent(Self.self) {
-                    array.append(value)
-                }
+        }
+        var isUnkeyedContainer = false
+        do {
+            let _ = try decoder.unkeyedContainer()
+            isUnkeyedContainer = true
+        } catch DecodingError.typeMismatch(_, let context) {
+            if let underlyingError = context.underlyingError {
+                throw underlyingError
             }
-            self = .array(array)
+        }
+        if isUnkeyedContainer {
+            let container = try [Self?](from: decoder)
+            self = .array(container.compactMap{ $0 })
             return
         }
         let container = try decoder.singleValueContainer()
@@ -281,4 +260,36 @@ public extension CodablePrimitive {
             return nil
         }
     }
+}
+
+@usableFromInline
+struct StringCodingKey: CodingKey, RawRepresentable, Sendable {
+    @usableFromInline
+    var stringValue: String { rawValue }
+    
+    @usableFromInline
+    init(stringValue: String) {
+        self.rawValue = stringValue
+    }
+    
+    @usableFromInline
+    var intValue: Int?
+    
+    @usableFromInline
+    init?(intValue: Int) {
+        self.intValue = intValue
+        self.rawValue = intValue.description
+    }
+    
+    @usableFromInline
+    init(rawValue: String) {
+        self.rawValue = rawValue
+    }
+    
+    @usableFromInline
+    var rawValue: String
+    
+    @usableFromInline
+    typealias RawValue = String
+    
 }

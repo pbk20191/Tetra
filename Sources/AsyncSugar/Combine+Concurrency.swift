@@ -14,9 +14,9 @@ public extension Publisher {
         flatMap(maxPublishers: maxTaskCount){ output in
             let task = Task {
                 await withTaskCancellationHandler {
-                    Swift.print("\(#function) taskCancel")
-                } operation: {
                     await transform(output)
+                } onCancel: {
+//                    Swift.print("\(#function) taskCancel")
                 }
             }
             return Future<T,Never> { promise in
@@ -32,9 +32,9 @@ public extension Publisher {
             .flatMap(maxPublishers: maxTaskCount){ output in
                 let task = Task {
                     try await withTaskCancellationHandler {
-                        Swift.print("\(#function) taskCancel")
-                    } operation: {
                         try await transform(output)
+                    } onCancel: {
+//                        Swift.print("\(#function) taskCancel")
                     }
                 }
                 return Future<T,Error> { promise in
@@ -244,8 +244,6 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
 
         func awaitNext() async -> Element? {
             return await withTaskCancellationHandler {
-                self.dispose()
-            } operation: {
                 let cancelled = Task.isCancelled
                return await withUnsafeContinuation { continuation in
                    if let subscription, !cancelled {
@@ -259,6 +257,8 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
                    }
 
                 }
+            } onCancel: {
+                self.dispose()
             }
         }
         
@@ -365,8 +365,6 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
 
         func awaitNext() async throws -> Element? {
             return try await withTaskCancellationHandler {
-                self.dispose()
-            } operation: {
                 let cancelled = Task.isCancelled
                return try await withUnsafeThrowingContinuation { continuation in
                    if let subscription, !cancelled {
@@ -380,6 +378,8 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
                    }
 
                 }
+            } onCancel: {
+                self.dispose()
             }
         }
         

@@ -15,15 +15,14 @@ public extension AsyncSequence {
             let subject = PassthroughSubject<Element,Never>()
             let task = Task {
                 await withTaskCancellationHandler {
-                    print("asyncSequence cancelled")
-                } operation: {
                     var iterator = source.makeAsyncIterator()
                     while let i = try? await iterator.next() {
                         subject.send(i)
                     }
                     subject.send(completion: .finished)
+                } onCancel: {
+//                    print("asyncSequence cancelled")
                 }
-
             }
             return subject.handleEvents(receiveCancel: task.cancel)
         }.eraseToAnyPublisher()
@@ -35,8 +34,6 @@ public extension AsyncSequence {
                 let subject = PassthroughSubject<Element,Error>()
                 let task = Task {
                     await withTaskCancellationHandler {
-                        print("asyncSequence cancelled")
-                    } operation: {
                         do {
                             for try await i in source {
                                 subject.send(i)
@@ -45,6 +42,8 @@ public extension AsyncSequence {
                         } catch {
                             subject.send(completion: .failure(error))
                         }
+                    } onCancel: {
+//                        print("asyncSequence cancelled")
                     }
                 }
                 return subject.handleEvents(receiveCancel: task.cancel)
@@ -54,8 +53,6 @@ public extension AsyncSequence {
                 let subject = PassthroughSubject<Element,Error>()
                 let task = Task {
                     await withTaskCancellationHandler {
-                        print("asyncSequence cancelled")
-                    } operation: {
                         do {
                             for try await i in source {
                                 subject.send(i)
@@ -64,6 +61,8 @@ public extension AsyncSequence {
                         } catch {
                             subject.send(completion: .failure(error))
                         }
+                    } onCancel: {
+                        print("asyncSequence cancelled")
                     }
 
                 }

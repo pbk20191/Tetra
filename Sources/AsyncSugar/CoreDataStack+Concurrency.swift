@@ -14,7 +14,7 @@ import CoreData
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, watchOS 6.0, macOS 10.15, *)
 public extension NSPersistentContainer {
     
-    nonisolated
+    @inlinable
     func loadPersistentStores() async throws -> NSPersistentStoreDescription {
         try await withUnsafeThrowingContinuation { continuation in
             loadPersistentStores {
@@ -32,7 +32,7 @@ public extension NSPersistentContainer {
     @available(macCatalyst, introduced: 13.0, deprecated: 15.0, renamed: "performBackgroundTask(_:)")
     @available(watchOS, introduced: 6.0, deprecated: 8.0, renamed: "performBackgroundTask(_:)")
     @available(macOS, introduced: 10.15, deprecated: 12.0, renamed: "performBackgroundTask(_:)")
-    nonisolated
+    @inlinable
     func performBackground<T>(body: @Sendable @escaping (NSManagedObjectContext) throws -> T) async rethrows -> T {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 6.0, macOS 12.0, *) {
             return try await performBackgroundTask(body)
@@ -59,7 +59,7 @@ public extension NSManagedObjectContext {
     @available(macCatalyst, introduced: 13.0, deprecated: 15.0, renamed: "perform(schedule:_:)")
     @available(watchOS, introduced: 6.0, deprecated: 8.0, renamed: "perform(schedule:_:)")
     @available(macOS, introduced: 10.15, deprecated: 12.0, renamed: "perform(schedule:_:)")
-    nonisolated
+    @inlinable
     func withContext<T>(body: @escaping () throws -> T) async rethrows -> T {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 6.0, macOS 12.0, *) {
             return try await perform(body)
@@ -85,7 +85,7 @@ public extension NSPersistentStoreCoordinator {
     @available(macCatalyst, introduced: 13.0, deprecated: 15.0, renamed: "perform(_:)")
     @available(watchOS, introduced: 6.0, deprecated: 8.0, renamed: "perform(_:)")
     @available(macOS, introduced: 10.15, deprecated: 12.0, renamed: "perform(_:)")
-    nonisolated
+    @inlinable
     func withContext<T>(body: @escaping () throws -> T) async rethrows -> T {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 6.0, macOS 12.0, *) {
             return try await perform(body)

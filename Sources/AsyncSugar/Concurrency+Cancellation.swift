@@ -92,7 +92,7 @@ public extension Task where Success == Never, Failure == Never {
     ///   - operation: task to launch
     /// - Throws: CancellationError if task is cancelled or reached the timeout, otherwise propagates underlying Error
     /// - Returns: operation result
-    @inlinable @available(iOS 16.0, tvOS 16.0, *)
+    @inlinable @available(iOS 16.0, tvOS 16.0, macOS 13.0, *)
     static func withTimeOut<T:Sendable, C>(clock:C, timeout: C.Duration, operation: @escaping @Sendable () async throws -> T) async throws -> T where C:Clock {
         try await withThrowingTaskGroup(of: T.self) { group in
             let deadLine = clock.now.advanced(by: timeout)
