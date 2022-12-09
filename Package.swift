@@ -46,6 +46,9 @@ let package = Package(
         .testTarget(
             name: "TetraAsyncExtTests",
             dependencies: ["TetraAsyncExt"]),
+        .testTarget(
+            name: "TetraFoundationExtTests",
+            dependencies: ["TetraFoundationExt"])
         
     ]
 )

@@ -205,7 +205,15 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         
     }
     
-    final class AsyncSubscriber: Subscriber {
+    final class AsyncSubscriber: Subscriber, CustomStringConvertible, CustomReflectable, CustomPlaygroundDisplayConvertible {
+        var playgroundDescription: Any { description }
+        
+        var description: String { "AsyncSubscriber<\(Input.self)>"}
+        
+        var customMirror: Mirror {
+            Mirror(self, children: [])
+        }
+        
         
         typealias Input = Element
         
@@ -214,6 +222,7 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         private var token:AnyCancellable?
         private var subscription:Subscription?
         private var store = ContinuationStore()
+        
         func receive(_ input: Element) -> Subscribers.Demand {
             store.mutate { list in
                 list.forEach { $0.resume(returning: input) }
@@ -322,7 +331,7 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
         
     }
     
-    final class AsyncThrowingSubscriber: Subscriber{
+    final class AsyncThrowingSubscriber: Subscriber, CustomStringConvertible, CustomReflectable, CustomPlaygroundDisplayConvertible {
         
         typealias Input = Element
         
@@ -390,6 +399,14 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
         }
         
         internal init() {}
+        
+        var playgroundDescription: Any { description }
+        
+        var description: String { "AsyncThrowingSubscriber<\(Input.self),\(Failure.self)>"}
+        
+        var customMirror: Mirror {
+            Mirror(self, children: [])
+        }
     }
 
     private struct ContinuationThrowingStore {

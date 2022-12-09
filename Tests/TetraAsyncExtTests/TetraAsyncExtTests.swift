@@ -4,9 +4,15 @@ import Dispatch
 //import AsyncAlgorithms
 //import Atomics
 import Combine
-@testable import AsyncCompat
+@testable import TetraAsyncExt
 
-final class AsyncCompatTests: XCTestCase {
+final class TetraAsyncExtTests: XCTestCase {
+    
+    func testwrap() async throws {
+        try await testExample()
+        try await Task.sleep(nanoseconds: 100000)
+    }
+    
     func testExample() async throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
@@ -36,7 +42,40 @@ final class AsyncCompatTests: XCTestCase {
 //        let data = try PropertyListEncoder().encode(someObject)
 //        let new = try PropertyListDecoder().decode(CodablePrimitive.self, from: data)
 //        print(someObject.propertyObject)
-        
+//        let t = Timer.publish(every: 1.0, on: .main, in: .default)
+//        let k = t.sink { _ in
+//
+//        }
+//        let c = t.connect()
+//        Mirror(reflecting: t).children.forEach { child in
+//            print(child.label, child.value)
+//        }
+//
+//        try await Task.sleep(nanoseconds: 1000)
+//        c.cancel()
+//        k.cancel()
+        let name = Notification.Name(UUID().uuidString)
+        let object = NSObject()
+        let sequence = NotificationCenter.default.sequence(named: name, object: object)
+        let task = Task {
+            for await i in sequence {
+                print(i)
+            }
+            print("task cancelled")
+        }
+        try await Task.sleep(nanoseconds: 1_000_000)
+        NotificationCenter.default.post(name: name, object: nil)
+        try await Task.sleep(nanoseconds: 1_000_000)
+        NotificationCenter.default.post(name: name, object: object)
+        try await Task.sleep(nanoseconds: 1_000_000)
+        NotificationCenter.default.post(name: name, object: NSObject())
+        try await Task.sleep(nanoseconds: 1_000_000)
+        NotificationCenter.default.post(name: name, object: object, userInfo: ["":""])
+        try await Task.sleep(nanoseconds: 1_000_000)
+        task.cancel()
+        await task.value
+        NotificationCenter.default.post(name: name, object: object, userInfo: ["":""])
+        try await Task.sleep(nanoseconds: 1_000_000)
     }
     
     @available(iOS 16.0, macOS 12.0, *)

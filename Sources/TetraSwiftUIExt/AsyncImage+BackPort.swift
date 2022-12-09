@@ -50,7 +50,7 @@ public struct AsyncImage<Content: View>: View {
     @usableFromInline
     var scale: CGFloat = 1
     @usableFromInline
-    var content: ((SwiftUICompat.AsyncImagePhase) -> Content)?
+    var content: ((TetraSwiftUIExt.AsyncImagePhase) -> Content)?
     @State private var imagePhase:AsyncImagePhase = .empty
     @usableFromInline
     var someView:AnyView
