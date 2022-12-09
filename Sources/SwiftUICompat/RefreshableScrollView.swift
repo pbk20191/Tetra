@@ -26,9 +26,10 @@ public struct RefreshableScrollView<Content:View>: View {
     
     public var body: some View {
         ScrollView(axes, showsIndicators: showsIndicators) {
-            if #available(iOS 16.0, tvOS 16.0, macCatalyst 16.0, macOS 13.0, watchOS 9.0, *) {
+#if os(iOS) || targetEnvironment(macCatalyst)
+            if #available(iOS 16.0, macCatalyst 16.0, *) {
                 content
-            } else if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
+            } else if #available(iOS 15.0, macCatalyst 15.0, *) {
                 content.background(
                     RefreshControlHostingView1(task: $task, refreshing: $flag)
                         .frame(width: 0, height: 0)
@@ -39,6 +40,10 @@ public struct RefreshableScrollView<Content:View>: View {
                         .frame(width: 0, height: 0)
                 )
             }
+#else
+            content
+#endif
+
         }
         .onDisappear{
             task?.cancel()

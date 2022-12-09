@@ -158,7 +158,7 @@ public struct AsyncImage<Content: View>: View {
         self.content = content
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *) {
             self.someView = AnyView(
-                SwiftUI.AsyncImage.init(url: url, scale: scale, transaction: transaction) { phase in
+                SwiftUI.AsyncImage(url: url, scale: scale, transaction: transaction) { phase in
                     switch phase {
                     case .empty:
                         content(.empty)

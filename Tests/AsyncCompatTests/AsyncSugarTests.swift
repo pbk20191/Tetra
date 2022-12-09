@@ -44,7 +44,6 @@ final class AsyncCompatTests: XCTestCase {
         let a = (0..<100).publisher.print().values
         let task = Task {
             
-            print(Thread.current.threadDictionary)
             var it = a.makeAsyncIterator()
             while let _ = await it.next() {
                 if Task.isCancelled {

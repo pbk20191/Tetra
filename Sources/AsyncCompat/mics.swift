@@ -9,13 +9,14 @@ import Foundation
 
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, macOS 10.15, watchOS 6.0, *)
 @usableFromInline
-final class UnsafeReference<T:Sendable> {
+@preconcurrency
+internal final class UnsafeReference<T:Sendable> {
     @usableFromInline
     var value:T?
 }
 
 @usableFromInline
-struct DownloadURLMarker: Sendable {
+internal struct DownloadURLMarker: Sendable {
     
     @usableFromInline
     let target:URL

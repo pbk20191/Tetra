@@ -133,7 +133,7 @@ public struct WrappedAsyncSequence<Element>:AsyncSequence {
     public typealias AsyncIterator = Iterator
     private let source:any AsyncSequence
     
-    fileprivate init<T:AsyncSequence>(base:T) where T.Element == Element {
+    internal init<T:AsyncSequence>(base:T) where T.Element == Element {
         source = base
     }
     
@@ -161,7 +161,7 @@ public struct WrappedAsyncSequence<Element>:AsyncSequence {
             }
         }
         
-        fileprivate init(base:some AsyncIteratorProtocol) {
+        internal init(base:some AsyncIteratorProtocol) {
             iterator = base
         }
     }
@@ -199,7 +199,7 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
             }
         }
         
-        fileprivate init(source: P) {
+        internal init(source: P) {
             self.source = source
         }
         
@@ -269,7 +269,7 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
             }
         }
         
-        fileprivate init() {}
+        internal init() {}
     }
 
     private struct ContinuationStore {
@@ -316,7 +316,7 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
             }
         }
         
-        fileprivate init(source: P) {
+        internal init(source: P) {
             self.source = source
         }
         
@@ -389,7 +389,7 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
             }
         }
         
-        fileprivate init() {}
+        internal init() {}
     }
 
     private struct ContinuationThrowingStore {
