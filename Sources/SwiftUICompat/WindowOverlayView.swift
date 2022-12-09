@@ -92,6 +92,7 @@ struct OverlayWindowHost<Content>: UIViewRepresentable where Content: View {
     func makeCoordinator() -> OverlayWindow {
         let window = OverlayWindow()
         window.isHidden = true
+        window.backgroundColor = nil
         return window
     }
     
