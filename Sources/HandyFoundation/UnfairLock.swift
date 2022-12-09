@@ -27,21 +27,36 @@ public final class UnfairLock: NSObject, NSLocking, Sendable {
         ptr.deinitialize(count: 1)
         ptr.deallocate()
     }
-    
+    /**
+     Attempts to acquire a lock, blocking a thread’s execution until the lock can be acquire
+
+     An application protects a critical section of code by requiring a thread to acquire a lock before executing the code. Once the critical section is completed, the thread relinquishes the lock by invoking unlock().
+    */
     @Sendable
     @available(*, noasync, message: "Use async-safe scoped locking instead")
     public func lock() {
         os_unfair_lock_lock(ptr)
     }
     
+    /**
+     Relinquishes a previously acquired lock.
+     
+     */
     @Sendable
     @available(*, noasync, message: "Use async-safe scoped locking instead")
     public func unlock() {
         os_unfair_lock_unlock(ptr)
     }
     
-    @Sendable
+    /**
+     Attempts to acquire a lock without regard to the receiver’s condition.
+     - Returns: true if the lock could be acquired, false otherwise.
+     
+     This method returns immediately.
+     
+    */
     @available(*, noasync, message: "Use async-safe scoped locking instead")
+    @Sendable @objc
     public func lockIfAvailable() -> Bool {
         os_unfair_lock_trylock(ptr)
     }
