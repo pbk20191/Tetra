@@ -19,24 +19,6 @@ final class OverlayWindow: UIWindow {
     override var canBecomeKey: Bool { false }
     
     @usableFromInline
-    override func becomeKey() {
-        super.becomeKey()
-        print(#function)
-    }
-    
-    @usableFromInline
-    override func makeKey() {
-        super.makeKey()
-        print(#function)
-    }
-    
-    @usableFromInline
-    override func makeKeyAndVisible() {
-        super.makeKeyAndVisible()
-        print(#function)
-    }
-    
-    @usableFromInline
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard let targetView = super.hitTest(point, with: event) else { return nil }
         return rootViewController?.view === targetView ? nil : targetView

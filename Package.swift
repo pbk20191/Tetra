@@ -17,9 +17,9 @@ let package = Package(
         .library(
             name: "Tetra",
             targets: [
-                "AsyncCompat",
-                "SwiftUICompat",
-                "HandyFoundation"
+                "TetraAsyncExt",
+                "TetraSwiftUIExt",
+                "TetraFoundationExt"
             ]
         ),
         
@@ -32,20 +32,20 @@ let package = Package(
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages this package depends on.
         .target(
-            name: "AsyncCompat",
+            name: "TetraAsyncExt",
             dependencies: []
         ),
         .target(
-            name: "SwiftUICompat",
+            name: "TetraSwiftUIExt",
             dependencies: []
         ),
         .target(
-            name: "HandyFoundation",
+            name: "TetraFoundationExt",
             dependencies: []
         ),
         .testTarget(
-            name: "AsyncCompatTests",
-            dependencies: ["AsyncCompat"]),
+            name: "TetraAsyncExtTests",
+            dependencies: ["TetraAsyncExt"]),
         
     ]
 )
