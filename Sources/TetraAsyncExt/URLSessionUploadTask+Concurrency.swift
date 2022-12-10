@@ -37,6 +37,7 @@ internal func perfomUpload(on session:URLSession, with request:URLRequest, fromF
     let uploadTask = await withUnsafeContinuation { continuation in
         sema.wait()
         continuation.resume(returning: reference.value.unsafelyUnwrapped)
+        reference.value = nil
     }
     uploadTask.resume()
     if Task.isCancelled {
@@ -77,6 +78,7 @@ internal func perfomUpload(on session: URLSession, with request:URLRequest, from
     let uploadTask = await withUnsafeContinuation { continuation in
         sema.wait()
         continuation.resume(returning: reference.value.unsafelyUnwrapped)
+        reference.value = nil
     }
     uploadTask.resume()
     if Task.isCancelled {

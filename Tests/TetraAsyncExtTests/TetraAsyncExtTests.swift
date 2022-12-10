@@ -65,7 +65,7 @@ final class TetraAsyncExtTests: XCTestCase {
 //    func testExampleAsync() async throws {
 //        let a = (0..<100).publisher.print().sequence
 //        let task = Task {
-//            
+//
 //            var it = a.makeAsyncIterator()
 //            while let _ = await it.next() {
 //                if Task.isCancelled {
