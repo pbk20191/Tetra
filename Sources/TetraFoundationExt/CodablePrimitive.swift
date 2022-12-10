@@ -7,6 +7,20 @@
 
 import Foundation
 
+/**
+    Codable Object Wrapper which provides opportunity to mix general primitive types into single value.
+    ```
+        let wrapped:CodablePrimitive = [
+            "api_key":"unqiueKeys",
+            "values": [["fruit":"apple", "cost":100.0], ["fruit":"banana", "cost":20.0],
+            "codeNumber": 123,
+            "isUser": false,
+            "mixedArray":[false, 0, "asds", [1]]
+        ]
+        let data = try JSONEncoder().encode(wrapped)
+        let decoded = try JSONDecoder().decode(CodablePrimitive.self, from:data)
+ ```
+ */
 public enum CodablePrimitive {
 
     case bool(Bool)

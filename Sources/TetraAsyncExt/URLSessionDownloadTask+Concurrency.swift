@@ -16,13 +16,17 @@ internal func perfomDownload(on session:URLSession, from url: URL) async throws 
     let reference = UnsafeReference<URLSessionDownloadTask>()
     let underlyingTask = Task {
         try await withUnsafeThrowingContinuation { continuation in
-            let sessionTask = session.downloadTask(with: url) { url, response, error in
+            let sessionTask = session.downloadTask(with: url) { downloadURL, response, error in
                 do {
-                    guard let url, let response else {
-                        throw (error ?? URLError(.badServerResponse))
+                    guard let downloadURL, let response else {
+                        throw (error ?? URLError(.badServerResponse, userInfo: [
+                            NSURLErrorFailingURLErrorKey: url,
+                            NSURLErrorFailingURLStringErrorKey: url.absoluteString,
+                            NSLocalizedDescriptionKey: "\(URLError.Code.badServerResponse)"
+                        ]))
                     }
                     let marker = DownloadURLMarker(
-                        target: url,
+                        target: downloadURL,
                         temporal: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".tmp", isDirectory: false),
                         response: response
                     )
@@ -59,13 +63,17 @@ internal func perfomDownload(on session:URLSession, for request: URLRequest) asy
     let reference = UnsafeReference<URLSessionDownloadTask>()
     let underlyingTask = Task {
         try await withUnsafeThrowingContinuation { continuation in
-            let sessionTask = session.downloadTask(with: request) { url, response, error in
+            let sessionTask = session.downloadTask(with: request) { downloadURL, response, error in
                 do {
-                    guard let url, let response else {
-                        throw (error ?? URLError(.badServerResponse))
+                    guard let downloadURL, let response else {
+                        throw (error ?? URLError(.badServerResponse, userInfo: [
+                            NSURLErrorFailingURLErrorKey: request.url as Any,
+                            NSURLErrorFailingURLStringErrorKey: request.url?.absoluteString as Any,
+                            NSLocalizedDescriptionKey: "\(URLError.Code.badServerResponse)"
+                        ]))
                     }
                     let marker = DownloadURLMarker(
-                        target: url,
+                        target: downloadURL,
                         temporal: FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString + ".tmp", isDirectory: false),
                         response: response
                     )
@@ -105,7 +113,9 @@ internal func perfomDownload(on session:URLSession, resumeFrom data:Data) async 
             let sessionTask = session.downloadTask(withResumeData: data) { url, response, error in
                 do {
                     guard let url, let response else {
-                        throw (error ?? URLError(.badServerResponse))
+                        throw (error ?? URLError(.badServerResponse, userInfo: [
+                            NSLocalizedDescriptionKey: "\(URLError.Code.badServerResponse)"
+                        ]))
                     }
                     let marker = DownloadURLMarker(
                         target: url,

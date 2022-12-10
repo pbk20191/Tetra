@@ -9,6 +9,10 @@ import Foundation
 import Dispatch
 import Combine
 
+/**
+    TimePublisher which emits `DisptachTime` using `DispatchSourceTimer`
+ 
+ */
 public final class DispatchTimePublisher: ConnectablePublisher {
     
     public typealias Output = DispatchTime

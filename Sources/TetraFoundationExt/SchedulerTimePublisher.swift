@@ -19,6 +19,10 @@ public extension Combine.Scheduler {
 }
 
 
+/**
+    TimePublisher which emits `SchedulerTimeType` using `Scheduler`
+ 
+ */
 public final class SchedulerTimePublisher<S:Scheduler>: ConnectablePublisher {
     
     public func connect() -> Cancellable {

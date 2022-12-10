@@ -19,7 +19,11 @@ internal func perfomUpload(on session:URLSession, with request:URLRequest, fromF
             let sessionTask = session.uploadTask(with: request, fromFile: fileURL) { data, response, error in
                 do {
                     guard let data, let response else {
-                        throw (error ?? URLError(.badServerResponse))
+                        throw (error ?? URLError(.badServerResponse, userInfo: [
+                            NSURLErrorFailingURLErrorKey: request.url as Any,
+                            NSURLErrorFailingURLStringErrorKey: request.url?.absoluteString as Any,
+                            NSLocalizedDescriptionKey: "\(URLError.Code.badServerResponse)"
+                        ]))
                     }
                     continuation.resume(returning: (data, response))
                 } catch {
@@ -55,7 +59,11 @@ internal func perfomUpload(on session: URLSession, with request:URLRequest, from
             let sessionTask = session.uploadTask(with: request, from: bodyData) { data, response, error in
                 do {
                     guard let data, let response else {
-                        throw (error ?? URLError(.badServerResponse))
+                        throw (error ?? URLError(.badServerResponse, userInfo: [
+                            NSURLErrorFailingURLErrorKey: request.url as Any,
+                            NSURLErrorFailingURLStringErrorKey: request.url?.absoluteString as Any,
+                            NSLocalizedDescriptionKey: "\(URLError.Code.badServerResponse)"
+                        ]))
                     }
                     continuation.resume(returning: (data, response))
                 } catch {
