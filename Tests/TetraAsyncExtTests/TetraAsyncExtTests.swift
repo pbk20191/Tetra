@@ -1,67 +1,48 @@
 import XCTest
 import Foundation
 import Dispatch
-//import AsyncAlgorithms
-//import Atomics
 import Combine
 @testable import TetraAsyncExt
 
 final class TetraAsyncExtTests: XCTestCase {
     
-    func testwrap() async throws {
-        try await testExample()
-        try await Task.sleep(nanoseconds: 100000)
-    }
-    
     func testExample() async throws {
+        
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct
         // results.
-        
-//        var errorPointer:Unmanaged<CFError>? = nil
-//        let secAccessControl = SecAccessControlCreateWithFlags(
-//            kCFAllocatorDefault,
-//            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
-//            .and,
-//            &errorPointer
-//        )
-//        let result:Result<SecAccessControl,CFError>
-//        if let error = errorPointer?.takeRetainedValue() {
-//            result = .failure(error)
-//        } else {
-//            result = .success(secAccessControl!)
-//        }
-//        try? await Task.sleep(nanoseconds: 100000)
-//        print(result)
-//        let someObject:CodablePrimitive = [
-//            "SDF": 0,
-//            "zzzz": true,
-//            "axczx32": "SDFSDf",
-//            "ZCXZQ@#$": 102.123
-//        ]
-//        let data = try PropertyListEncoder().encode(someObject)
-//        let new = try PropertyListDecoder().decode(CodablePrimitive.self, from: data)
-//        print(someObject.propertyObject)
-//        let t = Timer.publish(every: 1.0, on: .main, in: .default)
-//        let k = t.sink { _ in
-//
-//        }
-//        let c = t.connect()
-//        Mirror(reflecting: t).children.forEach { child in
-//            print(child.label, child.value)
-//        }
-//
-//        try await Task.sleep(nanoseconds: 1000)
-//        c.cancel()
-//        k.cancel()
+    }
+    
+    func testCancelledDownload() async throws {
+        let result = await Task {
+            withUnsafeCurrentTask { $0?.cancel() }
+            return try await perfomDownload(on: .shared, from: URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!)
+        }.result
+        XCTAssertThrowsError(try result.get())
+    }
+    
+    func testCancellDuringDownload() async throws {
+        let cancelTask2 = Task {
+            try await perfomDownload(on: .shared, from: URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!)
+        }
+        Task{
+            try await Task.sleep(nanoseconds: 50_000_000)
+            cancelTask2.cancel()
+        }
+        let result2 = await cancelTask2.result
+        XCTAssertThrowsError(try result2.get())
+    }
+    
+    func testNotificationSequence() async throws {
         let name = Notification.Name(UUID().uuidString)
         let object = NSObject()
         let sequence = NotificationCenter.default.sequence(named: name, object: object)
         let task = Task {
-            for await i in sequence {
-                print(i)
+            var count = 0
+            for await _ in sequence {
+                count += 1
             }
-            print("task cancelled")
+            return count
         }
         try await Task.sleep(nanoseconds: 1_000_000)
         NotificationCenter.default.post(name: name, object: nil)
@@ -73,95 +54,50 @@ final class TetraAsyncExtTests: XCTestCase {
         NotificationCenter.default.post(name: name, object: object, userInfo: ["":""])
         try await Task.sleep(nanoseconds: 1_000_000)
         task.cancel()
-        await task.value
         NotificationCenter.default.post(name: name, object: object, userInfo: ["":""])
-        try await Task.sleep(nanoseconds: 1_000_000)
+        let count = await task.value
+        XCTAssertEqual(count, 2)
     }
     
-    @available(iOS 16.0, macOS 12.0, *)
-    func testExampleAsync() async throws {
-        let a = (0..<100).publisher.print().values
-        let task = Task {
-            
-            var it = a.makeAsyncIterator()
-            while let _ = await it.next() {
-                if Task.isCancelled {
-                    return it
-                } else {
-                    try? await Task.sleep(nanoseconds: 100_000_000)
-                }
-            }
-            return it
-        }
-        try await Task.sleep(nanoseconds: 250_000_000)
-        task.cancel()
-        let it = await task.value
 
-        await Task {
-            await withTaskGroup(of: Void.self) { group in
-                (0..<10).forEach{ _ in
-                    group.addTask {
-                        var newI = it
-                        while let _ = await newI.next() {
-                            try? await Task.sleep(nanoseconds: 100_000_000)
-                        }
-                        print("group task done")
-                    }
-                }
-                try? await Task.sleep(nanoseconds: 10_000_000)
-                group.cancelAll()
-            }
-            print("task finished")
-        }.value
-
-    }
     
-    @available(iOS 16.0, *)
-    func testAsyncToPublisher() async throws {
-//
-//        let startTime = ContinuousClock.now
-//        let source = (0..<100).async.map{
-//            try await Task.sleep(nanoseconds: 500_000_000)
-//            return $0
-//        }
-//        let sample2 = (0..<100).publisher
-//            .zip(Timer.publish(every: 0.5, on: .main, in: .default).autoconnect()) { item, time in
-//                item
-//            }
-//            .eraseToAnyPublisher()
-////        AsyncThrowingSequencePublisher3(source: sample2.asyncStream)
+//    @available(iOS 16.0, macOS 12.0, *)
+//    func testExampleAsync() async throws {
+//        let a = (0..<100).publisher.print().sequence
 //        let task = Task {
-////
-////            try await withThrowingCancellation {
-////                do {
-////                    let _:Void = try await withUnsafeThrowingContinuation { continuation in
-////                        DispatchQueue.global().schedule(after: .init(.now() + 6)) {
-////                            continuation.resume(throwing: URLError(URLError.cancelled))
-////                        }
-////                    }
-////                } catch {
-////                    print("\(error)\(ContinuousClock.now - startTime)" )
-////                }
-////
-////            }
-//            for await i in (0..<100).publisher.print().values {
-//                //try? await Task.sleep(nanoseconds: 1_000_000_000)
+//            
+//            var it = a.makeAsyncIterator()
+//            while let _ = await it.next() {
+//                if Task.isCancelled {
+//                    return it
+//                } else {
+//                    try? await Task.sleep(nanoseconds: 100_000_000)
+//                }
 //            }
+//            return it
 //        }
+//        try await Task.sleep(nanoseconds: 250_000_000)
+//        task.cancel()
+//        let it = await task.value
 //
-//        do {
-//            try await Task.sleep(nanoseconds: 1_000)
-//           // task.cancel()
-//            try await withTaskCancellationHandler {
-//             //   task.cancel()
-//            } operation: {
-//                try await task.value
+//        await Task {
+//            await withTaskGroup(of: Void.self) { group in
+//                (0..<10).forEach{ _ in
+//                    group.addTask {
+//                        var newI = it
+//                        while let _ = await newI.next() {
+//                            try? await Task.sleep(nanoseconds: 100_000_000)
+//                        }
+//                        print("group task done")
+//                    }
+//                }
+//                try? await Task.sleep(nanoseconds: 10_000_000)
+//                group.cancelAll()
 //            }
-//        } catch {
-//            print(error)
-//        }
+//            print("task finished")
+//        }.value
 //
-////        try? await Task.sleep(until: ContinuousClock.now.advanced(by: .seconds(3)), clock: .continuous)
-    }
+//    }
+    
 
 }

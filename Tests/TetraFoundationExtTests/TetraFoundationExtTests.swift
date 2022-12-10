@@ -20,9 +20,12 @@ final class TetraFoundationExtTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testDeinit1() async throws {
-        try await testExample()
-        try await Task.sleep(nanoseconds: 1000000000)
+    
+    func testPerformanceExample() throws {
+        // This is an example of a performance test case.
+        self.measure {
+            // Put the code you want to measure the time of here.
+        }
     }
     
     func testExample() async throws {
@@ -31,98 +34,56 @@ final class TetraFoundationExtTests: XCTestCase {
         // Any test you write for XCTest can be annotated as throws and async.
         // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-//        let loopPub = Timer.TimerPublisher(interval: 0.2, runLoop: .main, mode: .default)
-//        let kt = loopPub.print().sink { _ in
-//
-//        }
-//        var timerBag = AnyCancellable(loopPub.connect())
-//        try await Task.sleep(nanoseconds: 3000000000)
-//        print("timer cancel1")
-//        timerBag.cancel()
-//        timerBag = AnyCancellable(loopPub.connect())
-//        try await Task.sleep(nanoseconds: 3000000000)
-//        print("timer cancel2")
-//        timerBag = AnyCancellable{}
-//
-//        try await Task.sleep(nanoseconds: 1000000000)
-//        kt.cancel()
-//        try await Task.sleep(nanoseconds: 1000000000)
-//        DispatchTimeInterval.milliseconds(200)
-        var someBag:Set<AnyCancellable> = []
-        let dispatchPublisher =
-//        DispatchTimePublisher(interval: 0.05, queue: .init(label: "serial", attributes: [.concurrent]))
-        DispatchTimerClassicPublisher(interval: 0.05, queue: .global())
- //       Timer.TimerPublisher(interval: 0.05, runLoop: .main, mode: .default)
-//        SchedulerTimerPublisher(DispatchQueue.global(), interval:  .milliseconds(50))
-        AnyCancellable(dispatchPublisher.connect()).store(in: &someBag)
-        try await Task.sleep(nanoseconds: 100000)
-        let connector = dispatchPublisher.autoconnect()
-        let queue = DispatchQueue.global(qos:.background)
-        connector.print("1").sink { time in
-            print("1 S", time)
-        }.store(in: &someBag)
-        try await Task.sleep(nanoseconds: 10000)
-        connector.print("2").sink { time in
-            print("2 S", time)
-        }.store(in: &someBag)
-        try await Task.sleep(nanoseconds: 10000)
-        connector.print("3").sink { time in
-            print("3 S", time)
-        }.store(in: &someBag)
-        try await Task.sleep(nanoseconds: 10000)
-        connector.print("4").sink { time in
-            print("4 S", time)
-        }.store(in: &someBag)
-//        AnyCancellable(dispatchPublisher.connect()).store(in: &someBag)
-        try await Task.sleep(nanoseconds: 1000000000)
-        
-        try await Task.sleep(nanoseconds: 1000)
     }
 
-    func testDispatchSource() async throws {
-        let source = DispatchSource.makeTimerSource()
-        source.schedule(deadline: .now(), repeating: .milliseconds(200))
-        source.setEventHandler{ print(DispatchTime.now()) }
-        source.setRegistrationHandler{ print("register")}
-        source.setCancelHandler{ print("cancel") }
-        source.resume()
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        source.cancel()
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        source.activate()
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        source.cancel()
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-    }
-    
-    func testRunLooperTimer() async throws {
-        var token:AnyCancellable? = nil
-        let timer =
-//        Timer.TimerPublisher(interval: 0.05, runLoop: .main, mode: .default)
-        SchedulerTimePublisher(DispatchQueue.global(), interval: .milliseconds(50))
-        var someBag:Set<AnyCancellable> = []
-        timer.print().sink { _ in
-            
-        }.store(in: &someBag)
-        token = AnyCancellable(timer.connect())
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        print(#line)
-        token = nil
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        print(#line)
-        token = AnyCancellable(timer.connect())
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        print(#line)
-        token = nil
-        try await Task.sleep(nanoseconds: 1_000_000_000)
-        print(#line)
-    }
-    
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    func testAnyEncodable() throws {
+        struct AnyErasedEncodable: Encodable {
+            let value:Encodable
+            func encode(to encoder: Encoder) throws {
+                try value.encode(to: encoder)
+            }
         }
+        let targetURL = FileManager.default.temporaryDirectory
+
+        XCTAssertEqual(try JSONEncoder().encode(AnyEncodable(targetURL)), try JSONEncoder().encode(targetURL))
+        XCTAssertNotEqual(try JSONEncoder().encode(AnyErasedEncodable(value: targetURL)), try JSONEncoder().encode(targetURL))
+    }
+    
+    func testCodablePrimitive() throws {
+        let structure:CodablePrimitive = [["1":"C"], true, ["key":"value","#@!@":0.0]]
+        XCTAssertEqual(try JSONEncoder().encode(structure), try JSONSerialization.data(withJSONObject: structure.propertyObject))
     }
 
+//    func testDispatchTimer() async throws {
+//        var someBag:Set<AnyCancellable> = []
+//        let dispatchPublisher =
+//        DispatchTimePublisher(interval: 0.05)
+// //       Timer.TimerPublisher(interval: 0.05, runLoop: .main, mode: .default)
+////        SchedulerTimerPublisher(DispatchQueue.global(), interval:  .milliseconds(50))
+//        AnyCancellable(dispatchPublisher.connect()).store(in: &someBag)
+//        try await Task.sleep(nanoseconds: 100000)
+//        let connector = dispatchPublisher.autoconnect()
+//        connector.print("1").sink { time in
+//            print("1 S", time)
+//        }.store(in: &someBag)
+//        try await Task.sleep(nanoseconds: 10000)
+//        connector.print("2").sink { time in
+//            print("2 S", time)
+//        }.store(in: &someBag)
+//        try await Task.sleep(nanoseconds: 10000)
+//        connector.print("3").sink { time in
+//            print("3 S", time)
+//        }.store(in: &someBag)
+//        try await Task.sleep(nanoseconds: 10000)
+//        connector.print("4").sink { time in
+//            print("4 S", time)
+//        }.store(in: &someBag)
+////        AnyCancellable(dispatchPublisher.connect()).store(in: &someBag)
+//        try await Task.sleep(nanoseconds: 1000000000)
+//        
+//        try await Task.sleep(nanoseconds: 1000)
+//    }
+//    
+
+    
 }
