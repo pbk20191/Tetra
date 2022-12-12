@@ -63,10 +63,8 @@ extension CodablePrimitive: Codable {
             let _ = try decoder.container(keyedBy: StringCodingKey.self)
             isKeyedContainer = true
             
-        } catch DecodingError.typeMismatch(_, let context) {
-            if let underlyingError = context.underlyingError {
-                throw underlyingError
-            }
+        } catch DecodingError.typeMismatch(_, let context) where context.underlyingError == nil {
+            
         }
         if isKeyedContainer {
             let container = try [String:Self?](from: decoder)
@@ -77,10 +75,8 @@ extension CodablePrimitive: Codable {
         do {
             let _ = try decoder.unkeyedContainer()
             isUnkeyedContainer = true
-        } catch DecodingError.typeMismatch(_, let context) {
-            if let underlyingError = context.underlyingError {
-                throw underlyingError
-            }
+        } catch DecodingError.typeMismatch(_, let context) where context.underlyingError == nil {
+            
         }
         if isUnkeyedContainer {
             let container = try [Self?](from: decoder)

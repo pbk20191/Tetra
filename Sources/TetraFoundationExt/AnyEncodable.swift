@@ -19,17 +19,7 @@ public struct AnyEncodable: Encodable {
     @inlinable
     public func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
-        try value.encode(to: &container)
-    }
-    
-}
-
-
-extension Encodable {
-    
-    @usableFromInline
-    internal func encode(to container: inout SingleValueEncodingContainer) throws {
-        try container.encode(self)
+        try container.encode(value)
     }
     
 }

@@ -15,18 +15,6 @@ internal final class UnsafeReference<T:Sendable> {
     var value:T?
 }
 
-@usableFromInline
-internal struct DownloadURLMarker: Sendable {
-    
-    @usableFromInline
-    let target:URL
-    @usableFromInline
-    let temporal:URL
-    @usableFromInline
-    let response:URLResponse
-    
-}
-
 @inline(__always)
 @usableFromInline
 internal func wrapRethrow<T>(body: () async throws -> T) async rethrows -> T {
