@@ -9,6 +9,7 @@ import XCTest
 @testable import TetraFoundationExt
 import Combine
 import Dispatch
+import os
 
 final class TetraFoundationExtTests: XCTestCase {
 
@@ -34,6 +35,23 @@ final class TetraFoundationExtTests: XCTestCase {
         // Any test you write for XCTest can be annotated as throws and async.
         // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
         // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+
+    }
+    
+    func testUnfairLockPrecondition() throws {
+        if #available(iOS 16.0, tvOS 16.0, macCatalyst 16.0, macOS 13.0, watchOS 9.0, *) {
+            let lock = OSAllocatedUnfairLock()
+            lock.withLock {
+                lock.precondition(.owner)
+            }
+            lock.precondition(.notOwner)
+        } else {
+            let lock = UnfairLock()
+            lock.withLock {
+                lock.precondition(.owner)
+            }
+            lock.precondition(.notOwner)
+        }
     }
 
     func testAnyEncodable() throws {

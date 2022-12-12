@@ -65,9 +65,9 @@ public final class UnfairLock: NSObject, NSLocking, Sendable {
     public func precondition(_ condition: Ownership) {
         switch condition {
         case .owner:
-            os_unfair_lock_assert_not_owner(ptr)
-        case .notOwner:
             os_unfair_lock_assert_owner(ptr)
+        case .notOwner:
+            os_unfair_lock_assert_not_owner(ptr)
         }
     }
     
