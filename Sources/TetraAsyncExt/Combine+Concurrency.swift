@@ -221,10 +221,11 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         
         private var token:AnyCancellable?
         private var subscription:Subscription?
-        private var store = ContinuationStore()
+        private let lock = NSLock()
+        private var list:[UnsafeContinuation<Element?,Never>] = []
         
         func receive(_ input: Element) -> Subscribers.Demand {
-            store.mutate { list in
+            lock.withLock {
                 list.forEach { $0.resume(returning: input) }
                 list = []
             }
@@ -232,9 +233,9 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         }
         
         func receive(completion: Subscribers.Completion<Never>) {
-            store.mutate {
-                $0.forEach { continuation in continuation.resume(returning: nil) }
-                $0 = []
+            lock.withLock {
+                list.forEach { $0.resume(returning: nil) }
+                list = []
                 subscription = nil
             }
             token = nil
@@ -246,8 +247,8 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
                 let cancelled = Task.isCancelled
                return await withUnsafeContinuation { continuation in
                    if let subscription, !cancelled {
-                       store.mutate {
-                           $0.append(continuation)
+                       lock.withLock {
+                           list.append(continuation)
                        }
                        subscription.request(.max(1))
 
@@ -272,23 +273,13 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         private func dispose() {
             token = nil
             subscription = nil
-            store.mutate { list in
-                list.forEach{ $0.resume(returning: nil) }
+            lock.withLock {
+                list.forEach { $0.resume(returning: nil) }
                 list = []
             }
         }
         
         internal init() {}
-    }
-
-    private struct ContinuationStore {
-        private let lock = NSLock()
-        private var list:[UnsafeContinuation<Element?,Never>] = []
-        internal mutating func mutate(operation: (inout [UnsafeContinuation<Element?,Never>]) -> Void) {
-            lock.lock()
-            operation(&list)
-            lock.unlock()
-        }
     }
     
 }
@@ -339,24 +330,28 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
         
         private var token:AnyCancellable?
         private var subscription:Subscription?
-        private var store = ContinuationThrowingStore()
+        
+        private let lock = NSLock()
+        private var list:[UnsafeContinuation<Element?,Error>] = []
+        
+        
         func receive(_ input: Element) -> Subscribers.Demand {
-            store.mutate { list in
-                list.forEach { $0.resume(returning: input) }
+            lock.withLock {
+                list.forEach{ $0.resume(returning: input) }
                 list = []
             }
             return .none
         }
         
         func receive(completion: Subscribers.Completion<Failure>) {
-            store.mutate {
+            lock.withLock {
                 switch completion {
                 case .finished:
-                    $0.forEach { continuation in continuation.resume(returning: nil) }
+                    list.forEach{ $0.resume(returning: nil) }
                 case .failure(let failure):
-                    $0.forEach { continuation in continuation.resume(throwing: failure) }
+                    list.forEach{ $0.resume(throwing: failure) }
                 }
-                $0 = []
+                list = []
                 subscription = nil
             }
         }
@@ -367,8 +362,8 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
                 let cancelled = Task.isCancelled
                return try await withUnsafeThrowingContinuation { continuation in
                    if let subscription, !cancelled {
-                       store.mutate {
-                           $0.append(continuation)
+                       lock.withLock {
+                           list.append(continuation)
                        }
                        subscription.request(.max(1))
 
@@ -392,7 +387,7 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
         private func dispose() {
             token = nil
             subscription = nil
-            store.mutate { list in
+            lock.withLock {
                 list.forEach{ $0.resume(returning: nil) }
                 list = []
             }
@@ -408,16 +403,5 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
             Mirror(self, children: [])
         }
     }
-
-    private struct ContinuationThrowingStore {
-        private let lock = NSLock()
-        private var list:[UnsafeContinuation<Element?,Error>] = []
-        internal mutating func mutate(operation: (inout [UnsafeContinuation<Element?,Error>]) -> Void) {
-            lock.lock()
-            operation(&list)
-            lock.unlock()
-        }
-    }
-
     
 }
