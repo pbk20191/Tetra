@@ -27,29 +27,6 @@ final class OverlayWindow: UIWindow {
     
 }
 
-@MainActor
-@usableFromInline
-final class WindowCallbackView: UIView {
-    
-    @usableFromInline
-    var callBack:((UIWindowScene?) -> ())? = nil
-    
-    @usableFromInline
-    override func didMoveToWindow() {
-        super.didMoveToWindow()
-        callBack?(window?.windowScene)
-    }
-    
-    @usableFromInline
-    override func willMove(toWindow newWindow: UIWindow?) {
-        super.willMove(toWindow: newWindow)
-        callBack?(newWindow?.windowScene)
-    }
-    
-}
-
-
-
 @usableFromInline
 struct OverlayWindowHost<Content>: UIViewRepresentable where Content: View {
     
@@ -62,7 +39,7 @@ struct OverlayWindowHost<Content>: UIViewRepresentable where Content: View {
     
     
     @usableFromInline
-    typealias UIViewType = WindowCallbackView
+    typealias UIViewType = WindowCallbackUIView
     @usableFromInline
     typealias Coordinator = OverlayWindow
     
@@ -79,8 +56,8 @@ struct OverlayWindowHost<Content>: UIViewRepresentable where Content: View {
     }
     
     @usableFromInline
-    func makeUIView(context: Context) -> WindowCallbackView {
-        let view = WindowCallbackView()
+    func makeUIView(context: Context) -> UIViewType {
+        let view = UIViewType()
         let rootView = content.modifier(EnvironmentValueModifier(environment: context.environment))
         let vc = UIHostingController(rootView: rootView)
         view.callBack = { [weak coordinator = context.coordinator] scene in
@@ -94,7 +71,7 @@ struct OverlayWindowHost<Content>: UIViewRepresentable where Content: View {
     }
     
     @usableFromInline
-    func updateUIView(_ uiView: WindowCallbackView, context: Context) {
+    func updateUIView(_ uiView: UIViewType, context: Context) {
         uiView.callBack = { [weak coordinator = context.coordinator] scene in
             coordinator?.windowScene = scene
         }
@@ -123,7 +100,7 @@ struct OverlayWindowHost<Content>: UIViewRepresentable where Content: View {
     }
     
     @usableFromInline
-    static func dismantleUIView(_ uiView: WindowCallbackView, coordinator: OverlayWindow) {
+    static func dismantleUIView(_ uiView: UIViewType, coordinator: OverlayWindow) {
         
     }
     

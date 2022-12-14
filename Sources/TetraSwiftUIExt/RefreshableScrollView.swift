@@ -8,6 +8,9 @@
 import Foundation
 import SwiftUI
 import Combine
+#if canImport(UIKit)
+import UIKit
+#endif
 
 @available(iOS, deprecated: 16, renamed: "ScrollView")
 @available(tvOS, deprecated: 16, renamed: "ScrollView")
@@ -156,11 +159,11 @@ extension EnvironmentValues {
 }
 
 #if os(iOS) || targetEnvironment(macCatalyst)
-import UIKit
 
-public struct ScrollRefreshImp: UIViewRepresentable {
-
-    public typealias UIViewType = UIView
+@usableFromInline
+internal struct ScrollRefreshImp: UIViewRepresentable {
+    
+    public typealias UIViewType = SuperViewCallbackUIView
     public typealias Coordinator = RefreshingCoordinator
     @usableFromInline
     @Binding var task:Task<Void,Never>?
@@ -188,23 +191,31 @@ public struct ScrollRefreshImp: UIViewRepresentable {
     
     @inlinable
     public func makeUIView(context: Context) -> UIViewType {
-        let view = UIView()
-        view.isUserInteractionEnabled = false
-        view.isHidden = true
+        let uiView = UIViewType()
+        uiView.isUserInteractionEnabled = false
+        uiView.isHidden = true
         context.coordinator.control.addTarget(context.coordinator, action: #selector(RefreshingCoordinator.refresh), for: .valueChanged)
-        Task{ @MainActor in
-            await Task.yield()
-            let scrollView = sequence(first: view, next: \.superview).first{ $0 is UIScrollView } as? UIScrollView
-            if let scrollView, !(scrollView is UITableView) {
-                scrollView.refreshControl = context.coordinator.control
+        uiView.callBack = { [coordinator = context.coordinator] superView in
+            if let scrollView = superView?.target(forAction: #selector(UIScrollView.scrollRectToVisible(_:animated:)), withSender: nil) as? UIScrollView {
+                scrollView.refreshControl = coordinator.control
+                coordinator.scrollView = scrollView
+            } else {
+                coordinator.scrollView = nil
             }
         }
-        return view
+        return uiView
     }
     
     @inlinable
     public func updateUIView(_ uiView: UIViewType, context: Context) {
-        print(#function)
+        uiView.callBack = { [coordinator = context.coordinator] superView in
+            if let scrollView = superView?.target(forAction: #selector(UIScrollView.scrollRectToVisible(_:animated:)), withSender: nil) as? UIScrollView {
+                scrollView.refreshControl = coordinator.control
+                coordinator.scrollView = scrollView
+            } else {
+                coordinator.scrollView = nil
+            }
+        }
         context.coordinator.parent = self
         if !refreshing && context.coordinator.control.isRefreshing {
             context.coordinator.control.endRefreshing()
@@ -215,9 +226,8 @@ public struct ScrollRefreshImp: UIViewRepresentable {
     
     @inlinable
     public static func dismantleUIView(_ uiView: UIViewType, coordinator: Coordinator) {
-        print("RefreshImp \(#function)")
-        let scrollView = sequence(first: coordinator.control, next: \.superview).first{ $0 is UIScrollView } as? UIScrollView
-        if let scrollView, scrollView.refreshControl == coordinator.control {
+        uiView.callBack = nil
+        if let scrollView = coordinator.scrollView, scrollView.refreshControl === coordinator.control {
             scrollView.refreshControl = nil
         }
         coordinator.parent.task?.cancel()
@@ -228,6 +238,9 @@ public struct ScrollRefreshImp: UIViewRepresentable {
 
 @MainActor
 public final class RefreshingCoordinator: NSObject {
+    
+    @usableFromInline
+    weak var scrollView:UIScrollView? = nil
     
     @usableFromInline
     internal init(parent: ScrollRefreshImp) {

@@ -11,7 +11,7 @@ import _Concurrency
 import SwiftUI
 
 @usableFromInline
-struct TaskModifier: ViewModifier {
+internal struct TaskModifier: ViewModifier {
     
     @usableFromInline
     init(priority:TaskPriority, action:@escaping @Sendable () async -> Void) {
@@ -44,7 +44,7 @@ struct TaskModifier: ViewModifier {
 
 @available(iOS 14.0, tvOS 14.0, macCatalyst 14.0, macOS 11.0, watchOS 7.0, *)
 @usableFromInline
-struct TaskIdentityModifer<T:Equatable>: ViewModifier {
+internal struct TaskIdentityModifer<T:Equatable>: ViewModifier {
 
     @usableFromInline
     init(id:T, priority:TaskPriority, action:@escaping @Sendable () async -> Void) {
