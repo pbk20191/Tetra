@@ -183,29 +183,32 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         public typealias Element = P.Output
         
         let source:P
-        private var subscriber:AsyncSubscriber?
+        private let inner:AsyncSubscriber
+        private var reference:AnyCancellable?
         
         public mutating func next() async -> P.Output? {
-            if Task.isCancelled {
-                subscriber = nil
-                return nil
-            } else if let subscriber {
-                return await subscriber.awaitNext()
-            } else {
-                let subscriber = AsyncSubscriber()
-                source.subscribe(subscriber)
-                self.subscriber = subscriber
-                return await subscriber.awaitNext()
+            await withUnsafeContinuation{ continuation in
+                if reference == nil {
+                    reference = AnyCancellable(inner)
+                    source.subscribe(inner)
+                }
+                continuation.resume()
+            }
+            return await withTaskCancellationHandler {
+                await inner.awaitNext()
+            } onCancel: { [reference] in
+                reference?.cancel()
             }
         }
         
         internal init(source: P) {
             self.source = source
+            self.inner = .init()
         }
         
     }
     
-    final class AsyncSubscriber: Subscriber, CustomStringConvertible, CustomReflectable, CustomPlaygroundDisplayConvertible {
+    final class AsyncSubscriber: Subscriber, CustomStringConvertible, CustomReflectable, CustomPlaygroundDisplayConvertible, Cancellable {
         var playgroundDescription: Any { description }
         
         var description: String { "AsyncSubscriber<\(Input.self)>"}
@@ -242,25 +245,20 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         
 
         func awaitNext() async -> Element? {
-            return await withTaskCancellationHandler {
-                let cancelled = Task.isCancelled
-               return await withUnsafeContinuation { continuation in
-                   let scription = lock.withLock {
-                       if let subscription, !cancelled {
-                           list.append(continuation)
-                           return subscription as Subscription?
-                       }
-                       return nil
-                   }
-                   if let scription {
-                       scription.request(.max(1))
-                   } else {
-                       continuation.resume(returning: nil)
-                   }
+            await withUnsafeContinuation { continuation in
+                let scription = lock.withLock {
+                    if let subscription {
+                        list.append(continuation)
+                        return subscription as Subscription?
+                    }
+                    return nil
                 }
-            } onCancel: {
-                self.dispose()
-            }
+                if let scription {
+                    scription.request(.max(1))
+                } else {
+                    continuation.resume(returning: nil)
+                }
+             }
         }
         
         
@@ -271,7 +269,7 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         }
         
         
-        private func dispose() {
+        func cancel() {
             let (continuations, resource) = lock.withLock {
                 let captured = (list, subscription)
                 list = []
@@ -303,29 +301,44 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
         public typealias Element = P.Output
         
         let source:P
-        private var subscriber:AsyncThrowingSubscriber?
+        private let inner:AsyncThrowingSubscriber
+        private var reference:AnyCancellable? = nil
         
         public mutating func next() async throws -> P.Output? {
-            if Task.isCancelled {
-                subscriber = nil
-                return nil
-            } else if let subscriber {
-                return try await subscriber.awaitNext()
-            } else {
-                let subscriber = AsyncThrowingSubscriber()
-                source.subscribe(subscriber)
-                self.subscriber = subscriber
-                return try await subscriber.awaitNext()
+            await withUnsafeContinuation{ continuation in
+                if reference == nil {
+                    reference = AnyCancellable(inner)
+                    source.subscribe(inner)
+                }
+                continuation.resume()
             }
+            return try await withTaskCancellationHandler {
+                try await inner.awaitNext()
+            } onCancel: { [reference] in
+                reference?.cancel()
+            }
+
+//            if Task.isCancelled {
+//                subscriber = nil
+//                return nil
+//            } else if let subscriber {
+//                return try await subscriber.awaitNext()
+//            } else {
+//                let subscriber = AsyncThrowingSubscriber()
+//                source.subscribe(subscriber)
+//                self.subscriber = subscriber
+//                return try await subscriber.awaitNext()
+//            }
         }
         
         internal init(source: P) {
             self.source = source
+            self.inner = .init()
         }
         
     }
     
-    final class AsyncThrowingSubscriber: Subscriber, CustomStringConvertible, CustomReflectable, CustomPlaygroundDisplayConvertible {
+    final class AsyncThrowingSubscriber: Subscriber, CustomStringConvertible, CustomReflectable, CustomPlaygroundDisplayConvertible, Cancellable {
         
         typealias Input = Element
         
@@ -364,26 +377,21 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
         
 
         func awaitNext() async throws -> Element? {
-            return try await withTaskCancellationHandler {
-                let cancelled = Task.isCancelled
-               return try await withUnsafeThrowingContinuation { continuation in
-                   let provider = lock.withLock {
-                       if let subscription, !cancelled {
-                           list.append(continuation)
-                           return subscription as Subscription?
-                       } else {
-                           return nil
-                       }
-                   }
-                   if let provider {
-                       provider.request(.max(1))
-                   } else {
-                       continuation.resume(returning: nil)
-                   }
+            return try await withUnsafeThrowingContinuation { continuation in
+                let provider = lock.withLock {
+                    if let subscription {
+                        list.append(continuation)
+                        return subscription as Subscription?
+                    } else {
+                        return nil
+                    }
                 }
-            } onCancel: {
-                self.dispose()
-            }
+                if let provider {
+                    provider.request(.max(1))
+                } else {
+                    continuation.resume(returning: nil)
+                }
+             }
         }
         
         
@@ -394,7 +402,7 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
         }
         
         
-        private func dispose() {
+        func cancel() {
             let (continuations, cancellable) = lock.withLock {
                 let captured = (list, subscription)
                 list = []
