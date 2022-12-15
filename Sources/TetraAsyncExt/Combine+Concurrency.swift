@@ -192,10 +192,10 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
             } else if let subscriber {
                 return await subscriber.awaitNext()
             } else {
-                let a = AsyncSubscriber()
-                source.receive(subscriber: a)
-                subscriber = a
-                return await a.awaitNext()
+                let subscriber = AsyncSubscriber()
+                source.subscribe(subscriber)
+                self.subscriber = subscriber
+                return await subscriber.awaitNext()
             }
         }
         
@@ -312,10 +312,10 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
             } else if let subscriber {
                 return try await subscriber.awaitNext()
             } else {
-                let a = AsyncThrowingSubscriber()
-                source.receive(subscriber: a)
-                subscriber = a
-                return try await a.awaitNext()
+                let subscriber = AsyncThrowingSubscriber()
+                source.subscribe(subscriber)
+                self.subscriber = subscriber
+                return try await subscriber.awaitNext()
             }
         }
         
@@ -347,17 +347,18 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
         }
         
         func receive(completion: Subscribers.Completion<Failure>) {
-            let (continuations, _) = lock.withLock {
-                let captured = (list, subscription)
+            lock.withLock {
+                let captured = list
                 list = []
                 subscription = nil
                 return captured
-            }
-            switch completion {
-            case .finished:
-                continuations.forEach{ $0.resume(returning: nil) }
-            case .failure(let failure):
-                continuations.forEach{ $0.resume(throwing: failure) }
+            }.forEach{
+                switch completion {
+                case .finished:
+                    $0.resume(returning: nil)
+                case .failure(let failure):
+                    $0.resume(throwing: failure)
+                }
             }
         }
         
