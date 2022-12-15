@@ -124,22 +124,20 @@ internal final class NotficationSuspension: CustomStringConvertible, CustomRefle
     
     func cancel() {
         lock.withLock {
-            store.forEach {
-                $0.resume(returning: nil)
-            }
+            let captured = store
             store = []
-        }
+            return captured
+        }.forEach{ $0.resume(returning: nil) }
         center.removeObserver(self, name: name, object: object)
     }
     
     @objc
     func receive(_ notification:Notification) {
         lock.withLock {
-            store.forEach{
-                $0.resume(returning: notification)
-            }
+            let captured = store
             store = []
-        }
+            return captured
+        }.forEach{ $0.resume(returning: notification) }
     }
     
 }

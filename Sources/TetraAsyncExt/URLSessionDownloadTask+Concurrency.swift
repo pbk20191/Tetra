@@ -11,10 +11,10 @@ import _Concurrency
 
 @usableFromInline
 internal func randomDownloadFileURL() -> URL {
-    let samples = "012345689ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwsyz"
+    let samples = "012345689ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
     let random = samples.shuffled().prefix(6).map(String.init).joined()
     return FileManager.default.temporaryDirectory
-        .appendingPathComponent("CFNetworkDownload_\(random)", isDirectory: false)
+        .appendingPathComponent("CFNetworkDownload_" + random, isDirectory: false)
         .appendingPathExtension("tmp")
 }
 
@@ -28,10 +28,10 @@ internal func perfomDownload(on session:URLSession, from url: URL) async throws 
             let sessionTask = session.downloadTask(with: url) { location, response, error in
                 do {
                     guard let location, let response else {
-                        throw (error ?? URLError(.badServerResponse, userInfo: [
+                        throw (error ?? URLError(.unknown, userInfo: [
                             NSURLErrorFailingURLErrorKey: url,
                             NSURLErrorFailingURLStringErrorKey: url.absoluteString,
-                            NSLocalizedDescriptionKey: "\(URLError.Code.badServerResponse)"
+                            NSLocalizedDescriptionKey: "\(URLError.Code.unknown)"
                         ]))
                     }
                     
@@ -76,10 +76,10 @@ internal func perfomDownload(on session:URLSession, for request: URLRequest) asy
             let sessionTask = session.downloadTask(with: request) { location, response, error in
                 do {
                     guard let location, let response else {
-                        throw (error ?? URLError(.badServerResponse, userInfo: [
+                        throw (error ?? URLError(.unknown, userInfo: [
                             NSURLErrorFailingURLErrorKey: request.url as Any,
                             NSURLErrorFailingURLStringErrorKey: request.url?.absoluteString as Any,
-                            NSLocalizedDescriptionKey: "\(URLError.Code.badServerResponse)"
+                            NSLocalizedDescriptionKey: "\(URLError.Code.unknown)"
                         ]))
                     }
                     let newURL = randomDownloadFileURL()
@@ -123,8 +123,8 @@ internal func perfomDownload(on session:URLSession, resumeFrom data:Data) async 
             let sessionTask = session.downloadTask(withResumeData: data) { location, response, error in
                 do {
                     guard let location, let response else {
-                        throw (error ?? URLError(.badServerResponse, userInfo: [
-                            NSLocalizedDescriptionKey: "\(URLError.Code.badServerResponse)"
+                        throw (error ?? URLError(.unknown, userInfo: [
+                            NSLocalizedDescriptionKey: "\(URLError.Code.unknown)"
                         ]))
                     }
                     let newURL = randomDownloadFileURL()

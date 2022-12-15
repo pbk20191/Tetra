@@ -12,7 +12,7 @@ import UIKit
 import AppKit
 #endif
 
-#if canImport(SwiftUI)
+#if canImport(SwiftUI) && (canImport(UIKit) || canImport(AppKit))
 import SwiftUI
 
 @available(iOS, introduced: 13.0, obsoleted: 15.0)
@@ -176,8 +176,6 @@ public struct AsyncImage<Content: View>: View {
         }
     }
 }
-
-
 
 
 #endif

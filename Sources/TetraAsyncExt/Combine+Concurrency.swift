@@ -214,31 +214,30 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
             Mirror(self, children: [])
         }
         
-        
         typealias Input = Element
         
         typealias Failure = Never
         
-        private var token:AnyCancellable?
         private var subscription:Subscription?
         private let lock = NSLock()
         private var list:[UnsafeContinuation<Element?,Never>] = []
         
         func receive(_ input: Element) -> Subscribers.Demand {
             lock.withLock {
-                list.forEach { $0.resume(returning: input) }
+                let output = list
                 list = []
-            }
+                return output
+            }.forEach{ $0.resume(returning: input) }
             return .none
         }
         
         func receive(completion: Subscribers.Completion<Never>) {
             lock.withLock {
-                list.forEach { $0.resume(returning: nil) }
+                let captured = list
                 list = []
                 subscription = nil
-            }
-            token = nil
+                return captured
+            }.forEach{ $0.resume(returning: nil) }
         }
         
 
@@ -246,16 +245,18 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
             return await withTaskCancellationHandler {
                 let cancelled = Task.isCancelled
                return await withUnsafeContinuation { continuation in
-                   if let subscription, !cancelled {
-                       lock.withLock {
+                   let scription = lock.withLock {
+                       if let subscription, !cancelled {
                            list.append(continuation)
+                           return subscription as Subscription?
                        }
-                       subscription.request(.max(1))
-
+                       return nil
+                   }
+                   if let scription {
+                       scription.request(.max(1))
                    } else {
                        continuation.resume(returning: nil)
                    }
-
                 }
             } onCancel: {
                 self.dispose()
@@ -264,19 +265,21 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         
         
         func receive(subscription: Subscription) {
-            self.subscription = subscription
-
-            token = AnyCancellable(subscription)
+            lock.withLock {
+                self.subscription = subscription
+            }
         }
         
         
         private func dispose() {
-            token = nil
-            subscription = nil
-            lock.withLock {
-                list.forEach { $0.resume(returning: nil) }
+            let (continuations, resource) = lock.withLock {
+                let captured = (list, subscription)
                 list = []
+                subscription = nil
+                return (captured)
             }
+            continuations.forEach{ $0.resume(returning: nil) }
+            resource?.cancel()
         }
         
         internal init() {}
@@ -328,7 +331,6 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
         
         typealias Failure = P.Failure
         
-        private var token:AnyCancellable?
         private var subscription:Subscription?
         
         private let lock = NSLock()
@@ -337,22 +339,25 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
         
         func receive(_ input: Element) -> Subscribers.Demand {
             lock.withLock {
-                list.forEach{ $0.resume(returning: input) }
+                let captured = list
                 list = []
-            }
+                return captured
+            }.forEach{ $0.resume(returning: input) }
             return .none
         }
         
         func receive(completion: Subscribers.Completion<Failure>) {
-            lock.withLock {
-                switch completion {
-                case .finished:
-                    list.forEach{ $0.resume(returning: nil) }
-                case .failure(let failure):
-                    list.forEach{ $0.resume(throwing: failure) }
-                }
+            let (continuations, _) = lock.withLock {
+                let captured = (list, subscription)
                 list = []
                 subscription = nil
+                return captured
+            }
+            switch completion {
+            case .finished:
+                continuations.forEach{ $0.resume(returning: nil) }
+            case .failure(let failure):
+                continuations.forEach{ $0.resume(throwing: failure) }
             }
         }
         
@@ -361,16 +366,19 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
             return try await withTaskCancellationHandler {
                 let cancelled = Task.isCancelled
                return try await withUnsafeThrowingContinuation { continuation in
-                   if let subscription, !cancelled {
-                       lock.withLock {
+                   let provider = lock.withLock {
+                       if let subscription, !cancelled {
                            list.append(continuation)
+                           return subscription as Subscription?
+                       } else {
+                           return nil
                        }
-                       subscription.request(.max(1))
-
+                   }
+                   if let provider {
+                       provider.request(.max(1))
                    } else {
                        continuation.resume(returning: nil)
                    }
-
                 }
             } onCancel: {
                 self.dispose()
@@ -379,18 +387,21 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTyp
         
         
         func receive(subscription: Subscription) {
-            self.subscription = subscription
-            token = AnyCancellable(subscription)
+            lock.withLock {
+                self.subscription = subscription
+            }
         }
         
         
         private func dispose() {
-            token = nil
-            subscription = nil
-            lock.withLock {
-                list.forEach{ $0.resume(returning: nil) }
+            let (continuations, cancellable) = lock.withLock {
+                let captured = (list, subscription)
                 list = []
+                subscription = nil
+                return captured
             }
+            continuations.forEach{ $0.resume(returning: nil) }
+            cancellable?.cancel()
         }
         
         internal init() {}

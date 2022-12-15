@@ -33,15 +33,8 @@ public struct RefreshableScrollView<Content:View>: View {
             if #available(iOS 16.0, macCatalyst 16.0, *) {
                 content
             } else if #available(iOS 15.0, macCatalyst 15.0, *) {
-                content.background(
-                    RefreshControlHostingView1(task: $task, refreshing: $flag)
-                        .frame(width: 0, height: 0)
-                )
-            } else {
-                content.background(
-                    RefreshControlHostingView2(task: $task, refreshing: $flag)
-                        .frame(width: 0, height: 0)
-                )
+                content
+                    .modifier(RefreshActionModifier(task: $task, refreshing: $flag))
             }
 #else
             content
@@ -77,58 +70,69 @@ public extension View {
         if #available(iOS 15.0, tvOS 15.0, macOS 12.0, macCatalyst 15.0, watchOS 8.0, *) {
             self.refreshable(action: action)
         } else {
+            #if os(iOS) || targetEnvironment(macCatalyst)
             self.environment(\.refreshControl, .init(action: action))
+            #else
+            self
+            #endif
         }
     }
     
 }
 
-@available(iOS 15.0, tvOS 15.0, macOS 12.0, macCatalyst 15.0, watchOS 8.0, *)
-@usableFromInline
-struct RefreshControlHostingView1: View {
+@usableFromInline internal
+struct RefreshActionModifier: EnvironmentalModifier {
     
-    @Environment(\.refresh) private var refresh
     @Binding var task:Task<Void,Never>?
     @Binding var refreshing:Bool
     
     @usableFromInline
-    var body: some View {
-        #if os(iOS) || targetEnvironment(macCatalyst)
-        if let refresh {
-            ScrollRefreshImp(task: $task, refreshing: refreshing) {
+    func resolve(in environment: EnvironmentValues) -> ResolvedModifier {
+        var modifier = ResolvedModifier(task: $task, refreshing: refreshing)
+        if #available(iOS 15.0, tvOS 15.0, macOS 12.0, macCatalyst 15.0, watchOS 8.0, *),
+            let refresh = environment.refresh {
+            modifier.action = {
                 refreshing = true
                 await refresh()
                 refreshing = false
             }
-        }
-        #else
-        EmptyView()
-        #endif
-    }
-}
-
-@usableFromInline
-struct RefreshControlHostingView2: View {
-    
-    @Environment(\.refreshControl) private var refreshControl
-    @Binding var task:Task<Void,Never>?
-    @Binding var refreshing:Bool
-    
-    @usableFromInline
-    var body: some View {
-        #if os(iOS) || targetEnvironment(macCatalyst)
-        if let refresh = refreshControl {
-            ScrollRefreshImp(task: $task, refreshing: refreshing) {
+        } else if let refresh = environment.refreshControl {
+            modifier.action = {
                 refreshing = true
                 await refresh.action()
                 refreshing = false
             }
         }
-        #else
-        EmptyView()
-        #endif
+        return modifier
     }
+    
+    @usableFromInline
+    struct ResolvedModifier: ViewModifier {
+        @usableFromInline
+        @Binding var task:Task<Void,Never>?
+        @usableFromInline
+        var refreshing:Bool
+        @usableFromInline
+        var action:(@Sendable () async -> ())?
+        
+        @usableFromInline
+        func body(content: Content) -> some View {
+#if os(iOS) || targetEnvironment(macCatalyst)
+            content.background(Group{
+                if let action {
+                    ScrollRefreshImp(task: $task, refreshing: refreshing, operation: action)
+                }
+            })
+#else
+            content
+#endif
+        }
+        
+    }
+    
 }
+
+
 
 struct RefreshControlKey: EnvironmentKey {
     static var defaultValue: RefreshableControl? { nil }
