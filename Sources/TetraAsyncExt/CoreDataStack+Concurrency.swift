@@ -33,21 +33,16 @@ public extension NSPersistentContainer {
     @available(watchOS, introduced: 6.0, deprecated: 8.0, renamed: "performBackgroundTask(_:)")
     @available(macOS, introduced: 10.15, deprecated: 12.0, renamed: "performBackgroundTask(_:)")
     @inlinable
-    func performBackground<T>(body: @Sendable @escaping (NSManagedObjectContext) throws -> T) async rethrows -> T {
+    func performBackground<T>(body: @escaping (NSManagedObjectContext) throws -> T) async rethrows -> T {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 6.0, macOS 12.0, *) {
             return try await performBackgroundTask(body)
         } else {
-            return try await wrapRethrow {
-                try await withUnsafeThrowingContinuation { continuation in
-                    performBackgroundTask { newContext in
-                        continuation.resume(with: Result{ try body(newContext) })
-                    }
-                }
-            }
+            return try await asyncPerformBackgroundTask(self, body)
         }
     }
     
 }
+
 
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, watchOS 6.0, macOS 10.15, *)
 public extension NSManagedObjectContext {
@@ -62,11 +57,7 @@ public extension NSManagedObjectContext {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 6.0, macOS 12.0, *) {
             return try await perform(body)
         } else {
-            return try await wrapRethrow {
-                try await withUnsafeThrowingContinuation { continuation in
-                    perform { continuation.resume(with: Result{ try body() }) }
-                }
-            }
+            return try await asyncPerform(self, body)
         }
     }
     
@@ -85,14 +76,75 @@ public extension NSPersistentStoreCoordinator {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 6.0, macOS 12.0, *) {
             return try await perform(body)
         } else {
-            return try await wrapRethrow {
-                try await withUnsafeThrowingContinuation { continuation in
-                    perform { continuation.resume(with: Result{ try body() }) }
-                }
-            }
+            return try await asyncPerform(self, body)
         }
     }
-    
+}
+
+@available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, watchOS 6.0, macOS 10.15, *)
+@usableFromInline
+internal func asyncPerform<T>(_ coordinator:NSPersistentStoreCoordinator, _ block: @escaping () throws -> T) async rethrows -> T {
+    let result:Result<T,Error>
+    do {
+        let value = try await withUnsafeThrowingContinuation { continuation in
+            coordinator.perform {
+                continuation.resume(with: Result{ try block() })
+            }
+        }
+        result = .success(value)
+    } catch {
+        result = .failure(error)
+    }
+    switch result {
+    case .success(let success):
+        return success
+    case .failure:
+        try result._rethrowError()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, watchOS 6.0, macOS 10.15, *)
+@usableFromInline
+internal func asyncPerform<T>(_ context:NSManagedObjectContext, _ block: @escaping () throws -> T) async rethrows -> T {
+    let result:Result<T,Error>
+    do {
+        let value = try await withUnsafeThrowingContinuation { continuation in
+            context.perform {
+                continuation.resume(with: Result{ try block() })
+            }
+        }
+        result = .success(value)
+    } catch {
+        result = .failure(error)
+    }
+    switch result {
+    case .success(let success):
+        return success
+    case .failure:
+        try result._rethrowError()
+    }
+}
+
+@available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, watchOS 6.0, macOS 10.15, *)
+@usableFromInline
+internal func asyncPerformBackgroundTask<T>(_ container:NSPersistentContainer, _ block: @escaping (NSManagedObjectContext) throws -> T) async rethrows -> T {
+    let result:Result<T,Error>
+    do {
+        let value = try await withUnsafeThrowingContinuation { continuation in
+            container.performBackgroundTask { newContext in
+                continuation.resume(with: Result{ try block(newContext) })
+            }
+        }
+        result = .success(value)
+    } catch {
+        result = .failure(error)
+    }
+    switch result {
+    case .success(let success):
+        return success
+    case .failure:
+        try result._rethrowError()
+    }
 }
 
 #endif

@@ -17,12 +17,6 @@ internal final class UnsafeReference<T:Sendable> {
     var value:T?
 }
 
-@inline(__always)
-@usableFromInline
-internal func wrapRethrow<T>(body: () async throws -> T) async rethrows -> T {
-    try await body()
-}
-
 internal enum SubscriptionStatus {
     case awaitingSubscription
     case subscribed(Subscription)
@@ -36,4 +30,27 @@ internal enum SubscriptionStatus {
     }
     
 }
+
+
+@rethrows
+internal protocol _ErrorMechanism {
+    associatedtype Output
+    func get() throws -> Output
+}
+
+extension _ErrorMechanism {
+    // rethrow an error only in the cases where it is known to be reachable
+    
+    
+    internal func _rethrowError() rethrows -> Never {
+        _ = try _rethrowGet()
+        fatalError("materialized error without being in a throwing context")
+    }
+
+    internal func _rethrowGet() rethrows -> Output {
+        return try get()
+    }
+}
+
+extension Result: _ErrorMechanism { }
 
