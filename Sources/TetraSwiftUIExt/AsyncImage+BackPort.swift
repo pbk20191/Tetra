@@ -63,8 +63,10 @@ public struct AsyncImage<Content: View>: View {
         } else if case let .success(image) = imagePhase {
             image
         } else {
-            #if canImport(UIKit)
-            Color(UIColor.secondarySystemBackground)
+            #if os(watchOS)
+            Color.gray
+            #elseif canImport(UIKit)
+            Color(UIColor.systemGray)
             #elseif canImport(AppKit)
             Color(NSColor.systemGray)
             #else
