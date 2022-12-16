@@ -16,13 +16,13 @@ internal final class SuperViewCallbackUIView: UIView {
     @usableFromInline
     var callBack:((UIView?) -> ())?
     
-    @usableFromInline
+    @inlinable
     override func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         callBack?(newSuperview)
     }
     
-    @usableFromInline
+    @inlinable
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
         callBack?(superview)

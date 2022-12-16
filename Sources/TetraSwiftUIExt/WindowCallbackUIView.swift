@@ -16,13 +16,13 @@ final class WindowCallbackUIView: UIView {
     @usableFromInline
     var callBack:((UIWindowScene?) -> ())? = nil
     
-    @usableFromInline
+    @inlinable
     override func didMoveToWindow() {
         super.didMoveToWindow()
         callBack?(window?.windowScene)
     }
     
-    @usableFromInline
+    @inlinable
     override func willMove(toWindow newWindow: UIWindow?) {
         super.willMove(toWindow: newWindow)
         callBack?(newWindow?.windowScene)

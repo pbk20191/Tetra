@@ -11,28 +11,13 @@ import Combine
 public extension Publisher {
     
     @inlinable
-    func mapTask<T:Sendable>(maxTaskCount:Subscribers.Demand = .max(1), transform: @escaping @Sendable (Output) async -> T) -> AnyPublisher<T,Never> where Failure == Never, Output:Sendable {
-        flatMap(maxPublishers: maxTaskCount){ output in
-            let task = Task { await transform(output) }
-            return Future<T,Never> { promise in
-                Task { await promise(task.result) }
-            }
-            .handleEvents(receiveCompletion: { _ in task.cancel() }, receiveCancel: task.cancel)
-        }
-        .eraseToAnyPublisher()
+    func mapTask<T:Sendable>(transform: @escaping @Sendable (Output) async -> T) -> Publishers.MapTask<Self,T> where Output:Sendable {
+        Publishers.MapTask(upstream: self, transform: transform)
     }
     
     @inlinable
-    func tryMapTask<T:Sendable>(maxTaskCount:Subscribers.Demand = .max(1), transform: @escaping @Sendable (Output) async throws -> T) -> AnyPublisher<T,Error> where Output:Sendable {
-        mapError{ $0 }
-            .flatMap(maxPublishers: maxTaskCount){ output in
-                let task = Task { try await transform(output) }
-                return Future<T,Error> { promise in
-                    Task { await promise(task.result) }
-                }
-                .handleEvents(receiveCompletion: { _ in task.cancel() }, receiveCancel: task.cancel)
-            }
-            .eraseToAnyPublisher()
+    func tryMapTask<T:Sendable>(transform: @escaping @Sendable (Output) async throws -> T) -> Publishers.TryMapTask<Self,T> where Output:Sendable {
+        Publishers.TryMapTask(upstream: self, transform: transform)
     }
     
     @available(iOS, deprecated: 15.0, renamed: "values")
@@ -42,14 +27,13 @@ public extension Publisher {
     @available(watchOS, deprecated: 8.0, renamed: "values")
     var sequence:AnyAsyncTypeSequence<Output> {
         if #available(iOS 15.0, macOS 12.0, macCatalyst 15.0, tvOS 15.0, watchOS 8.0, *) {
-            return AnyAsyncTypeSequence(source: WrappedAsyncThrowingPublisher(source: values))
+            return AnyAsyncTypeSequence(base: values)
         } else {
-            return AnyAsyncTypeSequence(source: CompatAsyncThrowingPublisher(publisher: self))
+            return AnyAsyncTypeSequence(base: CompatAsyncThrowingPublisher(publisher: self))
         }
     }
     
 }
-
 
 public extension Publisher where Failure == Never {
     
@@ -69,359 +53,384 @@ public extension Publisher where Failure == Never {
 }
 
 
-@available(iOS 15.0, macOS 12.0, macCatalyst 15.0, tvOS 15.0, watchOS 8.0, *)
-struct WrappedAsyncPublisher<P:Publisher>: AsyncSequence, AsyncTypedSequence where P.Failure == Never {
+extension Publishers {
 
-    typealias AsyncIterator = Iterator
-    typealias Element = P.Output
-    
-    var source:AsyncPublisher<P>
-    
-    func makeAsyncIterator() -> Iterator {
-        .init(iterator: source.makeAsyncIterator())
-    }
-    
-    struct Iterator: AsyncIteratorProtocol, AsyncTypedIteratorProtocol {
-        
-        private var iterator:AsyncPublisher<P>.AsyncIterator
-        
-        mutating func next() async -> Element? {
-            await iterator.next()
+    /**
+     
+        underlying task will receive task cancellation signal if the subscription is cancelled
+     
+     */
+    public struct MapTask<Upstream:Publisher, Output:Sendable>: Publisher where Upstream.Output:Sendable {
+
+        public typealias Output = Output
+        public typealias Failure = Upstream.Failure
+
+        public let upstream:Upstream
+        public let transform:@Sendable (Upstream.Output) async -> Output
+
+        public init(upstream: Upstream, transform: @escaping @Sendable (Upstream.Output) async -> Output) {
+            self.upstream = upstream
+            self.transform = transform
+        }
+
+        public func receive<S>(subscriber: S) where S : Subscriber, Upstream.Failure == S.Failure, Output == S.Input {
+            upstream.flatMap(maxPublishers: .max(1)) { input in
+                let task = Task { await transform(input) }
+                return Future<Output,Failure>{ promise in
+                    Task { await promise(.success(task.value)) }
+                }.handleEvents(receiveCancel: task.cancel)
+            }
+            .subscribe(subscriber)
+            
         }
         
-        internal init(iterator: AsyncPublisher<P>.AsyncIterator) {
-            self.iterator = iterator
+    }
+    
+    /**
+     
+        underlying task will receive task cancellation signal if the subscription is cancelled
+     
+     */
+    public struct TryMapTask<Upstream:Publisher, Output:Sendable>: Publisher where Upstream.Output:Sendable {
+
+        public typealias Output = Output
+        public typealias Failure = Error
+
+        public let upstream:Upstream
+        public let transform:@Sendable (Upstream.Output) async throws -> Output
+
+        public init(upstream: Upstream, transform: @escaping @Sendable (Upstream.Output) async throws -> Output) {
+            self.upstream = upstream
+            self.transform = transform
         }
         
+        public func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
+            upstream.mapError{ $0 as any Error }.flatMap(maxPublishers: .max(1)) { input in
+                let task = Task { try await transform(input) }
+                return Future<Output,Error> { promise in
+                    Task.detached { await promise(task.result) }
+                }
+                .handleEvents(receiveCancel: task.cancel)
+            }
+            .subscribe(subscriber)
+            
+        }
+
     }
+
 }
 
-@available(iOS 15.0, macOS 12.0, macCatalyst 15.0, tvOS 15.0, watchOS 8.0, *)
-struct WrappedAsyncThrowingPublisher<P:Publisher>: AsyncTypedSequence {
-
-    typealias AsyncIterator = Iterator
-    typealias Element = P.Output
-
-    var source:AsyncThrowingPublisher<P>
-    
-    func makeAsyncIterator() -> AsyncIterator {
-        .init(iterator: source.makeAsyncIterator())
-    }
-    
-    struct Iterator: AsyncIteratorProtocol, AsyncTypedIteratorProtocol {
-        
-        private var iterator:AsyncThrowingPublisher<P>.Iterator
-        
-        mutating func next() async throws -> Element? {
-            try await iterator.next()
-        }
-        
-        internal init(iterator: AsyncThrowingPublisher<P>.AsyncIterator) {
-            self.iterator = iterator
-        }
-    }
-    
-}
+extension Publishers.MapTask: Sendable where Upstream: Sendable {}
+extension Publishers.TryMapTask: Sendable where Upstream: Sendable {}
 
 
-public struct WrappedAsyncSequence<Element>:AsyncSequence {
-    public func makeAsyncIterator() -> Iterator {
-        Iterator(base: (source.makeAsyncIterator() as any AsyncIteratorProtocol))
-    }
+extension Combine.Future where Failure == Never {
     
-    
-    public typealias AsyncIterator = Iterator
-    private let source:any AsyncSequence
-    
-    internal init<T:AsyncSequence>(base:T) where T.Element == Element {
-        source = base
-    }
-    
-    public struct Iterator: AsyncIteratorProtocol {
-        private var iterator:any AsyncIteratorProtocol
-        
-        mutating public func next() async -> Element? {
-            do {
-                let value = try await iterator.next()
-                switch value {
-                case .none:
-                    return nil
-                case .some(let wrapped as Element):
-                    return wrapped
-                case .some(let wrapped):
-                    let msg = "Expected \(Element.self) but found \(Swift.type(of: wrapped)) instead"
-                    print(msg)
-                    assertionFailure(msg)
-                    return nil
+    @available(iOS, deprecated: 15.0, renamed: "value")
+    @available(iOS, deprecated: 15.0, renamed: "value")
+    @available(iOS, deprecated: 15.0, renamed: "value")
+    @available(watchOS, deprecated: 8, renamed: "value")
+    @available(macOS, deprecated: 12.0, renamed: "value")
+    final var compatValue: Output {
+        get async {
+            if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *) {
+                return await value
+            } else {
+                return await withCheckedContinuation{ continuation in
+                    self.subscribe(AnySubscriber(
+                        receiveSubscription: {
+                            $0.request(.max(1))
+                        },
+                        receiveValue: {
+                            continuation.resume(returning: $0)
+                            return .none
+                        }
+                    ))
                 }
-            } catch {
-                print(error)
-                assertionFailure(error.localizedDescription)
-                return nil
             }
         }
-        
-        internal init(base:some AsyncIteratorProtocol) {
-            iterator = base
-        }
-    }
-}
-
-public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure == Never {
-
-    public typealias AsyncIterator = Iterator
-    public typealias Element = P.Output
-    
-    public var publisher:P
-    
-    public func makeAsyncIterator() -> AsyncIterator {
-        Iterator(source: publisher)
-    }
-    
-    public struct Iterator: AsyncIteratorProtocol, AsyncTypedIteratorProtocol {
-        
-        public typealias Element = P.Output
-        
-        let source:P
-        private let inner:AsyncSubscriber
-        private var reference:AnyCancellable?
-        
-        public mutating func next() async -> P.Output? {
-            await withUnsafeContinuation{ continuation in
-                if reference == nil {
-                    reference = AnyCancellable(inner)
-                    source.subscribe(inner)
-                }
-                continuation.resume()
-            }
-            return await withTaskCancellationHandler {
-                await inner.awaitNext()
-            } onCancel: { [reference] in
-                reference?.cancel()
-            }
-        }
-        
-        internal init(source: P) {
-            self.source = source
-            self.inner = .init()
-        }
-        
-    }
-    
-    final class AsyncSubscriber: Subscriber, CustomStringConvertible, CustomReflectable, CustomPlaygroundDisplayConvertible, Cancellable {
-        var playgroundDescription: Any { description }
-        
-        var description: String { "AsyncSubscriber<\(Input.self)>"}
-        
-        var customMirror: Mirror {
-            Mirror(self, children: [])
-        }
-        
-        typealias Input = Element
-        
-        typealias Failure = Never
-        
-        private var subscription:Subscription?
-        private let lock = NSLock()
-        private var list:[UnsafeContinuation<Element?,Never>] = []
-        
-        func receive(_ input: Element) -> Subscribers.Demand {
-            lock.withLock {
-                let output = list
-                list = []
-                return output
-            }.forEach{ $0.resume(returning: input) }
-            return .none
-        }
-        
-        func receive(completion: Subscribers.Completion<Never>) {
-            lock.withLock {
-                let captured = list
-                list = []
-                subscription = nil
-                return captured
-            }.forEach{ $0.resume(returning: nil) }
-        }
-        
-
-        func awaitNext() async -> Element? {
-            await withUnsafeContinuation { continuation in
-                let scription = lock.withLock {
-                    if let subscription {
-                        list.append(continuation)
-                        return subscription as Subscription?
-                    }
-                    return nil
-                }
-                if let scription {
-                    scription.request(.max(1))
-                } else {
-                    continuation.resume(returning: nil)
-                }
-             }
-        }
-        
-        
-        func receive(subscription: Subscription) {
-            lock.withLock {
-                self.subscription = subscription
-            }
-        }
-        
-        
-        func cancel() {
-            let (continuations, resource) = lock.withLock {
-                let captured = (list, subscription)
-                list = []
-                subscription = nil
-                return (captured)
-            }
-            continuations.forEach{ $0.resume(returning: nil) }
-            resource?.cancel()
-        }
-        
-        internal init() {}
     }
     
 }
 
-public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence, AsyncTypedSequence {
 
-    public typealias AsyncIterator = Iterator
-    public typealias Element = P.Output
+extension Combine.Future {
     
-    public var publisher:P
-    
-    public func makeAsyncIterator() -> AsyncIterator {
-        Iterator(source: publisher)
+    @available(iOS, deprecated: 15.0, renamed: "value")
+    @available(iOS, deprecated: 15.0, renamed: "value")
+    @available(iOS, deprecated: 15.0, renamed: "value")
+    @available(watchOS, deprecated: 8, renamed: "value")
+    @available(macOS, deprecated: 12.0, renamed: "value")
+    final var compatValue: Output {
+        get async throws {
+            if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *) {
+                return try await value
+            } else {
+                return try await withCheckedThrowingContinuation{ continuation in
+                    self.subscribe(AnySubscriber(
+                        receiveSubscription: {
+                            $0.request(.max(1))
+                        },
+                        receiveValue: {
+                            continuation.resume(returning: $0)
+                            return .none
+                        },
+                        receiveCompletion: {
+                            if case let .failure(error) = $0 {
+                                continuation.resume(throwing: error)
+                            }
+                        }
+                    ))
+                }
+            }
+        }
     }
     
-    public struct Iterator: AsyncIteratorProtocol, AsyncTypedIteratorProtocol {
-        
-        public typealias Element = P.Output
-        
-        let source:P
-        private let inner:AsyncThrowingSubscriber
-        private var reference:AnyCancellable? = nil
-        
-        public mutating func next() async throws -> P.Output? {
-            await withUnsafeContinuation{ continuation in
-                if reference == nil {
-                    reference = AnyCancellable(inner)
-                    source.subscribe(inner)
-                }
-                continuation.resume()
-            }
-            return try await withTaskCancellationHandler {
-                try await inner.awaitNext()
-            } onCancel: { [reference] in
-                reference?.cancel()
-            }
+}
 
-//            if Task.isCancelled {
-//                subscriber = nil
-//                return nil
-//            } else if let subscriber {
-//                return try await subscriber.awaitNext()
-//            } else {
-//                let subscriber = AsyncThrowingSubscriber()
-//                source.subscribe(subscriber)
-//                self.subscriber = subscriber
-//                return try await subscriber.awaitNext()
+//extension Publishers.MapTask {
+//
+//    private final class Inner<Downstream: Subscriber>
+//        : Subscriber,
+//          Subscription,
+//          CustomStringConvertible,
+//          CustomReflectable,
+//          CustomPlaygroundDisplayConvertible
+//    where Downstream.Input == Output, Downstream.Failure == Upstream.Failure, Output: Sendable, Downstream.Input : Sendable
+//    {
+//        // NOTE: This class has been audited for thread-safety
+//        typealias Input = Upstream.Output
+//
+//        typealias Failure = Upstream.Failure
+//
+//        private let downstream: Downstream
+//
+//        private let mapTask: @Sendable (Input) async -> Output
+//
+//        private var status = SubscriptionStatus.awaitingSubscription
+//        private var tasks:Set<Task<Void,Never>> = []
+//        private let lock = NSLock()
+//        private var closed = false
+//
+//        fileprivate init(downstream: Downstream,
+//                         mapTask: @Sendable @escaping (Input) async -> Output) {
+//            self.downstream = downstream
+//            self.mapTask = mapTask
+//        }
+//
+//
+//        func receive(subscription: Subscription) {
+//            let canPerfom = lock.withLock {
+//                guard case .awaitingSubscription = status else {
+//                    return false
+//                }
+//                status = .subscribed(subscription)
+//                return true
 //            }
-        }
-        
-        internal init(source: P) {
-            self.source = source
-            self.inner = .init()
-        }
-        
-    }
-    
-    final class AsyncThrowingSubscriber: Subscriber, CustomStringConvertible, CustomReflectable, CustomPlaygroundDisplayConvertible, Cancellable {
-        
-        typealias Input = Element
-        
-        typealias Failure = P.Failure
-        
-        private var subscription:Subscription?
-        
-        private let lock = NSLock()
-        private var list:[UnsafeContinuation<Element?,Error>] = []
-        
-        
-        func receive(_ input: Element) -> Subscribers.Demand {
-            lock.withLock {
-                let captured = list
-                list = []
-                return captured
-            }.forEach{ $0.resume(returning: input) }
-            return .none
-        }
-        
-        func receive(completion: Subscribers.Completion<Failure>) {
-            lock.withLock {
-                let captured = list
-                list = []
-                subscription = nil
-                return captured
-            }.forEach{
-                switch completion {
-                case .finished:
-                    $0.resume(returning: nil)
-                case .failure(let failure):
-                    $0.resume(throwing: failure)
-                }
-            }
-        }
-        
-
-        func awaitNext() async throws -> Element? {
-            return try await withUnsafeThrowingContinuation { continuation in
-                let provider = lock.withLock {
-                    if let subscription {
-                        list.append(continuation)
-                        return subscription as Subscription?
-                    } else {
-                        return nil
-                    }
-                }
-                if let provider {
-                    provider.request(.max(1))
-                } else {
-                    continuation.resume(returning: nil)
-                }
-             }
-        }
-        
-        
-        func receive(subscription: Subscription) {
-            lock.withLock {
-                self.subscription = subscription
-            }
-        }
-        
-        
-        func cancel() {
-            let (continuations, cancellable) = lock.withLock {
-                let captured = (list, subscription)
-                list = []
-                subscription = nil
-                return captured
-            }
-            continuations.forEach{ $0.resume(returning: nil) }
-            cancellable?.cancel()
-        }
-        
-        internal init() {}
-        
-        var playgroundDescription: Any { description }
-        
-        var description: String { "AsyncThrowingSubscriber<\(Input.self),\(Failure.self)>"}
-        
-        var customMirror: Mirror {
-            Mirror(self, children: [])
-        }
-    }
-    
-}
+//            guard canPerfom else {
+//                subscription.cancel()
+//                return
+//            }
+//            downstream.receive(subscription: self)
+//        }
+//
+//        nonisolated
+//        func receive(_ input: Input) -> Subscribers.Demand {
+//            let newTask = Task {
+//                let hash = withUnsafeCurrentTask { $0?.hashValue ?? 0}
+//                Swift.print(DispatchTime.now(), hash, "start")
+//                let value = await mapTask(input)
+//                Swift.print(DispatchTime.now(), hash, "end")
+//                guard !Task.isCancelled else { return }
+//                let demand = downstream.receive(value)
+//                let subscriptionState = lock.withLock { status }
+//                if case let .subscribed(subscription) = subscriptionState, demand > .none {
+//                    subscription.request(demand)
+//                }
+//            }
+//            lock.withLock {
+//                tasks.insert(newTask)
+//                return
+//            }
+//            return .none
+//        }
+//
+//        func receive(completion: Subscribers.Completion<Failure>) {
+//            let canPerfom = lock.withLock {
+//                guard case .subscribed = status, !closed else {
+//                    return false
+//                }
+//                closed = true
+//                return true
+//            }
+//            if canPerfom {
+//                let task = Task {
+//                    let taskSnapShot = lock.withLock{ tasks }
+//                    await withTaskGroup(of: Void.self) { group in
+//                        taskSnapShot.forEach{ task in
+//                            group.addTask {
+//                                await withTaskCancellationHandler {
+//                                    await task.value
+//                                } onCancel: {
+//                                    task.cancel()
+//                                }
+//
+//                            }
+//                        }
+//                        for await _ in group {}
+//                    }
+//                    guard !Task.isCancelled else { return }
+//                    downstream.receive(completion: completion)
+//                }
+//                lock.withLock {
+//                    tasks.insert(task)
+//                    return
+//                }
+//            }
+//        }
+//
+//        func request(_ demand: Subscribers.Demand) {
+//            lock.withLock {
+//                status.subscription
+//            }?.request(demand)
+//        }
+//
+//        func cancel() {
+//            let (pendingTasks, subscription) = lock.withLock {
+//                let copied = (tasks, status.subscription)
+//                status = .terminal
+//                tasks = []
+//                return copied
+//            }
+//            subscription?.cancel()
+//            pendingTasks.forEach{ $0.cancel() }
+//        }
+//
+//        var description: String { return "MapTask" }
+//
+//        var customMirror: Mirror {
+//            return Mirror(self, children: EmptyCollection(), displayStyle: .class)
+//        }
+//
+//        var playgroundDescription: Any { return description }
+//    }
+//}
+//
+//
+//extension Publishers.TryMapTask {
+//
+//    private final class Inner<Downstream: Subscriber>
+//        : Subscriber,
+//          Subscription,
+//          CustomStringConvertible,
+//          CustomReflectable,
+//          CustomPlaygroundDisplayConvertible
+//    where Downstream.Input == Output, Downstream.Failure == Error, Output: Sendable, Downstream.Input : Sendable
+//    {
+//        // NOTE: This class has been audited for thread-safety
+//        typealias Input = Upstream.Output
+//
+//        typealias Failure = Upstream.Failure
+//
+//        private let downstream: Downstream
+//
+//        private let tryMapTask: @Sendable (Input) async throws -> Output
+//
+//        private var status = SubscriptionStatus.awaitingSubscription
+//        private var tasks:Set<Task<Void,Never>> = []
+//        private let lock = NSLock()
+//
+//        fileprivate init(downstream: Downstream,
+//                         tryMapTask: @Sendable @escaping (Input) async throws -> Output) {
+//            self.downstream = downstream
+//            self.tryMapTask = tryMapTask
+//        }
+//
+//
+//        func receive(subscription: Subscription) {
+//            let canPerfom = lock.withLock {
+//                guard case .awaitingSubscription = status else {
+//                    return false
+//                }
+//                status = .subscribed(subscription)
+//                return true
+//            }
+//            guard canPerfom else {
+//                subscription.cancel()
+//                return
+//            }
+//            downstream.receive(subscription: self)
+//        }
+//
+//        nonisolated
+//        func receive(_ input: Input) -> Subscribers.Demand {
+//            let newTask = Task {
+//                do {
+//                    let value = try await tryMapTask(input)
+//                    guard !Task.isCancelled else { return }
+//                    let subscriptionState = lock.withLock { status }
+//
+//                    if case let .subscribed(subscription) = subscriptionState {
+//                        subscription.request(downstream.receive(value))
+//                    }
+//                } catch {
+//                    lock.withLock {
+//                        let state = status.subscription
+//                        status = .terminal
+//                        return state
+//                    }?.cancel()
+//                    downstream.receive(completion: .failure(error))
+//                }
+//            }
+//            lock.withLock {
+//                tasks.insert(newTask)
+//                return
+//            }
+//            return .none
+//        }
+//
+//        func receive(completion: Subscribers.Completion<Failure>) {
+//            let canPerfom = lock.withLock {
+//                guard case .subscribed = status else {
+//                    return false
+//                }
+//                status = .terminal
+//                return true
+//            }
+//            if canPerfom {
+//                switch completion {
+//                case .finished:
+//                    downstream.receive(completion: .finished)
+//                case .failure(let failure):
+//                    downstream.receive(completion: .failure(failure))
+//                }
+//            }
+//        }
+//
+//        func request(_ demand: Subscribers.Demand) {
+//            lock.withLock {
+//                status.subscription
+//            }?.request(demand)
+//        }
+//
+//        func cancel() {
+//            let (pendingTasks, subscription) = lock.withLock {
+//                let copied = (tasks, status.subscription)
+//                status = .terminal
+//                tasks = []
+//                return copied
+//            }
+//            subscription?.cancel()
+//            pendingTasks.forEach{ $0.cancel() }
+//        }
+//
+//        var description: String { return "TryMapTask" }
+//
+//        var customMirror: Mirror {
+//            return Mirror(self, children: EmptyCollection(), displayStyle: .class)
+//        }
+//
+//        var playgroundDescription: Any { return description }
+//    }
+//
+//}

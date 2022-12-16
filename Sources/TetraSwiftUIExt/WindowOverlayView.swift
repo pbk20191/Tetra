@@ -14,11 +14,11 @@ import UIKit
 @usableFromInline
 final class OverlayWindow: UIWindow {
     
-    @usableFromInline
+    @inlinable
     nonisolated
     override var canBecomeKey: Bool { false }
     
-    @usableFromInline
+    @inlinable
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         guard let targetView = super.hitTest(point, with: event) else { return nil }
         return rootViewController?.view === targetView ? nil : targetView
@@ -99,11 +99,6 @@ struct OverlayWindowHost<Content>: UIViewRepresentable where Content: View {
         }
     }
     
-    @usableFromInline
-    static func dismantleUIView(_ uiView: UIViewType, coordinator: OverlayWindow) {
-        
-    }
-    
 }
 
 
@@ -114,7 +109,7 @@ struct EnvironmentValueModifier: ViewModifier {
     @usableFromInline
     var environment:EnvironmentValues
     
-    @usableFromInline
+    @inlinable
     func body(content: Content) -> some View {
         if #available(iOS 14.0, tvOS 14.0, *) {
             content

@@ -9,56 +9,41 @@ import Foundation
 import Combine
 
 public extension AsyncSequence {
+
+    @inlinable
+    var publisher:AsyncSequencePublisher<Self> {
+        AsyncSequencePublisher(source: self)
+    }
+    
+}
+
+public struct AsyncSequencePublisher<Source:AsyncSequence>: Publisher {
+
+    public typealias Output = Source.Element
+    public typealias Failure = Error
+    
+    public let source:Source
     
     @inlinable
-    var omittedPublisher:AnyPublisher<Element,Never> {
-        Just(self).flatMap(maxPublishers: .max(1)) { source in
-            let subject = PassthroughSubject<Element,Never>()
+    public init(source: Source) {
+        self.source = source
+    }
+    
+    public func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Source.Element == S.Input {
+        Just(source).setFailureType(to: Error.self).flatMap(maxPublishers: .max(1)) { sequence in
+            let subject = PassthroughSubject<Output,Error>()
             let task = Task {
-                var iterator = source.makeAsyncIterator()
-                while let i = try? await iterator.next() {
-                    subject.send(i)
+                do {
+                    for try await i in sequence {
+                        subject.send(i)
+                    }
+                    subject.send(completion: .finished)
+                } catch {
+                    subject.send(completion: .failure(error))
                 }
-                subject.send(completion: .finished)
             }
             return subject.handleEvents(receiveCancel: task.cancel)
-        }.eraseToAnyPublisher()
+        }.subscribe(subscriber)
     }
     
-    @inlinable
-    var publisher:AnyPublisher<Element,Error> {
-        if #available(iOS 14.0, tvOS 14.0, macCatalyst 14.0, watchOS 7.0, macOS 11.0, *) {
-            return Just(self).flatMap(maxPublishers: .max(1)) { source in
-                let subject = PassthroughSubject<Element,Error>()
-                let task = Task {
-                    do {
-                        for try await i in source {
-                            subject.send(i)
-                        }
-                        subject.send(completion: .finished)
-                    } catch {
-                        subject.send(completion: .failure(error))
-                    }
-                }
-                return subject.handleEvents(receiveCancel: task.cancel)
-            }.eraseToAnyPublisher()
-        } else {
-            return Just(self).setFailureType(to: Error.self).flatMap(maxPublishers: .max(1)) { source in
-                let subject = PassthroughSubject<Element,Error>()
-                let task = Task {
-                    do {
-                        for try await i in source {
-                            subject.send(i)
-                        }
-                        subject.send(completion: .finished)
-                    } catch {
-                        subject.send(completion: .failure(error))
-                    }
-                }
-                    
-                return subject.handleEvents(receiveCancel: task.cancel)
-            }.eraseToAnyPublisher()
-        }
-
-    }
 }

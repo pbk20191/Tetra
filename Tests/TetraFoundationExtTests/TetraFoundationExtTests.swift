@@ -46,7 +46,8 @@ final class TetraFoundationExtTests: XCTestCase {
             }
             lock.precondition(.notOwner)
         } else {
-            let lock = UnfairLock()
+            
+            let lock = ManagedUnfairLock()
             lock.withLock {
                 lock.precondition(.owner)
             }
@@ -98,10 +99,10 @@ final class TetraFoundationExtTests: XCTestCase {
 //        }.store(in: &someBag)
 ////        AnyCancellable(dispatchPublisher.connect()).store(in: &someBag)
 //        try await Task.sleep(nanoseconds: 1000000000)
-//        
+//
 //        try await Task.sleep(nanoseconds: 1000)
 //    }
-//    
+//
 
     
 }

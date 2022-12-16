@@ -13,149 +13,154 @@ import Combine
     TimePublisher which emits `DisptachTime` using `DispatchSourceTimer`
  
  */
-public final class DispatchTimePublisher: ConnectablePublisher {
+public struct DispatchTimePublisher: Publisher {
     
     public typealias Output = DispatchTime
     public typealias Failure = Never
-
-    public var interval:TimeInterval { subscription.interval }
-    public var leeway:DispatchTimeInterval { subscription.leeway }
-    public var qos:DispatchQoS { subscription.qos }
-    public var workFlags: DispatchWorkItemFlags { subscription.workFlags }
-    private let subscription:DispatchTimeSubscription
     
+    var interval: DispatchTimeInterval
+    var leeway:DispatchTimeInterval = .nanoseconds(0)
+    var timerFlags: DispatchSource.TimerFlags = []
+    var qos:DispatchQoS = .unspecified
+    var workFlags: DispatchWorkItemFlags = []
+    var queue: DispatchQueue? = nil
     
     public init(
-        interval: TimeInterval,
-        leeway:DispatchTimeInterval = .nanoseconds(0),
-        flags: DispatchSource.TimerFlags = [],
-        qos:DispatchQoS = .unspecified,
+        interval: DispatchTimeInterval,
+        leeway: DispatchTimeInterval = .nanoseconds(0),
+        timerFlags: DispatchSource.TimerFlags = [],
+        qos: DispatchQoS = .unspecified,
         workFlags: DispatchWorkItemFlags = [],
         queue: DispatchQueue? = nil
     ) {
-        self.subscription = DispatchTimeSubscription(
+        self.interval = interval
+        self.leeway = leeway
+        self.timerFlags = timerFlags
+        self.qos = qos
+        self.workFlags = workFlags
+        self.queue = queue
+    }
+    
+    public func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, DispatchTime == S.Input {
+        Inner(
             interval: interval,
             leeway: leeway,
             qos: qos,
             workFlags: workFlags,
-            flags: flags,
+            timerFlags: timerFlags,
             queue: queue
         )
-    }
-    
-    public func connect() -> Cancellable {
-        subscription.schedule()
-        return subscription
-    }
-    
-    public func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, DispatchTime == S.Input {
-        subscription.addSubscriber(subscriber)
+        .attach(subscriber)
     }
     
 }
 
-final internal class DispatchTimeSubscription: Subscription, CustomStringConvertible, CustomReflectable, CustomPlaygroundDisplayConvertible {
+public extension DispatchSource {
     
-    let leeway:DispatchTimeInterval
-    let interval:TimeInterval
-    let qos:DispatchQoS
-    let workFlags:DispatchWorkItemFlags
-    private let lock = UnfairLock()
-    private var request = Subscribers.Demand.none
-    private var subscribers: [AnySubscriber<DispatchTime,Never>] = []
-    private let timerSource:DispatchSourceTimer
-
-    init(
-        interval: TimeInterval,
-        leeway: DispatchTimeInterval,
-        qos: DispatchQoS,
-        workFlags: DispatchWorkItemFlags,
-        flags: DispatchSource.TimerFlags,
-        queue: DispatchQueue?
-    ) {
-        self.leeway = leeway
-        self.interval = interval
-        self.qos = qos
-        self.workFlags = workFlags
-        self.timerSource = DispatchSource.makeTimerSource(flags: flags, queue: queue)
-    }
-    
-    func request(_ demand: Subscribers.Demand) {
-        lock.withLock {
-            request += demand
+    static func timePublisher(
+        interval: DispatchTimeInterval,
+        leeway:DispatchTimeInterval = .nanoseconds(0),
+        timerFlags: DispatchSource.TimerFlags = [],
+        qos:DispatchQoS = .unspecified,
+        workFlags: DispatchWorkItemFlags = [],
+        queue: DispatchQueue? = nil) -> Publishers.MakeConnectable<DispatchTimePublisher> {
+            DispatchTimePublisher(
+                interval: interval,
+                leeway: leeway,
+                timerFlags: timerFlags,
+                qos: qos,
+                workFlags: workFlags,
+                queue: queue
+            ).makeConnectable()
         }
-    }
-    
-    func schedule() {
-        guard !timerSource.isCancelled else { return }
-        timerSource.schedule(deadline: .now(), repeating: interval, leeway: leeway)
-        timerSource.setEventHandler(qos: qos, flags: workFlags) { [unowned self] in
-            fire()
-        }
-        timerSource.activate()
-    }
-    
-    private func fire() {
-        guard !self.timerSource.isCancelled else { return }
-        let time = DispatchTime.now()
-//        var isEmpty = false
-//        let snapShot = lock.withLock {
-//            if (request > .none) {
-//                request -= 1
-//            } else {
-//                isEmpty = true
-//            }
-//            return subscribers
-//        }
-//        guard !isEmpty else { return }
-//
-//        let extra = snapShot.map{ $0.receive(time) }.reduce(.none, +)
-//        guard extra > .none else { return }
-//        lock.withLock {
-//            request += extra
-//        }
+}
 
-        lock.withLock {
-            if request > .none {
-                request -= 1
-            } else {
-                return
+extension DispatchTimePublisher {
+    
+    private final class Inner<S:Subscriber>:Subscription, CustomStringConvertible, CustomPlaygroundDisplayConvertible where S.Input == DispatchTime, S.Failure == Never {
+        
+        var description: String { "DispatchTimer" }
+        
+        var playgroundDescription: Any { description }
+        
+        private let lock = ManagedUnfairLock<State>(uncheckedState: .init())
+        private let source:DispatchSourceTimer
+        
+        struct State {
+            
+            var request = Subscribers.Demand.none
+            var started = false
+            var subscriber:S? = nil
+        }
+        
+        fileprivate init(
+            interval: DispatchTimeInterval,
+            leeway: DispatchTimeInterval,
+            qos: DispatchQoS,
+            workFlags: DispatchWorkItemFlags,
+            timerFlags: DispatchSource.TimerFlags,
+            queue: DispatchQueue?
+        ) {
+            self.source = DispatchSource.makeTimerSource(flags: timerFlags, queue: queue)
+            source.schedule(deadline: .now(), repeating: interval, leeway: leeway)
+            source.setEventHandler(qos: qos, flags: workFlags) { [weak self] in
+                self?.fire(shouldFinish: interval == .never)
             }
-            let extra = subscribers.map{ $0.receive(time) }.reduce(.none, +)
-            request += extra
+        }
+        
+        func cancel() {
+            lock.withLock {
+                $0.request = .none
+                $0.subscriber = nil
+            }
+            source.cancel()
+            source.setEventHandler(handler: nil)
+        }
+        
+        func request(_ demand: Subscribers.Demand) {
+            lock.withLock{
+                $0.request += demand
+                if $0.request > 0 && !$0.started {
+                    $0.started = true
+                    return source as DispatchSourceTimer?
+                } else {
+                    return nil
+                }
+            }?.activate()
+        }
+        
+        func attach(_ subscriber:S) {
+            lock.withLock {
+                $0.subscriber = subscriber
+            }
+            subscriber.receive(subscription: self)
+        }
+        
+        func fire(shouldFinish:Bool = false) {
+            let time = DispatchTime.now()
+            let sub = lock.withLock{
+                if $0.request > 0 {
+                    $0.request -= 1
+                } else {
+                    return nil as S?
+                }
+                return $0.subscriber
+            }
+            guard let sub else { return }
+            let demand = sub.receive(time)
+            if shouldFinish {
+                sub.receive(completion: .finished)
+                lock.withLock { state in
+                    state.subscriber = nil
+                    state.request = .none
+                }
+                source.setEventHandler(handler: nil)
+            } else if demand > .none {
+                lock.withLock{
+                    $0.request += demand
+                }
+            }
         }
     }
     
-    func cancel() {
-        timerSource.cancel()
-        lock.withLock {
-            subscribers = []
-            request = .none
-        }
-    }
-    
-    
-    func addSubscriber<S:Subscriber>(_ sub: S) where S.Failure == Never, S.Input == DispatchTime {
-        lock.withLock {
-            subscribers.append(.init(sub))
-        }
-        sub.receive(subscription: self)
-    }
-    
-    var description: String { return "DispatchSourceTimer" }
-    var playgroundDescription: Any { return description }
-    var customMirror: Mirror {
-        let demand = lock.withLock {
-            return (request)
-        }
-        return Mirror(self, children: [
-            "request":demand,
-            "timerSource":timerSource
-        ])
-    }
 }
-
-
-
-
-

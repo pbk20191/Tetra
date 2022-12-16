@@ -7,6 +7,7 @@
 
 import Foundation
 import _Concurrency
+import TetraFoundationExt
 
 @available(iOS, introduced: 13.0, deprecated: 15.0, renamed: "notifications")
 @available(tvOS, introduced: 13.0, deprecated: 15.0, renamed: "notifications")
@@ -17,127 +18,103 @@ import _Concurrency
 public extension NotificationCenter {
     
     func sequence(named:Notification.Name, object:AnyObject? = nil) -> NotificationSequence {
-        NotificationSequence(center: self, name: named, object: object)
+        NotificationSequence(center: self, named: named, object: object)
     }
+    
 }
 
-
-@available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, watchOS 6.0, macOS 10.15, *)
-public struct NotificationSequence: AsyncTypedSequence {
-    public typealias Element = Notification
+public final class NotificationSequence: AsyncTypedSequence {
     
-    public func makeAsyncIterator() -> AsyncIterator {
-        AsyncIterator(center: center, name: name, object: object)
+    public typealias Element = Notification
+    public typealias AsyncIterator = Iterator
+    
+    public func makeAsyncIterator() -> Iterator {
+        Iterator(parent: self)
     }
     
-    public struct AsyncIterator: AsyncTypedIteratorProtocol {
-        
-        let center:NotificationCenter
-        let name:Notification.Name
-        let object:AnyObject?
-        
-        private var token:NotficationSuspension? = nil
-        
-        mutating public func next() async -> Notification? {
-            if let token {
-                return await token.waitNotification()
-            } else {
-                let newToken = NotficationSuspension(center: center, name: name, object: object)
-                token = newToken
-                return await newToken.waitNotification()
-            }
-        }
-        
-
+    let center:NotificationCenter
+    private let lock = ManagedUnfairLock<NotficationState>(initialState: .init())
+    
+    public struct Iterator: AsyncTypedIteratorProtocol {
         public typealias Element = Notification
         
-        init(center: NotificationCenter, name: Notification.Name, object: AnyObject?) {
-            self.center = center
-            self.name = name
-            self.object = object
-        }
+        let parent:NotificationSequence
         
-    }
-    
-    var center:NotificationCenter
-    var name:Notification.Name
-    var object:AnyObject?
-    
-    internal init(center: NotificationCenter = .default, name: Notification.Name, object: AnyObject? = nil) {
-        self.center = center
-        self.name = name
-        self.object = object
-        
-    }
-    
-}
-
-@available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, watchOS 6.0, macOS 10.15, *)
-internal final class NotficationSuspension: CustomStringConvertible, CustomReflectable, CustomPlaygroundDisplayConvertible {
-    
-    var description: String { "NotficationSuspension(center: \(center), name: \(name), object: \(String(describing: object)))" }
-    
-    var customMirror: Mirror {
-        var children:KeyValuePairs<String,Any> = [
-            "center": center,
-            "name":name
-        ]
-        if let object {
-            children = [
-                "center": center,
-                "name":name,
-                "object": object
-            ]
-        }
-        return Mirror(self, children: children)
-    }
-    
-    var playgroundDescription: Any { description }
-    
-    
-    private let lock = NSLock()
-    private var store = [UnsafeContinuation<Notification?,Never>]()
-    let center:NotificationCenter
-    let name:Notification.Name
-    let object:AnyObject?
-    
-    init(center: NotificationCenter, name: Notification.Name, object: AnyObject?) {
-        self.center = center
-        self.name = name
-        self.object = object
-        center.addObserver(self, selector: #selector(receive), name: name, object: object)
-    }
-    
-    func waitNotification() async -> Notification? {
-        guard !Task.isCancelled else { return nil }
-        return await withTaskCancellationHandler {
-            await withUnsafeContinuation { continuation in
-                lock.withLock {
-                    store.append(continuation)
-                }
+        public func next() async -> Notification? {
+            await withTaskCancellationHandler {
+                await parent.await()
+            } onCancel: {
+                parent.cancel()
             }
-        } onCancel: {
-            cancel()
         }
+        
 
+    }
+    
+    private struct NotficationState {
+        var buffer:[Notification] = []
+        var observer:Any! = nil
+        var pending:[UnsafeContinuation<Notification?,Never>] = []
+    }
+    
+    
+    init(center: NotificationCenter, named name: Notification.Name, object: AnyObject? = nil) {
+        self.center = center
+        let token = center.addObserver(forName: name, object: object, queue: nil) { [lock] notification in
+            lock.withLockUnchecked { state in
+                if state.pending.isEmpty {
+                    state.buffer.append(notification)
+                }
+                let captured = state.pending
+                state.pending = []
+                return captured
+            }.forEach{
+                $0.resume(returning: notification)
+            }
+        }
+        lock.withLock {
+            $0.observer = token
+        }
+    }
+    
+
+    deinit {
+        let (pending, observer) = lock.withLockUnchecked {
+            let continuation = $0.pending
+            $0.buffer = []
+            $0.pending = []
+            return (continuation, $0.observer)
+        }
+        if let observer {
+            center.removeObserver(observer)
+        }
+        pending.forEach{ $0.resume(returning: nil) }
     }
     
     func cancel() {
-        lock.withLock {
-            let captured = store
-            store = []
+        lock.withLock{
+            let captured = $0.pending
+            $0.pending = []
             return captured
-        }.forEach{ $0.resume(returning: nil) }
-        center.removeObserver(self, name: name, object: object)
+        }.forEach{
+            $0.resume(returning: nil)
+        }
     }
     
-    @objc
-    func receive(_ notification:Notification) {
-        lock.withLock {
-            let captured = store
-            store = []
-            return captured
-        }.forEach{ $0.resume(returning: notification) }
+    func await() async -> Notification? {
+        await withUnsafeContinuation { continuation in
+            let notification = lock.withLockUnchecked { state in
+                if state.buffer.isEmpty {
+                    state.pending.append(continuation)
+                    return nil as Notification?
+                } else {
+                    return state.buffer.removeFirst() as Notification?
+                }
+            }
+            if let notification {
+                continuation.resume(returning: notification)
+            }
+        }
     }
     
 }
