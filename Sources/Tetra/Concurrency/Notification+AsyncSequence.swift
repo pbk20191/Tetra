@@ -67,7 +67,7 @@ public final class NotificationSequence: AsyncTypedSequence {
     }
     
     
-    init(
+    public init(
         center: NotificationCenter,
         named name: Notification.Name,
         object: AnyObject? = nil

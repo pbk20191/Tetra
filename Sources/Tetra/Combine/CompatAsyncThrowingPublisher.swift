@@ -38,6 +38,10 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncTypedSequence {
         }
         
     }
+    
+    public init(publisher: P) {
+        self.publisher = publisher
+    }
 
 }
 

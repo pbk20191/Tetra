@@ -10,7 +10,7 @@ import Dispatch
 import os
 import Combine
 
-public final class RunLoopOperation: Operation, @unchecked Sendable {
+internal final class RunLoopOperation: Operation, @unchecked Sendable {
     
     private var block:(() -> ())?
     let mode:RunLoop.Mode
@@ -47,7 +47,7 @@ public final class RunLoopOperation: Operation, @unchecked Sendable {
     
 }
 
-public extension Operation {
+internal extension Operation {
     
     
     static func runLoop(

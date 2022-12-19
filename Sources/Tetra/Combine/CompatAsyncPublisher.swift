@@ -19,6 +19,10 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncTypedSequence where P.Fail
         Iterator(source: publisher)
     }
     
+    init(publisher: P) {
+        self.publisher = publisher
+    }
+    
     public struct Iterator: AsyncTypedIteratorProtocol, NonthrowingAsyncIteratorProtocol {
         
         public typealias Element = P.Output
