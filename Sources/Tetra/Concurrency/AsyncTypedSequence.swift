@@ -8,23 +8,23 @@
 import Combine
 import _Concurrency
 
-public protocol AsyncTypedSequence<Element>: AsyncSequence where AsyncIterator: AsyncTypedIteratorProtocol {}
+@usableFromInline
+internal protocol AsyncTypedIteratorProtocol<Element>:AsyncIteratorProtocol {}
 
-public protocol AsyncTypedIteratorProtocol<Element>:AsyncIteratorProtocol {}
-
-internal protocol NonthrowingAsyncIteratorProtocol<Element>: AsyncTypedIteratorProtocol {
+@usableFromInline
+internal protocol NonthrowingAsyncIteratorProtocol<Element>: AsyncIteratorProtocol {
     
     mutating func next() async -> Element?
     
 }
 
-public struct AnyAsyncTypeSequence<Element>: AsyncTypedSequence {
+public struct AnyAsyncTypeSequence<Element>: AsyncSequence {
     
     private let builder:@Sendable () -> AsyncIterator
     
     public typealias AsyncIterator = Iterator
     
-    internal init<T:AsyncTypedSequence>(base:T) where T.Element == Element {
+    internal init<T:AsyncSequence>(base:T) where T.Element == Element, T.AsyncIterator : AsyncTypedIteratorProtocol {
         builder = { [base] in Iterator(base: base.makeAsyncIterator()) }
     }
     
@@ -47,7 +47,7 @@ public struct AnyAsyncTypeSequence<Element>: AsyncTypedSequence {
     }
 }
 
-public struct WrappedAsyncSequence<Element>:AsyncTypedSequence {
+public struct WrappedAsyncSequence<Element>:AsyncSequence {
     
     public func makeAsyncIterator() -> Iterator {
         builder()
@@ -56,13 +56,13 @@ public struct WrappedAsyncSequence<Element>:AsyncTypedSequence {
     public typealias AsyncIterator = Iterator
     private let builder: @Sendable () -> AsyncIterator
     
-    internal init<T:AsyncTypedSequence>(base:T) where T.Element == Element, T.AsyncIterator: NonthrowingAsyncIteratorProtocol {
+    internal init<T:AsyncSequence>(base:T) where T.Element == Element, T.AsyncIterator: NonthrowingAsyncIteratorProtocol {
         builder = { [base] in
             Iterator(base: base.makeAsyncIterator())
         }
     }
     
-    public struct Iterator: AsyncTypedIteratorProtocol {
+    public struct Iterator: AsyncIteratorProtocol {
         
         private var iterator:any NonthrowingAsyncIteratorProtocol<Element>
         
@@ -78,16 +78,7 @@ public struct WrappedAsyncSequence<Element>:AsyncTypedSequence {
 
 
 @available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *)
-extension AsyncThrowingPublisher: AsyncTypedSequence {}
-
-@available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *)
 extension AsyncThrowingPublisher.Iterator: AsyncTypedIteratorProtocol {}
-
-@available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *)
-extension AsyncPublisher: AsyncTypedSequence {}
-
-@available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *)
-extension AsyncPublisher.Iterator: AsyncTypedIteratorProtocol {}
 
 @available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *)
 extension AsyncPublisher.Iterator: NonthrowingAsyncIteratorProtocol{}

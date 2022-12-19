@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-public struct CompatAsyncPublisher<P:Publisher>: AsyncTypedSequence where P.Failure == Never {
+public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure == Never {
 
     public typealias AsyncIterator = Iterator
     public typealias Element = P.Output
@@ -23,7 +23,7 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncTypedSequence where P.Fail
         self.publisher = publisher
     }
     
-    public struct Iterator: AsyncTypedIteratorProtocol, NonthrowingAsyncIteratorProtocol {
+    public struct Iterator: NonthrowingAsyncIteratorProtocol {
         
         public typealias Element = P.Output
         

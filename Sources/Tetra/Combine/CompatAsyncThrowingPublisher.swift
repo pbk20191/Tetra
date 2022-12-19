@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncTypedSequence {
+public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence {
 
     public typealias AsyncIterator = Iterator
     public typealias Element = P.Output
