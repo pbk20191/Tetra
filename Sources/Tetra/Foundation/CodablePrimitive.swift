@@ -343,3 +343,37 @@ struct StringCodingKey: CodingKey, RawRepresentable, Sendable {
     typealias RawValue = String
     
 }
+
+public extension CodablePrimitive {
+    
+    @inlinable
+    static func == (lhs: Self, rhs: Int) -> Bool {
+        lhs.integer == rhs
+    }
+    
+    @inlinable
+    static func == (lhs: Self, rhs: Double) -> Bool {
+        lhs.double == rhs
+    }
+    
+    @inlinable
+    static func == (lhs: Self, rhs: String) -> Bool {
+        lhs.string == rhs
+    }
+    
+    @inlinable
+    static func == (lhs: Self, rhs: Bool) -> Bool {
+        lhs.bool == rhs
+    }
+    
+    @inlinable
+    static func == (lhs: Self, rhs: [Self]) -> Bool {
+        lhs.array == rhs
+    }
+    
+    @inlinable
+    static func == (lhs: Self, rhs: [String:Self]) -> Bool {
+        lhs.object == rhs
+    }
+    
+}
