@@ -19,7 +19,7 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         Iterator(source: publisher)
     }
     
-    init(publisher: P) {
+    public init(publisher: P) {
         self.publisher = publisher
     }
     
