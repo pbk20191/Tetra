@@ -1,5 +1,5 @@
 //
-//  CompatAsyncPublisher.swift
+//  CompatAsyncThrowingPublisher.swift
 //  
 //
 //  Created by pbk on 2022/12/16.
@@ -7,9 +7,8 @@
 
 import Foundation
 import Combine
-import TetraFoundationExt
 
-public struct CompatAsyncPublisher<P:Publisher>: AsyncTypedSequence where P.Failure == Never {
+public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncTypedSequence {
 
     public typealias AsyncIterator = Iterator
     public typealias Element = P.Output
@@ -20,17 +19,15 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncTypedSequence where P.Fail
         Iterator(source: publisher)
     }
     
-    public struct Iterator: AsyncTypedIteratorProtocol, NonthrowingAsyncIteratorProtocol {
+    public struct Iterator: AsyncTypedIteratorProtocol {
         
         public typealias Element = P.Output
         
-        private let inner = AsyncSubscriber<P>()
+        private let inner = AsyncThrowingSubscriber<P>()
         private let reference:AnyCancellable
         
-        public func next() async -> P.Output? {
-            await withTaskCancellationHandler {
-                await inner.awaitNext()
-            } onCancel: {
+        public func next() async throws -> P.Output? {
+            try await withTaskCancellationHandler(operation: inner.next) {
                 reference.cancel()
             }
         }
@@ -41,19 +38,22 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncTypedSequence where P.Fail
         }
         
     }
-        
+
 }
 
-private final class AsyncSubscriber<P:Publisher> : Subscriber, Cancellable where P.Failure == Never {
+
+
+
+private final class AsyncThrowingSubscriber<P:Publisher> : Subscriber, Cancellable {
     
     typealias Input = P.Output
-    typealias Failure = Never
+    typealias Failure = P.Failure
     
     private let lock = ManagedUnfairLock(uncheckedState: SubscribedState())
-    
+
     private struct SubscribedState {
         var status = SubscriptionStatus.awaitingSubscription
-        var pending:[UnsafeContinuation<Input?,Never>] = []
+        var pending:[UnsafeContinuation<Input?,Error>] = []
         var pendingDemand = Subscribers.Demand.none
     }
     
@@ -70,7 +70,7 @@ private final class AsyncSubscriber<P:Publisher> : Subscriber, Cancellable where
         return .none
     }
     
-    func receive(completion: Subscribers.Completion<Never>) {
+    func receive(completion: Subscribers.Completion<Failure>) {
         lock.withLock {
             let captured = $0.pending
             $0.pending = []
@@ -117,20 +117,19 @@ private final class AsyncSubscriber<P:Publisher> : Subscriber, Cancellable where
             break
         }
     }
-
-    
-    func awaitNext() async -> Input? {
-        await withUnsafeContinuation { continuation in
+        
+    func next() async throws -> Input? {
+        return try await withUnsafeThrowingContinuation { continuation in
             let subscriptionState = lock.withLock {
                 switch $0.status {
-                case .subscribed(_):
-                    $0.pending.append(continuation)
-                    
                 case .awaitingSubscription:
                     $0.pendingDemand += 1
+                case .subscribed(_):
+                    $0.pending.append(continuation)
                 case .terminal:
                     break
                 }
+                
                 return $0.status
             }
             switch subscriptionState {
@@ -145,3 +144,4 @@ private final class AsyncSubscriber<P:Publisher> : Subscriber, Cancellable where
     }
     
 }
+

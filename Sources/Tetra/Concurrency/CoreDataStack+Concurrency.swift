@@ -15,7 +15,7 @@ import CoreData
 public extension NSPersistentContainer {
     
     @inlinable
-    func loadPersistentStores() async throws -> NSPersistentStoreDescription {
+    func loadPersistent() async throws -> NSPersistentStoreDescription {
         try await withUnsafeThrowingContinuation { continuation in
             loadPersistentStores {
                 if let error = $1 {
@@ -99,7 +99,7 @@ internal func asyncPerform<T>(_ coordinator:NSPersistentStoreCoordinator, _ bloc
     case .success(let success):
         return success
     case .failure:
-        try result._rethrowError()
+        try result._rethrowOrFail()
     }
 }
 
@@ -121,7 +121,7 @@ internal func asyncPerform<T>(_ context:NSManagedObjectContext, _ block: @escapi
     case .success(let success):
         return success
     case .failure:
-        try result._rethrowError()
+        try result._rethrowOrFail()
     }
 }
 
@@ -143,7 +143,7 @@ internal func asyncPerformBackgroundTask<T>(_ container:NSPersistentContainer, _
     case .success(let success):
         return success
     case .failure:
-        try result._rethrowError()
+        try result._rethrowOrFail()
     }
 }
 

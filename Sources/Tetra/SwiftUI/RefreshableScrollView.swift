@@ -121,6 +121,7 @@ struct RefreshActionModifier: EnvironmentalModifier {
             content.background(Group{
                 if let action {
                     ScrollRefreshImp(task: $task, refreshing: refreshing, operation: action)
+                        .frame(width: 0, height: 0)
                 }
             })
 #else

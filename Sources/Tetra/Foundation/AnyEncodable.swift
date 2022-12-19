@@ -9,10 +9,10 @@ import Foundation
 
 public struct AnyEncodable: Encodable {
     
-    public let value:Encodable
+    public let value:any Encodable
     
     @inlinable
-    public init(_ wrapped: Encodable) {
+    public init(_ wrapped:some Encodable) {
         self.value = wrapped
     }
     

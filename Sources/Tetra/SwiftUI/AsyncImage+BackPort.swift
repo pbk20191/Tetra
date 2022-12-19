@@ -50,7 +50,7 @@ public struct AsyncImage<Content: View>: View {
     @usableFromInline
     var scale: CGFloat = 1
     @usableFromInline
-    var content: ((TetraSwiftUIExt.AsyncImagePhase) -> Content)?
+    var content: ((Tetra.AsyncImagePhase) -> Content)?
     @State private var imagePhase:AsyncImagePhase = .empty
     @usableFromInline
     var someView:AnyView
@@ -141,7 +141,12 @@ public struct AsyncImage<Content: View>: View {
         }
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *) {
             self.someView = AnyView(
-                SwiftUI.AsyncImage(url: url, scale: scale, content: content, placeholder: placeholder)
+                SwiftUI.AsyncImage(
+                    url: url,
+                    scale: scale,
+                    content: content,
+                    placeholder: placeholder
+                )
             )
         } else {
             self.someView = AnyView(EmptyView())
@@ -160,7 +165,11 @@ public struct AsyncImage<Content: View>: View {
         self.content = content
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *) {
             self.someView = AnyView(
-                SwiftUI.AsyncImage(url: url, scale: scale, transaction: transaction) { phase in
+                SwiftUI.AsyncImage(
+                    url: url,
+                    scale: scale,
+                    transaction: transaction
+                ) { phase in
                     switch phase {
                     case .empty:
                         content(.empty)

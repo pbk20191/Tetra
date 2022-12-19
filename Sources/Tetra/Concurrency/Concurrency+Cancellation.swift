@@ -33,27 +33,6 @@ public extension Task where Success == Never, Failure == Never {
         }
     }
 
-    /**
-        When task is cancelled this function return with nil
-     */
-    @inlinable
-    static func withReturningCancellation<T>(operation: @Sendable @escaping () async -> T) async -> T? {
-        await withTaskGroup(of: T?.self) { group in
-            group.addTask(operation: operation)
-            group.addTask{
-                try? await sleep(nanoseconds: .max)
-                return nil
-            }
-            while let value = await group.next() {
-                return value
-            }
-            group.cancelAll()
-            return nil
-        }
-    }
-
-
-
     /// Launch  operation and suspend the current Task, current Task is resumed immediately when operation is cancelled.
     /// - Parameters:
     ///   - timeout: Timeout interval from now

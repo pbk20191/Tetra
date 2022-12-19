@@ -119,7 +119,6 @@ extension Publishers {
     }
 
 }
-
 extension Publishers.MapTask: Sendable where Upstream: Sendable {}
 extension Publishers.TryMapTask: Sendable where Upstream: Sendable {}
 
@@ -144,6 +143,11 @@ extension Combine.Future where Failure == Never {
                         receiveValue: {
                             continuation.resume(returning: $0)
                             return .none
+                        },
+                        receiveCompletion: { completion in
+                            if case let .failure(failure) = completion {
+                                continuation.resume(throwing: failure)
+                            }
                         }
                     ))
                 }

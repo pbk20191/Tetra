@@ -42,7 +42,7 @@ extension _ErrorMechanism {
     // rethrow an error only in the cases where it is known to be reachable
     
     
-    internal func _rethrowError() rethrows -> Never {
+    internal func _rethrowOrFail() rethrows -> Never {
         _ = try _rethrowGet()
         fatalError("materialized error without being in a throwing context")
     }
@@ -53,4 +53,3 @@ extension _ErrorMechanism {
 }
 
 extension Result: _ErrorMechanism { }
-
