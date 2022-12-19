@@ -75,6 +75,7 @@ struct OverlayWindowHost<Content>: UIViewRepresentable where Content: View {
         uiView.callBack = { [weak coordinator = context.coordinator] scene in
             coordinator?.windowScene = scene
         }
+        context.coordinator.windowLevel = level
         context.coordinator.isHidden = isHidden
         context.coordinator.isUserInteractionEnabled = context.environment.isEnabled
         let rootView = content.modifier(EnvironmentValueModifier(environment: context.environment))
