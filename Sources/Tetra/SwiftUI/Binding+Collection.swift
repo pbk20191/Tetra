@@ -55,17 +55,29 @@ public struct BindingCollection<T:MutableCollection>: Collection {
     
     @inlinable
     public var startIndex: T.Index {
-        collection.startIndex
+        if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
+            return binding.startIndex
+        } else {
+            return collection.startIndex
+        }
     }
     
     @inlinable
     public var endIndex: T.Index {
-        collection.endIndex
+        if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
+            return binding.endIndex
+        } else {
+            return collection.endIndex
+        }
     }
     
     @inlinable
     public func index(after i: T.Index) -> T.Index {
-        collection.index(after: i)
+        if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
+            return binding.index(after: i)
+        } else {
+            return collection.index(after: i)
+        }
     }
 
 }
@@ -81,7 +93,11 @@ extension BindingCollection: BidirectionalCollection where T: BidirectionalColle
     
     @inlinable
     public func index(before i: T.Index) -> T.Index {
-        collection.index(before: i)
+        if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
+            return binding.index(before: i)
+        } else {
+            return collection.index(before: i)
+        }
     }
     
 }
