@@ -87,7 +87,22 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
             holder.value = RunLoop.current
             semaphore.signal()
         }
-        DispatchQueue.global(qos: .background).async{
+        let qos:DispatchQoS.QoSClass
+        switch Thread.current.qualityOfService {
+        case .userInteractive:
+            qos = .userInteractive
+        case .userInitiated:
+            qos = .userInitiated
+        case .utility:
+            qos = .utility
+        case .background:
+            qos = .background
+        case .default:
+            qos = .default
+        @unknown default:
+            qos = .unspecified
+        }
+        DispatchQueue.global(qos: qos).async{
             assert(!Thread.isMainThread)
             if Thread.isMainThread {
                 /// Reschedule to New Thread since we need none main thread
@@ -96,6 +111,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
                 operation.start()
             }
         }
+        
         semaphore.wait()        
         self.init(
             cancellable: .init(operation.cancel),
