@@ -30,36 +30,22 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
     private final class Holder<T> {
         var value:T?
     }
-    
-    private final class RunLoopOperation: Operation {
-        
-        var setupBlock:(() -> ())? = nil
-        
-        override func main() {
-            setupBlock?()
-            setupBlock = nil
-            if RunLoop.current === RunLoop.main {
-                return
-            }
-            while !isCancelled {
-                RunLoop.current.run(mode: .default, before: Date())
-            }
-        }
-        
-    }
-    
+
     private init(cancellable:AnyCancellable, runLoop: CFRunLoop) {
         self.runLoop = runLoop
         self.canellable = cancellable
     }
-    
+
     public convenience init(async:Void = ()) async {
         let holder = Holder<RunLoop>()
         let semaphore = DispatchSemaphore(value: 0)
-        let operation = RunLoopOperation()
-        operation.setupBlock = {
+        let operation = BlockOperation()
+        operation.addExecutionBlock { [unowned holder, unowned semaphore, unowned operation] in
             holder.value = RunLoop.current
             semaphore.signal()
+            while !operation.isCancelled {
+                RunLoop.current.run(mode: .default, before: Date())
+            }
         }
         Thread.detachNewThread { operation.start() }
         let runLoop = await withUnsafeContinuation{
@@ -82,10 +68,13 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
     public convenience init(sync: Void = ()) {
         let holder = Holder<RunLoop>()
         let semaphore = DispatchSemaphore(value: 0)
-        let operation = RunLoopOperation()
-        operation.setupBlock = {
+        let operation = BlockOperation()
+        operation.addExecutionBlock { [unowned holder, unowned semaphore, unowned operation] in
             holder.value = RunLoop.current
             semaphore.signal()
+            while !operation.isCancelled {
+                RunLoop.current.run(mode: .default, before: Date())
+            }
         }
         let qos:DispatchQoS.QoSClass
         switch Thread.current.qualityOfService {
