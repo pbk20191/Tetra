@@ -16,10 +16,10 @@ import Combine
  this class runs RunLoop indefinitely in default Mode, until deinitialized
  
  */
-internal final class RunLoopScheduler: Scheduler, @unchecked Sendable {
+public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
 
-    typealias SchedulerTimeType = RunLoop.SchedulerTimeType
-    typealias SchedulerOptions = Never
+    public typealias SchedulerTimeType = RunLoop.SchedulerTimeType
+    public typealias SchedulerOptions = Never
     
     private let canellable:AnyCancellable
     
