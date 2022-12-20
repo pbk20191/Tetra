@@ -48,11 +48,11 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
             }
         }
         Thread.detachNewThread { operation.start() }
-        let runLoop = await withUnsafeContinuation{
+        let runLoop = await withUnsafeContinuation{ [unowned holder, unowned semaphore] in
             semaphore.wait()
             $0.resume(returning: holder.value.unsafelyUnwrapped)
         }
-
+        holder.value = nil
         self.init(
             cancellable: AnyCancellable(operation.cancel),
             runLoop: runLoop.getCFRunLoop()
@@ -101,10 +101,12 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
             }
         }
         
-        semaphore.wait()        
+        semaphore.wait()
+        let cfRunLoop = holder.value.unsafelyUnwrapped.getCFRunLoop()
+        holder.value = nil
         self.init(
             cancellable: .init(operation.cancel),
-            runLoop: holder.value.unsafelyUnwrapped.getCFRunLoop()
+            runLoop: cfRunLoop
         )
     }
     
