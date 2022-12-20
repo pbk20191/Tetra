@@ -43,12 +43,15 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
         operation.addExecutionBlock { [unowned holder, unowned semaphore, unowned operation] in
             holder.value = RunLoop.current
             semaphore.signal()
+            Thread.current.qualityOfService = .background
             while !operation.isCancelled {
                 RunLoop.current.run(mode: .default, before: Date())
             }
         }
-        Thread.detachNewThread { operation.start() }
         let runLoop = await withUnsafeContinuation{ [unowned holder, unowned semaphore] in
+            let thread = Thread{ operation.start() }
+            thread.qualityOfService = Thread.current.qualityOfService
+            thread.start()
             semaphore.wait()
             $0.resume(returning: holder.value.unsafelyUnwrapped)
         }
