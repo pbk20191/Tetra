@@ -79,27 +79,26 @@ public struct BindingCollection<T:MutableCollection>: Collection {
             return collection.index(after: i)
         }
     }
-
-}
-
-extension BindingCollection {
-    @usableFromInline
-    init(binding:Binding<T>) {
-        self.init(collection: binding)
-    }
-}
-
-extension BindingCollection: BidirectionalCollection where T: BidirectionalCollection {
     
     @inlinable
-    public func index(before i: T.Index) -> T.Index {
+    public func index(before i: T.Index) -> T.Index where T: BidirectionalCollection {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
             return binding.index(before: i)
         } else {
             return collection.index(before: i)
         }
     }
+
+}
+
+extension BindingCollection: BidirectionalCollection where T: BidirectionalCollection { }
+extension BindingCollection: RandomAccessCollection where T: RandomAccessCollection { }
+
+public extension BindingCollection {
+    
+    init(binding: Binding<T>) {
+        self.init(collection: binding)
+    }
     
 }
 
-extension BindingCollection: RandomAccessCollection where T: RandomAccessCollection { }
