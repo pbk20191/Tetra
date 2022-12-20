@@ -21,49 +21,51 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
     public typealias SchedulerTimeType = RunLoop.SchedulerTimeType
     public typealias SchedulerOptions = Never
     
-    private let canellable:AnyCancellable
+    private let source:CFRunLoopSource
     
     nonisolated
     public let runLoop:CFRunLoop
-    
     @preconcurrency
     private final class Holder<T> {
         var value:T?
     }
 
-    private init(cancellable:AnyCancellable, runLoop: CFRunLoop) {
+    private init(runLoop:CFRunLoop, source:CFRunLoopSource) {
         self.runLoop = runLoop
-        self.canellable = cancellable
+        self.source = source
     }
 
-    public convenience init(async:Void = ()) async {
+    deinit {
+        CFRunLoopSourceInvalidate(source)
+        CFRunLoopWakeUp(runLoop)
+    }
+    
+    public init(async:Void = ()) async {
         let holder = Holder<RunLoop>()
         let semaphore = DispatchSemaphore(value: 0)
-        let timer = Timer(fire: .distantFuture, interval: 0, repeats: false) { _ in } as CFRunLoopTimer
-        let job:@Sendable () -> () = { [unowned holder, unowned semaphore] in
-            holder.value = RunLoop.current
-            semaphore.signal()
-            Thread.current.qualityOfService = .background
-            CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, .defaultMode)
-            while CFRunLoopTimerIsValid(timer) && RunLoop.current.run(mode: .default, before: .distantFuture) {
-                
+        var nullContext = CFRunLoopSourceContext()
+        nullContext.version = 0
+        let source = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
+        let job: @Sendable () -> () = { [weak holder, weak semaphore] in
+            holder.unsafelyUnwrapped.value = RunLoop.current
+            semaphore.unsafelyUnwrapped.signal()
+            if Thread.isMainThread {
+                return
             }
+            holder = nil
+            semaphore = nil
+            CFRunLoopAddSource(CFRunLoopGetCurrent(), source, .defaultMode)
+            while CFRunLoopSourceIsValid(source), RunLoop.current.run(mode: .default, before: .distantFuture) { }
         }
-        let runLoop = await withUnsafeContinuation{ [unowned holder, unowned semaphore] in
+        let runLoop = await withUnsafeContinuation{
             let thread = Thread(block: job)
             thread.qualityOfService = Thread.current.qualityOfService
             thread.start()
             semaphore.wait()
             $0.resume(returning: holder.value.unsafelyUnwrapped)
-        }.getCFRunLoop()
-        holder.value = nil
-        self.init(
-            cancellable: AnyCancellable{
-                CFRunLoopTimerInvalidate(timer)
-                CFRunLoopStop(runLoop)
-            },
-            runLoop: runLoop
-        )
+        }
+        self.runLoop = runLoop.getCFRunLoop()
+        self.source = source
     }
     
     /**
@@ -72,21 +74,26 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
      Pull a thread from GCD and run the CFRunLoop of that Thread. Thread will return back to GCD, when RunLoop stops and Scheduler is
      deinitialized. This initializer blocks the current thread until the Scheduler is ready.
      */
-    public convenience init(sync: Void = ()) {
+    public init(sync: Void = ()) {
         let holder = Holder<RunLoop>()
         let semaphore = DispatchSemaphore(value: 0)
-        let timer = Timer(fire: .distantFuture, interval: 0, repeats: false) { $0.invalidate() } as CFRunLoopTimer
-        let job:@Sendable () -> () = { [unowned holder, unowned semaphore] in
-            holder.value = RunLoop.current
-            semaphore.signal()
-            CFRunLoopAddTimer(CFRunLoopGetCurrent(), timer, .defaultMode)
-            while CFRunLoopTimerIsValid(timer) && RunLoop.current.run(mode: .default, before: .distantFuture) {
-                
+        var nullContext = CFRunLoopSourceContext()
+        nullContext.version = 0
+        let source = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
+        let job:@Sendable () -> () = { [weak holder, weak semaphore] in
+            holder.unsafelyUnwrapped.value = RunLoop.current
+            semaphore.unsafelyUnwrapped.signal()
+            if Thread.isMainThread {
+                return
             }
+            holder = nil
+            semaphore = nil
+            CFRunLoopAddSource(CFRunLoopGetCurrent(), source, .defaultMode)
+            while CFRunLoopSourceIsValid(source), RunLoop.current.run(mode: .default, before: .distantFuture) { }
         }
-        
+        let parentLevel = Thread.current.qualityOfService
         let qos:DispatchQoS.QoSClass
-        switch Thread.current.qualityOfService {
+        switch parentLevel {
         case .userInteractive:
             qos = .userInteractive
         case .userInitiated:
@@ -103,23 +110,17 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
         DispatchQueue.global(qos: qos).async{
             assert(!Thread.isMainThread)
             if Thread.isMainThread {
-                /// Reschedule to New Thread since we need none main thread
-                Thread.detachNewThread(job)
+                let thread = Thread(block: job)
+                thread.qualityOfService = parentLevel
+                thread.start()
             } else {
                 job()
             }
         }
-        
         semaphore.wait()
-        let cfRunLoop = holder.value.unsafelyUnwrapped.getCFRunLoop()
-        holder.value = nil
-        self.init(
-            cancellable: .init{
-                CFRunLoopTimerInvalidate(timer)
-                CFRunLoopStop(cfRunLoop)
-            },
-            runLoop: cfRunLoop
-        )
+        let runLoop = holder.value.unsafelyUnwrapped
+        self.runLoop = runLoop.getCFRunLoop()
+        self.source = source
     }
     
     @inlinable
@@ -161,6 +162,9 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
     nonisolated
     public func schedule(options: SchedulerOptions?, _ action: @escaping () -> Void) {
         CFRunLoopPerformBlock(runLoop, CFRunLoopMode.defaultMode.rawValue, action)
+        if CFRunLoopIsWaiting(runLoop) {
+            CFRunLoopWakeUp(runLoop)
+        }
     }
     
     nonisolated
