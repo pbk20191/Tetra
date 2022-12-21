@@ -46,7 +46,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
         }
     }
     
-    public init(async:Void = (), config:Configuration = .init()) async {
+    public init(async: Void = (), config: Configuration = .init()) async {
         var nullContext = CFRunLoopSourceContext()
         nullContext.version = 0
         let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
@@ -54,6 +54,9 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
             DispatchQueue.global().async(qos: config.qos, flags: [.detached]) {
                 CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
                 continuation.resume(returning: .current)
+                if CFRunLoopGetMain() === CFRunLoopGetCurrent() {
+                    CFRunLoopSourceInvalidate(emptySource)
+                }
                 while
                     CFRunLoopSourceIsValid(emptySource),
                     RunLoop.current.run(mode: .default, before: .distantFuture)
@@ -71,7 +74,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
      Pull a thread from GCD and run the CFRunLoop of that Thread. Thread will return back to GCD, when RunLoop stops and Scheduler is
      deinitialized. This initializer blocks the current thread until the Scheduler is ready.
      */
-    public init(sync: Void = (), qos: DispatchQoS = .init(qosClass: .background, relativePriority: -15)) {
+    public init(sync: Void = (), config: Configuration = .init()) {
         let holder = Holder<RunLoop>()
         var nullContext = CFRunLoopSourceContext()
         nullContext.version = 0
@@ -80,7 +83,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
         
         /** weak or unowned reference is needed, cause strong reference will be retained unitl runLoop ends.
          */
-        let workItem = DispatchWorkItem(qos: qos, flags: [.detached]) { [weak holder, weak lock] in
+        let workItem = DispatchWorkItem(qos: config.qos, flags: [.detached]) { [weak holder, weak lock] in
             lock.unsafelyUnwrapped.lock(whenCondition: 0)
             holder.unsafelyUnwrapped.value = RunLoop.current
             lock.unsafelyUnwrapped.unlock(withCondition: 1)
@@ -90,6 +93,9 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
             lock = nil
             holder = nil
             CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
+            if CFRunLoopGetMain() === CFRunLoopGetCurrent() {
+                CFRunLoopSourceInvalidate(emptySource)
+            }
             while
                 CFRunLoopSourceIsValid(emptySource),
                 RunLoop.current.run(mode: .default, before: .distantFuture)
@@ -99,10 +105,9 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
         lock.lock(whenCondition: 1)
         let runLoop = holder.value.unsafelyUnwrapped
         lock.unlock(withCondition: 0)
-        
         self.cfRunLoop = runLoop.getCFRunLoop()
         self.source = emptySource
-        self.config = .init(qos: qos, keepAliveUntilFinish: true)
+        self.config = config
     }
     
     @inlinable
