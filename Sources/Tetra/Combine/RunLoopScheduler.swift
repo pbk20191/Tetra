@@ -202,9 +202,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
     @usableFromInline
     @Sendable
     nonisolated
-    internal func doNothing() {
-        
-    }
+    internal func doNothing() { }
     
 }
 
@@ -214,7 +212,7 @@ public extension RunLoopScheduler {
     struct Configuration {
         
         public var qos:DispatchQoS = .init(qosClass: .background, relativePriority: -15)
-        /** whether should keep the schduler alive until submit task is finished */
+        /** whether to keep the scheduler alive until submitted tasks are finished */
         public var keepAliveUntilFinish = true
         
         @inlinable
