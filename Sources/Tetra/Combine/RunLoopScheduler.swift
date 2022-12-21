@@ -41,30 +41,19 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
     }
     
     public init(async:Void = ()) async {
-        let holder = Holder<RunLoop>()
-        let semaphore = DispatchSemaphore(value: 0)
         var nullContext = CFRunLoopSourceContext()
         nullContext.version = 0
         let source = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
-        let job: @Sendable () -> () = { [weak holder, weak semaphore] in
-            holder.unsafelyUnwrapped.value = RunLoop.current
-            semaphore.unsafelyUnwrapped.signal()
-            if Thread.isMainThread {
-                return
+        let nsRunLoop: RunLoop = await withUnsafeContinuation{ continuation in
+            let thread = Thread{
+                continuation.resume(returning: .current)
+                CFRunLoopAddSource(CFRunLoopGetCurrent(), source, .defaultMode)
+                while CFRunLoopSourceIsValid(source), RunLoop.current.run(mode: .default, before: .distantFuture) { }
             }
-            holder = nil
-            semaphore = nil
-            CFRunLoopAddSource(CFRunLoopGetCurrent(), source, .defaultMode)
-            while CFRunLoopSourceIsValid(source), RunLoop.current.run(mode: .default, before: .distantFuture) { }
-        }
-        let runLoop = await withUnsafeContinuation{
-            let thread = Thread(block: job)
-            thread.qualityOfService = Thread.current.qualityOfService
+            thread.qualityOfService = .background
             thread.start()
-            semaphore.wait()
-            $0.resume(returning: holder.value.unsafelyUnwrapped)
         }
-        self.runLoop = runLoop.getCFRunLoop()
+        self.runLoop = nsRunLoop.getCFRunLoop()
         self.source = source
     }
     

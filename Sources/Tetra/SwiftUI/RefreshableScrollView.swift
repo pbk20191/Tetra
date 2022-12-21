@@ -134,14 +134,14 @@ struct RefreshActionModifier: EnvironmentalModifier {
 }
 
 
-
-struct RefreshControlKey: EnvironmentKey {
+internal struct RefreshControlKey: EnvironmentKey {
     static var defaultValue: RefreshableControl? { nil }
 }
 
-public struct RefreshableControl {
+@usableFromInline
+internal struct RefreshableControl {
     
-    internal(set) public var action:@Sendable () async -> Void
+    internal var action:@Sendable () async -> Void
 
     @usableFromInline
     init(action: @Sendable @escaping () async -> Void) {
@@ -241,8 +241,9 @@ internal struct ScrollRefreshImp: UIViewRepresentable {
     
 }
 
+@usableFromInline
 @MainActor
-public final class RefreshingCoordinator: NSObject {
+internal final class RefreshingCoordinator: NSObject {
     
     @usableFromInline
     weak var scrollView:UIScrollView? = nil
