@@ -13,48 +13,56 @@ import Combine
 /**
  RunLoopScheduler suitable for background runLoop
  
- this class runs RunLoop indefinitely in default Mode, until deinitialized
- 
+ this class runs RunLoop indefinitely in default Mode, until deinitialized.
  */
-public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
+public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiable {
 
     public typealias SchedulerTimeType = RunLoop.SchedulerTimeType
     public typealias SchedulerOptions = Never
     
     private let source:CFRunLoopSource
+    nonisolated
+    public let cfRunLoop:CFRunLoop
     
     nonisolated
-    public let runLoop:CFRunLoop
+    public let config:Configuration
+    
     @preconcurrency
     private final class Holder<T> {
         var value:T?
     }
-
+    
     private init(runLoop:CFRunLoop, source:CFRunLoopSource) {
-        self.runLoop = runLoop
+        self.cfRunLoop = runLoop
         self.source = source
+        self.config = .init()
     }
 
     deinit {
         CFRunLoopSourceInvalidate(source)
-        CFRunLoopWakeUp(runLoop)
+        CFRunLoopWakeUp(cfRunLoop)
+        if CFRunLoopGetMain() !== cfRunLoop {
+            CFRunLoopStop(cfRunLoop)
+        }
     }
     
-    public init(async:Void = ()) async {
+    public init(async:Void = (), config:Configuration = .init()) async {
         var nullContext = CFRunLoopSourceContext()
         nullContext.version = 0
-        let source = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
+        let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
         let nsRunLoop: RunLoop = await withUnsafeContinuation{ continuation in
-            let thread = Thread{
+            DispatchQueue.global().async(qos: config.qos, flags: [.detached]) {
+                CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
                 continuation.resume(returning: .current)
-                CFRunLoopAddSource(CFRunLoopGetCurrent(), source, .defaultMode)
-                while CFRunLoopSourceIsValid(source), RunLoop.current.run(mode: .default, before: .distantFuture) { }
+                while
+                    CFRunLoopSourceIsValid(emptySource),
+                    RunLoop.current.run(mode: .default, before: .distantFuture)
+                { }
             }
-            thread.qualityOfService = .background
-            thread.start()
         }
-        self.runLoop = nsRunLoop.getCFRunLoop()
-        self.source = source
+        self.cfRunLoop = nsRunLoop.getCFRunLoop()
+        self.source = emptySource
+        self.config = config
     }
     
     /**
@@ -63,53 +71,38 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
      Pull a thread from GCD and run the CFRunLoop of that Thread. Thread will return back to GCD, when RunLoop stops and Scheduler is
      deinitialized. This initializer blocks the current thread until the Scheduler is ready.
      */
-    public init(sync: Void = ()) {
+    public init(sync: Void = (), qos: DispatchQoS = .init(qosClass: .background, relativePriority: -15)) {
         let holder = Holder<RunLoop>()
-        let semaphore = DispatchSemaphore(value: 0)
         var nullContext = CFRunLoopSourceContext()
         nullContext.version = 0
-        let source = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
-        let job:@Sendable () -> () = { [weak holder, weak semaphore] in
+        let lock = NSConditionLock(condition: 0)
+        let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
+        
+        /** weak or unowned reference is needed, cause strong reference will be retained unitl runLoop ends.
+         */
+        let workItem = DispatchWorkItem(qos: qos, flags: [.detached]) { [weak holder, weak lock] in
+            lock.unsafelyUnwrapped.lock(whenCondition: 0)
             holder.unsafelyUnwrapped.value = RunLoop.current
-            semaphore.unsafelyUnwrapped.signal()
-            if Thread.isMainThread {
-                return
-            }
+            lock.unsafelyUnwrapped.unlock(withCondition: 1)
+            
+            /** without explicit nil assignment iOS 16.2 instrument tells me `holder` and `lock`  is leaked even with weak/unowned reference.
+             */
+            lock = nil
             holder = nil
-            semaphore = nil
-            CFRunLoopAddSource(CFRunLoopGetCurrent(), source, .defaultMode)
-            while CFRunLoopSourceIsValid(source), RunLoop.current.run(mode: .default, before: .distantFuture) { }
+            CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
+            while
+                CFRunLoopSourceIsValid(emptySource),
+                RunLoop.current.run(mode: .default, before: .distantFuture)
+            { }
         }
-        let parentLevel = Thread.current.qualityOfService
-        let qos:DispatchQoS.QoSClass
-        switch parentLevel {
-        case .userInteractive:
-            qos = .userInteractive
-        case .userInitiated:
-            qos = .userInitiated
-        case .utility:
-            qos = .utility
-        case .background:
-            qos = .background
-        case .default:
-            qos = .default
-        @unknown default:
-            qos = .unspecified
-        }
-        DispatchQueue.global(qos: qos).async{
-            assert(!Thread.isMainThread)
-            if Thread.isMainThread {
-                let thread = Thread(block: job)
-                thread.qualityOfService = parentLevel
-                thread.start()
-            } else {
-                job()
-            }
-        }
-        semaphore.wait()
+        DispatchQueue.global().async(execute: workItem)
+        lock.lock(whenCondition: 1)
         let runLoop = holder.value.unsafelyUnwrapped
-        self.runLoop = runLoop.getCFRunLoop()
-        self.source = source
+        lock.unlock(withCondition: 0)
+        
+        self.cfRunLoop = runLoop.getCFRunLoop()
+        self.source = emptySource
+        self.config = .init(qos: qos, keepAliveUntilFinish: true)
     }
     
     @inlinable
@@ -121,12 +114,19 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
         options: SchedulerOptions?,
         _ action: @escaping () -> Void
     ) -> Cancellable {
-        let timer = Timer(fire: date.date, interval: interval.timeInterval, repeats: true) { _ in
-            action()
+        let timer:Timer
+        if config.keepAliveUntilFinish {
+            timer = .init(fire: date.date, interval: interval.timeInterval, repeats: true) { _ in
+                action()
+                /// retain self until task is submitted task is finished
+                self.doNothing()
+            }
+        } else {
+            timer = .init(fire: date.date, interval: interval.timeInterval, repeats: true) { _ in action() }
         }
         timer.tolerance = tolerance.timeInterval
         let cfTimer = timer as CFRunLoopTimer
-        CFRunLoopAddTimer(runLoop, cfTimer, .defaultMode)
+        CFRunLoopAddTimer(cfRunLoop, cfTimer, .defaultMode)
         return AnyCancellable{
             CFRunLoopTimerInvalidate(cfTimer)
         }
@@ -140,19 +140,34 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
         options: SchedulerOptions?,
         _ action: @escaping () -> Void
     ) {
-        let timer = Timer(fire: date.date, interval: 0, repeats: false) { _ in
-            action()
+        let timer:Timer
+        if config.keepAliveUntilFinish {
+            timer = .init(fire: date.date, interval: 0, repeats: false) { _ in
+                action()
+                /// retain self until task is submitted task is finished
+                self.doNothing()
+            }
+        } else {
+            timer = .init(fire: date.date, interval: 0, repeats: false) { _ in action() }
         }
         timer.tolerance = tolerance.timeInterval
-        CFRunLoopAddTimer(runLoop, timer as CFRunLoopTimer, .defaultMode)
+        CFRunLoopAddTimer(cfRunLoop, timer as CFRunLoopTimer, .defaultMode)
     }
     
     @inlinable
     nonisolated
     public func schedule(options: SchedulerOptions?, _ action: @escaping () -> Void) {
-        CFRunLoopPerformBlock(runLoop, CFRunLoopMode.defaultMode.rawValue, action)
-        if CFRunLoopIsWaiting(runLoop) {
-            CFRunLoopWakeUp(runLoop)
+        if config.keepAliveUntilFinish {
+            CFRunLoopPerformBlock(cfRunLoop, CFRunLoopMode.defaultMode.rawValue) {
+                action()
+                /// retain self until task is submitted task is finished
+                self.doNothing()
+            }
+        } else {
+            CFRunLoopPerformBlock(cfRunLoop, CFRunLoopMode.defaultMode.rawValue, action)
+        }
+        if CFRunLoopIsWaiting(cfRunLoop) {
+            CFRunLoopWakeUp(cfRunLoop)
         }
     }
     
@@ -161,5 +176,59 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable {
     
     nonisolated
     public var minimumTolerance: SchedulerTimeType.Stride { 0.0 }
+    
+    public func scheduleTask<T>(_ block: @escaping () throws -> T) async rethrows -> T {
+        let result:Result<T,Error> = await withUnsafeContinuation{ continuation in
+            CFRunLoopPerformBlock(cfRunLoop, CFRunLoopMode.defaultMode.rawValue) {
+                continuation.resume(returning: .init(catching: { try block() }))
+            }
+            if CFRunLoopIsWaiting(cfRunLoop) {
+                CFRunLoopWakeUp(cfRunLoop)
+            }
+        }
+        switch result {
+        case .success(let success):
+            return success
+        case .failure:
+            try result._rethrowOrFail()
+        }
+    }
+    
+    @usableFromInline
+    @Sendable
+    nonisolated
+    internal func doNothing() {
+        
+    }
+    
+}
+
+
+public extension RunLoopScheduler {
+    
+    struct Configuration {
+        
+        public var qos:DispatchQoS = .init(qosClass: .background, relativePriority: -15)
+        /** whether should keep the schduler alive until submit task is finished */
+        public var keepAliveUntilFinish = true
+        
+        @inlinable
+        public init(qos: DispatchQoS =  .init(qosClass: .background, relativePriority: -15), keepAliveUntilFinish: Bool = true) {
+            self.qos = qos
+            self.keepAliveUntilFinish = keepAliveUntilFinish
+        }
+    }
+    
+}
+
+extension RunLoopScheduler.Configuration: Hashable {
+    
+    @inlinable
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(qos.qosClass)
+        hasher.combine(qos.relativePriority)
+        hasher.combine(keepAliveUntilFinish)
+    }
+    
     
 }
