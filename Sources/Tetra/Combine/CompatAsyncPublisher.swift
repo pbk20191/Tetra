@@ -50,7 +50,7 @@ private final class AsyncSubscriber<P:Publisher> : Subscriber, Cancellable where
     typealias Input = P.Output
     typealias Failure = Never
     
-    private let lock = ManagedUnfairLock(uncheckedState: SubscribedState())
+    private let lock = createUncheckedStateLock(uncheckedState: SubscribedState())
     
     private struct SubscribedState {
         var status = SubscriptionStatus.awaitingSubscription

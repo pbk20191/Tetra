@@ -50,10 +50,10 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
         var nullContext = CFRunLoopSourceContext()
         nullContext.version = 0
         let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
-        let nsRunLoop: RunLoop = await withUnsafeContinuation{ continuation in
+        let runLoop = await withUnsafeContinuation{ continuation in
             DispatchQueue.global().async(qos: config.qos, flags: [.detached]) {
                 CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
-                continuation.resume(returning: .current)
+                continuation.resume(returning: RunLoop.current.getCFRunLoop())
                 if CFRunLoopGetMain() === CFRunLoopGetCurrent() {
                     CFRunLoopSourceInvalidate(emptySource)
                 }
@@ -63,7 +63,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
                 { }
             }
         }
-        self.cfRunLoop = nsRunLoop.getCFRunLoop()
+        self.cfRunLoop = runLoop
         self.source = emptySource
         self.config = config
     }
@@ -75,7 +75,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
      deinitialized. This initializer blocks the current thread until the Scheduler is ready.
      */
     public init(sync: Void = (), config: Configuration = .init()) {
-        let holder = Holder<RunLoop>()
+        let holder = Holder<CFRunLoop>()
         var nullContext = CFRunLoopSourceContext()
         nullContext.version = 0
         let lock = NSConditionLock(condition: 0)
@@ -85,7 +85,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
          */
         let workItem = DispatchWorkItem(qos: config.qos, flags: [.detached]) { [weak holder, weak lock] in
             lock.unsafelyUnwrapped.lock(whenCondition: 0)
-            holder.unsafelyUnwrapped.value = RunLoop.current
+            holder.unsafelyUnwrapped.value = RunLoop.current.getCFRunLoop()
             lock.unsafelyUnwrapped.unlock(withCondition: 1)
             
             /** without explicit nil assignment iOS 16.2 instrument tells me `holder` and `lock`  is leaked even with weak/unowned reference.
@@ -105,7 +105,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
         lock.lock(whenCondition: 1)
         let runLoop = holder.value.unsafelyUnwrapped
         lock.unlock(withCondition: 0)
-        self.cfRunLoop = runLoop.getCFRunLoop()
+        self.cfRunLoop = runLoop
         self.source = emptySource
         self.config = config
     }
@@ -123,7 +123,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
         if config.keepAliveUntilFinish {
             timer = .init(fire: date.date, interval: interval.timeInterval, repeats: true) { _ in
                 action()
-                /// retain self until task is submitted task is finished
+                /// retain self until submitted task is finished
                 self.doNothing()
             }
         } else {
@@ -149,7 +149,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
         if config.keepAliveUntilFinish {
             timer = .init(fire: date.date, interval: 0, repeats: false) { _ in
                 action()
-                /// retain self until task is submitted task is finished
+                /// retain self until submitted task is finished
                 self.doNothing()
             }
         } else {
@@ -165,7 +165,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
         if config.keepAliveUntilFinish {
             CFRunLoopPerformBlock(cfRunLoop, CFRunLoopMode.defaultMode.rawValue) {
                 action()
-                /// retain self until task is submitted task is finished
+                /// retain self until submitted task is finished
                 self.doNothing()
             }
         } else {
@@ -224,7 +224,7 @@ public extension RunLoopScheduler {
     
 }
 
-extension RunLoopScheduler.Configuration: Hashable {
+extension RunLoopScheduler.Configuration: Hashable, @unchecked Sendable {
     
     @inlinable
     public func hash(into hasher: inout Hasher) {
@@ -232,6 +232,5 @@ extension RunLoopScheduler.Configuration: Hashable {
         hasher.combine(qos.relativePriority)
         hasher.combine(keepAliveUntilFinish)
     }
-    
     
 }

@@ -83,8 +83,8 @@ extension DispatchTimePublisher {
         
         var playgroundDescription: Any { description }
         
-        private let lock = ManagedUnfairLock<State>(uncheckedState: .init())
-        private let source:DispatchSourceTimer
+        private let lock = createUncheckedStateLock(uncheckedState: State())
+        private let source: DispatchSourceTimer
         
         struct State {
             

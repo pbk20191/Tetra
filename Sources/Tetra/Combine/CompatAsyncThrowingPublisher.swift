@@ -53,7 +53,7 @@ private final class AsyncThrowingSubscriber<P:Publisher> : Subscriber, Cancellab
     typealias Input = P.Output
     typealias Failure = P.Failure
     
-    private let lock = ManagedUnfairLock(uncheckedState: SubscribedState())
+    private let lock = createUncheckedStateLock(uncheckedState: SubscribedState())
 
     private struct SubscribedState {
         var status = SubscriptionStatus.awaitingSubscription

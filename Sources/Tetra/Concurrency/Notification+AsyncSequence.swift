@@ -42,7 +42,7 @@ public final class NotificationSequence: AsyncSequence {
     
     let center: NotificationCenter
     private let observer: NSObjectProtocol
-    private let lock = ManagedUnfairLock<NotficationState>(initialState: .init())
+    private let lock = createUncheckedStateLock(uncheckedState: NotficationState())
     
     public struct Iterator: NonthrowingAsyncIteratorProtocol {
         public typealias Element = Notification
@@ -55,7 +55,6 @@ public final class NotificationSequence: AsyncSequence {
                 onCancel: parent.cancel
             )
         }
-        
 
     }
     
