@@ -49,7 +49,7 @@ public struct SchedulerTimePublisher<T:Scheduler>: Publisher {
         var playgroundDescription: Any { description }
         
         private let publisher:SchedulerTimePublisher<T>
-        private let lock = ManagedUnfairLock(uncheckedState: State<S>())
+        private let lock = createUncheckedStateLock(uncheckedState: State<S>())
         
         init(publisher: SchedulerTimePublisher<T>) {
             self.publisher = publisher

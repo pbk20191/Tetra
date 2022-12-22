@@ -235,3 +235,33 @@ public extension ManagedUnfairLock {
     }
     
 }
+
+@usableFromInline
+internal protocol UnfairStateLock<State>: Sendable {
+    
+    associatedtype State
+    
+    func withLock<R>(_ body: @Sendable (inout State) throws -> R) rethrows -> R where R : Sendable
+    
+    func withLockUnchecked<R>(_ body: (inout State) throws -> R) rethrows -> R
+   
+    func withLockIfAvailableUnchecked<R>(_ body: (inout State) throws -> R) rethrows -> R?
+        
+    init(uncheckedState initialState: State)
+    
+    func withLockIfAvailable<R>(_ body: @Sendable (inout State) throws -> R) rethrows -> R? where R: Sendable
+    
+}
+
+@available(iOS 16.0, tvOS 16.0, macOS 13.0, macCatalyst 16.0, watchOS 9.0, *)
+extension OSAllocatedUnfairLock: UnfairStateLock {}
+extension ManagedUnfairLock: UnfairStateLock {}
+
+@usableFromInline
+internal func createUncheckedStateLock<State>(uncheckedState initialState:State) -> any UnfairStateLock<State> {
+    if #available(iOS 16.0, tvOS 16.0, macCatalyst 16.0, watchOS 9.0, macOS 13.0, *) {
+        return OSAllocatedUnfairLock(uncheckedState: initialState)
+    } else {
+        return ManagedUnfairLock(uncheckedState: initialState)
+    }
+}

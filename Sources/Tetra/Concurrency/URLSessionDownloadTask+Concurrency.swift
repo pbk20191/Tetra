@@ -31,10 +31,9 @@ internal func perfomDownload(on session:URLSession, from url: URL) async throws 
                         throw (error ?? URLError(.unknown, userInfo: [
                             NSURLErrorFailingURLErrorKey: url,
                             NSURLErrorFailingURLStringErrorKey: url.absoluteString,
-                            NSLocalizedDescriptionKey: "\(URLError.Code.unknown)"
+                            NSLocalizedDescriptionKey: NSLocalizedString("Err-998", bundle: .init(for: URLSession.self), comment: "unknown error")
                         ]))
                     }
-                    
                     let newURL = randomDownloadFileURL()
                     if FileManager.default.fileExists(atPath: newURL.path) {
                         let _ = try FileManager.default.replaceItemAt(newURL, withItemAt: location)
@@ -79,7 +78,7 @@ internal func perfomDownload(on session:URLSession, for request: URLRequest) asy
                         throw (error ?? URLError(.unknown, userInfo: [
                             NSURLErrorFailingURLErrorKey: request.url as Any,
                             NSURLErrorFailingURLStringErrorKey: request.url?.absoluteString as Any,
-                            NSLocalizedDescriptionKey: "\(URLError.Code.unknown)"
+                            NSLocalizedDescriptionKey: NSLocalizedString("Err-998", bundle: .init(for: URLSession.self), comment: "unknown error")
                         ]))
                     }
                     let newURL = randomDownloadFileURL()
@@ -124,7 +123,7 @@ internal func perfomDownload(on session:URLSession, resumeFrom data:Data) async 
                 do {
                     guard let location, let response else {
                         throw (error ?? URLError(.unknown, userInfo: [
-                            NSLocalizedDescriptionKey: "\(URLError.Code.unknown)"
+                            NSLocalizedDescriptionKey: NSLocalizedString("Err-998", bundle: .init(for: URLSession.self), comment: "unknown error")
                         ]))
                     }
                     let newURL = randomDownloadFileURL()
