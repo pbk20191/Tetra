@@ -91,6 +91,7 @@ private final class AsyncSubscriber<P:Publisher> : Subscriber, Cancellable where
             guard case .awaitingSubscription = $0.status else { return nil as Subscribers.Demand? }
             let demand = $0.pendingDemand
             $0.pendingDemand = .none
+            $0.status = .subscribed(subscription)
             return demand as Subscribers.Demand?
         }
         if let pendingDemand {

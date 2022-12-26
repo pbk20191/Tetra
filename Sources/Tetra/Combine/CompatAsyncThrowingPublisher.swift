@@ -93,6 +93,7 @@ private final class AsyncThrowingSubscriber<P:Publisher> : Subscriber, Cancellab
         let pendingDemand = lock.withLock {
             guard case .awaitingSubscription = $0.status else { return nil as Subscribers.Demand? }
             let demand = $0.pendingDemand
+            $0.status = .subscribed(subscription)
             $0.pendingDemand = .none
             return demand as Subscribers.Demand?
         }

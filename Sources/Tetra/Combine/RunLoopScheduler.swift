@@ -51,7 +51,8 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
         nullContext.version = 0
         let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
         let runLoop = await withUnsafeContinuation{ continuation in
-            DispatchQueue.global().async(qos: config.qos, flags: [.detached]) {
+            DispatchQueue.global(qos: .unspecified)
+                .async(qos: config.qos) {
                 CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
                 continuation.resume(returning: RunLoop.current.getCFRunLoop())
                 if CFRunLoopGetMain() === CFRunLoopGetCurrent() {
@@ -83,25 +84,26 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
         
         /** weak or unowned reference is needed, cause strong reference will be retained unitl runLoop ends.
          */
-        let workItem = DispatchWorkItem(qos: config.qos, flags: [.detached]) { [weak holder, weak lock] in
-            lock.unsafelyUnwrapped.lock(whenCondition: 0)
-            holder.unsafelyUnwrapped.value = RunLoop.current.getCFRunLoop()
-            lock.unsafelyUnwrapped.unlock(withCondition: 1)
-            
-            /** without explicit nil assignment iOS 16.2 instrument tells me `holder` and `lock`  is leaked even with weak/unowned reference.
-             */
-            lock = nil
-            holder = nil
-            CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
-            if CFRunLoopGetMain() === CFRunLoopGetCurrent() {
-                CFRunLoopSourceInvalidate(emptySource)
+        DispatchQueue.global(qos: .unspecified)
+            .async(qos: config.qos) {
+                [weak holder, weak lock] in
+                   lock.unsafelyUnwrapped.lock(whenCondition: 0)
+                   holder.unsafelyUnwrapped.value = RunLoop.current.getCFRunLoop()
+                   lock.unsafelyUnwrapped.unlock(withCondition: 1)
+                   
+                   /** without explicit nil assignment iOS 16.2 instrument tells me `holder` and `lock`  is leaked even with weak/unowned reference.
+                    */
+                   lock = nil
+                   holder = nil
+                   CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
+                   if CFRunLoopGetMain() === CFRunLoopGetCurrent() {
+                       CFRunLoopSourceInvalidate(emptySource)
+                   }
+                   while
+                       CFRunLoopSourceIsValid(emptySource),
+                       RunLoop.current.run(mode: .default, before: .distantFuture)
+                   { }
             }
-            while
-                CFRunLoopSourceIsValid(emptySource),
-                RunLoop.current.run(mode: .default, before: .distantFuture)
-            { }
-        }
-        DispatchQueue.global().async(execute: workItem)
         lock.lock(whenCondition: 1)
         let runLoop = holder.value.unsafelyUnwrapped
         lock.unlock(withCondition: 0)

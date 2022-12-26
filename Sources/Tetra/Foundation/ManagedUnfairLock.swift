@@ -156,7 +156,7 @@ public extension ManagedUnfairLock where State == Void {
     /// - Returns: The return value of `body`.
     /// - Throws: Anything thrown by `body`.
     ///
-    func withLock<R>(body: @Sendable () throws -> R) rethrows -> R {
+    func withLock<R>(_ body: @Sendable () throws -> R) rethrows -> R where R : Sendable {
         try withLockUnchecked(body)
     }
     
@@ -253,9 +253,29 @@ internal protocol UnfairStateLock<State>: Sendable {
     
 }
 
+@usableFromInline
+internal protocol UnfairLockProtocol: Sendable {
+    
+    init()
+    
+    @available(*, noasync, message: "Use async-safe scoped locking instead")
+    func lock()
+    
+    @available(*, noasync, message: "Use async-safe scoped locking instead")
+    func unlock()
+    
+    func withLockUnchecked<R>(_ body: () throws -> R) rethrows -> R
+    
+    func withLock<R>(_ body: @Sendable () throws -> R) rethrows -> R where R : Sendable
+    
+}
+
 @available(iOS 16.0, tvOS 16.0, macOS 13.0, macCatalyst 16.0, watchOS 9.0, *)
 extension OSAllocatedUnfairLock: UnfairStateLock {}
+@available(iOS 16.0, tvOS 16.0, macOS 13.0, macCatalyst 16.0, watchOS 9.0, *)
+extension OSAllocatedUnfairLock<Void>: UnfairLockProtocol {}
 extension ManagedUnfairLock: UnfairStateLock {}
+extension ManagedUnfairLock<Void>: UnfairLockProtocol {}
 
 @usableFromInline
 internal func createUncheckedStateLock<State>(uncheckedState initialState:State) -> any UnfairStateLock<State> {
@@ -263,5 +283,14 @@ internal func createUncheckedStateLock<State>(uncheckedState initialState:State)
         return OSAllocatedUnfairLock(uncheckedState: initialState)
     } else {
         return ManagedUnfairLock(uncheckedState: initialState)
+    }
+}
+
+@usableFromInline
+internal func createUnfairLock() -> any UnfairLockProtocol {
+    if #available(iOS 16.0, tvOS 16.0, macCatalyst 16.0, watchOS 9.0, macOS 13.0, *) {
+        return OSAllocatedUnfairLock()
+    } else {
+        return ManagedUnfairLock()
     }
 }

@@ -118,15 +118,18 @@ extension DispatchTimePublisher {
         }
         
         func request(_ demand: Subscribers.Demand) {
-            lock.withLock{
+           let startTimer = lock.withLock{
                 $0.request += demand
                 if $0.request > 0 && !$0.started {
                     $0.started = true
-                    return source as DispatchSourceTimer?
+                   return true
                 } else {
-                    return nil
+                    return false
                 }
-            }?.activate()
+            }
+            if startTimer {
+                source.activate()
+            }
         }
         
         func attach(_ subscriber:S) {
