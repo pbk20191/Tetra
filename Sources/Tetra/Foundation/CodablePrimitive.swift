@@ -8,7 +8,7 @@
 import Foundation
 
 /**
-    Codable Object Wrapper which provides opportunity to mix general primitive types into single value.
+    Codable Object Wrapper which provides opportunity to mix general primitive types into single value. Currently supported Decoders are `JSONDecoder` and `PropertyListDecoder`
     ```
         let wrapped:CodablePrimitive = [
             "api_key":"unqiueKeys",
@@ -110,6 +110,9 @@ extension CodablePrimitive: Codable {
             let intValue = try container.decode(Int.self)
             return .integer(intValue)
         } catch DecodingError.typeMismatch(let expectType, let context) where context.underlyingError == nil && expectType == Int.self {
+        } catch DecodingError.dataCorrupted(let context) where context.underlyingError == nil {
+            let double = try container.decode(Double.self)
+            return .double(double)
         }
         do {
             let doubleValue = try container.decode(Double.self)
