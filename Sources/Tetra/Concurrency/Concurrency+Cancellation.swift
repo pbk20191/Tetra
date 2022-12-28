@@ -22,7 +22,9 @@ public extension Task where Success == Never, Failure == Never {
         try await withThrowingTaskGroup(of: T.self) { group in
             group.addTask(operation: operation)
             group.addTask {
-                try await sleep(nanoseconds: .max)
+                while !Task.isCancelled {
+                    try await Task.sleep(nanoseconds: .max)
+                }
                 throw _Concurrency.CancellationError()
             }
             while let value = try await group.next() {
@@ -47,7 +49,9 @@ public extension Task where Success == Never, Failure == Never {
             let deadLine = scheduler.now.advanced(by: timeout)
             group.addTask(operation: operation)
             group.addTask {
-                try await sleep(nanoseconds: .max)
+                while !Task.isCancelled {
+                    try await Task.sleep(nanoseconds: .max)
+                }
                 throw _Concurrency.CancellationError()
             }
             group.addTask {
