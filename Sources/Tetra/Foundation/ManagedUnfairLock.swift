@@ -137,7 +137,7 @@ public extension ManagedUnfairLock where State == Void {
     }
     
     /// Acquire this lock.
-    @available(*, noasync, message: "Use async-safe scoped locking instead")
+    @_unavailableFromAsync(message: "Use async-safe scoped locking instead")
     func lock() {
         __lock.withUnsafeMutablePointerToElements {
             os_unfair_lock_lock($0)
@@ -145,7 +145,7 @@ public extension ManagedUnfairLock where State == Void {
     }
     
     /// Unlock this lock.
-    @available(*, noasync, message: "Use async-safe scoped locking instead")
+    @_unavailableFromAsync(message: "Use async-safe scoped locking instead")
     func unlock() {
         __lock.withUnsafeMutablePointerToElements{ os_unfair_lock_unlock($0) }
     }
@@ -258,10 +258,10 @@ internal protocol UnfairLockProtocol: Sendable {
     
     init()
     
-    @available(*, noasync, message: "Use async-safe scoped locking instead")
+    @_unavailableFromAsync(message: "Use async-safe scoped locking instead")
     func lock()
     
-    @available(*, noasync, message: "Use async-safe scoped locking instead")
+    @_unavailableFromAsync(message: "Use async-safe scoped locking instead")
     func unlock()
     
     func withLockUnchecked<R>(_ body: () throws -> R) rethrows -> R
@@ -283,6 +283,15 @@ internal func createUncheckedStateLock<State>(uncheckedState initialState:State)
         return OSAllocatedUnfairLock(uncheckedState: initialState)
     } else {
         return ManagedUnfairLock(uncheckedState: initialState)
+    }
+}
+
+@usableFromInline
+internal func createCheckedStateLock<State:Sendable>(checkedState initialState:State) -> any UnfairStateLock<State> {
+    if #available(iOS 16.0, tvOS 16.0, macCatalyst 16.0, watchOS 9.0, macOS 13.0, *) {
+        return OSAllocatedUnfairLock(initialState: initialState)
+    } else {
+        return ManagedUnfairLock(initialState: initialState)
     }
 }
 
