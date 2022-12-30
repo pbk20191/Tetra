@@ -8,3 +8,5 @@ iOS 15, macOS 12 등에서만 사용이 가능한 API를 iOS 13, iOS 10.15 등�
 async await URLSession download, upload
 async await NSManagedContext peform
 Combine <-> AsyncSequence interchanging 
+
+This package is not production ready.
