@@ -8,16 +8,7 @@
 import Foundation
 import Combine
 
-public extension AsyncSequence {
-
-    @inlinable
-    var publisher:AsyncSequencePublisher<Self> {
-        AsyncSequencePublisher(source: self)
-    }
-    
-}
-
-public struct AsyncSequencePublisher<Source:AsyncSequence>: Publisher {
+internal struct AsyncSequencePublisher<Source:AsyncSequence>: Publisher {
 
     public typealias Output = Source.Element
     public typealias Failure = Error
