@@ -7,13 +7,17 @@
 
 import Foundation
 
+@usableFromInline
 struct JobSequence: Sendable, AsyncSequence {
     
+    @usableFromInline
     func makeAsyncIterator() -> Iterator {
         .init(base: self)
     }
     
+    @usableFromInline
     typealias Element = @Sendable () async throws -> ()
+    @usableFromInline
     typealias AsyncIterator = Iterator
     
     private struct JobState: Sendable {
@@ -24,10 +28,12 @@ struct JobSequence: Sendable, AsyncSequence {
     
     private let lock = createCheckedStateLock(checkedState: JobState())
     
+    @usableFromInline
     struct Iterator: AsyncIteratorProtocol, Sendable {
         
         let base:JobSequence
         
+        @usableFromInline
         func next() async -> Element? {
             await withTaskCancellationHandler {
                 return await withUnsafeContinuation { continuation in

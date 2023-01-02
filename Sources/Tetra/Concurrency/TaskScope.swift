@@ -8,20 +8,26 @@
 import Foundation
 import os
 
+
 /**
-  Wrapper object which act like CoroutineScope in Coroutine.
+ Wrapper object which act like CoroutineScope in Coroutine.
  
  Unlike Task which inherit context of upper level task. task running inside `TaskScope` inherit   `TaskScope`'s context.
  
- ex) `TaskLocal`, `TaskPriority`
+ ex) `TaskLocal`, `TaskPriority`, `Actor`
  
- `TaskScope` must be explictly cancelled or underlying Task leaks and runs forever.
-    
+ - important: retaining `self` inside long running task without explicit cancellation will prevent underlying Task being automatically cancelled.
+```
+ let scope = TaskScope()
+ scope.launch {
+    // Long running Task
+    scope... // scope and underlying Task won't be cancelled automatically.
+ }
+ 
+ ```
  */
-internal struct TaskScope: Sendable, Hashable {
-    
-    public typealias Operation = @Sendable () async -> ()
-    
+public struct TaskScope: Sendable, Hashable {
+        
     @inlinable
     public func hash(into hasher: inout Hasher) {
         hasher.combine(task)
@@ -46,56 +52,73 @@ internal struct TaskScope: Sendable, Hashable {
     
     @usableFromInline
     let task:Task<Void,Never>
+    fileprivate let buffer:JobSequence
+    private let cancellable:TaskCancellable?
     
-    private let state = JobSequence()
-    
-    @usableFromInline
-    internal init(priority: TaskPriority? = nil) {
-        let sequence = state
-        task = Task(priority: priority) {
-            for child in sequence.popBuffered() {
-                async let _ = try? await child()
-            }
-            for await child in sequence {
-                async let _ = try? await child()
-            }
-            for child in sequence.popBuffered() {
-                async let _ = try? await child()
-            }
+    private final class TaskCancellable: Sendable {
+        
+        private let task:Task<Void,Never>
+        
+        init(task: Task<Void, Never>) {
+            self.task = task
         }
+        
+        deinit {
+            task.cancel()
+        }
+        
+    }
+    
+    /// Create Managed TaskScope which cancel its Task automatically
+    /// - Parameters:
+    ///   - detached: To create detached TaskScope pass non-nil Void
+    ///   - priority: TaskScope's TaskPriority
+    public init(detached: Void? = nil, priority: TaskPriority? = nil) {
+        let source = Self(unsafe: (), detached: detached, priority: priority)
+        self.buffer = source.buffer
+        task = source.task
+        cancellable = TaskCancellable(task: task)
     }
     
     @usableFromInline
-    internal init(detached: Void, priority: TaskPriority? = nil) {
-        let sequence = state
-        task = Task.detached(priority: priority) {
-            for child in sequence.popBuffered() {
-                async let _ = try? await child()
-            }
-            for await child in sequence {
-                async let _ = try? await child()
-            }
-            for child in sequence.popBuffered() {
-                async let _ = try? await child()
+    internal init(unsafe:Void, detached: Void? = nil, priority: TaskPriority? = nil) {
+        let sequence = JobSequence()
+        let creator:(TaskPriority?, @escaping @Sendable () async -> Void) -> Task<Void,Never> = {
+            if detached == nil {
+                return Task(priority: $0, operation: $1)
+            } else {
+                return Task.detached(priority: $0, operation: $1)
             }
         }
+        task = creator(priority) {
+            await withThrowingTaskGroup(of: Void.self) { group in
+                for operation in sequence.popBuffered() {
+                    group.addTask(operation: operation)
+                    async let _ = try? await group.next()
+                }
+                for await operation in sequence {
+                    group.addTask(operation: operation)
+                    async let _ = try? await group.next()
+                }
+                for operation in sequence.popBuffered() {
+                    group.addTask(operation: operation)
+                    async let _ = try? await group.next()
+                }
+            }
+        }
+        buffer = sequence
+        cancellable = nil
     }
     
     /**
-     submit the job to this `TaskScope`. operation will be executed on the next possible opportunity unless it's cancelled.
+     submit the operation to this `TaskScope`. operation will be executed on the next possible opportunity unless it's cancelled.
      Task created by the given job inherit TaskScope's context. .
-     - Parameter operation:
-     - Returns: if job is submitted successfully
+     - Parameter operation: async job to submit
+     - Returns: if operation is submitted successfully
      */
     @discardableResult
-    public func launch(_ operation: __owned @escaping Operation) -> Bool {
-        state.append(job: operation)
-    }
-    
-    internal func shutdown() async {
-        task.cancel()
-        await task.value
+    public func launch(operation: __owned @escaping @Sendable () async -> Void) -> Bool {
+        buffer.append(job: operation)
     }
     
 }
-
