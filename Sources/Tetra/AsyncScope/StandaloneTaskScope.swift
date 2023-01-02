@@ -1,5 +1,5 @@
 //
-//  TaskScope.swift
+//  StandaloneTaskScope.swift
 //  
 //
 //  Created by pbk on 2022/12/28.
@@ -18,7 +18,7 @@ import os
  
  - important: retaining `self` inside long running task without explicit cancellation will prevent underlying Task being automatically cancelled.
 ```
- let scope = TaskScope()
+ let scope = StandaloneTaskScope()
  scope.launch {
     // Long running Task
     scope... // scope and underlying Task won't be cancelled automatically.
@@ -26,7 +26,7 @@ import os
  
  ```
  */
-public struct TaskScope: Sendable, Hashable {
+public struct StandaloneTaskScope: TaskScopeProtocol {
         
     @inlinable
     public func hash(into hasher: inout Hasher) {
@@ -52,7 +52,9 @@ public struct TaskScope: Sendable, Hashable {
     
     @usableFromInline
     let task:Task<Void,Never>
-    fileprivate let buffer:JobSequence
+    
+    private let buffer:JobSequence
+    
     private let cancellable:TaskCancellable?
     
     private final class TaskCancellable: Sendable {
@@ -74,14 +76,14 @@ public struct TaskScope: Sendable, Hashable {
     ///   - detached: To create detached TaskScope pass non-nil Void
     ///   - priority: TaskScope's TaskPriority
     public init(detached: Void? = nil, priority: TaskPriority? = nil) {
-        let source = Self(unsafe: (), detached: detached, priority: priority)
+        let source = Self(unmanaged: (), detached: detached, priority: priority)
         self.buffer = source.buffer
         task = source.task
         cancellable = TaskCancellable(task: task)
     }
     
     @usableFromInline
-    internal init(unsafe:Void, detached: Void? = nil, priority: TaskPriority? = nil) {
+    internal init(unmanaged:Void, detached: Void? = nil, priority: TaskPriority? = nil) {
         let sequence = JobSequence()
         let creator:(TaskPriority?, @escaping @Sendable () async -> Void) -> Task<Void,Never> = {
             if detached == nil {
@@ -110,14 +112,7 @@ public struct TaskScope: Sendable, Hashable {
         cancellable = nil
     }
     
-    /**
-     submit the operation to this `TaskScope`. operation will be executed on the next possible opportunity unless it's cancelled.
-     Task created by the given job inherit TaskScope's context. .
-     - Parameter operation: async job to submit
-     - Returns: if operation is submitted successfully
-     */
-    @discardableResult
-    public func launch(operation: __owned @escaping @Sendable () async -> Void) -> Bool {
+    public func launch(operation: __owned @escaping Job) -> Bool {
         buffer.append(job: operation)
     }
     
