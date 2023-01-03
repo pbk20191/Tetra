@@ -75,11 +75,10 @@ extension Publishers {
 
         public func receive<S>(subscriber: S) where S : Subscriber, Upstream.Failure == S.Failure, Output == S.Input {
             upstream.flatMap(maxPublishers: .max(1)) { input in
-                TaskPublisher<Output>{ await transform(input) }
+                SingleTaskPublisher<Output>{ await transform(input) }
                     .setFailureType(to: Failure.self)
             }
             .subscribe(subscriber)
-            
         }
         
     }
@@ -104,7 +103,7 @@ extension Publishers {
         
         public func receive<S>(subscriber: S) where S : Subscriber, Failure == S.Failure, Output == S.Input {
             upstream.mapError{ $0 as any Error }.flatMap(maxPublishers: .max(1)) { input in
-                ThrowingTaskPublisher{ try await transform(input) }
+                SingleThrowingTaskPublisher{ try await transform(input) }
             }
             .subscribe(subscriber)
             

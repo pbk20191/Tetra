@@ -21,7 +21,7 @@ public struct AsyncSequencePublisher<Base:AsyncSequence>: Publisher {
     public typealias Output = Base.Element
     public typealias Failure = Error
     
-    public let base:Base
+    public var base:Base
     
     @inlinable
     public init(base: Base) {
@@ -90,17 +90,16 @@ extension AsyncSequencePublisher {
                     }
                     do {
                         async let _ = try await group.next()
+                    } catch let error as FinishError {
+                        throw error
                     } catch {
-                        if !(error is FinishError) {
-                            lock.withLockUnchecked{
-                                let oldValue = $0
-                                $0 = nil
-                                return oldValue
-                            }?.receive(completion: .failure(error))
-                        }
+                        lock.withLockUnchecked{
+                            let oldValue = $0
+                            $0 = nil
+                            return oldValue
+                        }?.receive(completion: .failure(error))
                         throw error
                     }
-    
                 }
             }
         }
