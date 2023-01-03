@@ -278,7 +278,7 @@ extension ManagedUnfairLock: UnfairStateLock {}
 extension ManagedUnfairLock<Void>: UnfairLockProtocol {}
 
 @usableFromInline
-internal func createUncheckedStateLock<State>(uncheckedState initialState:State) -> any UnfairStateLock<State> {
+internal func createUncheckedStateLock<State>(uncheckedState initialState:State) -> some UnfairStateLock<State> {
     if #available(iOS 16.0, tvOS 16.0, macCatalyst 16.0, watchOS 9.0, macOS 13.0, *) {
         return OSAllocatedUnfairLock(uncheckedState: initialState)
     } else {
@@ -287,7 +287,7 @@ internal func createUncheckedStateLock<State>(uncheckedState initialState:State)
 }
 
 @usableFromInline
-internal func createCheckedStateLock<State:Sendable>(checkedState initialState:State) -> any UnfairStateLock<State> {
+internal func createCheckedStateLock<State:Sendable>(checkedState initialState:State) -> some UnfairStateLock<State> {
     if #available(iOS 16.0, tvOS 16.0, macCatalyst 16.0, watchOS 9.0, macOS 13.0, *) {
         return OSAllocatedUnfairLock(initialState: initialState)
     } else {
@@ -296,7 +296,7 @@ internal func createCheckedStateLock<State:Sendable>(checkedState initialState:S
 }
 
 @usableFromInline
-internal func createUnfairLock() -> any UnfairLockProtocol {
+internal func createUnfairLock() -> some UnfairLockProtocol {
     if #available(iOS 16.0, tvOS 16.0, macCatalyst 16.0, watchOS 9.0, macOS 13.0, *) {
         return OSAllocatedUnfairLock()
     } else {

@@ -27,10 +27,6 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
     nonisolated
     public let config:Configuration
     
-    @preconcurrency
-    private final class Holder<T> {
-        var value:T?
-    }
     
     private init(runLoop:CFRunLoop, source:CFRunLoopSource) {
         self.cfRunLoop = runLoop
@@ -76,7 +72,8 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
      deinitialized. This initializer blocks the current thread until the Scheduler is ready.
      */
     public init(sync: Void = (), config: Configuration = .init()) {
-        let holder = Holder<CFRunLoop>()
+        let reference = UnsafeMutablePointer<CFRunLoop>.allocate(capacity: 1)
+        defer { reference.deallocate() }
         var nullContext = CFRunLoopSourceContext()
         nullContext.version = 0
         let lock = NSConditionLock(condition: 0)
@@ -86,26 +83,25 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
          */
         DispatchQueue.global(qos: .unspecified)
             .async(qos: config.qos) {
-                [weak holder, weak lock] in
-                   lock.unsafelyUnwrapped.lock(whenCondition: 0)
-                   holder.unsafelyUnwrapped.value = RunLoop.current.getCFRunLoop()
-                   lock.unsafelyUnwrapped.unlock(withCondition: 1)
-                   
-                   /** without explicit nil assignment iOS 16.2 instrument tells me `holder` and `lock`  is leaked even with weak/unowned reference.
-                    */
-                   lock = nil
-                   holder = nil
-                   CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
-                   if CFRunLoopGetMain() === CFRunLoopGetCurrent() {
-                       CFRunLoopSourceInvalidate(emptySource)
-                   }
-                   while
-                       CFRunLoopSourceIsValid(emptySource),
-                       RunLoop.current.run(mode: .default, before: .distantFuture)
-                   { }
+                [weak lock] in
+                lock.unsafelyUnwrapped.lock(whenCondition: 0)
+                reference.initialize(to: RunLoop.current.getCFRunLoop())
+                lock.unsafelyUnwrapped.unlock(withCondition: 1)
+                
+                /** without explicit nil assignment iOS 16.2 instrument tells me `lock`  is leaked even with weak/unowned reference.
+                 */
+                lock = nil
+                CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
+                if CFRunLoopGetMain() === CFRunLoopGetCurrent() {
+                    CFRunLoopSourceInvalidate(emptySource)
+                }
+                while
+                    CFRunLoopSourceIsValid(emptySource),
+                    RunLoop.current.run(mode: .default, before: .distantFuture)
+                { }
             }
         lock.lock(whenCondition: 1)
-        let runLoop = holder.value.unsafelyUnwrapped
+        let runLoop = reference.move()
         lock.unlock(withCondition: 0)
         self.cfRunLoop = runLoop
         self.source = emptySource

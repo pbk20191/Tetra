@@ -9,14 +9,6 @@ import Foundation
 import Combine
 import os
 
-@available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, macOS 10.15, watchOS 6.0, *)
-@usableFromInline
-@preconcurrency
-internal final class UnsafeReference<T:Sendable> {
-    @usableFromInline
-    var value:T?
-}
-
 internal enum SubscriptionStatus {
     case awaitingSubscription
     case subscribed(Subscription)

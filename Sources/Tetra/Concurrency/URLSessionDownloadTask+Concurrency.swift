@@ -22,7 +22,7 @@ internal func randomDownloadFileURL() -> URL {
 @usableFromInline
 internal func perfomDownload(on session:URLSession, from url: URL) async throws -> (URL,URLResponse) {
     let sema = DispatchSemaphore(value: 0)
-    let reference = UnsafeReference<URLSessionDownloadTask>()
+    let reference = UnsafeMutablePointer<URLSessionDownloadTask>.allocate(capacity: 1)
     let underlyingTask = Task {
         try await withUnsafeThrowingContinuation { continuation in
             let sessionTask = session.downloadTask(with: url) { location, response, error in
@@ -45,14 +45,14 @@ internal func perfomDownload(on session:URLSession, from url: URL) async throws 
                     continuation.resume(throwing: error)
                 }
             }
-            reference.value = sessionTask
+            reference.initialize(to: sessionTask)
             sema.signal()
         }
     }
     let downloadTask = await withUnsafeContinuation { continuation in
         sema.wait()
-        continuation.resume(returning: reference.value.unsafelyUnwrapped)
-        reference.value = nil
+        continuation.resume(returning: reference.move())
+        reference.deallocate()
     }
     downloadTask.resume()
     if Task.isCancelled {
@@ -69,7 +69,7 @@ internal func perfomDownload(on session:URLSession, from url: URL) async throws 
 @usableFromInline
 internal func perfomDownload(on session:URLSession, for request: URLRequest) async throws -> (URL, URLResponse) {
     let sema = DispatchSemaphore(value: 0)
-    let reference = UnsafeReference<URLSessionDownloadTask>()
+    let reference = UnsafeMutablePointer<URLSessionDownloadTask>.allocate(capacity: 1)
     let underlyingTask = Task {
         try await withUnsafeThrowingContinuation { continuation in
             let sessionTask = session.downloadTask(with: request) { location, response, error in
@@ -92,14 +92,14 @@ internal func perfomDownload(on session:URLSession, for request: URLRequest) asy
                     continuation.resume(throwing: error)
                 }
             }
-            reference.value = sessionTask
+            reference.initialize(to: sessionTask)
             sema.signal()
         }
     }
     let downloadTask = await withUnsafeContinuation { continuation in
         sema.wait()
-        continuation.resume(returning: reference.value.unsafelyUnwrapped)
-        reference.value = nil
+        continuation.resume(returning: reference.move())
+        reference.deallocate()
     }
     downloadTask.resume()
     if Task.isCancelled {
@@ -116,7 +116,7 @@ internal func perfomDownload(on session:URLSession, for request: URLRequest) asy
 @usableFromInline
 internal func perfomDownload(on session:URLSession, resumeFrom data:Data) async throws -> (URL, URLResponse) {
     let sema = DispatchSemaphore(value: 0)
-    let reference = UnsafeReference<URLSessionDownloadTask>()
+    let reference = UnsafeMutablePointer<URLSessionDownloadTask>.allocate(capacity: 1)
     let underlyingTask = Task {
         try await withUnsafeThrowingContinuation { continuation in
             let sessionTask = session.downloadTask(withResumeData: data) { location, response, error in
@@ -137,14 +137,14 @@ internal func perfomDownload(on session:URLSession, resumeFrom data:Data) async 
                     continuation.resume(throwing: error)
                 }
             }
-            reference.value = sessionTask
+            reference.initialize(to: sessionTask)
             sema.signal()
         }
     }
     let downloadTask = await withUnsafeContinuation { continuation in
         sema.wait()
-        continuation.resume(returning: reference.value.unsafelyUnwrapped)
-        reference.value = nil
+        continuation.resume(returning: reference.move())
+        reference.deallocate()
     }
     downloadTask.resume()
     if Task.isCancelled {
