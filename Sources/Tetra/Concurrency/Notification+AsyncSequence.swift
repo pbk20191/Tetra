@@ -42,7 +42,7 @@ public final class NotificationSequence: AsyncSequence {
     
     let center: NotificationCenter
     private let observer: NSObjectProtocol
-    private let lock = createUncheckedStateLock(uncheckedState: NotficationState())
+    private let lock:some UnfairStateLock<NotficationState> = createUncheckedStateLock(uncheckedState: NotficationState())
     
     public struct Iterator: NonthrowingAsyncIteratorProtocol {
         public typealias Element = Notification

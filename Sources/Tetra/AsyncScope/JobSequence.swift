@@ -26,7 +26,7 @@ struct JobSequence: Sendable, AsyncSequence {
         var isClosed = false
     }
     
-    private let lock = createCheckedStateLock(checkedState: JobState())
+    private let lock:some UnfairStateLock<JobState> = createCheckedStateLock(checkedState: JobState())
     
     @usableFromInline
     struct Iterator: AsyncIteratorProtocol, Sendable {

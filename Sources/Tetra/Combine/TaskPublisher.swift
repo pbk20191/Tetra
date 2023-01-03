@@ -27,7 +27,7 @@ struct TaskPublisher<Output>: Publisher {
     private final class Inner<S:Subscriber>: Subscription where S.Input == Output, S.Failure == Never {
         
         let producer:@Sendable () async -> Output
-        private let lock = createUncheckedStateLock(uncheckedState: State())
+        private let lock:some UnfairStateLock<State> = createUncheckedStateLock(uncheckedState: State())
         
         init(subscriber:S, producer: @Sendable @escaping () async -> Output) {
             self.producer = producer
