@@ -27,9 +27,12 @@ public struct SchedulerTimePublisher<T:Scheduler>: Publisher {
     }
     
     public func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, Output == S.Input {
-        Inner(publisher: self).attach(subscriber)
+        subscriber.receive(
+            subscription: Inner(
+                publisher: self, subscriber: subscriber
+            )
+        )
     }
-    
 
     private struct State<S:Subscriber> where S.Input == Output, S.Failure == Failure {
         
@@ -51,15 +54,11 @@ public struct SchedulerTimePublisher<T:Scheduler>: Publisher {
         private let publisher:SchedulerTimePublisher<T>
         private let lock:some UnfairStateLock<State<S>> = createUncheckedStateLock(uncheckedState: State<S>())
         
-        init(publisher: SchedulerTimePublisher<T>) {
+        init(publisher: SchedulerTimePublisher<T>, subscriber:S) {
             self.publisher = publisher
-        }
-
-        func attach(_ subscriber:S) {
             lock.withLock{
                 $0.subscriber = subscriber
             }
-            subscriber.receive(subscription: self)
         }
         
         func request(_ demand: Subscribers.Demand) {
