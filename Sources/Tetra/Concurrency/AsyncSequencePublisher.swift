@@ -10,6 +10,7 @@ import Combine
 
 public extension AsyncSequence {
     
+    @inlinable
     var asyncPublisher:AsyncSequencePublisher<Self> {
         .init(base: self)
     }
@@ -54,12 +55,10 @@ extension AsyncSequencePublisher {
                 await withTaskCancellationHandler {
                     await Self.subscribe(lock: lock, demandBuffer: buffer, base: base)
                 } onCancel: {
-                    lock.withLock{
-                        $0 = nil
-                    }
+                    lock.withLock{ $0 = nil }
                     buffer.append(element: .none)
                 }
-
+                buffer.close()
             }
         }
 
@@ -77,75 +76,36 @@ extension AsyncSequencePublisher {
         static func subscribe(
             lock: some UnfairStateLock<Optional<S>>, demandBuffer: DemandAsyncBuffer, base:Base
         ) async {
-            let semaphore = DispatchSemaphore(value: 1)
-            let reference = UnsafeMutablePointer<Base.AsyncIterator>.allocate(capacity: 1)
-            defer { reference.deallocate() }
-            reference.initialize(to: base.makeAsyncIterator())
-            defer { reference.deinitialize(count: 1) }
-
-            try? await withThrowingTaskGroup(of: Void.self) { group in
+            var iterator = base.makeAsyncIterator()
+            do {
+            completionLabel:
                 for await demand in demandBuffer {
-                    group.addTask {
-                        try await received(demand, lock: lock, semaphore: semaphore, reference: reference)
-                    }
-                    do {
-                        async let _ = try await group.next()
-                    } catch let error as FinishError {
-                        throw error
-                    } catch {
-                        lock.withLockUnchecked{
-                            let oldValue = $0
-                            $0 = nil
-                            return oldValue
-                        }?.receive(completion: .failure(error))
-                        throw error
+                    var pending = demand
+                    while pending > .none {
+                        if let value = try await iterator.next() {
+                            pending -= 1
+                            let subscriber = lock.withLockUnchecked{ $0 }
+                            if let subscriber {
+                                pending += subscriber.receive(value)
+                            }
+                        } else {
+                            break completionLabel
+                        }
                     }
                 }
+                lock.withLockUnchecked{
+                    let oldValue = $0
+                    $0 = nil
+                    return oldValue
+                }?.receive(completion: .finished)
+            } catch {
+                lock.withLockUnchecked{
+                    let oldValue = $0
+                    $0 = nil
+                    return oldValue
+                }?.receive(completion: .failure(error))
             }
         }
-        
-        @usableFromInline
-        static internal func received(
-            _ demand:Subscribers.Demand,
-            lock: some UnfairStateLock<Optional<S>>,
-            semaphore:DispatchSemaphore,
-            reference:UnsafeMutablePointer<Base.AsyncIterator>
-        ) async throws {
-            var pending = demand
-            while pending > .none {
-                if let value = try await iterate(reference: reference, semaphore: semaphore) {
-                    pending -= 1
-                    let subscriber = lock.withLockUnchecked{ $0 }
-                    if let subscriber {
-                        pending += subscriber.receive(value)
-                    }
-                } else {
-                    lock.withLockUnchecked{
-                        let oldValue = $0
-                        $0 = nil
-                        return oldValue
-                    }?.receive(completion: .finished)
-                    throw FinishError()
-                }
-            }
-        }
-        
     }
     
-
-    
-    @usableFromInline
-    static internal func iterate(
-        reference:UnsafeMutablePointer<Base.AsyncIterator>, semaphore:DispatchSemaphore
-    ) async rethrows -> Base.Element? {
-        await withUnsafeContinuation{
-            semaphore.wait()
-            $0.resume()
-        }
-        defer { semaphore.signal() }
-        return try await reference.pointee.next()
-    }
-
-    private struct FinishError: Error, Sendable, Hashable {}
-
 }
