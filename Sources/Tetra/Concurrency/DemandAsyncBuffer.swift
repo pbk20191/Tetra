@@ -52,18 +52,21 @@ struct DemandAsyncBuffer: AsyncSequence, Sendable {
                     }
                 }
             } onCancel: {
-                base.lock.withLock {
-                    let oldValue = $0.pending
-                    $0.pending = nil
-                    $0.isClosed = true
-                    $0.demand = nil
-                    return oldValue
-                }?.resume(returning: nil)
+                base.close()
             }
         }
         
     }
     
+    func close() {
+        lock.withLock {
+            let oldValue = $0.pending
+            $0.pending = nil
+            $0.isClosed = true
+            $0.demand = nil
+            return oldValue
+        }?.resume(returning: nil)
+    }
     
     struct DemandState {
         

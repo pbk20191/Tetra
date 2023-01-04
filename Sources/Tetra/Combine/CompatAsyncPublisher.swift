@@ -63,11 +63,23 @@ private final class AsyncSubscriber<P:Publisher> : Subscriber, Cancellable where
     }
     
     func receive(_ input: Input) -> Subscribers.Demand {
-        lock.withLock {
-            let output = $0.pending
-            $0.pending = []
-            return output
-        }.forEach{ $0.resume(returning: input) }
+        let snapShot = lock.withLock {
+            let oldValue = $0
+            switch oldValue.status {
+            case .subscribed:
+                precondition(!$0.pending.isEmpty, "Received an output without requesting demand")
+                $0.pending.removeFirst()
+            default:
+                $0.pending = []
+            }
+            return oldValue
+        }
+        switch snapShot.status {
+        case .subscribed:
+            snapShot.pending.first?.resume(returning: input)
+        default:
+            snapShot.pending.forEach{ $0.resume(returning: nil) }
+        }
         return .none
     }
     
@@ -75,6 +87,7 @@ private final class AsyncSubscriber<P:Publisher> : Subscriber, Cancellable where
         lock.withLock {
             let captured = $0.pending
             $0.pending = []
+            $0.status = .terminal
             return captured
         }.forEach{
             switch completion {

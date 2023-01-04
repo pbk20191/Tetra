@@ -25,7 +25,12 @@ struct SingleThrowingTaskPublisher<Output>: Publisher {
     }
     
 
-    private final class Inner<S:Subscriber>: Subscription where S.Input == Output, S.Failure == Error {
+    private final class Inner<S:Subscriber>: Subscription, CustomStringConvertible, CustomPlaygroundDisplayConvertible where S.Input == Output, S.Failure == Error {
+        
+        var description: String { "SingleThrowingTask" }
+        
+        var playgroundDescription: Any { description }
+        
         
         private let task: Task<Void,Never>
         private let buffer = DemandAsyncBuffer()
