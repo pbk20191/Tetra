@@ -56,45 +56,85 @@ private final class AsyncThrowingSubscriber<P:Publisher> : Subscriber, Cancellab
     private let lock:some UnfairStateLock<SubscribedState> = createUncheckedStateLock(uncheckedState: SubscribedState())
 
     private struct SubscribedState {
-        var status = SubscriptionStatus.awaitingSubscription
+        var state = State.awaitingSubscription
         var pending:[UnsafeContinuation<Input?,Error>] = []
         var pendingDemand = Subscribers.Demand.none
     }
     
+    private enum State {
+        case awaitingSubscription
+        case subscribed(Subscription)
+        case terminal(Error?)
+    }
+
     fileprivate init() {
         
     }
     
     func receive(_ input: Input) -> Subscribers.Demand {
-        lock.withLock {
-            let output = $0.pending
-            $0.pending = []
-            return output
-        }.forEach{ $0.resume(returning: input) }
+        let snapShot = lock.withLock {
+            let oldValue = $0
+            switch oldValue.state {
+            case .subscribed:
+                precondition(!$0.pending.isEmpty, "Received an output without requesting demand")
+                $0.pending.removeFirst()
+            default:
+                $0.pending = []
+            }
+            return oldValue
+        }
+        switch snapShot.state {
+        case .subscribed:
+            snapShot.pending.first?.resume(returning: input)
+        default:
+            snapShot.pending.forEach{ $0.resume(returning: nil) }
+        }
         return .none
     }
     
     func receive(completion: Subscribers.Completion<Failure>) {
-        lock.withLock {
-            let captured = $0.pending
-            $0.pending = []
-            $0.status = .terminal
-            return captured
-        }.forEach{
-            switch completion {
-            case .finished:
-                $0.resume(returning: nil)
-            case .failure(let failure):
-                $0.resume(throwing: failure)
+        let snapShot = lock.withLock {
+            let oldState = $0
+            $0.pending.removeAll()
+            switch oldState.state {
+            case .awaitingSubscription, .subscribed:
+                if !oldState.pending.isEmpty {
+                    $0.state = .terminal(nil)
+                } else {
+                    switch completion {
+                    case .finished:
+                        $0.state = .terminal(nil)
+                    case .failure(let failure):
+                        $0.state = .terminal(failure)
+                    }
+                }
+            default:
+                break
             }
+            return oldState
+        }
+        switch snapShot.state {
+        case .awaitingSubscription, .subscribed:
+            if let continuation = snapShot.pending.first {
+                let remaining = snapShot.pending.dropFirst()
+                switch completion {
+                case .finished:
+                    continuation.resume(returning: nil)
+                case .failure(let error):
+                    continuation.resume(throwing: error)
+                }
+                remaining.forEach{ $0.resume(returning: nil) }
+            }
+        case .terminal:
+            snapShot.pending.forEach{ $0.resume(returning: nil) }
         }
     }
     
     func receive(subscription: Subscription) {
         let pendingDemand = lock.withLock {
-            guard case .awaitingSubscription = $0.status else { return nil as Subscribers.Demand? }
+            guard case .awaitingSubscription = $0.state else { return nil as Subscribers.Demand? }
             let demand = $0.pendingDemand
-            $0.status = .subscribed(subscription)
+            $0.state = .subscribed(subscription)
             $0.pendingDemand = .none
             return demand as Subscribers.Demand?
         }
@@ -110,9 +150,9 @@ private final class AsyncThrowingSubscriber<P:Publisher> : Subscriber, Cancellab
     
     func cancel() {
         let (continuations, resource) = lock.withLock {
-            let captured = ($0.pending, $0.status)
+            let captured = ($0.pending, $0.state)
             $0.pending = []
-            $0.status = .terminal
+            $0.state = .terminal(nil)
             return (captured)
         }
         continuations.forEach{ $0.resume(returning: nil) }
@@ -126,25 +166,27 @@ private final class AsyncThrowingSubscriber<P:Publisher> : Subscriber, Cancellab
         
     func next() async throws -> Input? {
         return try await withUnsafeThrowingContinuation { continuation in
-            let subscriptionState = lock.withLock {
-                switch $0.status {
+            let snapShot = lock.withLock {
+                let oldStatus = $0.state
+                switch oldStatus {
                 case .awaitingSubscription:
                     $0.pendingDemand += 1
                 case .subscribed(_):
                     $0.pending.append(continuation)
                 case .terminal:
-                    break
+                    $0.state = .terminal(nil)
                 }
-                
-                return $0.status
+                return oldStatus
             }
-            switch subscriptionState {
+            switch snapShot {
             case .awaitingSubscription:
                 break
             case .subscribed(let subscription):
                 subscription.request(.max(1))
-            case .terminal:
+            case .terminal(.none):
                 continuation.resume(returning: nil)
+            case .terminal(.some(let error)):
+                continuation.resume(throwing: error)
             }
          }
     }
