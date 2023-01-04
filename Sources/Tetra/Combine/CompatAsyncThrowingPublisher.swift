@@ -78,6 +78,7 @@ private final class AsyncThrowingSubscriber<P:Publisher> : Subscriber, Cancellab
         lock.withLock {
             let captured = $0.pending
             $0.pending = []
+            $0.status = .terminal
             return captured
         }.forEach{
             switch completion {

@@ -75,6 +75,7 @@ private final class AsyncSubscriber<P:Publisher> : Subscriber, Cancellable where
         lock.withLock {
             let captured = $0.pending
             $0.pending = []
+            $0.status = .terminal
             return captured
         }.forEach{
             switch completion {
