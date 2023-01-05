@@ -56,7 +56,6 @@ extension AsyncSequencePublisher {
                     await Self.subscribe(lock: lock, demandBuffer: buffer, base: base)
                 } onCancel: {
                     lock.withLock{ $0 = nil }
-                    buffer.append(element: .none)
                 }
                 buffer.close()
             }
