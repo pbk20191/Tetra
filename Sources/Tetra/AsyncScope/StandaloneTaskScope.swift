@@ -24,7 +24,11 @@ import os
     scope... // scope and underlying Task won't be cancelled automatically.
  }
  
+
  ```
+ 
+ - important: StandaloneTaskScope is intended to be use for at most 20 child task with BackDeployed Concurreny stdlib ( < iOS 15 )
+ otherwise StadaloneTaskScope rarely crash with EXC_BAD_ACCESS
  */
 public struct StandaloneTaskScope: TaskScopeProtocol {
         
@@ -93,41 +97,29 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
             }
         }
         task = creator(priority) {
+          // TODO: use withDiscardingTaskGroup
             await withThrowingTaskGroup(of: Void.self) { group in
-                var groupIterator = group.makeAsyncIterator()
-                group.addTask(priority: .userInitiated) {
+                group.addTask(priority: .background) {
                     let _ = await waitCancellation()
                 }
-                
-                let stream = AsyncStream<Void> { try? await groupIterator.next() }
-                
-                /// remove finished ChildTask from TaskGroup
-                async let iterationTask: () = await {
-                    do {
-                        async let signal: () = try await {
-                            throw await waitCancellation()
-                        }()
-                        for await _ in stream {
-                        }
-                        try await signal
-                    } catch {
-                    }
-                }()
-                
-                await withTaskCancellationHandler {
-                    for await operation in sequence {
-                        group.addTask(operation: operation)
-                        await Task.yield()
-                    }
+                var groupIterator = group.makeAsyncIterator()
+                let stream = AsyncStream<Void> {
+                    try? await groupIterator.next()
                 } onCancel: {
                     sequence.finish()
                 }
-                sequence.finish()
-
+                
+                /// remove finished ChildTask from TaskGroup
+                async let iterationTask: () = await {
+                    for await _ in stream { }
+                }()
+                
+                for await operation in sequence {
+                    group.addTask(operation: operation)
+                    await Task.yield()
+                }
                 group.cancelAll()
                 await iterationTask
-                try? await group.waitForAll()
-                await Task.yield()
             }
             
         }
