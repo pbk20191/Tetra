@@ -114,21 +114,20 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
                     }
                 }()
                 
-                for operation in sequence.popBuffered() {
-                    group.addTask(operation: operation)
+                await withTaskCancellationHandler {
+                    for await operation in sequence {
+                        group.addTask(operation: operation)
+                        await Task.yield()
+                    }
+                } onCancel: {
+                    sequence.finish()
                 }
+                sequence.finish()
 
-                for await operation in sequence {
-                    group.addTask(operation: operation)
-                    await Task.yield()
-                }
-
-                for operation in sequence.popBuffered() {
-                    group.addTask(operation: operation)
-                }
                 group.cancelAll()
                 await iterationTask
                 try? await group.waitForAll()
+                await Task.yield()
             }
             
         }
