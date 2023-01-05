@@ -83,9 +83,10 @@ extension AsyncSequencePublisher {
                     while pending > .none {
                         if let value = try await iterator.next() {
                             pending -= 1
-                            let subscriber = lock.withLockUnchecked{ $0 }
-                            if let subscriber {
+                            if let subscriber = lock.withLockUnchecked({ $0 }) {
                                 pending += subscriber.receive(value)
+                            } else {
+                                break completionLabel
                             }
                         } else {
                             break completionLabel
