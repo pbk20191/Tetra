@@ -101,33 +101,34 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
                 
                 let stream = AsyncStream<Void> { try? await groupIterator.next() }
                 
-                let iterationTask = Task.detached(priority: Task.currentPriority) {
+                /// remove finished ChildTask from TaskGroup
+                async let iterationTask: () = await {
                     do {
-                        async let error: () = try await {
+                        async let signal: () = try await {
                             throw await waitCancellation()
                         }()
                         for await _ in stream {
-                            
                         }
-                        try await error
+                        try await signal
                     } catch {
                     }
-                }
+                }()
                 
                 for operation in sequence.popBuffered() {
                     group.addTask(operation: operation)
                 }
+
                 for await operation in sequence {
                     group.addTask(operation: operation)
+                    await Task.yield()
                 }
-                
+
                 for operation in sequence.popBuffered() {
                     group.addTask(operation: operation)
                 }
                 group.cancelAll()
-                iterationTask.cancel()
+                await iterationTask
                 try? await group.waitForAll()
-                await iterationTask.value
             }
             
         }
