@@ -25,7 +25,6 @@ struct DemandAsyncBuffer: AsyncSequence, Sendable {
     private let stream:AsyncStream<Element>
     private let continuation: AsyncStream<Element>.Continuation
     
-    
     init() {
         var reference:AsyncStream<Element>.Continuation? = nil
         let semaphore = DispatchSemaphore(value: 0)

@@ -94,20 +94,44 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
         }
         task = creator(priority) {
             await withThrowingTaskGroup(of: Void.self) { group in
+                var groupIterator = group.makeAsyncIterator()
+                group.addTask(priority: .userInitiated) {
+                    let _ = await waitCancellation()
+                }
+                
+                let stream = AsyncStream<Void> { try? await groupIterator.next() }
+                
+                let iterationTask = Task.detached(priority: Task.currentPriority) {
+                    do {
+                        async let error: () = try await {
+                            throw await waitCancellation()
+                        }()
+                        for await _ in stream {
+                            
+                        }
+                        try await error
+                    } catch {
+                    }
+                }
+                
                 for operation in sequence.popBuffered() {
                     group.addTask(operation: operation)
-                    async let _ = try? await group.next()
                 }
                 for await operation in sequence {
                     group.addTask(operation: operation)
-                    async let _ = try? await group.next()
                 }
+                
                 for operation in sequence.popBuffered() {
                     group.addTask(operation: operation)
-                    async let _ = try? await group.next()
                 }
+                group.cancelAll()
+                iterationTask.cancel()
+                try? await group.waitForAll()
+                await iterationTask.value
             }
+            
         }
+        
         buffer = sequence
         cancellable = nil
     }
@@ -117,3 +141,4 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
     }
     
 }
+
