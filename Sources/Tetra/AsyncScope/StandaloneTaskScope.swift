@@ -124,14 +124,11 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
                                 break
                             }
                             group.addTask(operation: job)
-                            
                         }
-                        
-                        while !Task.isCancelled {
+                        _ = try? await group.next()
+                        while let nextJob = await jobIterator.next() {
+                            group.addTask(operation: nextJob)
                             _ = try? await group.next()
-                            print("move")
-                            guard let job = await jobIterator.next() else { break }
-                            group.addTask(operation: job)
                         }
                     }
                 } onCancel: {
