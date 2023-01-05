@@ -73,15 +73,15 @@ public final class NotificationSequence: AsyncSequence {
         self.center = center
         observer = center.addObserver(forName: name, object: object, queue: nil) { [lock] notification in
             lock.withLockUnchecked { state in
+                let captured = state.pending.first
+
                 if state.pending.isEmpty {
                     state.buffer.append(notification)
+                } else {
+                    state.pending.removeFirst()
                 }
-                let captured = state.pending
-                state.pending = []
                 return captured
-            }.forEach{
-                $0.resume(returning: notification)
-            }
+            }?.resume(returning: notification)
         }
     }
     

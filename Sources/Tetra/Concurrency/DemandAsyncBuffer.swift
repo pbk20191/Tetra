@@ -14,83 +14,34 @@ struct DemandAsyncBuffer: AsyncSequence, Sendable {
     
     @usableFromInline
     func makeAsyncIterator() -> AsyncIterator {
-        AsyncIterator(base: self)
+        stream.makeAsyncIterator()
     }
     
     @usableFromInline
     typealias Element = Subscribers.Demand
     @usableFromInline
-    typealias AsyncIterator = Iterator
+    typealias AsyncIterator = AsyncStream<Element>.AsyncIterator
     
-    private let lock: some UnfairStateLock<DemandState> = createCheckedStateLock(checkedState: DemandState())
+    private let stream:AsyncStream<Element>
+    private let continuation: AsyncStream<Element>.Continuation
     
-    @usableFromInline
-    struct Iterator: AsyncIteratorProtocol, Sendable {
-        
-        let base:DemandAsyncBuffer
-        
-        @usableFromInline
-        func next() async -> Element? {
-            await withTaskCancellationHandler {
-                return await withUnsafeContinuation { continuation in
-                    let snapShot = base.lock.withLock {
-                        let oldValue = $0
-                        Swift.precondition(oldValue.pending == nil)
-                        if !$0.isClosed {
-                            if $0.demand == nil {
-                                $0.pending = continuation
-                            } else {
-                                $0.demand = nil
-                            }
-                        }
-                        return oldValue
-                    }
-                    if snapShot.isClosed {
-                        continuation.resume(returning: nil)
-                    } else if let demand = snapShot.demand {
-                        continuation.resume(returning: demand)
-                    }
-                }
-            } onCancel: {
-                base.close()
-            }
+    init() {
+        var reference:AsyncStream<Element>.Continuation? = nil
+        let semaphore = DispatchSemaphore(value: 0)
+        stream = .init{
+            reference = $0
+            semaphore.signal()
         }
-        
-    }
-    
-    func close() {
-        lock.withLock {
-            let oldValue = $0.pending
-            $0.pending = nil
-            $0.isClosed = true
-            $0.demand = nil
-            return oldValue
-        }?.resume(returning: nil)
-    }
-    
-    struct DemandState {
-        
-        var demand:Subscribers.Demand? = nil
-        var pending:UnsafeContinuation<Element?,Never>? = nil
-        var isClosed = false
-        
+        semaphore.wait()
+        continuation = reference.unsafelyUnwrapped
     }
     
     func append(element: __owned Element) {
-        let snapShot = lock.withLock { state in
-            let oldValue = state
-            if oldValue.pending != nil {
-                state.pending = nil
-            } else if !state.isClosed {
-                let oldDemand = state.demand ?? .none
-                state.demand = oldDemand + element
-            }
-            return oldValue
-        }
-        snapShot.pending?.resume(returning: element)
+        continuation.yield(element)
     }
     
-
+    func close() {
+        continuation.finish()
+    }
     
-
 }

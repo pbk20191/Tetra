@@ -11,86 +11,40 @@ import Foundation
 struct JobSequence: Sendable, AsyncSequence {
     
     @usableFromInline
-    func makeAsyncIterator() -> Iterator {
-        .init(base: self)
+    func makeAsyncIterator() -> AsyncIterator {
+        stream.makeAsyncIterator()
     }
     
     @usableFromInline
     typealias Element = @Sendable () async throws -> ()
     @usableFromInline
-    typealias AsyncIterator = Iterator
+    typealias AsyncIterator = AsyncStream<Element>.AsyncIterator
+
     
-    private struct JobState: Sendable {
-        var queue:[Element] = []
-        var pending:UnsafeContinuation<Element?,Never>? = nil
-        var isClosed = false
-    }
+    private let stream:AsyncStream<Element>
+    private let continuation:AsyncStream<Element>.Continuation
     
-    private let lock:some UnfairStateLock<JobState> = createCheckedStateLock(checkedState: JobState())
-    
-    @usableFromInline
-    struct Iterator: AsyncIteratorProtocol, Sendable {
-        
-        let base:JobSequence
-        
-        @usableFromInline
-        func next() async -> Element? {
-            await withTaskCancellationHandler {
-                return await withUnsafeContinuation { continuation in
-                    let snapShot = base.lock.withLock {
-                        let oldValue = $0
-                        precondition(oldValue.pending == nil)
-                        if !$0.isClosed {
-                            if $0.queue.isEmpty {
-                                $0.pending = continuation
-                            } else {
-                                $0.queue.removeFirst()
-                            }
-                        }
-                        return oldValue
-                    }
-                    if snapShot.isClosed {
-                        continuation.resume(returning: nil)
-                    } else if let first = snapShot.queue.first {
-                        continuation.resume(returning: first)
-                    }
-                    
-                }
-            } onCancel: {
-                base.lock.withLock {
-                    let oldValue = $0.pending
-                    $0.pending = nil
-                    $0.isClosed = true
-                    return oldValue
-                }?.resume(returning: nil)
-            }
-            
+    init() {
+        var reference: AsyncStream<Element>.Continuation? = nil
+        let semaphore = DispatchSemaphore(value: 0)
+        stream = .init{ continuation in
+            reference = continuation
+            semaphore.signal()
         }
-        
+        semaphore.wait()
+        continuation = reference.unsafelyUnwrapped
     }
     
     func append(job: __owned @escaping Element) -> Bool {
-        let snapShot = lock.withLock { state in
-            let oldValue = state
-            if oldValue.pending != nil {
-                state.pending = nil
-            } else if !state.isClosed {
-                state.queue.append(job)
-            }
-            return oldValue
+        if case .enqueued = continuation.yield(job) {
+            return true
+        } else {
+            return false
         }
-        snapShot.pending?.resume(returning: job)
-        return !snapShot.isClosed
     }
     
-
-    
-    func popBuffered() -> [Element] {
-        lock.withLock {
-            let captured = $0.queue
-            $0.queue.removeAll()
-            return captured
-        }
+    func finish() {
+        continuation.finish()
     }
     
 }

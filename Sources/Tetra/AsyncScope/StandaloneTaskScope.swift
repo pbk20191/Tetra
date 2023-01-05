@@ -24,7 +24,11 @@ import os
     scope... // scope and underlying Task won't be cancelled automatically.
  }
  
+
  ```
+ 
+ - important: StandaloneTaskScope is intended to be use for at most 20 child task with BackDeployed Concurreny stdlib ( < iOS 15 )
+ otherwise StadaloneTaskScope rarely crash with EXC_BAD_ACCESS
  */
 public struct StandaloneTaskScope: TaskScopeProtocol {
         
@@ -93,21 +97,47 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
             }
         }
         task = creator(priority) {
+          // TODO: use withDiscardingTaskGroup
             await withThrowingTaskGroup(of: Void.self) { group in
-                for operation in sequence.popBuffered() {
-                    group.addTask(operation: operation)
-                    async let _ = try? await group.next()
+                group.addTask(priority: .background) {
+                    let _ = await waitCancellation()
                 }
-                for await operation in sequence {
-                    group.addTask(operation: operation)
-                    async let _ = try? await group.next()
-                }
-                for operation in sequence.popBuffered() {
-                    group.addTask(operation: operation)
-                    async let _ = try? await group.next()
+                await withTaskCancellationHandler {
+                    if #available(iOS 15, macOS 12, watchOS 8.0, tvOS 15.0, macCatalyst 15.0, *) {
+                        let pointer = UnsafeMutablePointer<ThrowingTaskGroup<Void,Error>>
+                            .allocate(capacity: 1)
+                        defer { pointer.deallocate() }
+                        pointer.initialize(to: group)
+                        defer { pointer.deinitialize(count: 1) }
+                        async let enqueingTask: () = await {
+                            for await operation in sequence {
+                                pointer.pointee.addTask(operation: operation)
+                                await Task.yield()
+                            }
+                        }()
+                        while let _ = try? await group.next() {}
+                        await enqueingTask
+                    } else {
+                        var jobIterator = sequence.makeAsyncIterator()
+                        for _ in 0..<20 {
+                            guard let job = await jobIterator.next() else {
+                                break
+                            }
+                            group.addTask(operation: job)
+                        }
+                        _ = try? await group.next()
+                        while let nextJob = await jobIterator.next() {
+                            group.addTask(operation: nextJob)
+                            _ = try? await group.next()
+                        }
+                    }
+                } onCancel: {
+                    sequence.finish()
                 }
             }
+            
         }
+        
         buffer = sequence
         cancellable = nil
     }
@@ -117,3 +147,4 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
     }
     
 }
+
