@@ -20,7 +20,7 @@ extension Publishers {
         public typealias Failure = Upstream.Failure
 
         public let upstream:Upstream
-        public let transform:@Sendable (Upstream.Output) async -> Output
+        public var transform:@Sendable (Upstream.Output) async -> Output
 
         public init(upstream: Upstream, transform: @escaping @Sendable (Upstream.Output) async -> Output) {
             self.upstream = upstream
@@ -28,12 +28,6 @@ extension Publishers {
         }
 
         public func receive<S>(subscriber: S) where S : Subscriber, Upstream.Failure == S.Failure, Output == S.Input {
-//
-//            upstream.flatMap(maxPublishers: .max(1)) { input in
-//                SingleTaskPublisher<Output>{ await transform(input) }
-//                    .setFailureType(to: Failure.self)
-//            }
-//            .subscribe(subscriber)
             subscriber
                 .receive(
                     subscription: Inner(
@@ -90,6 +84,11 @@ extension Publishers.MapTask {
                             }
                         )
                     )
+                    continuation.onTermination = {
+                        if case .cancelled = $0 {
+                            buffer.close()
+                        }
+                    }
                 }
                 let subscription = await withUnsafeContinuation{
                     subscriptionSemaphore.wait()
