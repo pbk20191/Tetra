@@ -102,24 +102,41 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
                 group.addTask(priority: .background) {
                     let _ = await waitCancellation()
                 }
-                var groupIterator = group.makeAsyncIterator()
-                let stream = AsyncStream<Void> {
-                    try? await groupIterator.next()
+                await withTaskCancellationHandler {
+                    if #available(iOS 15, macOS 12, watchOS 8.0, tvOS 15.0, macCatalyst 15.0, *) {
+                        let pointer = UnsafeMutablePointer<ThrowingTaskGroup<Void,Error>>
+                            .allocate(capacity: 1)
+                        defer { pointer.deallocate() }
+                        pointer.initialize(to: group)
+                        defer { pointer.deinitialize(count: 1) }
+                        async let enqueingTask: () = await {
+                            for await operation in sequence {
+                                pointer.pointee.addTask(operation: operation)
+                                await Task.yield()
+                            }
+                        }()
+                        while let _ = try? await group.next() {}
+                        await enqueingTask
+                    } else {
+                        var jobIterator = sequence.makeAsyncIterator()
+                        for _ in 0..<20 {
+                            guard let job = await jobIterator.next() else {
+                                break
+                            }
+                            group.addTask(operation: job)
+                            
+                        }
+                        
+                        while !Task.isCancelled {
+                            _ = try? await group.next()
+                            print("move")
+                            guard let job = await jobIterator.next() else { break }
+                            group.addTask(operation: job)
+                        }
+                    }
                 } onCancel: {
                     sequence.finish()
                 }
-                
-                /// remove finished ChildTask from TaskGroup
-                async let iterationTask: () = await {
-                    for await _ in stream { }
-                }()
-                
-                for await operation in sequence {
-                    group.addTask(operation: operation)
-                    await Task.yield()
-                }
-                group.cancelAll()
-                await iterationTask
             }
             
         }
