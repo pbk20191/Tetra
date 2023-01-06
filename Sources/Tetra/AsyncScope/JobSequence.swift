@@ -16,7 +16,7 @@ struct JobSequence: Sendable, AsyncSequence {
     }
     
     @usableFromInline
-    typealias Element = @Sendable () async throws -> ()
+    typealias Element = @Sendable () async -> ()
     @usableFromInline
     typealias AsyncIterator = AsyncStream<Element>.AsyncIterator
 
