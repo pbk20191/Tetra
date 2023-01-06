@@ -115,12 +115,13 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
                     }
                 }
                 
-                var iterator2 = group.makeAsyncIterator()
+                var childIterator = group.makeAsyncIterator()
                 let stream = AsyncStream<Void> {
-                    await iterator2.next()
+                    await childIterator.next()
                 } onCancel: {
                     sequence.finish()
                 }
+                // consume finished child Task to be released
                 async let iteratingTask: Void = await {
                     for await _ in stream { }
                 }()
