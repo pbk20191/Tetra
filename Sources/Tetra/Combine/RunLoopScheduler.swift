@@ -15,7 +15,7 @@ import Combine
  
  this class runs RunLoop indefinitely in default Mode, until deinitialized.
  
- - important: Memory leaks found in instruments from this class are not acually leaked and they will be released as soon as `RunLoopScheduler`'s `Thread` terminate.
+ - important: Memory leaks found in instrument from this class are not acually leaked and they will be released as soon as `RunLoopScheduler`'s `Thread` terminate.
  
  */
 public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
