@@ -36,31 +36,29 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
 
     deinit {
         CFRunLoopSourceInvalidate(source)
+        CFRunLoopWakeUp(cfRunLoop)
+        if CFRunLoopGetMain() !== cfRunLoop {
+            CFRunLoopStop(cfRunLoop)
+        }
     }
     
     public init(async: Void = (), config: Configuration = .init()) async {
         var nullContext = CFRunLoopSourceContext()
         nullContext.version = 0
-        nullContext.cancel = { _, runLoop, _ in
-            guard let runLoop else { return }
-            CFRunLoopStop(runLoop)
-        }
-        let threadQos = config.threadQos
-        let priority = config.threadPriority
         let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
         let runLoop = await withUnsafeContinuation{ continuation in
-            let workerThread = Thread {
-                continuation.resume(returning: RunLoop.current.getCFRunLoop())
-                Thread.setThreadPriority(priority)
+            DispatchQueue.global(qos: .unspecified)
+                .async(qos: config.qos) {
                 CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
+                continuation.resume(returning: RunLoop.current.getCFRunLoop())
+                if CFRunLoopGetMain() === CFRunLoopGetCurrent() {
+                    CFRunLoopSourceInvalidate(emptySource)
+                }
                 while
                     CFRunLoopSourceIsValid(emptySource),
                     RunLoop.current.run(mode: .default, before: .distantFuture)
                 { }
             }
-            workerThread.threadPriority = priority
-            workerThread.qualityOfService = threadQos
-            workerThread.start()
         }
         self.cfRunLoop = runLoop
         self.source = emptySource
@@ -70,46 +68,41 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
     /**
      Create Scheduler in sync
      
-     Create new Thread and run the CFRunLoop of that Thread., when RunLoop stops and Scheduler is
+     Pull a thread from GCD and run the CFRunLoop of that Thread. Thread will return back to GCD, when RunLoop stops and Scheduler is
      deinitialized. This initializer blocks the current thread until the Scheduler is ready.
      */
     public init(sync: Void = (), config: Configuration = .init()) {
         let reference = UnsafeMutablePointer<CFRunLoop>.allocate(capacity: 1)
         defer { reference.deallocate() }
         var nullContext = CFRunLoopSourceContext()
-        nullContext.cancel = { _, runLoop, _ in
-            guard let runLoop else { return }
-            CFRunLoopStop(runLoop)
-        }
         nullContext.version = 0
+        let lock = NSConditionLock(condition: 0)
         let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
-        let condition = NSCondition()
         
         /** weak or unowned reference is needed, cause strong reference will be retained unitl runLoop ends.
          */
-        let priority = config.threadPriority
-        let workerThread = Thread { [weak condition] in
-            condition.unsafelyUnwrapped.withLock {
+        DispatchQueue.global(qos: .unspecified)
+            .async(qos: config.qos) {
+                [weak lock] in
+                lock.unsafelyUnwrapped.lock(whenCondition: 0)
                 reference.initialize(to: RunLoop.current.getCFRunLoop())
-                condition.unsafelyUnwrapped.signal()
+                lock.unsafelyUnwrapped.unlock(withCondition: 1)
+                
+                /** without explicit nil assignment iOS 16.2 instrument tells me `lock`  is leaked even with weak/unowned reference.
+                 */
+                lock = nil
+                CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
+                if CFRunLoopGetMain() === CFRunLoopGetCurrent() {
+                    CFRunLoopSourceInvalidate(emptySource)
+                }
+                while
+                    CFRunLoopSourceIsValid(emptySource),
+                    RunLoop.current.run(mode: .default, before: .distantFuture)
+                { }
             }
-
-            /** without explicit nil assignment iOS 16.2 instrument tells me `condition`  is leaked even with weak/unowned reference.
-             */
-            condition = nil
-            Thread.setThreadPriority(priority)
-            CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
-            while
-                CFRunLoopSourceIsValid(emptySource),
-                RunLoop.current.run(mode: .default, before: .distantFuture)
-            { }
-        }
-        workerThread.qualityOfService = config.threadQos
-        let runLoop = condition.withLock {
-            workerThread.start()
-            condition.wait()
-            return reference.move()
-        }
+        lock.lock(whenCondition: 1)
+        let runLoop = reference.move()
+        lock.unlock(withCondition: 0)
         self.cfRunLoop = runLoop
         self.source = emptySource
         self.config = config
@@ -221,7 +214,7 @@ public extension RunLoopScheduler {
         public var keepAliveUntilFinish = true
         
         @inlinable
-        public init(qos: DispatchQoS =  .init(qosClass: .default, relativePriority: -15), keepAliveUntilFinish: Bool = true) {
+        public init(qos: DispatchQoS =  .init(qosClass: .background, relativePriority: -15), keepAliveUntilFinish: Bool = true) {
             self.qos = qos
             self.keepAliveUntilFinish = keepAliveUntilFinish
         }
@@ -236,31 +229,6 @@ extension RunLoopScheduler.Configuration: Hashable, @unchecked Sendable {
         hasher.combine(qos.qosClass)
         hasher.combine(qos.relativePriority)
         hasher.combine(keepAliveUntilFinish)
-    }
-    
-    internal var threadQos:QualityOfService {
-        switch self.qos.qosClass {
-        
-        case .background:
-            return .background
-        case .utility:
-            return .utility
-        case .default:
-            return .default
-        case .userInitiated:
-            return .userInitiated
-        case .userInteractive:
-            return .userInteractive
-        case .unspecified:
-            return .default
-        @unknown default:
-            return Thread.current.qualityOfService
-        }
-    }
-    
-    internal var threadPriority:Double {
-        precondition((-15...0).contains(qos.relativePriority), "relativePriority should be in -15...0")
-        return Double((15 + qos.relativePriority) / 30)
     }
     
 }
