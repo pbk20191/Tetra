@@ -15,7 +15,17 @@ import Combine
  
  this class runs RunLoop indefinitely in default Mode, until deinitialized.
  */
-public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiable {
+public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
+    
+    public static func == (lhs: RunLoopScheduler, rhs: RunLoopScheduler) -> Bool {
+        lhs.cfRunLoop == rhs.cfRunLoop && lhs.source == rhs.source
+    }
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(cfRunLoop)
+        hasher.combine(source)
+    }
+    
 
     public typealias SchedulerTimeType = RunLoop.SchedulerTimeType
     public typealias SchedulerOptions = Never
@@ -45,21 +55,19 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
             guard let runLoop else { return }
             CFRunLoopStop(runLoop)
         }
-        let threadQos = config.threadQos
-        let priority = config.threadPriority
         let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
+        let _ = CFRunLoopMode.defaultMode
         let runLoop = await withUnsafeContinuation{ continuation in
             let workerThread = Thread {
                 continuation.resume(returning: RunLoop.current.getCFRunLoop())
-                Thread.setThreadPriority(priority)
-                CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
+                CFRunLoopAddSource(RunLoop.current.getCFRunLoop(), emptySource, .defaultMode)
+                Thread.setThreadPriority(0)
                 while
                     CFRunLoopSourceIsValid(emptySource),
                     RunLoop.current.run(mode: .default, before: .distantFuture)
                 { }
             }
-            workerThread.threadPriority = priority
-            workerThread.qualityOfService = threadQos
+            workerThread.qualityOfService = config.qos
             workerThread.start()
         }
         self.cfRunLoop = runLoop
@@ -70,8 +78,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
     /**
      Create Scheduler in sync
      
-     Create new Thread and run the CFRunLoop of that Thread., when RunLoop stops and Scheduler is
-     deinitialized. This initializer blocks the current thread until the Scheduler is ready.
+     Create new Thread and run the CFRunLoop of that Thread. This initializer blocks the current thread until the Scheduler is ready.
      */
     public init(sync: Void = (), config: Configuration = .init()) {
         let reference = UnsafeMutablePointer<CFRunLoop>.allocate(capacity: 1)
@@ -84,27 +91,22 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
         nullContext.version = 0
         let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
         let condition = NSCondition()
-        
+        let _ = CFRunLoopMode.defaultMode
         /** weak or unowned reference is needed, cause strong reference will be retained unitl runLoop ends.
          */
-        let priority = config.threadPriority
-        let workerThread = Thread { [weak condition] in
-            condition.unsafelyUnwrapped.withLock {
+        let workerThread = Thread { [unowned condition] in
+            condition.withLock {
                 reference.initialize(to: RunLoop.current.getCFRunLoop())
-                condition.unsafelyUnwrapped.signal()
+                condition.signal()
             }
-
-            /** without explicit nil assignment iOS 16.2 instrument tells me `condition`  is leaked even with weak/unowned reference.
-             */
-            condition = nil
-            Thread.setThreadPriority(priority)
-            CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
+            Thread.setThreadPriority(0)
+            CFRunLoopAddSource(RunLoop.current.getCFRunLoop(), emptySource, .defaultMode)
             while
                 CFRunLoopSourceIsValid(emptySource),
                 RunLoop.current.run(mode: .default, before: .distantFuture)
             { }
         }
-        workerThread.qualityOfService = config.threadQos
+        workerThread.qualityOfService = config.qos
         let runLoop = condition.withLock {
             workerThread.start()
             condition.wait()
@@ -214,53 +216,17 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Identifiabl
 
 public extension RunLoopScheduler {
     
-    struct Configuration {
+    struct Configuration: Hashable, Sendable {
         
-        public var qos:DispatchQoS = .init(qosClass: .background, relativePriority: -15)
+        public var qos:QualityOfService = .default
         /** whether to keep the scheduler alive until submitted tasks are finished */
         public var keepAliveUntilFinish = true
         
         @inlinable
-        public init(qos: DispatchQoS =  .init(qosClass: .default, relativePriority: -15), keepAliveUntilFinish: Bool = true) {
+        public init(qos: QualityOfService = .default, keepAliveUntilFinish: Bool = true) {
             self.qos = qos
             self.keepAliveUntilFinish = keepAliveUntilFinish
         }
-    }
-    
-}
-
-extension RunLoopScheduler.Configuration: Hashable, @unchecked Sendable {
-    
-    @inlinable
-    public func hash(into hasher: inout Hasher) {
-        hasher.combine(qos.qosClass)
-        hasher.combine(qos.relativePriority)
-        hasher.combine(keepAliveUntilFinish)
-    }
-    
-    internal var threadQos:QualityOfService {
-        switch self.qos.qosClass {
-        
-        case .background:
-            return .background
-        case .utility:
-            return .utility
-        case .default:
-            return .default
-        case .userInitiated:
-            return .userInitiated
-        case .userInteractive:
-            return .userInteractive
-        case .unspecified:
-            return .default
-        @unknown default:
-            return Thread.current.qualityOfService
-        }
-    }
-    
-    internal var threadPriority:Double {
-        precondition((-15...0).contains(qos.relativePriority), "relativePriority should be in -15...0")
-        return Double((15 + qos.relativePriority) / 30)
     }
     
 }
