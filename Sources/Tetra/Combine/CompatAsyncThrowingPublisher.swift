@@ -167,6 +167,7 @@ private final class AsyncThrowingSubscriber<P:Publisher> : Subscriber, Cancellab
                 let oldStatus = $0.state
                 switch oldStatus {
                 case .awaitingSubscription:
+                    $0.pending.append(continuation)
                     $0.pendingDemand += 1
                 case .subscribed(_):
                     $0.pending.append(continuation)

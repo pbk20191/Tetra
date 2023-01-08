@@ -140,8 +140,8 @@ private final class AsyncSubscriber<P:Publisher> : Subscriber, Cancellable where
                 switch $0.status {
                 case .subscribed(_):
                     $0.pending.append(continuation)
-                    
                 case .awaitingSubscription:
+                    $0.pending.append(continuation)
                     $0.pendingDemand += 1
                 case .terminal:
                     break
