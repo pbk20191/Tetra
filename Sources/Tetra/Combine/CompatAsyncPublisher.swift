@@ -23,15 +23,15 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         self.publisher = publisher
     }
     
-    public struct Iterator: NonthrowingAsyncIteratorProtocol {
+    public struct Iterator: NonThrowingAsyncIteratorProtocol {
         
         public typealias Element = P.Output
         
         private let inner = AsyncSubscriber<P>()
         private let reference:AnyCancellable
         
-        public func next() async -> P.Output? {
-            await withTaskCancellationHandler(operation: inner.next) {
+        public mutating func next() async -> P.Output? {
+            await withTaskCancellationHandler(operation: inner.next) { [reference] in
                 reference.cancel()
             }
         }
@@ -140,8 +140,8 @@ private final class AsyncSubscriber<P:Publisher> : Subscriber, Cancellable where
                 switch $0.status {
                 case .subscribed(_):
                     $0.pending.append(continuation)
-                    
                 case .awaitingSubscription:
+                    $0.pending.append(continuation)
                     $0.pendingDemand += 1
                 case .terminal:
                     break

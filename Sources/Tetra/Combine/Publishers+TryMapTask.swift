@@ -117,11 +117,13 @@ extension Publishers.TryMapTask {
                                 }
                             }
                         }
-                        lock.withLockUnchecked{
-                            let oldValue = $0
-                            $0 = nil
-                            return oldValue
-                        }?.receive(completion: .finished)
+                        if !Task.isCancelled {
+                            lock.withLockUnchecked{
+                                let oldValue = $0
+                                $0 = nil
+                                return oldValue
+                            }?.receive(completion: .finished)
+                        }
                     } catch {
                         lock.withLockUnchecked{
                             let oldValue = $0
@@ -129,11 +131,6 @@ extension Publishers.TryMapTask {
                             return oldValue
                         }?.receive(completion: .failure(error))
                     }
-                    lock.withLockUnchecked{
-                        let oldValue = $0
-                        $0 = nil
-                        return oldValue
-                    }?.receive(completion: .finished)
                 } onCancel: {
                     subscription.cancel()
                     lock.withLock{ $0 = nil }

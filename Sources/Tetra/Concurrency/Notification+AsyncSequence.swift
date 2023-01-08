@@ -29,7 +29,7 @@ public extension NotificationCenter {
 }
 
 @available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *)
-extension NotificationCenter.Notifications.AsyncIterator: NonthrowingAsyncIteratorProtocol {}
+extension NotificationCenter.Notifications.AsyncIterator: NonThrowingAsyncIteratorProtocol {}
 
 public final class NotificationSequence: AsyncSequence {
     
@@ -44,7 +44,7 @@ public final class NotificationSequence: AsyncSequence {
     private let observer: NSObjectProtocol
     private let lock:some UnfairStateLock<NotficationState> = createUncheckedStateLock(uncheckedState: NotficationState())
     
-    public struct Iterator: NonthrowingAsyncIteratorProtocol {
+    public struct Iterator: NonThrowingAsyncIteratorProtocol {
         public typealias Element = Notification
         
         let parent:NotificationSequence
