@@ -50,7 +50,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
     deinit {
         CFRunLoopSourceInvalidate(source)
     }
-    
+
     public init(async: Void = (), config: Configuration = .init()) async {
         var nullContext = CFRunLoopSourceContext()
         nullContext.version = 0
@@ -58,18 +58,13 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
             guard let runLoop else { return }
             CFRunLoopStop(runLoop)
         }
+        
         let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
-        let _ = CFRunLoopMode.defaultMode
         let runLoop = await withUnsafeContinuation{ continuation in
-            let workerThread = Thread {
-                continuation.resume(returning: RunLoop.current.getCFRunLoop())
-                CFRunLoopAddSource(RunLoop.current.getCFRunLoop(), emptySource, .defaultMode)
-                Thread.setThreadPriority(0)
-                while
-                    CFRunLoopSourceIsValid(emptySource),
-                    RunLoop.current.run(mode: .default, before: .distantFuture)
-                { }
+            let runner = RunLoopRunner(emptySource) {
+                continuation.resume(returning: $0)
             }
+            let workerThread = Thread(target: runner, selector: #selector(runner.main), object: nil)
             workerThread.qualityOfService = config.qos
             workerThread.start()
         }
@@ -91,24 +86,18 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
             guard let runLoop else { return }
             CFRunLoopStop(runLoop)
         }
+
         nullContext.version = 0
         let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
+
         let condition = NSCondition()
-        let _ = CFRunLoopMode.defaultMode
-        /** weak or unowned reference is needed, cause strong reference will be retained unitl runLoop ends.
-         */
-        let workerThread = Thread { [unowned condition] in
+        let runner = RunLoopRunner(emptySource) {
+            reference.initialize(to: $0)
             condition.withLock {
-                reference.initialize(to: RunLoop.current.getCFRunLoop())
                 condition.signal()
             }
-            Thread.setThreadPriority(0)
-            CFRunLoopAddSource(RunLoop.current.getCFRunLoop(), emptySource, .defaultMode)
-            while
-                CFRunLoopSourceIsValid(emptySource),
-                RunLoop.current.run(mode: .default, before: .distantFuture)
-            { }
         }
+        let workerThread = Thread(target: runner, selector: #selector(runner.main), object: nil)
         workerThread.qualityOfService = config.qos
         let runLoop = condition.withLock {
             workerThread.start()
@@ -213,6 +202,51 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
     @Sendable
     nonisolated
     internal func doNothing() { }
+    
+    private struct RunnerParameter {
+        let source:CFRunLoopSource
+        let completion:(CFRunLoop) -> ()
+    }
+    
+    private final class RunLoopRunner {
+        
+        private var parameter:RunnerParameter?
+        
+        @objc
+        func main() {
+            let emptySource:CFRunLoopSource
+            if let parameter {
+                emptySource = parameter.source
+                parameter.completion(CFRunLoopGetCurrent())
+                self.parameter = nil
+            } else {
+                return
+            }
+            CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
+            Thread.setThreadPriority(0)
+            let cfObserver = CFRunLoopObserverCreateWithHandler(.none, CFRunLoopActivity.exit.rawValue, true, 0) {[weak emptySource] _, _ in
+                guard let source = emptySource, CFRunLoopSourceIsValid(source) else {
+                    let cfLoop = CFRunLoopGetCurrent().unsafelyUnwrapped
+                    DispatchQueue.global().asyncAfter(deadline: .now().advanced(by: .milliseconds(10))) {
+                        CFRunLoopStop(cfLoop)
+                    }
+                    return
+                }
+                
+            }.unsafelyUnwrapped
+            CFRunLoopAddObserver(CFRunLoopGetCurrent(), cfObserver, .commonModes)
+            while
+                CFRunLoopSourceIsValid(emptySource),
+                RunLoop.current.run(mode: .default, before: .distantFuture)
+            {  }
+            CFRunLoopObserverInvalidate(cfObserver)
+        }
+        
+        init(_ source:CFRunLoopSource, completionHandler: @escaping (CFRunLoop) -> ()) {
+            self.parameter = .init(source: source, completion: completionHandler)
+        }
+        
+    }
     
 }
 
