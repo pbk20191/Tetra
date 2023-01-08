@@ -93,11 +93,13 @@ extension AsyncSequencePublisher {
                         }
                     }
                 }
-                lock.withLockUnchecked{
-                    let oldValue = $0
-                    $0 = nil
-                    return oldValue
-                }?.receive(completion: .finished)
+                if !Task.isCancelled {
+                    lock.withLockUnchecked{
+                        let oldValue = $0
+                        $0 = nil
+                        return oldValue
+                    }?.receive(completion: .finished)
+                }
             } catch {
                 lock.withLockUnchecked{
                     let oldValue = $0
