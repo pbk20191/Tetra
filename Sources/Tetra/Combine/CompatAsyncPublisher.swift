@@ -23,7 +23,7 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         self.publisher = publisher
     }
     
-    public struct Iterator: NonthrowingAsyncIteratorProtocol {
+    public struct Iterator: NonThrowingAsyncIteratorProtocol {
         
         public typealias Element = P.Output
         
