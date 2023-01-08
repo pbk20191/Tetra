@@ -30,8 +30,8 @@ public struct CompatAsyncPublisher<P:Publisher>: AsyncSequence where P.Failure =
         private let inner = AsyncSubscriber<P>()
         private let reference:AnyCancellable
         
-        public func next() async -> P.Output? {
-            await withTaskCancellationHandler(operation: inner.next) {
+        public mutating func next() async -> P.Output? {
+            await withTaskCancellationHandler(operation: inner.next) { [reference] in
                 reference.cancel()
             }
         }

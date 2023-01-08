@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence {
+public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncTypedSequence {
 
     public typealias AsyncIterator = Iterator
     public typealias Element = P.Output
@@ -19,15 +19,15 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence {
         Iterator(source: publisher)
     }
     
-    public struct Iterator: AsyncTypedIteratorProtocol {
+    public struct Iterator: AsyncIteratorProtocol {
         
         public typealias Element = P.Output
         
         private let inner = AsyncThrowingSubscriber<P>()
         private let reference:AnyCancellable
         
-        public func next() async throws -> P.Output? {
-            try await withTaskCancellationHandler(operation: inner.next) {
+        public mutating func next() async throws -> P.Output? {
+            try await withTaskCancellationHandler(operation: inner.next) { [reference] in
                 reference.cancel()
             }
         }
@@ -44,9 +44,6 @@ public struct CompatAsyncThrowingPublisher<P:Publisher>: AsyncSequence {
     }
 
 }
-
-
-
 
 private final class AsyncThrowingSubscriber<P:Publisher> : Subscriber, Cancellable {
     

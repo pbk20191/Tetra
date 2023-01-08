@@ -9,43 +9,19 @@ import Combine
 import _Concurrency
 
 @usableFromInline
-internal protocol AsyncTypedIteratorProtocol<Element>:AsyncIteratorProtocol {}
-
-@usableFromInline
 internal protocol NonthrowingAsyncIteratorProtocol<Element>: AsyncIteratorProtocol {
     
     mutating func next() async -> Element?
     
 }
 
-public struct AnyAsyncTypeSequence<Element>: AsyncSequence {
-    
-    private let builder:@Sendable () -> AsyncIterator
-    
-    public typealias AsyncIterator = Iterator
-    
-    internal init<T:AsyncSequence>(base:T) where T.Element == Element, T.AsyncIterator : AsyncTypedIteratorProtocol {
-        builder = { [base] in Iterator(base: base.makeAsyncIterator()) }
-    }
-    
-    public func makeAsyncIterator() -> AsyncIterator {
-        builder()
-    }
-    
-    public struct Iterator: AsyncTypedIteratorProtocol {
-        
-        public mutating func next() async throws -> Element? {
-            try await base.next()
-        }
-        
-        private var base:any AsyncTypedIteratorProtocol<Element>
-        
-        internal init<T:AsyncTypedIteratorProtocol>(base: T) where T.Element == Element {
-            self.base = base
-        }
-        
-    }
-}
+public protocol AsyncTypedSequence<Element>:AsyncSequence {}
+
+@available(iOS 15.0, macOS 12.0, macCatalyst 15.0, tvOS 15.0, watchOS 8.0, *)
+extension AsyncThrowingPublisher: AsyncTypedSequence {}
+
+@available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *)
+extension AsyncPublisher.Iterator: NonthrowingAsyncIteratorProtocol {}
 
 public struct WrappedAsyncSequence<Element>:AsyncSequence {
     
@@ -77,8 +53,3 @@ public struct WrappedAsyncSequence<Element>:AsyncSequence {
 }
 
 
-@available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *)
-extension AsyncThrowingPublisher.Iterator: AsyncTypedIteratorProtocol {}
-
-@available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *)
-extension AsyncPublisher.Iterator: NonthrowingAsyncIteratorProtocol{}
