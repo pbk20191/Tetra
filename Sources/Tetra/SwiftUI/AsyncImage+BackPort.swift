@@ -15,12 +15,12 @@ import AppKit
 #if canImport(SwiftUI) && (canImport(UIKit) || canImport(AppKit))
 import SwiftUI
 
-@available(iOS, introduced: 13.0, obsoleted: 15.0)
-@available(tvOS, introduced: 13.0, obsoleted: 15.0)
-@available(macCatalyst, introduced: 13.0, obsoleted: 15.0)
-@available(macOS, introduced: 10.15, obsoleted: 12.0)
-@available(watchOS, introduced: 6.0, obsoleted: 8.0)
-public enum AsyncImagePhase {
+@available(iOS, deprecated: 15.0, renamed: "AsyncImagePhase")
+@available(tvOS, deprecated: 15.0, renamed: "AsyncImagePhase")
+@available(macCatalyst, deprecated: 15.0, renamed: "AsyncImagePhase")
+@available(macOS, deprecated: 12.0, renamed: "AsyncImagePhase")
+@available(watchOS, deprecated: 8.0, renamed: "AsyncImagePhase")
+public enum ComptAsyncImagePhase {
     case empty
     case success(Image)
     case failure(Error)
@@ -38,79 +38,84 @@ public enum AsyncImagePhase {
     }
 }
 
-@available(iOS, introduced: 13.0, obsoleted: 15.0)
-@available(tvOS, introduced: 13.0, obsoleted: 15.0)
-@available(macCatalyst, introduced: 13.0, obsoleted: 15.0)
-@available(macOS, introduced: 10.15, obsoleted: 12.0)
-@available(watchOS, introduced: 6.0, obsoleted: 8.0)
-public struct AsyncImage<Content: View>: View {
+@available(iOS, obsoleted: 15.0, renamed: "AsyncImage")
+@available(tvOS, obsoleted: 15.0, renamed: "AsyncImage")
+@available(macCatalyst, obsoleted: 15.0, renamed: "AsyncImage")
+@available(macOS, obsoleted: 12.0, renamed: "AsyncImage")
+@available(watchOS, obsoleted: 8.0, renamed: "AsyncImage")
+public struct CompatAsyncImage<Content: View>: View {
     
     @usableFromInline
     var url: URL?
     @usableFromInline
     var scale: CGFloat = 1
     @usableFromInline
-    var content: ((Tetra.AsyncImagePhase) -> Content)?
-    @State private var imagePhase:AsyncImagePhase = .empty
+    var transaction = Transaction()
+    @usableFromInline
+    var content: ((Tetra.ComptAsyncImagePhase) -> Content)?
+    @State private var loadingState = LoadingState()
     @usableFromInline
     var someView:AnyView
+
+    
+    private struct LoadingState {
+        var url:URL?
+        var phase = Tetra.ComptAsyncImagePhase.empty
+    }
     
     @usableFromInline
     @ViewBuilder
     var contentOrImage: some View {
         if let content = content {
-            content(imagePhase)
-        } else if case let .success(image) = imagePhase {
+            content(loadingState.phase)
+        } else if case let .success(image) = loadingState.phase {
             image
         } else {
-            #if os(watchOS)
-            Color.gray
-            #elseif canImport(UIKit)
-            Color(UIColor.systemGray)
-            #elseif canImport(AppKit)
-            Color(NSColor.systemGray)
-            #else
-            Color.gray
-            #endif
+            Color(white: 0.16)
+        }
+    }
+    
+    private func loadImage() async {
+        guard let url else { return }
+        switch loadingState.phase {
+        case .failure(let error) where (error as? URLError)?.code == .cancelled:
+            loadingState.phase = .empty
+            fallthrough
+        case .empty:
+            do {
+                let (location, _) = try await URLSession.shared.download(from: url)
+                loadingState.url = location
+                if let image = CIImage(contentsOf: location)?.cgImage {
+                    withTransaction(transaction) {
+                        loadingState.phase = .success(Image(decorative: image, scale: scale))
+                    }
+                } else {
+                    throw URLError(.cannotDecodeContentData)
+                }
+            } catch {
+                withTransaction(transaction) {
+                    loadingState.phase = .failure(error)
+                }
+            }
+        default:
+            break
         }
     }
 
     public var body: some View {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *) {
             someView
+        } else if #available(iOS 14.0, tvOS 14.0, macCatalyst 14.0, watchOS 7.0, macOS 11.0, *) {
+            contentOrImage
+                .async(id: url) {
+                    await loadImage()
+                }
         } else {
             contentOrImage
                 .async {
-                    guard let url else { return }
-                    switch imagePhase {
-                    case .failure(let error) where (error as? URLError)?.code == .cancelled:
-                        imagePhase = .empty
-                        fallthrough
-                    case .empty:
-                        do {
-                            let (data, _) = try await URLSession.shared.data(from: url)
-                            #if canImport(UIKit)
-                            if let image = UIImage(data: data, scale: scale) {
-                                imagePhase = .success(Image(uiImage: image))
-                            } else {
-                                throw URLError(.cannotDecodeContentData)
-                            }
-                            #elseif canImport(AppKit)
-                            if let image = NSImage(data: data) {
-                                imagePhase = .success(Image(nsImage: image))
-                            } else {
-                                throw URLError(.cannotDecodeContentData)
-                            }
-                            #endif
-                        } catch {
-                            imagePhase = .failure(error)
-                        }
-                    default:
-                        break
-                    }
-
-
+                    await loadImage()
                 }
+                .id(url)
         }
     }
 
@@ -158,11 +163,12 @@ public struct AsyncImage<Content: View>: View {
         url: URL?,
         scale: CGFloat = 1,
         transaction: Transaction = Transaction(),
-        @ViewBuilder content: @escaping (AsyncImagePhase) -> Content
+        @ViewBuilder content: @escaping (ComptAsyncImagePhase) -> Content
     ) {
         self.url = url
         self.scale = scale
         self.content = content
+        self.transaction = transaction
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *) {
             self.someView = AnyView(
                 SwiftUI.AsyncImage(
