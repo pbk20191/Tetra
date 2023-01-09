@@ -35,11 +35,11 @@ public enum CompatAsyncImagePhase {
     }
 }
 
-@available(iOS, obsoleted: 15.0, renamed: "AsyncImage")
-@available(tvOS, obsoleted: 15.0, renamed: "AsyncImage")
-@available(macCatalyst, obsoleted: 15.0, renamed: "AsyncImage")
-@available(macOS, obsoleted: 12.0, renamed: "AsyncImage")
-@available(watchOS, obsoleted: 8.0, renamed: "AsyncImage")
+@available(iOS, deprecated: 15.0, renamed: "AsyncImage")
+@available(tvOS, deprecated: 15.0, renamed: "AsyncImage")
+@available(macCatalyst, deprecated: 15.0, renamed: "AsyncImage")
+@available(macOS, deprecated: 12.0, renamed: "AsyncImage")
+@available(watchOS, deprecated: 8.0, renamed: "AsyncImage")
 public struct CompatAsyncImage<Content: View>: View {
     
     @usableFromInline
