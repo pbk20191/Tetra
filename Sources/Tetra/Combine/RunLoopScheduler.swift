@@ -15,8 +15,30 @@ import Combine
  
  this class runs RunLoop indefinitely in default Mode, until deinitialized.
  
- - important: Memory leaks found in instrument from this class are not acually leaked and they will be released as soon as `RunLoopScheduler`'s `Thread` terminate.
+ #1 Nested RunLoop
  
+ It's not a good idea to create nested RunLoop inside RunLoopScheduler but if you do need that do as follows. (otherwise RunLoopScheduler's Thread might never exit when needed)
+ 
+ case 1
+ ```
+ let scheduler = await RunLoopScheduler(async: (), config: .init(keepAliveUntilFinish: false))
+ scheduler.schedule{
+        RunLoop.current.run()
+ }
+ // keep strong reference to scheduler
+ 
+ 
+ ```
+ case 2
+ ```
+ let scheduler = await RunLoopScheduler(async: ())
+ scheduler.schedule{
+        RunLoop.current.perform{
+            RunLoop.current.run()
+        }
+ }
+ ```
+ - important: Memory leaks found in instrument from this class are not acually leaked and they will be released as soon as `RunLoopScheduler`'s `Thread` terminate.
  */
 public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
     
