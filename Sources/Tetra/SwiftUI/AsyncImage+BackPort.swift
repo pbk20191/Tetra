@@ -6,13 +6,10 @@
 //
 
 import Foundation
-#if canImport(UIKit)
-import UIKit
-#elseif canImport(AppKit)
-import AppKit
-#endif
+import Combine
 
-#if canImport(SwiftUI) && (canImport(UIKit) || canImport(AppKit))
+
+#if canImport(SwiftUI)
 import SwiftUI
 
 @available(iOS, deprecated: 15.0, renamed: "AsyncImagePhase")
@@ -20,7 +17,7 @@ import SwiftUI
 @available(macCatalyst, deprecated: 15.0, renamed: "AsyncImagePhase")
 @available(macOS, deprecated: 12.0, renamed: "AsyncImagePhase")
 @available(watchOS, deprecated: 8.0, renamed: "AsyncImagePhase")
-public enum ComptAsyncImagePhase {
+public enum CompatAsyncImagePhase {
     case empty
     case success(Image)
     case failure(Error)
@@ -52,23 +49,18 @@ public struct CompatAsyncImage<Content: View>: View {
     @usableFromInline
     var transaction = Transaction()
     @usableFromInline
-    var content: ((Tetra.ComptAsyncImagePhase) -> Content)?
-    @State private var loadingState = LoadingState()
+    var content: ((Tetra.CompatAsyncImagePhase) -> Content)?
+    @State private var phase = CompatAsyncImagePhase.empty
     @usableFromInline
     var someView:AnyView
 
-    
-    private struct LoadingState {
-        var url:URL?
-        var phase = Tetra.ComptAsyncImagePhase.empty
-    }
-    
+
     @usableFromInline
     @ViewBuilder
     var contentOrImage: some View {
         if let content = content {
-            content(loadingState.phase)
-        } else if case let .success(image) = loadingState.phase {
+            content(phase)
+        } else if case let .success(image) = phase {
             image
         } else {
             Color(white: 0.16)
@@ -76,25 +68,27 @@ public struct CompatAsyncImage<Content: View>: View {
     }
     
     private func loadImage() async {
-        guard let url else { return }
-        switch loadingState.phase {
+        guard let url else {
+            phase = .empty
+            return
+        }
+        switch phase {
         case .failure(let error) where (error as? URLError)?.code == .cancelled:
-            loadingState.phase = .empty
+            phase = .empty
             fallthrough
         case .empty:
             do {
                 let (location, _) = try await URLSession.shared.download(from: url)
-                loadingState.url = location
                 if let image = CIImage(contentsOf: location)?.cgImage {
                     withTransaction(transaction) {
-                        loadingState.phase = .success(Image(decorative: image, scale: scale))
+                        phase = .success(Image(decorative: image, scale: scale))
                     }
                 } else {
                     throw URLError(.cannotDecodeContentData)
                 }
             } catch {
                 withTransaction(transaction) {
-                    loadingState.phase = .failure(error)
+                    phase = .failure(error)
                 }
             }
         default:
@@ -112,10 +106,14 @@ public struct CompatAsyncImage<Content: View>: View {
                 }
         } else {
             contentOrImage
-                .async {
-                    await loadImage()
-                }
-                .id(url)
+                .background(
+                    Spacer(minLength: 0)
+                        .async {
+                            await loadImage()
+                        }
+                        .id(url)
+                )
+
         }
     }
 
@@ -124,7 +122,7 @@ public struct CompatAsyncImage<Content: View>: View {
         self.url = url
         self.scale = scale
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *) {
-            self.someView = AnyView(SwiftUI.AsyncImage(url: url, scale: scale))
+            self.someView = AnyView(AsyncImage(url: url, scale: scale))
         } else {
             self.someView = AnyView(EmptyView())
         }
@@ -146,7 +144,7 @@ public struct CompatAsyncImage<Content: View>: View {
         }
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *) {
             self.someView = AnyView(
-                SwiftUI.AsyncImage(
+                AsyncImage(
                     url: url,
                     scale: scale,
                     content: content,
@@ -163,7 +161,7 @@ public struct CompatAsyncImage<Content: View>: View {
         url: URL?,
         scale: CGFloat = 1,
         transaction: Transaction = Transaction(),
-        @ViewBuilder content: @escaping (ComptAsyncImagePhase) -> Content
+        @ViewBuilder content: @escaping (CompatAsyncImagePhase) -> Content
     ) {
         self.url = url
         self.scale = scale
