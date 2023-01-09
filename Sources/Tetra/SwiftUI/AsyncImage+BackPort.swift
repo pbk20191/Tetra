@@ -118,7 +118,7 @@ public struct CompatAsyncImage<Content: View>: View {
     }
 
     @inlinable
-    public init(url: URL, scale: CGFloat = 1) where Content == Image {
+    public init(url: URL?, scale: CGFloat = 1) where Content == Image {
         self.url = url
         self.scale = scale
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *) {
