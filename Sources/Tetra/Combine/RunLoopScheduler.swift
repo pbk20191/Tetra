@@ -15,8 +15,30 @@ import Combine
  
  this class runs RunLoop indefinitely in default Mode, until deinitialized.
  
- - important: Memory leaks found in instrument from this class are not acually leaked and they will be released as soon as `RunLoopScheduler`'s `Thread` terminate.
+ #1 Nested RunLoop
  
+ It's not a good idea to create nested RunLoop inside RunLoopScheduler but if you do need that do as follows. (otherwise RunLoopScheduler's Thread might never exit when needed)
+ 
+ case 1
+ ```
+ let scheduler = await RunLoopScheduler(async: (), config: .init(keepAliveUntilFinish: false))
+ scheduler.schedule{
+        RunLoop.current.run()
+ }
+ // keep strong reference to scheduler
+ 
+ 
+ ```
+ case 2
+ ```
+ let scheduler = await RunLoopScheduler(async: ())
+ scheduler.schedule{
+        RunLoop.current.perform{
+            RunLoop.current.run()
+        }
+ }
+ ```
+ - important: Memory leaks found in instrument from this class are not acually leaked and they will be released as soon as `RunLoopScheduler`'s `Thread` terminate.
  */
 public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
     
@@ -130,7 +152,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
         }
         timer.tolerance = tolerance.timeInterval
         let cfTimer = timer as CFRunLoopTimer
-        CFRunLoopAddTimer(cfRunLoop, cfTimer, .defaultMode)
+        CFRunLoopAddTimer(cfRunLoop, cfTimer, .commonModes)
         return AnyCancellable{
             CFRunLoopTimerInvalidate(cfTimer)
         }
@@ -155,20 +177,20 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
             timer = .init(fire: date.date, interval: 0, repeats: false) { _ in action() }
         }
         timer.tolerance = tolerance.timeInterval
-        CFRunLoopAddTimer(cfRunLoop, timer as CFRunLoopTimer, .defaultMode)
+        CFRunLoopAddTimer(cfRunLoop, timer as CFRunLoopTimer, .commonModes)
     }
     
     @inlinable
     nonisolated
     public func schedule(options: SchedulerOptions?, _ action: @escaping () -> Void) {
         if config.keepAliveUntilFinish {
-            CFRunLoopPerformBlock(cfRunLoop, CFRunLoopMode.defaultMode.rawValue) {
+            CFRunLoopPerformBlock(cfRunLoop, CFRunLoopMode.commonModes.rawValue) {
                 action()
                 /// retain self until submitted task is finished
                 self.doNothing()
             }
         } else {
-            CFRunLoopPerformBlock(cfRunLoop, CFRunLoopMode.defaultMode.rawValue, action)
+            CFRunLoopPerformBlock(cfRunLoop, CFRunLoopMode.commonModes.rawValue, action)
         }
         if CFRunLoopIsWaiting(cfRunLoop) {
             CFRunLoopWakeUp(cfRunLoop)
@@ -183,7 +205,7 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
     
     public func scheduleTask<T>(_ block: @escaping () throws -> T) async rethrows -> T {
         let result:Result<T,Error> = await withUnsafeContinuation{ continuation in
-            CFRunLoopPerformBlock(cfRunLoop, CFRunLoopMode.defaultMode.rawValue) {
+            CFRunLoopPerformBlock(cfRunLoop, CFRunLoopMode.commonModes.rawValue) {
                 continuation.resume(returning: .init(catching: { try block() }))
             }
             if CFRunLoopIsWaiting(cfRunLoop) {
