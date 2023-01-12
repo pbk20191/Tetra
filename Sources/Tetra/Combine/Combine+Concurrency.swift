@@ -25,7 +25,7 @@ public extension Publisher {
     @available(tvOS, deprecated: 15.0, renamed: "values")
     @available(macOS, deprecated: 12.0, renamed: "values")
     @available(watchOS, deprecated: 8.0, renamed: "values")
-    var sequence: some AsyncTypedSequence<Output> {
+    var asyncSequence: some AsyncTypedSequence<Output> {
         if #available(iOS 15.0, macOS 12.0, macCatalyst 15.0, tvOS 15.0, watchOS 8.0, *) {
             return values
         } else {
@@ -42,7 +42,7 @@ public extension Publisher where Failure == Never {
     @available(tvOS, deprecated: 15.0, renamed: "values")
     @available(macOS, deprecated: 12.0, renamed: "values")
     @available(watchOS, deprecated: 8.0, renamed: "values")
-    var sequence:WrappedAsyncSequence<Output> {
+    var asyncSequence:WrappedAsyncSequence<Output> {
         if #available(iOS 15.0, macOS 12.0, macCatalyst 15.0, tvOS 15.0, watchOS 8.0, *) {
             return WrappedAsyncSequence(base: values)
         } else {
