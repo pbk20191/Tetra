@@ -21,9 +21,8 @@ internal func randomDownloadFileURL() -> URL {
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, macOS 10.15, watchOS 6.0, *)
 @usableFromInline
 internal func perfomDownload(on session:URLSession, from url: URL) async throws -> (URL,URLResponse) {
-    let sema = DispatchSemaphore(value: 0)
-    let reference = UnsafeMutablePointer<URLSessionDownloadTask>.allocate(capacity: 1)
-    let underlyingTask = Task {
+    let stateLock: some UnfairStateLock<(URLSessionDownloadTask?, Bool)> = createCheckedStateLock(checkedState: (nil, false))
+    return try await withTaskCancellationHandler {
         try await withUnsafeThrowingContinuation { continuation in
             let sessionTask = session.downloadTask(with: url) { location, response, error in
                 do {
@@ -45,32 +44,34 @@ internal func perfomDownload(on session:URLSession, from url: URL) async throws 
                     continuation.resume(throwing: error)
                 }
             }
-            reference.initialize(to: sessionTask)
-            sema.signal()
+            sessionTask.resume()
+            let isCancelled = stateLock.withLock{
+                let oldValue = $0.1
+                if (!oldValue) {
+                    $0 = (sessionTask, false)
+                }
+                return oldValue
+            }
+
+            if isCancelled {
+                sessionTask.cancel()
+            }
         }
-    }
-    let downloadTask = await withUnsafeContinuation { continuation in
-        sema.wait()
-        continuation.resume(returning: reference.move())
-        reference.deallocate()
-    }
-    downloadTask.resume()
-    if Task.isCancelled {
-        downloadTask.cancel()
-    }
-    return try await withTaskCancellationHandler {
-        try await underlyingTask.value
     } onCancel: {
-        downloadTask.cancel()
+        stateLock.withLock{
+            let oldValue = $0
+            $0 = (nil, true)
+            return oldValue.0
+        }?.cancel()
     }
 }
+
 
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, macOS 10.15, watchOS 6.0, *)
 @usableFromInline
 internal func perfomDownload(on session:URLSession, for request: URLRequest) async throws -> (URL, URLResponse) {
-    let sema = DispatchSemaphore(value: 0)
-    let reference = UnsafeMutablePointer<URLSessionDownloadTask>.allocate(capacity: 1)
-    let underlyingTask = Task {
+    let stateLock: some UnfairStateLock<(URLSessionDownloadTask?, Bool)> = createCheckedStateLock(checkedState: (nil, false))
+    return try await withTaskCancellationHandler {
         try await withUnsafeThrowingContinuation { continuation in
             let sessionTask = session.downloadTask(with: request) { location, response, error in
                 do {
@@ -92,32 +93,34 @@ internal func perfomDownload(on session:URLSession, for request: URLRequest) asy
                     continuation.resume(throwing: error)
                 }
             }
-            reference.initialize(to: sessionTask)
-            sema.signal()
+            sessionTask.resume()
+
+            let isCancelled = stateLock.withLock{
+                let oldValue = $0
+                if (!oldValue.1) {
+                    $0 = (sessionTask, false)
+                }
+                return oldValue.1
+            }
+
+            if isCancelled {
+                sessionTask.cancel()
+            }
         }
-    }
-    let downloadTask = await withUnsafeContinuation { continuation in
-        sema.wait()
-        continuation.resume(returning: reference.move())
-        reference.deallocate()
-    }
-    downloadTask.resume()
-    if Task.isCancelled {
-        downloadTask.cancel()
-    }
-    return try await withTaskCancellationHandler {
-        try await underlyingTask.value
     } onCancel: {
-        downloadTask.cancel()
+        stateLock.withLock{
+            let oldValue = $0
+            $0 = (nil, true)
+            return oldValue.0
+        }?.cancel()
     }
 }
 
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, macOS 10.15, watchOS 6.0, *)
 @usableFromInline
 internal func perfomDownload(on session:URLSession, resumeFrom data:Data) async throws -> (URL, URLResponse) {
-    let sema = DispatchSemaphore(value: 0)
-    let reference = UnsafeMutablePointer<URLSessionDownloadTask>.allocate(capacity: 1)
-    let underlyingTask = Task {
+    let stateLock: some UnfairStateLock<(URLSessionDownloadTask?, Bool)> = createCheckedStateLock(checkedState: (nil, false))
+    return try await withTaskCancellationHandler {
         try await withUnsafeThrowingContinuation { continuation in
             let sessionTask = session.downloadTask(withResumeData: data) { location, response, error in
                 do {
@@ -137,22 +140,24 @@ internal func perfomDownload(on session:URLSession, resumeFrom data:Data) async 
                     continuation.resume(throwing: error)
                 }
             }
-            reference.initialize(to: sessionTask)
-            sema.signal()
+            sessionTask.resume()
+            let isCancelled = stateLock.withLock{
+                let oldValue = $0
+                if (!oldValue.1) {
+                    $0 = (sessionTask, false)
+                }
+                return oldValue.1
+            }
+
+            if isCancelled {
+                sessionTask.cancel()
+            }
         }
-    }
-    let downloadTask = await withUnsafeContinuation { continuation in
-        sema.wait()
-        continuation.resume(returning: reference.move())
-        reference.deallocate()
-    }
-    downloadTask.resume()
-    if Task.isCancelled {
-        downloadTask.cancel()
-    }
-    return try await withTaskCancellationHandler {
-       try await underlyingTask.value
     } onCancel: {
-        downloadTask.cancel()
+        stateLock.withLock{
+            let oldValue = $0
+            $0 = (nil, true)
+            return oldValue.0
+        }?.cancel()
     }
 }
