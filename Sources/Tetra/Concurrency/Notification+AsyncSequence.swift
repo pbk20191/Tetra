@@ -41,7 +41,6 @@ public final class NotificationSequence: AsyncSequence {
     }
     
     let center: NotificationCenter
-    private let observer: NSObjectProtocol
     private let lock:some UnfairStateLock<NotficationState> = createUncheckedStateLock(uncheckedState: NotficationState())
     
     public struct Iterator: NonThrowingAsyncIteratorProtocol {
@@ -61,6 +60,7 @@ public final class NotificationSequence: AsyncSequence {
     private struct NotficationState {
         var buffer:[Notification] = []
         var pending:[UnsafeContinuation<Notification?,Never>] = []
+        var observer:NSObjectProtocol?
     }
     
     
@@ -71,7 +71,7 @@ public final class NotificationSequence: AsyncSequence {
     ) {
         
         self.center = center
-        observer = center.addObserver(forName: name, object: object, queue: nil) { [lock] notification in
+        let observer = center.addObserver(forName: name, object: object, queue: nil) { [lock] notification in
             lock.withLockUnchecked { state in
                 let captured = state.pending.first
 
@@ -83,41 +83,44 @@ public final class NotificationSequence: AsyncSequence {
                 return captured
             }?.resume(returning: notification)
         }
+        lock.withLockUnchecked{
+            $0.observer = observer
+        }
     }
     
 
     deinit {
-        center.removeObserver(observer)
-        lock.withLock {
-            let continuation = $0.pending
-            $0.buffer = []
-            $0.pending = []
-            return continuation
-        }.forEach{ $0.resume(returning: nil) }
+        cancel()
     }
     
     @Sendable
     func cancel() {
-        lock.withLock{
-            let captured = $0.pending
+        let snapShot = lock.withLock {
+            let oldValue = $0
+            $0.observer = nil
+            $0.buffer = []
             $0.pending = []
-            return captured
-        }.forEach{
-            $0.resume(returning: nil)
+            return oldValue
         }
+        if let observer = snapShot.observer {
+            center.removeObserver(observer)
+        }
+        snapShot.pending.forEach{ $0.resume(returning: nil) }
     }
     
     func next() async -> Notification? {
         await withUnsafeContinuation { continuation in
-            let notification: Notification? = lock.withLockUnchecked { state in
-                if state.buffer.isEmpty {
+            let (notification, isCancelled) = lock.withLockUnchecked { state in
+                if !state.buffer.isEmpty {
+                    return (state.buffer.removeFirst() as Notification?, false)
+                } else if state.observer != nil {
                     state.pending.append(continuation)
-                    return nil
+                    return (nil as Notification?, false)
                 } else {
-                    return state.buffer.removeFirst()
+                    return (nil as Notification?, true)
                 }
             }
-            if let notification {
+            if notification != nil || isCancelled {
                 continuation.resume(returning: notification)
             }
         }
