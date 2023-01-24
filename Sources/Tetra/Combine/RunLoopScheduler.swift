@@ -229,6 +229,10 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
         
         private var parameter:RunnerParameter?
         
+        init(_ source:CFRunLoopSource, completionHandler: @escaping (CFRunLoop) -> ()) {
+            self.parameter = .init(source: source, completion: completionHandler)
+        }
+        
         @objc
         func main() {
             let emptySource:CFRunLoopSource
@@ -248,10 +252,6 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
                 CFRunLoopSourceIsValid(emptySource),
                 RunLoop.current.run(mode: .default, before: .distantFuture)
             {  }
-        }
-        
-        init(_ source:CFRunLoopSource, completionHandler: @escaping (CFRunLoop) -> ()) {
-            self.parameter = .init(source: source, completion: completionHandler)
         }
 
     }
