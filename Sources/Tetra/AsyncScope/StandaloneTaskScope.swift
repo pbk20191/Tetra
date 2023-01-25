@@ -97,19 +97,25 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
           // TODO: use withDiscardingTaskGroup
             await withTaskGroup(of: Void.self) { group in
                 group.addTask(priority: .background) {
-                    let lock = createCheckedStateLock(checkedState: UnsafeContinuation<Void,Never>?.none)
+                    let state = (continuation:UnsafeContinuation<Void,Never>?.none, cancelled:false)
+                    let lock = createCheckedStateLock(checkedState: state)
                     await withTaskCancellationHandler {
                         await withUnsafeContinuation{ continuation in
-                            if Task.isCancelled {
-                                continuation.resume()
-                            } else {
-                                lock.withLock{ $0 = continuation }
-                            }
+                            lock.withLock{
+                                if !$0.cancelled {
+                                    // not cancelled at this moment
+                                    $0.continuation = continuation
+                                    return nil as UnsafeContinuation<Void,Never>?
+                                } else {
+                                    // already cancelled at this moment
+                                    return continuation
+                                }
+                            }?.resume()
                         }
                     } onCancel: {
                         lock.withLock{
-                            let oldValue = $0
-                            $0 = nil
+                            let oldValue = $0.continuation
+                            $0 = (nil, true)
                             return oldValue
                         }?.resume()
                     }
