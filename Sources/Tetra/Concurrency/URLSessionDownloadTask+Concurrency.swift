@@ -20,7 +20,7 @@ internal func randomDownloadFileURL() -> URL {
 
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, macOS 10.15, watchOS 6.0, *)
 @usableFromInline
-internal func perfomDownload(on session:URLSession, from url: URL) async throws -> (URL,URLResponse) {
+internal func performDownload(on session:URLSession, from url: URL) async throws -> (URL,URLResponse) {
     let stateLock: some UnfairStateLock<(URLSessionDownloadTask?, Bool)> = createCheckedStateLock(checkedState: (nil, false))
     return try await withTaskCancellationHandler {
         try await withUnsafeThrowingContinuation { continuation in
@@ -31,7 +31,10 @@ internal func perfomDownload(on session:URLSession, from url: URL) async throws 
                             NSURLErrorFailingURLErrorKey: url,
                             NSURLErrorFailingURLStringErrorKey: url.absoluteString,
                             NSLocalizedDescriptionKey: NSLocalizedString("Err-998", bundle: .init(for: URLSession.self), comment: "unknown error")
-                        ]))
+                        ].compactMapValues{
+                            guard let value = $0 as Any? else { return nil }
+                            return value
+                        }))
                     }
                     let newURL = randomDownloadFileURL()
                     if FileManager.default.fileExists(atPath: newURL.path) {
@@ -69,7 +72,7 @@ internal func perfomDownload(on session:URLSession, from url: URL) async throws 
 
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, macOS 10.15, watchOS 6.0, *)
 @usableFromInline
-internal func perfomDownload(on session:URLSession, for request: URLRequest) async throws -> (URL, URLResponse) {
+internal func performDownload(on session:URLSession, for request: URLRequest) async throws -> (URL, URLResponse) {
     let stateLock: some UnfairStateLock<(URLSessionDownloadTask?, Bool)> = createCheckedStateLock(checkedState: (nil, false))
     return try await withTaskCancellationHandler {
         try await withUnsafeThrowingContinuation { continuation in
@@ -80,7 +83,10 @@ internal func perfomDownload(on session:URLSession, for request: URLRequest) asy
                             NSURLErrorFailingURLErrorKey: request.url as Any,
                             NSURLErrorFailingURLStringErrorKey: request.url?.absoluteString as Any,
                             NSLocalizedDescriptionKey: NSLocalizedString("Err-998", bundle: .init(for: URLSession.self), comment: "unknown error")
-                        ]))
+                        ].compactMapValues{
+                            guard let value = $0 as Any? else { return nil }
+                            return value
+                        }))
                     }
                     let newURL = randomDownloadFileURL()
                     if FileManager.default.fileExists(atPath: newURL.path) {
@@ -118,7 +124,7 @@ internal func perfomDownload(on session:URLSession, for request: URLRequest) asy
 
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, macOS 10.15, watchOS 6.0, *)
 @usableFromInline
-internal func perfomDownload(on session:URLSession, resumeFrom data:Data) async throws -> (URL, URLResponse) {
+internal func performDownload(on session:URLSession, resumeFrom data:Data) async throws -> (URL, URLResponse) {
     let stateLock: some UnfairStateLock<(URLSessionDownloadTask?, Bool)> = createCheckedStateLock(checkedState: (nil, false))
     return try await withTaskCancellationHandler {
         try await withUnsafeThrowingContinuation { continuation in

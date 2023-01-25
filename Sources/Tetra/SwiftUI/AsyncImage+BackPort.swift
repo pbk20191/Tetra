@@ -79,7 +79,13 @@ public struct CompatAsyncImage<Content: View>: View {
         case .empty:
             do {
                 let (location, _) = try await URLSession.shared.download(from: url)
-                if let image = CIImage(contentsOf: location)?.cgImage {
+                let image:CGImage?
+                #if canImport(CoreImage)
+                image = CIImage(contentsOf: location)?.cgImage
+                #else
+                image = UIImage(contentsOfFile: location.path)?.cgImage
+                #endif
+                if let image {
                     withTransaction(transaction) {
                         phase = .success(Image(decorative: image, scale: scale))
                     }

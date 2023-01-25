@@ -12,6 +12,10 @@ import Combine
 
 final class TetraTests: XCTestCase {
 
+    override class var defaultMetrics: [XCTMetric] {
+        [XCTCPUMetric(), XCTClockMetric()]
+    }
+    
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -38,14 +42,14 @@ final class TetraTests: XCTestCase {
     func testCancelledDownload() async throws {
         let result = await Task {
             withUnsafeCurrentTask { $0?.cancel() }
-            return try await perfomDownload(on: .shared, from: URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!)
+            return try await performDownload(on: .shared, from: URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!)
         }.result
         XCTAssertThrowsError(try result.get())
     }
     
     func testCancellDuringDownload() async throws {
         let cancelTask2 = Task {
-            try await perfomDownload(on: .shared, from: URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!)
+            try await performDownload(on: .shared, from: URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!)
         }
         Task{
             try await Task.sleep(nanoseconds: 50_000_000)
