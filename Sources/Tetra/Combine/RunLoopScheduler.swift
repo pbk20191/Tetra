@@ -17,27 +17,9 @@ import Combine
  
  #1 Nested RunLoop
  
- It's not a good idea to create nested RunLoop inside RunLoopScheduler but if you do need that do as follows. (otherwise RunLoopScheduler's Thread might never exit when needed)
- 
- case 1
- ```
- let scheduler = await RunLoopScheduler(async: (), config: .init(keepAliveUntilFinish: false))
- scheduler.schedule{
-        RunLoop.current.run()
- }
- // keep strong reference to scheduler
+ It's not a good idea to create nested RunLoop inside RunLoopScheduler but if you do need that, keep strong reference to the Scheduler.
  
  
- ```
- case 2
- ```
- let scheduler = await RunLoopScheduler(async: ())
- scheduler.schedule{
-        RunLoop.current.perform{
-            RunLoop.current.run()
-        }
- }
- ```
  - important: Memory leaks found in instrument from this class are not acually leaked and they will be released as soon as `RunLoopScheduler`'s `Thread` terminate.
  */
 public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
@@ -80,7 +62,9 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
             guard let runLoop else { return }
             CFRunLoopStop(runLoop)
         }
-        
+        nullContext.copyDescription = { _ in
+                .passRetained("RunLoopScheduler Default Source" as CFString)
+        }
         let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
         let runLoop = await withUnsafeContinuation{ continuation in
             let runner = RunLoopRunner(emptySource) {
@@ -108,7 +92,9 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
             guard let runLoop else { return }
             CFRunLoopStop(runLoop)
         }
-
+        nullContext.copyDescription = { _ in
+                .passRetained("RunLoopScheduler Default Source" as CFString)
+        }
         nullContext.version = 0
         let emptySource = CFRunLoopSourceCreate(nil, 0, &nullContext).unsafelyUnwrapped
 
@@ -142,10 +128,10 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
     ) -> Cancellable {
         let timer:Timer
         if config.keepAliveUntilFinish {
+            let observer = createRetainToken()
             timer = .init(fire: date.date, interval: interval.timeInterval, repeats: true) { _ in
+                CFRunLoopObserverInvalidate(observer)
                 action()
-                /// retain self until submitted task is finished
-                self.doNothing()
             }
         } else {
             timer = .init(fire: date.date, interval: interval.timeInterval, repeats: true) { _ in action() }
@@ -167,11 +153,12 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
         _ action: @escaping () -> Void
     ) {
         let timer:Timer
+        
         if config.keepAliveUntilFinish {
+            let observer = createRetainToken()
             timer = .init(fire: date.date, interval: 0, repeats: false) { _ in
+                CFRunLoopObserverInvalidate(observer)
                 action()
-                /// retain self until submitted task is finished
-                self.doNothing()
             }
         } else {
             timer = .init(fire: date.date, interval: 0, repeats: false) { _ in action() }
@@ -184,10 +171,10 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
     nonisolated
     public func schedule(options: SchedulerOptions?, _ action: @escaping () -> Void) {
         if config.keepAliveUntilFinish {
+            let observer = createRetainToken()
             CFRunLoopPerformBlock(cfRunLoop, CFRunLoopMode.commonModes.rawValue) {
+                CFRunLoopObserverInvalidate(observer)
                 action()
-                /// retain self until submitted task is finished
-                self.doNothing()
             }
         } else {
             CFRunLoopPerformBlock(cfRunLoop, CFRunLoopMode.commonModes.rawValue, action)
@@ -221,9 +208,17 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
     }
     
     @usableFromInline
-    @Sendable
-    nonisolated
-    internal func doNothing() { }
+    internal func createRetainToken() -> CFRunLoopObserver {
+        var context = CFRunLoopObserverContext(version: 0, info: Unmanaged.passUnretained(self).toOpaque()) {
+            UnsafeRawPointer(Unmanaged<AnyObject>.fromOpaque($0.unsafelyUnwrapped).retain().toOpaque())
+        } release: {
+            Unmanaged<AnyObject>.fromOpaque($0.unsafelyUnwrapped).release()
+        } copyDescription: {
+            .passRetained(String(describing: Unmanaged<AnyObject>.fromOpaque($0.unsafelyUnwrapped).takeUnretainedValue()) as CFString)
+        }
+        
+        return CFRunLoopObserverCreate(nil, 0, false, 0, nil, &context)
+    }
     
     private struct RunnerParameter {
         let source:CFRunLoopSource
@@ -233,6 +228,10 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
     private final class RunLoopRunner {
         
         private var parameter:RunnerParameter?
+        
+        init(_ source:CFRunLoopSource, completionHandler: @escaping (CFRunLoop) -> ()) {
+            self.parameter = .init(source: source, completion: completionHandler)
+        }
         
         @objc
         func main() {
@@ -244,30 +243,34 @@ public final class RunLoopScheduler: Scheduler, @unchecked Sendable, Hashable {
             } else {
                 return
             }
-            CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
             Thread.setThreadPriority(0)
-            let cfObserver = CFRunLoopObserverCreateWithHandler(.none, CFRunLoopActivity.exit.rawValue, true, 0) {[weak emptySource] _, _ in
-                guard let source = emptySource, CFRunLoopSourceIsValid(source) else {
-                    let cfLoop = CFRunLoopGetCurrent().unsafelyUnwrapped
-                    DispatchQueue.global().asyncAfter(deadline: .now().advanced(by: .milliseconds(10))) {
-                        CFRunLoopStop(cfLoop)
-                    }
-                    return
-                }
-                
-            }.unsafelyUnwrapped
-            CFRunLoopAddObserver(CFRunLoopGetCurrent(), cfObserver, .commonModes)
+            let interrupter = createNestedLoopInterrupter(emptySource)
+            CFRunLoopAddSource(CFRunLoopGetCurrent(), emptySource, .defaultMode)
+            CFRunLoopAddObserver(CFRunLoopGetCurrent(), interrupter, .commonModes)
+            defer { CFRunLoopObserverInvalidate(interrupter) }
             while
                 CFRunLoopSourceIsValid(emptySource),
                 RunLoop.current.run(mode: .default, before: .distantFuture)
             {  }
-            CFRunLoopObserverInvalidate(cfObserver)
         }
-        
-        init(_ source:CFRunLoopSource, completionHandler: @escaping (CFRunLoop) -> ()) {
-            self.parameter = .init(source: source, completion: completionHandler)
+
+    }
+
+    @usableFromInline
+    static func createNestedLoopInterrupter(_ emptySource:CFRunLoopSource) -> CFRunLoopObserver {
+        var context = CFRunLoopObserverContext(version: 0, info: Unmanaged.passUnretained(emptySource).toOpaque()) { .init(Unmanaged<AnyObject>.fromOpaque($0.unsafelyUnwrapped).retain().toOpaque())
+        } release: { Unmanaged<AnyObject>.fromOpaque($0.unsafelyUnwrapped).release()
+        } copyDescription: { _ in
+                .passRetained("RunLoopScheduler.NestedRunLoop.Interrupter" as CFString)
         }
-        
+        return CFRunLoopObserverCreate(nil, CFRunLoopActivity.exit.union([.beforeTimers, .beforeSources, .beforeWaiting]).rawValue, true, 0, {  _, _, ref  in
+            let source = Unmanaged<CFRunLoopSource>.fromOpaque(ref.unsafelyUnwrapped).takeUnretainedValue()
+            if CFRunLoopSourceIsValid(source) {
+                return
+            } else {
+                CFRunLoopStop(CFRunLoopGetCurrent())
+            }
+        }, &context)
     }
     
 }
