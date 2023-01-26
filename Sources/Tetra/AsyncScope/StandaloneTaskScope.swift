@@ -97,26 +97,36 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
           // TODO: use withDiscardingTaskGroup
             await withTaskGroup(of: Void.self) { group in
                 group.addTask(priority: .background) {
-                    let state = (continuation:UnsafeContinuation<Void,Never>?.none, cancelled:false)
-                    let lock = createCheckedStateLock(checkedState: state)
+                    let lock = createCheckedStateLock(checkedState: TaskCancellationState.waiting)
                     await withTaskCancellationHandler {
                         await withUnsafeContinuation{ continuation in
-                            lock.withLock{
-                                if !$0.cancelled {
-                                    // not cancelled at this moment
-                                    $0.continuation = continuation
-                                    return nil as UnsafeContinuation<Void,Never>?
-                                } else {
-                                    // already cancelled at this moment
-                                    return continuation
+                            
+                            let snapShot = lock.withLock{
+                                let oldValue = $0
+                                switch oldValue {
+                                case .cancelled:
+                                    break
+                                case .suspending:
+                                    assertionFailure("unexpected state")
+                                    fallthrough
+                                case .waiting:
+                                    $0 = .suspending(continuation)
+                                
                                 }
-                            }?.resume()
+                                return oldValue
+                            }
+                            switch snapShot {
+                            case .cancelled:
+                                continuation.resume()
+                            case .waiting:
+                                break
+                            case .suspending(let unsafeContinuation):
+                                unsafeContinuation.resume()
+                            }
                         }
                     } onCancel: {
                         lock.withLock{
-                            let oldValue = $0.continuation
-                            $0 = (nil, true)
-                            return oldValue
+                            $0.take()
                         }?.resume()
                     }
                 }
@@ -148,5 +158,23 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
         buffer.append(job: operation)
     }
     
+    
+    private enum TaskCancellationState: Sendable {
+        
+        case waiting
+        case suspending(UnsafeContinuation<Void,Never>)
+        case cancelled
+        
+        mutating func take() -> UnsafeContinuation<Void,Never>? {
+            if case let .suspending(continuation) = self {
+                self = .cancelled
+                return continuation
+            } else {
+                self = .cancelled
+                return nil
+            }
+        }
+        
+    }
 }
 

@@ -21,7 +21,7 @@ internal func randomDownloadFileURL() -> URL {
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, macOS 10.15, watchOS 6.0, *)
 @usableFromInline
 internal func performDownload(on session:URLSession, from url: URL) async throws -> (URL,URLResponse) {
-    let stateLock: some UnfairStateLock<(URLSessionDownloadTask?, Bool)> = createCheckedStateLock(checkedState: (nil, false))
+    let stateLock = createCheckedStateLock(checkedState: URLSessionTaskAsyncState.waiting)
     return try await withTaskCancellationHandler {
         try await withUnsafeThrowingContinuation { continuation in
             let sessionTask = session.downloadTask(with: url) { location, response, error in
@@ -48,23 +48,32 @@ internal func performDownload(on session:URLSession, from url: URL) async throws
                 }
             }
             sessionTask.resume()
-            let isCancelled = stateLock.withLock{
-                let oldValue = $0.1
-                if (!oldValue) {
-                    $0 = (sessionTask, false)
+            let snapShot = stateLock.withLock{
+                let oldValue = $0
+                switch oldValue {
+                case .cancelled:
+                    break
+                case .task:
+                    assertionFailure("unexpected state")
+                    fallthrough
+                case .waiting:
+                    $0 = .task(sessionTask)
                 }
                 return oldValue
+                
             }
-
-            if isCancelled {
+            switch snapShot {
+            case .waiting:
+                break
+            case .task(let uRLSessionDownloadTask):
+                uRLSessionDownloadTask.cancel()
+            case .cancelled:
                 sessionTask.cancel()
             }
         }
     } onCancel: {
         stateLock.withLock{
-            let oldValue = $0
-            $0 = (nil, true)
-            return oldValue.0
+            $0.take()
         }?.cancel()
     }
 }
@@ -73,7 +82,7 @@ internal func performDownload(on session:URLSession, from url: URL) async throws
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, macOS 10.15, watchOS 6.0, *)
 @usableFromInline
 internal func performDownload(on session:URLSession, for request: URLRequest) async throws -> (URL, URLResponse) {
-    let stateLock: some UnfairStateLock<(URLSessionDownloadTask?, Bool)> = createCheckedStateLock(checkedState: (nil, false))
+    let stateLock = createCheckedStateLock(checkedState: URLSessionTaskAsyncState.waiting)
     return try await withTaskCancellationHandler {
         try await withUnsafeThrowingContinuation { continuation in
             let sessionTask = session.downloadTask(with: request) { location, response, error in
@@ -101,23 +110,32 @@ internal func performDownload(on session:URLSession, for request: URLRequest) as
             }
             sessionTask.resume()
 
-            let isCancelled = stateLock.withLock{
+            let snapShot = stateLock.withLock{
                 let oldValue = $0
-                if (!oldValue.1) {
-                    $0 = (sessionTask, false)
+                switch oldValue {
+                case .cancelled:
+                    break
+                case .task:
+                    assertionFailure("unexpected state")
+                    fallthrough
+                case .waiting:
+                    $0 = .task(sessionTask)
                 }
-                return oldValue.1
+                return oldValue
+                
             }
-
-            if isCancelled {
+            switch snapShot {
+            case .waiting:
+                break
+            case .task(let uRLSessionDownloadTask):
+                uRLSessionDownloadTask.cancel()
+            case .cancelled:
                 sessionTask.cancel()
             }
         }
     } onCancel: {
         stateLock.withLock{
-            let oldValue = $0
-            $0 = (nil, true)
-            return oldValue.0
+            $0.take()
         }?.cancel()
     }
 }
@@ -125,7 +143,7 @@ internal func performDownload(on session:URLSession, for request: URLRequest) as
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, macOS 10.15, watchOS 6.0, *)
 @usableFromInline
 internal func performDownload(on session:URLSession, resumeFrom data:Data) async throws -> (URL, URLResponse) {
-    let stateLock: some UnfairStateLock<(URLSessionDownloadTask?, Bool)> = createCheckedStateLock(checkedState: (nil, false))
+    let stateLock = createCheckedStateLock(checkedState: URLSessionTaskAsyncState.waiting)
     return try await withTaskCancellationHandler {
         try await withUnsafeThrowingContinuation { continuation in
             let sessionTask = session.downloadTask(withResumeData: data) { location, response, error in
@@ -147,23 +165,52 @@ internal func performDownload(on session:URLSession, resumeFrom data:Data) async
                 }
             }
             sessionTask.resume()
-            let isCancelled = stateLock.withLock{
+            let snapShot = stateLock.withLock{
                 let oldValue = $0
-                if (!oldValue.1) {
-                    $0 = (sessionTask, false)
+                switch oldValue {
+                case .cancelled:
+                    break
+                case .task:
+                    assertionFailure("unexpected state")
+                    fallthrough
+                case .waiting:
+                    $0 = .task(sessionTask)
                 }
-                return oldValue.1
+                return oldValue
+                
             }
-
-            if isCancelled {
+            switch snapShot {
+            case .waiting:
+                break
+            case .task(let uRLSessionDownloadTask):
+                uRLSessionDownloadTask.cancel()
+            case .cancelled:
                 sessionTask.cancel()
             }
         }
     } onCancel: {
         stateLock.withLock{
-            let oldValue = $0
-            $0 = (nil, true)
-            return oldValue.0
+            $0.take()
         }?.cancel()
     }
+}
+
+
+private
+enum URLSessionTaskAsyncState: Sendable {
+    
+    case waiting
+    case task(URLSessionDownloadTask)
+    case cancelled
+    
+    mutating func take() -> URLSessionDownloadTask? {
+        if case let .task(uRLSessionDownloadTask) = self {
+            self = .cancelled
+            return uRLSessionDownloadTask
+        } else {
+            self = .cancelled
+            return nil
+        }
+    }
+    
 }
