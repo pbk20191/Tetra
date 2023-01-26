@@ -8,13 +8,14 @@
 import Foundation
 import Combine
 
-extension Combine.Future where Failure == Never {
+public extension Combine.Future where Failure == Never {
     
     @available(iOS, deprecated: 15.0, renamed: "value")
     @available(iOS, deprecated: 15.0, renamed: "value")
     @available(iOS, deprecated: 15.0, renamed: "value")
     @available(watchOS, deprecated: 8, renamed: "value")
     @available(macOS, deprecated: 12.0, renamed: "value")
+    @inlinable
     final var compatValue: Output {
         get async {
             if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *) {
@@ -43,13 +44,14 @@ extension Combine.Future where Failure == Never {
 }
 
 
-extension Combine.Future {
+public extension Combine.Future {
     
     @available(iOS, deprecated: 15.0, renamed: "value")
     @available(iOS, deprecated: 15.0, renamed: "value")
     @available(iOS, deprecated: 15.0, renamed: "value")
     @available(watchOS, deprecated: 8, renamed: "value")
     @available(macOS, deprecated: 12.0, renamed: "value")
+    @inlinable
     final var compatValue: Output {
         get async throws {
             if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, watchOS 8.0, macOS 12.0, *) {
