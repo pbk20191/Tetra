@@ -59,57 +59,72 @@ extension CodablePrimitive: Codable {
     
     @inlinable
     public init(from decoder: Decoder) throws {
-        let singleContainer:SingleValueDecodingContainer?
         do {
-            singleContainer = try decoder.singleValueContainer()
-        } catch DecodingError.typeMismatch(_, let context) where context.underlyingError == nil {
-            singleContainer = nil
+            let arrayResult = Result<[Self],Error> {
+                try [Self?](from: decoder).compactMap{ $0 }
+            }
+            if case let .failure(DecodingError.typeMismatch(_, context)) = arrayResult, context.underlyingError == nil {
+                // fallthrough
+            } else {
+                self = try .array(arrayResult.get())
+                return
+            }
+            let dictionaryResult = Result<[String:Self],Error> {
+                try [String:Self?](from: decoder).compactMapValues{ $0 }
+            }
+            if case let .failure(DecodingError.typeMismatch(_, context)) = dictionaryResult, context.underlyingError == nil {
+                // fallthrough
+            } else {
+                self = try .object(dictionaryResult.get())
+                return
+            }
+            let container = try decoder.singleValueContainer()
+            guard !container.decodeNil() else {
+                let context = DecodingError.Context(
+                    codingPath: container.codingPath,
+                    debugDescription: "Expected Primitive value (one of Double, Bool, String, Int) but found null instead",
+                    underlyingError: nil
+                )
+                throw DecodingError.valueNotFound(Self.self, context)
+            }
+            self = try Self.decodeSingle(from: decoder.singleValueContainer())
+        } catch let error as WrappedError {
+            throw error.decodingError
         }
-        if let object = try Self.decodeObject(from: decoder) {
-            self = .object(object)
-            return
-        }
-        if let array = try Self.decodeArray(from: decoder) {
-            self = .array(array)
-            return
-        }
-        
-        if let singleContainer {
-            self = try Self.decodeSingle(from: singleContainer)
-            return
-        }
-        let context = DecodingError.Context(
-            codingPath: decoder.codingPath,
-            debugDescription: "Expected Primitive value (one of Double, Bool, String, Int) but underlying Type is not primitive",
-            underlyingError: nil
-        )
-        throw DecodingError.dataCorrupted(context)
     }
     
     @usableFromInline
     internal static func decodeSingle(from container:SingleValueDecodingContainer) throws -> Self {
-        guard !container.decodeNil() else {
-            let context = DecodingError.Context(
-                codingPath: container.codingPath,
-                debugDescription: "Expected Primitive value (one of Double, Bool, String, Int) but found null instead",
-                underlyingError: nil
-            )
-            throw DecodingError.valueNotFound(Self.self, context)
-        }
         do {
             let string = try container.decode(String.self)
             return .string(string)
-        } catch DecodingError.typeMismatch(let expectType, let context) where context.underlyingError == nil && expectType == String.self {
+        } catch DecodingError.typeMismatch(let expectType, let context) {
+            if context.underlyingError == nil && expectType == String.self {
+                
+            } else {
+                throw WrappedError(expectedType: expectType, context: context)
+            }
         }
         do {
             let boolValue = try container.decode(Bool.self)
             return .bool(boolValue)
-        } catch DecodingError.typeMismatch(let expectType, let context) where context.underlyingError == nil && expectType == Bool.self {
+        } catch DecodingError.typeMismatch(let expectType, let context) {
+            if context.underlyingError == nil && expectType == Bool.self {
+                
+            } else {
+                throw WrappedError(expectedType: expectType, context: context)
+            }
         }
         do {
             let intValue = try container.decode(Int.self)
             return .integer(intValue)
-        } catch DecodingError.typeMismatch(let expectType, let context) where context.underlyingError == nil && expectType == Int.self {
+        } catch DecodingError.typeMismatch(let expectType, let context) {
+            if context.underlyingError == nil && expectType == Int.self {
+                
+            } else {
+                throw WrappedError(expectedType: expectType, context: context)
+            }
+            /// `JSONDecoder` throws `DecodingError.dataCorrupted` when encountered value is `Double` but tried to decode into `Int`
         } catch DecodingError.dataCorrupted(let context) where context.underlyingError == nil {
             let double = try container.decode(Double.self)
             return .double(double)
@@ -117,7 +132,12 @@ extension CodablePrimitive: Codable {
         do {
             let doubleValue = try container.decode(Double.self)
             return .double(doubleValue)
-        } catch DecodingError.typeMismatch(let expectType, let context) where context.underlyingError == nil && expectType == Double.self {
+        } catch DecodingError.typeMismatch(let expectType, let context) {
+            if context.underlyingError == nil && expectType == Double.self {
+                
+            } else {
+                throw WrappedError(expectedType: expectType, context: context)
+            }
         }
         throw DecodingError.dataCorruptedError(
             in: container,
@@ -125,41 +145,56 @@ extension CodablePrimitive: Codable {
         )
     }
     
+    /// `DecodingError.typeMismatch` wrapper type to unwind stack of decoding
     @usableFromInline
-    internal static func decodeArray(from decoder:Decoder) throws -> [Self]? {
-        let unKeyedContainer:UnkeyedDecodingContainer?
-        do {
-            unKeyedContainer = try decoder.unkeyedContainer()
-        } catch DecodingError.typeMismatch(_, let context) where context.underlyingError == nil {
-            unKeyedContainer = nil
-            return nil
+    struct WrappedError: Sendable {
+        @usableFromInline
+        let expectedType:Any.Type
+        @usableFromInline
+        let context:DecodingError.Context
+        
+        @usableFromInline
+        init(expectedType: Any.Type, context: DecodingError.Context) {
+            self.expectedType = expectedType
+            self.context = context
         }
-        guard var container = unKeyedContainer else { return nil }
-        var array:[Self] = []
-        while (!container.isAtEnd) {
-            if let value = try container.decodeIfPresent(Self.self) {
-                array.append(value)
-            }
-        }
-        return array
+        
+        
+    }
+
+    
+}
+
+extension CodablePrimitive.WrappedError: LocalizedError {
+    
+    @usableFromInline
+    var decodingError:DecodingError {
+        .typeMismatch(expectedType, context)
     }
     
     @usableFromInline
-    internal static func decodeObject(from decoder:Decoder) throws -> [String:Self]? {
-        let keyContainer:KeyedDecodingContainer<StringCodingKey>?
-        do {
-            keyContainer = try decoder.container(keyedBy: StringCodingKey.self)
-        } catch DecodingError.typeMismatch(_, let context) where context.underlyingError == nil {
-            keyContainer = nil
-        }
-        guard let keyContainer else { return nil }
-        var object:[String:Self] = [:]
-        try keyContainer.allKeys.forEach{ key in
-            if let value = try keyContainer.decodeIfPresent(Self.self, forKey: key) {
-                object[key.stringValue] = value
-            }
-        }
-        return object
+    var localizedDescription:String {
+        decodingError.localizedDescription
+    }
+    
+    @usableFromInline
+    var errorDescription: String? {
+        decodingError.errorDescription
+    }
+    
+    @usableFromInline
+    var failureReason: String? {
+        decodingError.failureReason
+    }
+    
+    @usableFromInline
+    var helpAnchor: String? {
+        decodingError.helpAnchor
+    }
+    
+    @usableFromInline
+    var recoverySuggestion: String? {
+        decodingError.recoverySuggestion
     }
     
 }
@@ -313,37 +348,20 @@ public extension CodablePrimitive {
             return nil
         }
     }
-}
-
-@usableFromInline
-struct StringCodingKey: CodingKey, RawRepresentable, Sendable {
-    @usableFromInline
-    var stringValue: String { rawValue }
     
-    @usableFromInline
-    init(stringValue: String) {
-        self.rawValue = stringValue
+    @inlinable
+    var number:NSNumber? {
+        switch self {
+        case .bool(let bool):
+            return bool as NSNumber
+        case .integer(let int):
+            return int as NSNumber
+        case .double(let double):
+            return double as NSNumber
+        default:
+            return nil
+        }
     }
-    
-    @usableFromInline
-    var intValue: Int?
-    
-    @usableFromInline
-    init?(intValue: Int) {
-        self.intValue = intValue
-        self.rawValue = "Index \(intValue)"
-    }
-    
-    @usableFromInline
-    init(rawValue: String) {
-        self.rawValue = rawValue
-    }
-    
-    @usableFromInline
-    var rawValue: String
-    
-    @usableFromInline
-    typealias RawValue = String
     
 }
 
@@ -351,12 +369,26 @@ public extension CodablePrimitive {
     
     @inlinable
     static func == (lhs: Self, rhs: Int) -> Bool {
-        lhs.integer == rhs
+        switch lhs {
+        case .integer(let integer):
+            return integer == rhs
+        case .double(let double):
+            return double == Double(rhs)
+        default:
+            return false
+        }
     }
     
     @inlinable
     static func == (lhs: Self, rhs: Double) -> Bool {
-        lhs.double == rhs
+        switch lhs {
+        case .integer(let integer):
+            return Double(integer) == rhs
+        case .double(let double):
+            return double == rhs
+        default:
+            return false
+        }
     }
     
     @inlinable
@@ -380,3 +412,4 @@ public extension CodablePrimitive {
     }
     
 }
+

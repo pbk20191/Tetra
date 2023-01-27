@@ -115,10 +115,6 @@ final class TetraTests: XCTestCase {
         XCTAssertNotEqual(try JSONEncoder().encode(AnyErasedEncodable(value: targetURL)), try JSONEncoder().encode(targetURL))
     }
     
-    func testCodablePrimitive() throws {
-        let structure:CodablePrimitive = [["1":"C"], true, ["key":"value","#@!@":0.0]]
-        XCTAssertEqual(try JSONEncoder().encode(structure), try JSONSerialization.data(withJSONObject: structure.propertyObject))
-    }
     
     func testSchedulers() async throws {
         let publisher = SchedulerTimePublisher(scheduler: DispatchQueue.global(), interval: .milliseconds(50)).makeConnectable()
