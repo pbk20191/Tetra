@@ -10,15 +10,6 @@ import XCTest
 
 final class CodablePrimitiveTests: XCTestCase {
 
-    
-    override func setUp() async throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-    
-    override func tearDown() async throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
 
 //    func testCodablePrimitive() throws {
 //        let structure:CodablePrimitive = [["1":"C"], true, ["key":"value","#@!@":0.01, "ACC":10]]

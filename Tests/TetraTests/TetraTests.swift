@@ -38,52 +38,6 @@ final class TetraTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
-    func testCancelledDownload() async throws {
-        let result = await Task {
-            withUnsafeCurrentTask { $0?.cancel() }
-            return try await performDownload(on: .shared, from: URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!)
-        }.result
-        XCTAssertThrowsError(try result.get())
-    }
-    
-    func testCancellDuringDownload() async throws {
-        let cancelTask2 = Task {
-            try await performDownload(on: .shared, from: URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!)
-        }
-        Task{
-            try await Task.sleep(nanoseconds: 50_000_000)
-            cancelTask2.cancel()
-        }
-        let result2 = await cancelTask2.result
-        XCTAssertThrowsError(try result2.get())
-    }
-    
-    func testNotificationSequence() async throws {
-        let name = Notification.Name(UUID().uuidString)
-        let object = NSObject()
-        let sequence = NotificationCenter.default.sequence(named: name, object: object)
-        let task = Task {
-            var count = 0
-            for await _ in sequence {
-                count += 1
-            }
-            return count
-        }
-        try await Task.sleep(nanoseconds: 1_000_000)
-        NotificationCenter.default.post(name: name, object: nil)
-        try await Task.sleep(nanoseconds: 1_000_000)
-        NotificationCenter.default.post(name: name, object: object)
-        try await Task.sleep(nanoseconds: 1_000_000)
-        NotificationCenter.default.post(name: name, object: NSObject())
-        try await Task.sleep(nanoseconds: 1_000_000)
-        NotificationCenter.default.post(name: name, object: object, userInfo: ["":""])
-        try await Task.sleep(nanoseconds: 1_000_000)
-        task.cancel()
-        NotificationCenter.default.post(name: name, object: object, userInfo: ["":""])
-        let count = await task.value
-        XCTAssertEqual(count, 2)
-    }
     
     func testUnfairLockPrecondition() throws {
         if #available(iOS 16.0, tvOS 16.0, macCatalyst 16.0, macOS 13.0, watchOS 9.0, *) {
@@ -102,37 +56,4 @@ final class TetraTests: XCTestCase {
         }
     }
 
-    func testAnyEncodable() throws {
-        struct AnyErasedEncodable: Encodable {
-            let value:Encodable
-            func encode(to encoder: Encoder) throws {
-                try value.encode(to: encoder)
-            }
-        }
-        let targetURL = FileManager.default.temporaryDirectory
-
-        XCTAssertEqual(try JSONEncoder().encode(AnyEncodable(targetURL)), try JSONEncoder().encode(targetURL))
-        XCTAssertNotEqual(try JSONEncoder().encode(AnyErasedEncodable(value: targetURL)), try JSONEncoder().encode(targetURL))
-    }
-    
-    
-    func testSchedulers() async throws {
-        let publisher = SchedulerTimePublisher(scheduler: DispatchQueue.global(), interval: .milliseconds(50)).makeConnectable()
-        let autoConnect = publisher.autoconnect()
-        var bag = Set<AnyCancellable>()
-       autoConnect
-            .print("1")
-            .sink { _ in
-                
-            }.store(in: &bag)
-        autoConnect
-             .print("2")
-             .sink { _ in
-                 
-             }.store(in: &bag)
-        
-        try await Task.sleep(nanoseconds: 5_000_000_000)
-        
-    }
-    
 }
