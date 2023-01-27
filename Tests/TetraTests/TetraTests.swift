@@ -11,16 +11,12 @@ import os
 import Combine
 
 final class TetraTests: XCTestCase {
-
-    override class var defaultMetrics: [XCTMetric] {
-        [XCTCPUMetric(), XCTClockMetric()]
-    }
     
-    override func setUpWithError() throws {
+    override func setUp() async throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
 
-    override func tearDownWithError() throws {
+    override func tearDown() async throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
