@@ -36,10 +36,9 @@ public struct SchedulerTimePublisher<T:Scheduler>: Publisher {
 
     private struct State<S:Subscriber> where S.Input == Output, S.Failure == Failure {
         
-        var started = false
         var subscriber:S? = nil
         var request:Subscribers.Demand = .none
-        var token:AnyCancellable? = nil
+        var token = CancellabeState.waiting
         
     }
     
@@ -64,11 +63,7 @@ public struct SchedulerTimePublisher<T:Scheduler>: Publisher {
         func request(_ demand: Subscribers.Demand) {
             let shouldStart = lock.withLock{
                 $0.request += demand
-                if !$0.started {
-                    $0.started = true
-                    return true
-                }
-                return false
+                return $0.token == .waiting
             }
             if shouldStart {
                 let token = publisher.scheduler.schedule(after: publisher.scheduler.now, interval: publisher.interval, tolerance: publisher.tolerance ?? publisher.scheduler.minimumTolerance, options: publisher.options) { [weak self] in
@@ -76,10 +71,18 @@ public struct SchedulerTimePublisher<T:Scheduler>: Publisher {
                 }
                 let oldValue = lock.withLock{
                     let oldValue = $0.token
-                    $0.token = AnyCancellable(token)
+                    switch oldValue {
+                    case .waiting, .cancellable:
+                        $0.token = .cancellable(.init(token))
+                    case .finished:
+                        $0.request = .none
+                        break
+                    }
                     return oldValue
                 }
-                let _ = oldValue
+                if case let .cancellable(cancellable) = oldValue {
+                    cancellable.cancel()
+                }
             }
         }
         
@@ -101,14 +104,22 @@ public struct SchedulerTimePublisher<T:Scheduler>: Publisher {
         func cancel() {
             let token = lock.withLockUnchecked{
                 let cancellable = $0.token
-                $0.token = nil
+                $0.token = .finished
                 $0.request = .none
                 return cancellable
             }
-            let _ = token
+            if case let .cancellable(cancellable) = token {
+                cancellable.cancel()
+            }
         }
         
+    }
+    
+    private enum CancellabeState: Equatable {
         
+        case waiting
+        case cancellable(AnyCancellable)
+        case finished
         
     }
     
