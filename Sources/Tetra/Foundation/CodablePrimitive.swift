@@ -20,6 +20,8 @@ import Foundation
         let data = try JSONEncoder().encode(wrapped)
         let decoded = try JSONDecoder().decode(CodablePrimitive.self, from:data)
  ```
+ 
+    useful for migrating old `JSONSerialization` and `PropertyListSerialization` based object to `Codable` objects.
  */
 public enum CodablePrimitive {
 
@@ -124,10 +126,13 @@ extension CodablePrimitive: Codable {
             } else {
                 throw WrappedError(expectedType: expectType, context: context)
             }
-            /// `JSONDecoder` throws `DecodingError.dataCorrupted` when encountered value is `Double` but tried to decode into `Int`
+            /// `JSONDecoder` and `PropertyListDecoder` throws `DecodingError.dataCorrupted` when encountered value is `Double` but tried to decode into `Int`
         } catch DecodingError.dataCorrupted(let context) where context.underlyingError == nil {
-            let double = try container.decode(Double.self)
-            return .double(double)
+            if case let .success(success) = Result(catching: { try container.decode(Double.self) }) {
+                return .double(success)
+            } else {
+                throw DecodingError.dataCorrupted(context)
+            }
         }
         do {
             let doubleValue = try container.decode(Double.self)
@@ -148,6 +153,7 @@ extension CodablePrimitive: Codable {
     /// `DecodingError.typeMismatch` wrapper type to unwind stack of decoding
     @usableFromInline
     struct WrappedError: Sendable {
+        
         @usableFromInline
         let expectedType:Any.Type
         @usableFromInline

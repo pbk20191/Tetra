@@ -18,10 +18,14 @@ final class AnyEncodableTests: XCTestCase {
             try JSONEncoder().encode(AnyEncodable(targetURL)),
             try JSONEncoder().encode(targetURL)
         )
-        XCTAssertNotEqual(
-            try JSONEncoder().encode(AnyErasedEncodable(value: targetURL)),
-            try JSONEncoder().encode(targetURL)
-        )
+        
+        try XCTExpectFailure {
+            XCTAssertEqual(
+                try JSONEncoder().encode(AnyErasedEncodable(value: targetURL)),
+                try JSONEncoder().encode(targetURL)
+            )
+        }
+
 
     }
 
