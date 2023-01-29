@@ -61,8 +61,7 @@ extension Publishers.TryMapTask {
             let lock = createUncheckedStateLock(uncheckedState: S?.some(subscriber))
             demander = buffer
             task = Task {
-                let subscriptionPtr = UnsafeMutablePointer<Subscription>.allocate(capacity: 1)
-                let subscriptionSemaphore = DispatchSemaphore(value: 0)
+                let subscriptionLock = createCheckedStateLock(checkedState: SubscriptionContinuation.waiting)
                 let stream = AsyncThrowingStream<Upstream.Output,Failure> { continuation in
                     continuation.onTermination = {
                         if case .cancelled = $0 {
@@ -72,10 +71,7 @@ extension Publishers.TryMapTask {
                     upstream
                         .subscribe(
                             AnySubscriber(
-                                receiveSubscription: {
-                                    subscriptionPtr.initialize(to: $0)
-                                    subscriptionSemaphore.signal()
-                                },
+                                receiveSubscription: subscriptionLock.received,
                                 receiveValue: {
                                     continuation.yield($0)
                                     return .none
@@ -91,11 +87,8 @@ extension Publishers.TryMapTask {
                             )
                         )
                 }
-                let subscription = await withUnsafeContinuation{
-                    subscriptionSemaphore.wait()
-                    $0.resume(returning: subscriptionPtr.move())
-                    subscriptionPtr.deallocate()
-                }
+                guard let subscription = await subscriptionLock.consumeSubscription()
+                else { return }
                 await withTaskCancellationHandler {
                     var iterator = stream.makeAsyncIterator()
                     do {
