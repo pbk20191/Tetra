@@ -8,7 +8,7 @@
 import Foundation
 
 /**
-    Codable Object Wrapper which provides opportunity to mix general primitive types into single value. Currently supported Decoders are `JSONDecoder` and `PropertyListDecoder`
+    Codable Object Wrapper which provides opportunity to mix general primitive types into single value. Currently supported Decoders are `JSONDecoder` and `PropertyListDecoder`. Useful for migrating old `JSONSerialization` and `PropertyListSerialization` based object to `Codable` objects.
     ```
         let wrapped:CodablePrimitive = [
             "api_key":"unqiueKeys",
@@ -20,8 +20,9 @@ import Foundation
         let data = try JSONEncoder().encode(wrapped)
         let decoded = try JSONDecoder().decode(CodablePrimitive.self, from:data)
  ```
+ - Does not support `Data` and `Date` in `PropertyList` cause `Data` and `Date` have no unique form in `JSONSerialization`
+ - Drops `null` when `Decoding` cause `PropertyList` can't handle `null`
  
-    useful for migrating old `JSONSerialization` and `PropertyListSerialization` based object to `Codable` objects.
  */
 public enum CodablePrimitive {
 
@@ -90,7 +91,7 @@ extension CodablePrimitive: Codable {
                 throw DecodingError.valueNotFound(Self.self, context)
             }
             self = try Self.decodeSingle(from: decoder.singleValueContainer())
-        } catch let error as WrappedError {
+        } catch let error as DecodingTypeError {
             throw error.decodingError
         }
     }
@@ -99,12 +100,13 @@ extension CodablePrimitive: Codable {
     internal static func decodeSingle(from container:SingleValueDecodingContainer) throws -> Self {
         do {
             let string = try container.decode(String.self)
+            print(container.codingPath, string)
             return .string(string)
         } catch DecodingError.typeMismatch(let expectType, let context) {
             if context.underlyingError == nil && expectType == String.self {
                 
             } else {
-                throw WrappedError(expectedType: expectType, context: context)
+                throw DecodingTypeError(expectedType: expectType, context: context)
             }
         }
         do {
@@ -114,7 +116,7 @@ extension CodablePrimitive: Codable {
             if context.underlyingError == nil && expectType == Bool.self {
                 
             } else {
-                throw WrappedError(expectedType: expectType, context: context)
+                throw DecodingTypeError(expectedType: expectType, context: context)
             }
         }
         do {
@@ -124,7 +126,7 @@ extension CodablePrimitive: Codable {
             if context.underlyingError == nil && expectType == Int.self {
                 
             } else {
-                throw WrappedError(expectedType: expectType, context: context)
+                throw DecodingTypeError(expectedType: expectType, context: context)
             }
             /// `JSONDecoder` and `PropertyListDecoder` throws `DecodingError.dataCorrupted` when encountered value is `Double` but tried to decode into `Int`
         } catch DecodingError.dataCorrupted(let context) where context.underlyingError == nil {
@@ -141,7 +143,7 @@ extension CodablePrimitive: Codable {
             if context.underlyingError == nil && expectType == Double.self {
                 
             } else {
-                throw WrappedError(expectedType: expectType, context: context)
+                throw DecodingTypeError(expectedType: expectType, context: context)
             }
         }
         throw DecodingError.dataCorruptedError(
@@ -150,61 +152,7 @@ extension CodablePrimitive: Codable {
         )
     }
     
-    /// `DecodingError.typeMismatch` wrapper type to unwind stack of decoding
-    @usableFromInline
-    struct WrappedError: Sendable {
-        
-        @usableFromInline
-        let expectedType:Any.Type
-        @usableFromInline
-        let context:DecodingError.Context
-        
-        @usableFromInline
-        init(expectedType: Any.Type, context: DecodingError.Context) {
-            self.expectedType = expectedType
-            self.context = context
-        }
-        
-        
-    }
-
-    
 }
-
-extension CodablePrimitive.WrappedError: LocalizedError {
-    
-    @usableFromInline
-    var decodingError:DecodingError {
-        .typeMismatch(expectedType, context)
-    }
-    
-    @usableFromInline
-    var localizedDescription:String {
-        decodingError.localizedDescription
-    }
-    
-    @usableFromInline
-    var errorDescription: String? {
-        decodingError.errorDescription
-    }
-    
-    @usableFromInline
-    var failureReason: String? {
-        decodingError.failureReason
-    }
-    
-    @usableFromInline
-    var helpAnchor: String? {
-        decodingError.helpAnchor
-    }
-    
-    @usableFromInline
-    var recoverySuggestion: String? {
-        decodingError.recoverySuggestion
-    }
-    
-}
-
 
 // MARK: - Hashable
 extension CodablePrimitive: Hashable {}
