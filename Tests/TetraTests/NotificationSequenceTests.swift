@@ -13,7 +13,8 @@ final class NotificationSequenceTests: XCTestCase {
     func testNotificationSequence() async throws {
         let name = Notification.Name(UUID().uuidString)
         let object = NSObject()
-        let sequence = NotificationCenter.default.sequence(named: name, object: object)
+        let sequence = NotificationSequence(center: .default, named: name, object: object)
+
         let task = Task {
             var count = 0
             for await _ in sequence {
@@ -34,6 +35,35 @@ final class NotificationSequenceTests: XCTestCase {
         NotificationCenter.default.post(name: name, object: object, userInfo: ["":""])
         let count = await task.value
         XCTAssertEqual(count, 2)
+    }
+    
+    func testAlreadyCancelled() async throws {
+        let name = Notification.Name(UUID().uuidString)
+        let object = NSObject()
+        let sequence = NotificationSequence(center: .default, named: name, object: object)
+
+
+        try await Task.sleep(nanoseconds: 1_000_000)
+        NotificationCenter.default.post(name: name, object: nil)
+        try await Task.sleep(nanoseconds: 1_000_000)
+        NotificationCenter.default.post(name: name, object: object)
+        try await Task.sleep(nanoseconds: 1_000_000)
+        NotificationCenter.default.post(name: name, object: NSObject())
+        try await Task.sleep(nanoseconds: 1_000_000)
+        NotificationCenter.default.post(name: name, object: object, userInfo: ["":""])
+        try await Task.sleep(nanoseconds: 1_000_000)
+
+        NotificationCenter.default.post(name: name, object: object, userInfo: ["":""])
+        let task = Task {
+            var count = 0
+            for await _ in sequence {
+                count += 1
+            }
+            return count
+        }
+        task.cancel()
+        let count = await task.value
+        XCTAssertEqual(count, 0)
     }
 
 }
