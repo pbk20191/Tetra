@@ -1,0 +1,6132 @@
+{
+    "insureCode": [
+        {
+            "sq_code_insure": 1,
+            "cd_code": "1",
+            "ty_code": "A0",
+            "nm_code": "18세 이상 당연취득",
+            "no_order": 1,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 6,
+            "cd_code": "00",
+            "ty_code": "A1",
+            "nm_code": "최초취득",
+            "no_order": 7,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 15,
+            "cd_code": "11",
+            "ty_code": "A2",
+            "nm_code": "해외근무(전액)",
+            "no_order": 20,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 26,
+            "cd_code": "011",
+            "ty_code": "A3",
+            "nm_code": "의회의원·고위공무원 및 기업 고위임원",
+            "no_order": 33,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 71,
+            "cd_code": "22",
+            "ty_code": "AA",
+            "nm_code": "자활근로종사자(급여특례,차상위계층)",
+            "no_order": 255,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 72,
+            "cd_code": "05",
+            "ty_code": "AB",
+            "nm_code": "국가기관에서 근무하는 청원경찰",
+            "no_order": 256,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 75,
+            "cd_code": "01",
+            "ty_code": "AC",
+            "nm_code": "별정직,계약직공무원",
+            "no_order": 259,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 77,
+            "cd_code": "14",
+            "ty_code": "AD",
+            "nm_code": "시간제계약직 공무원",
+            "no_order": 261,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 78,
+            "cd_code": "21",
+            "ty_code": "AE",
+            "nm_code": "자활근로종사자(국민기초생활보장수급권자)",
+            "no_order": 262,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 79,
+            "cd_code": "09",
+            "ty_code": "AF",
+            "nm_code": "고용보험 미가입.외국인근로자",
+            "no_order": 263,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 82,
+            "cd_code": "03",
+            "ty_code": "AG",
+            "nm_code": "현장실습생",
+            "no_order": 266,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 84,
+            "cd_code": "22",
+            "ty_code": "AH",
+            "nm_code": "자활근로종사자(급여특례,차상위계층)",
+            "no_order": 268,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 85,
+            "cd_code": "05",
+            "ty_code": "AI",
+            "nm_code": "국가기관에서 근무하는 청원경찰",
+            "no_order": 269,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 88,
+            "cd_code": "01",
+            "ty_code": "AJ",
+            "nm_code": "별정직,계약직공무원",
+            "no_order": 272,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 90,
+            "cd_code": "14",
+            "ty_code": "AK",
+            "nm_code": "시간제계약직 공무원",
+            "no_order": 274,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 91,
+            "cd_code": "21",
+            "ty_code": "AL",
+            "nm_code": "자활근로종사자(국민기초생활보장수급권자)",
+            "no_order": 275,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 185,
+            "cd_code": "54",
+            "ty_code": "A4",
+            "nm_code": "산재,실업급여,고안직능 부과",
+            "no_order": 169,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 190,
+            "cd_code": "51",
+            "ty_code": "A5",
+            "nm_code": "산재,임채 부과",
+            "no_order": 174,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 197,
+            "cd_code": "1",
+            "ty_code": "B0",
+            "nm_code": "사망",
+            "no_order": 276,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 209,
+            "cd_code": "01",
+            "ty_code": "B1",
+            "nm_code": "퇴직",
+            "no_order": 296,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 214,
+            "cd_code": "11",
+            "ty_code": "B2",
+            "nm_code": "개인사정으로 인한 자진퇴사",
+            "no_order": 302,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 302,
+            "cd_code": "01",
+            "ty_code": "C2",
+            "nm_code": "지체장애인",
+            "no_order": 523,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 318,
+            "cd_code": "01",
+            "ty_code": "C3",
+            "nm_code": "1등급",
+            "no_order": 541,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 332,
+            "cd_code": "02",
+            "ty_code": "D0",
+            "nm_code": "사망",
+            "no_order": 555,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 343,
+            "cd_code": "01",
+            "ty_code": "A6",
+            "nm_code": "별정직.임기제공무원",
+            "no_order": 181,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 356,
+            "cd_code": "01",
+            "ty_code": "C0",
+            "nm_code": "본인",
+            "no_order": 392,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 458,
+            "cd_code": "01",
+            "ty_code": "C1",
+            "nm_code": "최초취득",
+            "no_order": 513,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 468,
+            "cd_code": "00",
+            "ty_code": "E0",
+            "nm_code": "체류자격없음(0-0)",
+            "no_order": 749,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 709,
+            "cd_code": "00",
+            "ty_code": "A7",
+            "nm_code": "사립학교경영자부담",
+            "no_order": 194,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 752,
+            "cd_code": "01",
+            "ty_code": "A8",
+            "nm_code": "정무직",
+            "no_order": 239,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 796,
+            "cd_code": "01",
+            "ty_code": "F0",
+            "nm_code": "인사노무",
+            "no_order": 793,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 802,
+            "cd_code": "11-01",
+            "ty_code": "B4",
+            "nm_code": "다른직장으로 옮기기 위해 이직한 경우",
+            "no_order": 799,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 822,
+            "cd_code": "12-01",
+            "ty_code": "B4",
+            "nm_code": "회사사정으로 인한 휴업·휴직이 계속되어 이직한 경우",
+            "no_order": 819,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 829,
+            "cd_code": "22-01",
+            "ty_code": "B4",
+            "nm_code": "사업장의 도산·폐업이 확정·실현되어서 이직한 경우",
+            "no_order": 826,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 832,
+            "cd_code": "23-01",
+            "ty_code": "B4",
+            "nm_code": "경영상 필요에 의한 인원 감축으로 인한 해고에 의해 이직한 경우",
+            "no_order": 829,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 840,
+            "cd_code": "26-01",
+            "ty_code": "B4",
+            "nm_code": "근로자가 업무상 중대한 과실로 인해 취업규칙·단체협약 등으로 정한 징계해고 사유에 해당되어 징계해고 절차를 거쳐 해고된 경우(예술인·노무제공자의 귀책사유로 인하여 계약이 파기·해지된 경우)",
+            "no_order": 837,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 843,
+            "cd_code": "31-01",
+            "ty_code": "B4",
+            "nm_code": "취업규칙·단체협약 등에 의한 정년에 해당되어 퇴직한 경우",
+            "no_order": 840,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 844,
+            "cd_code": "32-01",
+            "ty_code": "B4",
+            "nm_code": "근로계약 또는 문화예술용역 관련 계약 및 노무제공계약의 기간만료",
+            "no_order": 841,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 847,
+            "cd_code": "41-01",
+            "ty_code": "B4",
+            "nm_code": "고용보험 적용제외 또는 임의적용 대상자가 되어 피보험자격을 상실한 경우",
+            "no_order": 844,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 851,
+            "cd_code": "42-01",
+            "ty_code": "B4",
+            "nm_code": "근로자가 다른 사업장에서 근로자로서 피보험자격을 취득하여 상실한 경우",
+            "no_order": 848,
+            "no_rank": 1
+        },
+        {
+            "sq_code_insure": 2,
+            "cd_code": "3",
+            "ty_code": "A0",
+            "nm_code": "18세 미만 신청 취득",
+            "no_order": 2,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 7,
+            "cd_code": "04",
+            "ty_code": "A1",
+            "nm_code": "의료급여수급권자 등에서 제외",
+            "no_order": 8,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 16,
+            "cd_code": "12",
+            "ty_code": "A2",
+            "nm_code": "해외근무(반액)",
+            "no_order": 21,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 27,
+            "cd_code": "012",
+            "ty_code": "A3",
+            "nm_code": "행정·경영·금융·보험 관리자",
+            "no_order": 34,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 73,
+            "cd_code": "06",
+            "ty_code": "AB",
+            "nm_code": "선원법 및 어선재해보상법적용자",
+            "no_order": 257,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 76,
+            "cd_code": "16",
+            "ty_code": "AC",
+            "nm_code": "노조전임자(노동조합 등 금품 지급)",
+            "no_order": 260,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 80,
+            "cd_code": "10",
+            "ty_code": "AF",
+            "nm_code": "월 60시간 미만 근로자",
+            "no_order": 264,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 83,
+            "cd_code": "13",
+            "ty_code": "AG",
+            "nm_code": "항운노조원(임채소송승소)",
+            "no_order": 267,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 86,
+            "cd_code": "06",
+            "ty_code": "AI",
+            "nm_code": "선원법 및 어선재해보상법적용자",
+            "no_order": 270,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 89,
+            "cd_code": "16",
+            "ty_code": "AJ",
+            "nm_code": "노조전임자(노동조합 등 금품 지급)",
+            "no_order": 273,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 186,
+            "cd_code": "55",
+            "ty_code": "A4",
+            "nm_code": "실업급여,고안직능 부과",
+            "no_order": 170,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 191,
+            "cd_code": "52",
+            "ty_code": "A5",
+            "nm_code": "산재 부과",
+            "no_order": 175,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 198,
+            "cd_code": "3",
+            "ty_code": "B0",
+            "nm_code": "사용관계 종료",
+            "no_order": 277,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 210,
+            "cd_code": "02",
+            "ty_code": "B1",
+            "nm_code": "사망",
+            "no_order": 297,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 215,
+            "cd_code": "12",
+            "ty_code": "B2",
+            "nm_code": "사업장 이전 또는 근로조건(계약조건) 변동 또는 임금체불 등으로 자진퇴사",
+            "no_order": 303,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 297,
+            "cd_code": "03",
+            "ty_code": "C1",
+            "nm_code": "출생",
+            "no_order": 508,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 303,
+            "cd_code": "02",
+            "ty_code": "C2",
+            "nm_code": "뇌병변장애인",
+            "no_order": 524,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 319,
+            "cd_code": "02",
+            "ty_code": "C3",
+            "nm_code": "2등급",
+            "no_order": 542,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 333,
+            "cd_code": "04",
+            "ty_code": "D0",
+            "nm_code": "의료급여수급권자로 책정된 경우",
+            "no_order": 556,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 344,
+            "cd_code": "03",
+            "ty_code": "A6",
+            "nm_code": "현장실습생",
+            "no_order": 182,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 357,
+            "cd_code": "02",
+            "ty_code": "C0",
+            "nm_code": "배우자",
+            "no_order": 393,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 469,
+            "cd_code": "A1",
+            "ty_code": "E0",
+            "nm_code": "외교(A-1)",
+            "no_order": 750,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 710,
+            "cd_code": "11",
+            "ty_code": "A7",
+            "nm_code": "국가일반",
+            "no_order": 195,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 753,
+            "cd_code": "02",
+            "ty_code": "A8",
+            "nm_code": "일반직",
+            "no_order": 240,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 797,
+            "cd_code": "02",
+            "ty_code": "F0",
+            "nm_code": "회계,세무,경리",
+            "no_order": 794,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 803,
+            "cd_code": "11-02",
+            "ty_code": "B4",
+            "nm_code": "본인 사업이나 가족사업 등을 하기 위하여 이직한 경우",
+            "no_order": 800,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 823,
+            "cd_code": "12-02",
+            "ty_code": "B4",
+            "nm_code": "임금 등의 체불 또는 지연지급이 계속되어 이직한 경우",
+            "no_order": 820,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 830,
+            "cd_code": "22-02",
+            "ty_code": "B4",
+            "nm_code": "천재지변 등으로 사업 불가능하여 이직한 경우",
+            "no_order": 827,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 833,
+            "cd_code": "23-02",
+            "ty_code": "B4",
+            "nm_code": "사업의 양도·양수·합병과정에서 본인 의사와 관계없이 고용승계가 배제되어 이직한 경우",
+            "no_order": 830,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 841,
+            "cd_code": "26-02",
+            "ty_code": "B4",
+            "nm_code": "근로자가 업무상 중대한 과실로 징계해고에 해당하나 사업주가 권유해서 스스로 사직한 경우",
+            "no_order": 838,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 845,
+            "cd_code": "32-02",
+            "ty_code": "B4",
+            "nm_code": "조건부계약의 조건성취에 따라 계약이 만료된 경우",
+            "no_order": 842,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 848,
+            "cd_code": "41-02",
+            "ty_code": "B4",
+            "nm_code": "사업장의 보험관계가 해지되어 피보험자격을 상실한 경우",
+            "no_order": 845,
+            "no_rank": 2
+        },
+        {
+            "sq_code_insure": 3,
+            "cd_code": "9",
+            "ty_code": "A0",
+            "nm_code": "전입(사업장 통·폐합)",
+            "no_order": 3,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 8,
+            "cd_code": "05",
+            "ty_code": "A1",
+            "nm_code": "직장가입자 변경(상실)",
+            "no_order": 9,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 17,
+            "cd_code": "21",
+            "ty_code": "A2",
+            "nm_code": "현역군입대",
+            "no_order": 22,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 28,
+            "cd_code": "013",
+            "ty_code": "A3",
+            "nm_code": "전문서비스 관리자",
+            "no_order": 35,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 74,
+            "cd_code": "07",
+            "ty_code": "AB",
+            "nm_code": "해외파견자",
+            "no_order": 258,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 81,
+            "cd_code": "11",
+            "ty_code": "AF",
+            "nm_code": "항운노조원(임채부과대상)",
+            "no_order": 265,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 87,
+            "cd_code": "07",
+            "ty_code": "AI",
+            "nm_code": "해외파견자",
+            "no_order": 271,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 187,
+            "cd_code": "56",
+            "ty_code": "A4",
+            "nm_code": "실업급여 부과",
+            "no_order": 171,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 192,
+            "cd_code": "54",
+            "ty_code": "A5",
+            "nm_code": "산재,실업급여,고안직능 부과",
+            "no_order": 176,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 199,
+            "cd_code": "4",
+            "ty_code": "B0",
+            "nm_code": "국적상실(국외이주)",
+            "no_order": 278,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 211,
+            "cd_code": "04",
+            "ty_code": "B1",
+            "nm_code": "의료급여책정",
+            "no_order": 298,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 298,
+            "cd_code": "04",
+            "ty_code": "C1",
+            "nm_code": "의료급여수급권자등에서 제외",
+            "no_order": 509,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 304,
+            "cd_code": "03",
+            "ty_code": "C2",
+            "nm_code": "시각장애인",
+            "no_order": 525,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 320,
+            "cd_code": "03",
+            "ty_code": "C3",
+            "nm_code": "3등급",
+            "no_order": 543,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 334,
+            "cd_code": "07",
+            "ty_code": "D0",
+            "nm_code": "지역가입자로 변경",
+            "no_order": 557,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 345,
+            "cd_code": "05",
+            "ty_code": "A6",
+            "nm_code": "국가기관에서 근무하는 청원경찰",
+            "no_order": 183,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 358,
+            "cd_code": "03",
+            "ty_code": "C0",
+            "nm_code": "부",
+            "no_order": 394,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 470,
+            "cd_code": "A2",
+            "ty_code": "E0",
+            "nm_code": "공무(A-2)",
+            "no_order": 751,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 711,
+            "cd_code": "12",
+            "ty_code": "A7",
+            "nm_code": "지방공무원",
+            "no_order": 196,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 754,
+            "cd_code": "03",
+            "ty_code": "A8",
+            "nm_code": "기능직",
+            "no_order": 241,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 798,
+            "cd_code": "03",
+            "ty_code": "F0",
+            "nm_code": "경영,관리",
+            "no_order": 795,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 804,
+            "cd_code": "11-03",
+            "ty_code": "B4",
+            "nm_code": "결혼ㆍ출산ㆍ육아를 이유로 이직한 경우",
+            "no_order": 801,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 824,
+            "cd_code": "12-03",
+            "ty_code": "B4",
+            "nm_code": "사업장(노무제공장소) 이전으로 출·퇴근이 곤란하여 이직한 경우",
+            "no_order": 821,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 831,
+            "cd_code": "22-03",
+            "ty_code": "B4",
+            "nm_code": "사업이 중단되고 재개될 전망이 없어서 이직한 경우",
+            "no_order": 828,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 834,
+            "cd_code": "23-03",
+            "ty_code": "B4",
+            "nm_code": "경영상 필요에 의한 인원 감축이 불가피하여 실시된 고용조정계획 또는 대량의 감원 예정에 따른 사업주의 퇴직 권고에 의하여 이직한 경우",
+            "no_order": 831,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 842,
+            "cd_code": "26-03",
+            "ty_code": "B4",
+            "nm_code": "근로자의 업무상 과실(업무능력 미달 포함) 등 귀책사유가 징계해고 정도는 아니지만 사업주가 퇴직을 권유하여 이직한 경우",
+            "no_order": 839,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 846,
+            "cd_code": "32-03",
+            "ty_code": "B4",
+            "nm_code": "공사계약의 기간만료",
+            "no_order": 843,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 849,
+            "cd_code": "41-03",
+            "ty_code": "B4",
+            "nm_code": "임의가입자의 가입탈퇴 신청이 승인되어 피보험자격을 상실한 경우",
+            "no_order": 846,
+            "no_rank": 3
+        },
+        {
+            "sq_code_insure": 4,
+            "cd_code": "11",
+            "ty_code": "A0",
+            "nm_code": "대학시간강사",
+            "no_order": 4,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 9,
+            "cd_code": "06",
+            "ty_code": "A1",
+            "nm_code": "직장피부양자 상실",
+            "no_order": 10,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 18,
+            "cd_code": "22",
+            "ty_code": "A2",
+            "nm_code": "상근예비역(현역입대)",
+            "no_order": 23,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 29,
+            "cd_code": "014",
+            "ty_code": "A3",
+            "nm_code": "미용·여행·숙박·음식·경비·청소 관리자",
+            "no_order": 36,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 193,
+            "cd_code": "55",
+            "ty_code": "A5",
+            "nm_code": "실업급여,고안직능 부과",
+            "no_order": 177,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 200,
+            "cd_code": "5",
+            "ty_code": "B0",
+            "nm_code": "60세 도달",
+            "no_order": 279,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 299,
+            "cd_code": "05",
+            "ty_code": "C1",
+            "nm_code": "직장가입자변경",
+            "no_order": 510,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 305,
+            "cd_code": "04",
+            "ty_code": "C2",
+            "nm_code": "청각장애인",
+            "no_order": 526,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 321,
+            "cd_code": "04",
+            "ty_code": "C3",
+            "nm_code": "4등급",
+            "no_order": 544,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 335,
+            "cd_code": "10",
+            "ty_code": "D0",
+            "nm_code": "국가유공자로 의료급여수급권자 책정",
+            "no_order": 558,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 346,
+            "cd_code": "06",
+            "ty_code": "A6",
+            "nm_code": "선원법 및 어선재해보상법적용자",
+            "no_order": 184,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 359,
+            "cd_code": "04",
+            "ty_code": "C0",
+            "nm_code": "모",
+            "no_order": 395,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 471,
+            "cd_code": "A31",
+            "ty_code": "E0",
+            "nm_code": "미군현역(A-3-1)",
+            "no_order": 752,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 712,
+            "cd_code": "13",
+            "ty_code": "A7",
+            "nm_code": "군인",
+            "no_order": 197,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 755,
+            "cd_code": "04",
+            "ty_code": "A8",
+            "nm_code": "공안직",
+            "no_order": 242,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 771,
+            "cd_code": "05",
+            "ty_code": "B1",
+            "nm_code": "직장가입자로 변경",
+            "no_order": 288,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 799,
+            "cd_code": "04",
+            "ty_code": "F0",
+            "nm_code": "홍보,영업",
+            "no_order": 796,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 805,
+            "cd_code": "11-04",
+            "ty_code": "B4",
+            "nm_code": "가족(배우자 또는 부양해야 할 친족)과의 동거를 위하여 거소를 이전하여 이직한 경우",
+            "no_order": 802,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 825,
+            "cd_code": "12-04",
+            "ty_code": "B4",
+            "nm_code": "사업장(노무제공장소) 이전은 없으나 사업주로부터 통근이 불가능한 지역으로 전근 명령을 받아 이직한 경우",
+            "no_order": 822,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 835,
+            "cd_code": "23-04",
+            "ty_code": "B4",
+            "nm_code": "사업·부서가 폐지되어 신설된 법인으로 이직한 경우",
+            "no_order": 832,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 850,
+            "cd_code": "41-04",
+            "ty_code": "B4",
+            "nm_code": "본인의 사망으로 피보험자격을 상실한 경우",
+            "no_order": 847,
+            "no_rank": 4
+        },
+        {
+            "sq_code_insure": 5,
+            "cd_code": "12",
+            "ty_code": "A0",
+            "nm_code": "60시간 미만 신청 취득",
+            "no_order": 5,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 10,
+            "cd_code": "07",
+            "ty_code": "A1",
+            "nm_code": "지역가입자에서 변경",
+            "no_order": 11,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 19,
+            "cd_code": "23",
+            "ty_code": "A2",
+            "nm_code": "공익근무요원(근무)",
+            "no_order": 24,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 30,
+            "cd_code": "015",
+            "ty_code": "A3",
+            "nm_code": "영업·판매·운송 관리자",
+            "no_order": 37,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 189,
+            "cd_code": "58",
+            "ty_code": "A4",
+            "nm_code": "산재,고안직능 부과",
+            "no_order": 173,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 194,
+            "cd_code": "56",
+            "ty_code": "A5",
+            "nm_code": "실업급여 부과",
+            "no_order": 178,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 201,
+            "cd_code": "6",
+            "ty_code": "B0",
+            "nm_code": "다른 공적연금 가입",
+            "no_order": 280,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 212,
+            "cd_code": "10",
+            "ty_code": "B1",
+            "nm_code": "국가유공자 건강보험 배제신청",
+            "no_order": 299,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 300,
+            "cd_code": "06",
+            "ty_code": "C1",
+            "nm_code": "피부양자 상실",
+            "no_order": 511,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 306,
+            "cd_code": "05",
+            "ty_code": "C2",
+            "nm_code": "언어장애인",
+            "no_order": 527,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 322,
+            "cd_code": "05",
+            "ty_code": "C3",
+            "nm_code": "5등급",
+            "no_order": 545,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 336,
+            "cd_code": "13",
+            "ty_code": "D0",
+            "nm_code": "기타",
+            "no_order": 559,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 347,
+            "cd_code": "07",
+            "ty_code": "A6",
+            "nm_code": "해외파견자",
+            "no_order": 185,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 360,
+            "cd_code": "05",
+            "ty_code": "C0",
+            "nm_code": "자녀",
+            "no_order": 396,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 472,
+            "cd_code": "A32",
+            "ty_code": "E0",
+            "nm_code": "미군군속(A-3-2)",
+            "no_order": 753,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 713,
+            "cd_code": "14",
+            "ty_code": "A7",
+            "nm_code": "국제협력의사",
+            "no_order": 198,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 756,
+            "cd_code": "05",
+            "ty_code": "A8",
+            "nm_code": "경찰,소방직",
+            "no_order": 243,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 800,
+            "cd_code": "05",
+            "ty_code": "F0",
+            "nm_code": "기술,기능",
+            "no_order": 797,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 806,
+            "cd_code": "11-05",
+            "ty_code": "B4",
+            "nm_code": "자녀 교육을 위하여 이직한 경우",
+            "no_order": 803,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 826,
+            "cd_code": "12-05",
+            "ty_code": "B4",
+            "nm_code": "사업주로부터 사회통념상 타당성이 없는 보직변경을 받아 업무에 적응하지 못하여 이직한 경우",
+            "no_order": 823,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 836,
+            "cd_code": "23-05",
+            "ty_code": "B4",
+            "nm_code": "직제개편에 따른 조직의 폐지·축소, 회사의 업종전환, 일부 사업 또는 작업형태의 변경으로 인해 사업주의 퇴직 권고에 의하여 이직한 경우",
+            "no_order": 833,
+            "no_rank": 5
+        },
+        {
+            "sq_code_insure": 11,
+            "cd_code": "10",
+            "ty_code": "A1",
+            "nm_code": "유공자등 건강보험 적용신청",
+            "no_order": 12,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 31,
+            "cd_code": "016",
+            "ty_code": "A3",
+            "nm_code": "건설·채굴·제조·생산 관리자",
+            "no_order": 38,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 195,
+            "cd_code": "57",
+            "ty_code": "A5",
+            "nm_code": "산재,실업급여 부과",
+            "no_order": 179,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 202,
+            "cd_code": "9",
+            "ty_code": "B0",
+            "nm_code": "전출 (통·폐합)",
+            "no_order": 281,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 213,
+            "cd_code": "13",
+            "ty_code": "B1",
+            "nm_code": "기타",
+            "no_order": 300,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 219,
+            "cd_code": "22",
+            "ty_code": "B2",
+            "nm_code": "폐업·도산(예정포함), 공사 중단",
+            "no_order": 307,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 301,
+            "cd_code": "07",
+            "ty_code": "C1",
+            "nm_code": "지역가입자에서변경",
+            "no_order": 512,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 307,
+            "cd_code": "06",
+            "ty_code": "C2",
+            "nm_code": "지적장애인",
+            "no_order": 528,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 323,
+            "cd_code": "06",
+            "ty_code": "C3",
+            "nm_code": "6등급",
+            "no_order": 546,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 337,
+            "cd_code": "14",
+            "ty_code": "D0",
+            "nm_code": "직권말소",
+            "no_order": 560,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 348,
+            "cd_code": "09",
+            "ty_code": "A6",
+            "nm_code": "고용보험 미가입.외국인근로자",
+            "no_order": 186,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 361,
+            "cd_code": "06",
+            "ty_code": "C0",
+            "nm_code": "며느리",
+            "no_order": 397,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 473,
+            "cd_code": "A399",
+            "ty_code": "E0",
+            "nm_code": "기타협정(A-3-99)",
+            "no_order": 754,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 700,
+            "cd_code": "24",
+            "ty_code": "A2",
+            "nm_code": "상근예비역(근무)",
+            "no_order": 31,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 714,
+            "cd_code": "21",
+            "ty_code": "A7",
+            "nm_code": "국군홍보관리사업",
+            "no_order": 199,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 757,
+            "cd_code": "06",
+            "ty_code": "A8",
+            "nm_code": "1,2종 고용직",
+            "no_order": 244,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 801,
+            "cd_code": "06",
+            "ty_code": "F0",
+            "nm_code": "기타",
+            "no_order": 798,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 807,
+            "cd_code": "11-06",
+            "ty_code": "B4",
+            "nm_code": "사업장 이전·전근은 없지만 개인사정(거주지 이전 등)으로 인해 사업장의 출퇴근이 곤란하여 이직한 경우",
+            "no_order": 804,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 827,
+            "cd_code": "12-06",
+            "ty_code": "B4",
+            "nm_code": "채용 시(계약 체결 시) 사업주가 제시한 임금·근로조건(계약조건) 등이 현저히 낮아지게 되어 이직한 경우",
+            "no_order": 824,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 837,
+            "cd_code": "23-06",
+            "ty_code": "B4",
+            "nm_code": "회사의 주문량·작업량 감소 등과 같은 경영의 악화로 인해 이직한 경우",
+            "no_order": 834,
+            "no_rank": 6
+        },
+        {
+            "sq_code_insure": 12,
+            "cd_code": "13",
+            "ty_code": "A1",
+            "nm_code": "기타",
+            "no_order": 13,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 20,
+            "cd_code": "31",
+            "ty_code": "A2",
+            "nm_code": "시설수용(교도소)",
+            "no_order": 25,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 32,
+            "cd_code": "021",
+            "ty_code": "A3",
+            "nm_code": "정부·공공행정 전문가",
+            "no_order": 39,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 196,
+            "cd_code": "58",
+            "ty_code": "A5",
+            "nm_code": "산재,고안직능 부과",
+            "no_order": 180,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 203,
+            "cd_code": "15",
+            "ty_code": "B0",
+            "nm_code": "60세 미만 노령연금수급권자",
+            "no_order": 282,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 220,
+            "cd_code": "23",
+            "ty_code": "B2",
+            "nm_code": "경영상 필요 또는 회사불황으로 인원감축 등에 의한 퇴사(해고·권고사직·계약파기 포함)",
+            "no_order": 308,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 308,
+            "cd_code": "07",
+            "ty_code": "C2",
+            "nm_code": "자폐성장애인",
+            "no_order": 529,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 324,
+            "cd_code": "07",
+            "ty_code": "C3",
+            "nm_code": "7등급",
+            "no_order": 547,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 338,
+            "cd_code": "17",
+            "ty_code": "D0",
+            "nm_code": "국적상실",
+            "no_order": 561,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 349,
+            "cd_code": "10",
+            "ty_code": "A6",
+            "nm_code": "월 60시간 미만 근로자",
+            "no_order": 187,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 362,
+            "cd_code": "08",
+            "ty_code": "C0",
+            "nm_code": "사위",
+            "no_order": 398,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 459,
+            "cd_code": "10",
+            "ty_code": "C1",
+            "nm_code": "국가유공자 건강보험 적용신청",
+            "no_order": 514,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 474,
+            "cd_code": "B1",
+            "ty_code": "E0",
+            "nm_code": "사증면제(B-1)",
+            "no_order": 755,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 702,
+            "cd_code": "17",
+            "ty_code": "B1",
+            "nm_code": "국적상실",
+            "no_order": 289,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 715,
+            "cd_code": "22",
+            "ty_code": "A7",
+            "nm_code": "국립영상간행물제작사업",
+            "no_order": 200,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 758,
+            "cd_code": "07",
+            "ty_code": "A8",
+            "nm_code": "경노무 고용직",
+            "no_order": 245,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 808,
+            "cd_code": "11-07",
+            "ty_code": "B4",
+            "nm_code": "본인이나 동거인, 친족의 질병·부상으로 업무수행이 곤란하여 이직한 경우",
+            "no_order": 805,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 828,
+            "cd_code": "12-07",
+            "ty_code": "B4",
+            "nm_code": "이직 전 12개월간 2개월 이상 임금이 최저임금보다 낮거나 근로기준법 제53조에 따른 연장근로 제한 위반이 계속되어 이직한 경우",
+            "no_order": 825,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 838,
+            "cd_code": "23-07",
+            "ty_code": "B4",
+            "nm_code": "결혼, 임신, 출산, 군입대 등의 경우에 퇴직이 관행이 된 사업장에서 이직한 경우",
+            "no_order": 835,
+            "no_rank": 7
+        },
+        {
+            "sq_code_insure": 13,
+            "cd_code": "14",
+            "ty_code": "A1",
+            "nm_code": "직권말소후 재등록",
+            "no_order": 14,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 33,
+            "cd_code": "022",
+            "ty_code": "A3",
+            "nm_code": "경영·인사 전문가",
+            "no_order": 40,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 204,
+            "cd_code": "16",
+            "ty_code": "B0",
+            "nm_code": "협정국 연금가입",
+            "no_order": 283,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 309,
+            "cd_code": "08",
+            "ty_code": "C2",
+            "nm_code": "정신장애인",
+            "no_order": 530,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 325,
+            "cd_code": "08",
+            "ty_code": "C3",
+            "nm_code": "8등급",
+            "no_order": 548,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 339,
+            "cd_code": "18",
+            "ty_code": "D0",
+            "nm_code": "외국인(영주권자)으로서 출국한 경우",
+            "no_order": 562,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 350,
+            "cd_code": "11",
+            "ty_code": "A6",
+            "nm_code": "항운노조원(임채부과대상)",
+            "no_order": 188,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 363,
+            "cd_code": "10",
+            "ty_code": "C0",
+            "nm_code": "시부",
+            "no_order": 399,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 460,
+            "cd_code": "13",
+            "ty_code": "C1",
+            "nm_code": "기타",
+            "no_order": 515,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 475,
+            "cd_code": "B21",
+            "ty_code": "E0",
+            "nm_code": "일반무사증(B-2-1)",
+            "no_order": 756,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 701,
+            "cd_code": "32",
+            "ty_code": "A2",
+            "nm_code": "시설수용(기타)",
+            "no_order": 32,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 703,
+            "cd_code": "19",
+            "ty_code": "B1",
+            "nm_code": "이민 출국",
+            "no_order": 290,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 716,
+            "cd_code": "25",
+            "ty_code": "A7",
+            "nm_code": "국유재산관리",
+            "no_order": 201,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 759,
+            "cd_code": "08",
+            "ty_code": "A8",
+            "nm_code": "교육직",
+            "no_order": 246,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 809,
+            "cd_code": "11-08",
+            "ty_code": "B4",
+            "nm_code": "고연령 등으로 업무수행이 곤란하다고 판단되어 스스로 이직한 경우",
+            "no_order": 806,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 839,
+            "cd_code": "23-08",
+            "ty_code": "B4",
+            "nm_code": "근로자의 귀책사유 없는 해고(예술인 또는 노무제공자의 귀책사유는 없지만 사업주의 요구에 따라 계약이 파기·해지된 경우)",
+            "no_order": 836,
+            "no_rank": 8
+        },
+        {
+            "sq_code_insure": 21,
+            "cd_code": "41",
+            "ty_code": "A2",
+            "nm_code": "도서벽지(사업장)",
+            "no_order": 26,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 34,
+            "cd_code": "023",
+            "ty_code": "A3",
+            "nm_code": "회계·세무·감정 전문가",
+            "no_order": 41,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 310,
+            "cd_code": "09",
+            "ty_code": "C2",
+            "nm_code": "신장장애인",
+            "no_order": 531,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 326,
+            "cd_code": "09",
+            "ty_code": "C3",
+            "nm_code": "9등급",
+            "no_order": 549,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 340,
+            "cd_code": "19",
+            "ty_code": "D0",
+            "nm_code": "이민출국",
+            "no_order": 563,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 351,
+            "cd_code": "13",
+            "ty_code": "A6",
+            "nm_code": "항운노조원(임채소송승소)",
+            "no_order": 189,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 364,
+            "cd_code": "11",
+            "ty_code": "C0",
+            "nm_code": "시모",
+            "no_order": 400,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 461,
+            "cd_code": "14",
+            "ty_code": "C1",
+            "nm_code": "주민등록재등록",
+            "no_order": 516,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 476,
+            "cd_code": "B22",
+            "ty_code": "E0",
+            "nm_code": "제주무사증(B-2-2)",
+            "no_order": 757,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 704,
+            "cd_code": "24",
+            "ty_code": "B1",
+            "nm_code": "가입제외(외국의 법령)",
+            "no_order": 291,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 717,
+            "cd_code": "26",
+            "ty_code": "A7",
+            "nm_code": "국립중앙과학관사업",
+            "no_order": 202,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 760,
+            "cd_code": "09",
+            "ty_code": "A8",
+            "nm_code": "법관,검사",
+            "no_order": 247,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 770,
+            "cd_code": "17",
+            "ty_code": "A1",
+            "nm_code": "국적취득",
+            "no_order": 6,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 810,
+            "cd_code": "11-09",
+            "ty_code": "B4",
+            "nm_code": "본인의 업무상 과실 또는 능력 부족이나 체력 쇠퇴 등으로 스스로 이직한 경우",
+            "no_order": 807,
+            "no_rank": 9
+        },
+        {
+            "sq_code_insure": 14,
+            "cd_code": "29",
+            "ty_code": "A1",
+            "nm_code": "직장가입자 이중가입",
+            "no_order": 15,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 22,
+            "cd_code": "42",
+            "ty_code": "A2",
+            "nm_code": "도서벽지(거주지)",
+            "no_order": 27,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 35,
+            "cd_code": "024",
+            "ty_code": "A3",
+            "nm_code": "광고·조사·상품기획·행사기획 전문가",
+            "no_order": 42,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 206,
+            "cd_code": "20",
+            "ty_code": "B0",
+            "nm_code": "적용제외 체류자격(외국인)",
+            "no_order": 285,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 311,
+            "cd_code": "10",
+            "ty_code": "C2",
+            "nm_code": "심장장애인",
+            "no_order": 532,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 341,
+            "cd_code": "21",
+            "ty_code": "D0",
+            "nm_code": "행방불명",
+            "no_order": 564,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 352,
+            "cd_code": "14",
+            "ty_code": "A6",
+            "nm_code": "시간선택제임기제공무원, 한시임기제공무원",
+            "no_order": 190,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 365,
+            "cd_code": "12",
+            "ty_code": "C0",
+            "nm_code": "장인",
+            "no_order": 401,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 462,
+            "cd_code": "17",
+            "ty_code": "C1",
+            "nm_code": "국적취득",
+            "no_order": 517,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 477,
+            "cd_code": "C1",
+            "ty_code": "E0",
+            "nm_code": "일시취재(C-1)",
+            "no_order": 758,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 705,
+            "cd_code": "25",
+            "ty_code": "B1",
+            "nm_code": "가입제외(외국의 보험)",
+            "no_order": 292,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 718,
+            "cd_code": "27",
+            "ty_code": "A7",
+            "nm_code": "국립중앙극장사업",
+            "no_order": 203,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 761,
+            "cd_code": "10",
+            "ty_code": "A8",
+            "nm_code": "일용직",
+            "no_order": 248,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 772,
+            "cd_code": "26",
+            "ty_code": "B2",
+            "nm_code": "피보험자의 귀책사유에 의한 징계해고, 권고사직 또는 계약 파기",
+            "no_order": 301,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 811,
+            "cd_code": "11-10",
+            "ty_code": "B4",
+            "nm_code": "본인의 학업 또는 시험 대비를 위하여 이직한 경우 ",
+            "no_order": 808,
+            "no_rank": 10
+        },
+        {
+            "sq_code_insure": 23,
+            "cd_code": "43",
+            "ty_code": "A2",
+            "nm_code": "도서벽지(파견지)",
+            "no_order": 28,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 36,
+            "cd_code": "025",
+            "ty_code": "A3",
+            "nm_code": "정부·공공 행정 사무원",
+            "no_order": 43,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 207,
+            "cd_code": "21",
+            "ty_code": "B0",
+            "nm_code": "무보수대표이사",
+            "no_order": 286,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 223,
+            "cd_code": "31",
+            "ty_code": "B2",
+            "nm_code": "정년",
+            "no_order": 311,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 312,
+            "cd_code": "11",
+            "ty_code": "C2",
+            "nm_code": "호흡기장애인",
+            "no_order": 533,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 353,
+            "cd_code": "21",
+            "ty_code": "A6",
+            "nm_code": "자활근로종사자(생계급여 수급자)",
+            "no_order": 191,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 366,
+            "cd_code": "13",
+            "ty_code": "C0",
+            "nm_code": "장모",
+            "no_order": 402,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 463,
+            "cd_code": "23",
+            "ty_code": "C1",
+            "nm_code": "체류자격등록",
+            "no_order": 518,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 478,
+            "cd_code": "C21",
+            "ty_code": "E0",
+            "nm_code": "단기상용(C-2-1)",
+            "no_order": 759,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 696,
+            "cd_code": "42",
+            "ty_code": "A1",
+            "nm_code": "가입자단독취득",
+            "no_order": 16,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 706,
+            "cd_code": "26",
+            "ty_code": "B1",
+            "nm_code": "가입제외(사용자부담)",
+            "no_order": 293,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 719,
+            "cd_code": "28",
+            "ty_code": "A7",
+            "nm_code": "농업기계화연구사업",
+            "no_order": 204,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 762,
+            "cd_code": "11",
+            "ty_code": "A8",
+            "nm_code": "군인",
+            "no_order": 249,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 812,
+            "cd_code": "11-11",
+            "ty_code": "B4",
+            "nm_code": "병역의무를 이행하기 위해서 이직한 경우 (*수급자격 있음)",
+            "no_order": 809,
+            "no_rank": 11
+        },
+        {
+            "sq_code_insure": 24,
+            "cd_code": "98",
+            "ty_code": "A2",
+            "nm_code": "감면해제(도서벽지)",
+            "no_order": 29,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 37,
+            "cd_code": "026",
+            "ty_code": "A3",
+            "nm_code": "경영지원 사무원",
+            "no_order": 44,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 208,
+            "cd_code": "22",
+            "ty_code": "B0",
+            "nm_code": "근로자제외",
+            "no_order": 287,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 224,
+            "cd_code": "32",
+            "ty_code": "B2",
+            "nm_code": "계약기간만료, 공사종료",
+            "no_order": 312,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 313,
+            "cd_code": "12",
+            "ty_code": "C2",
+            "nm_code": "간장애인",
+            "no_order": 534,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 354,
+            "cd_code": "22",
+            "ty_code": "A6",
+            "nm_code": "자활근로종사자(급여특례.차상위계층,생계급여 외 수급자)",
+            "no_order": 192,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 367,
+            "cd_code": "14",
+            "ty_code": "C0",
+            "nm_code": "백부",
+            "no_order": 403,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 464,
+            "cd_code": "35",
+            "ty_code": "C1",
+            "nm_code": "소득요건충족에따른취득",
+            "no_order": 519,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 479,
+            "cd_code": "C22",
+            "ty_code": "E0",
+            "nm_code": "우대기업(C-2-2)",
+            "no_order": 760,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 697,
+            "cd_code": "43",
+            "ty_code": "A1",
+            "nm_code": "가입자동시취득피부",
+            "no_order": 17,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 707,
+            "cd_code": "58",
+            "ty_code": "B1",
+            "nm_code": "무보수대표자 지정(직장)",
+            "no_order": 294,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 720,
+            "cd_code": "29",
+            "ty_code": "A7",
+            "nm_code": "교도작업",
+            "no_order": 205,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 763,
+            "cd_code": "15",
+            "ty_code": "A8",
+            "nm_code": "연구직",
+            "no_order": 250,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 813,
+            "cd_code": "11-12",
+            "ty_code": "B4",
+            "nm_code": "본인이 쉬고 싶어서 이직한 경우",
+            "no_order": 810,
+            "no_rank": 12
+        },
+        {
+            "sq_code_insure": 25,
+            "cd_code": "99",
+            "ty_code": "A2",
+            "nm_code": "감면해제(도서벽지제외)",
+            "no_order": 30,
+            "no_rank": 13
+        },
+        {
+            "sq_code_insure": 38,
+            "cd_code": "027",
+            "ty_code": "A3",
+            "nm_code": "회계·경리 사무원",
+            "no_order": 45,
+            "no_rank": 13
+        },
+        {
+            "sq_code_insure": 314,
+            "cd_code": "13",
+            "ty_code": "C2",
+            "nm_code": "안면장애인",
+            "no_order": 535,
+            "no_rank": 13
+        },
+        {
+            "sq_code_insure": 355,
+            "cd_code": "24",
+            "ty_code": "A6",
+            "nm_code": "시간선택제채용공무원",
+            "no_order": 193,
+            "no_rank": 13
+        },
+        {
+            "sq_code_insure": 368,
+            "cd_code": "15",
+            "ty_code": "C0",
+            "nm_code": "백모",
+            "no_order": 404,
+            "no_rank": 13
+        },
+        {
+            "sq_code_insure": 465,
+            "cd_code": "44",
+            "ty_code": "C1",
+            "nm_code": "피부단독취득",
+            "no_order": 520,
+            "no_rank": 13
+        },
+        {
+            "sq_code_insure": 480,
+            "cd_code": "C291",
+            "ty_code": "E0",
+            "nm_code": "FTA상용(C-2-91)",
+            "no_order": 761,
+            "no_rank": 13
+        },
+        {
+            "sq_code_insure": 698,
+            "cd_code": "59",
+            "ty_code": "A1",
+            "nm_code": "무보수대표자 취소(직장)",
+            "no_order": 18,
+            "no_rank": 13
+        },
+        {
+            "sq_code_insure": 708,
+            "cd_code": "64",
+            "ty_code": "B1",
+            "nm_code": "재외국민 주민등록",
+            "no_order": 295,
+            "no_rank": 13
+        },
+        {
+            "sq_code_insure": 721,
+            "cd_code": "30",
+            "ty_code": "A7",
+            "nm_code": "과적차량단속사업",
+            "no_order": 206,
+            "no_rank": 13
+        },
+        {
+            "sq_code_insure": 764,
+            "cd_code": "17",
+            "ty_code": "A8",
+            "nm_code": "공중보건의",
+            "no_order": 251,
+            "no_rank": 13
+        },
+        {
+            "sq_code_insure": 814,
+            "cd_code": "11-13",
+            "ty_code": "B4",
+            "nm_code": "본인 의지에 따라 희망퇴직·명예퇴직한 경우 (*수급자격 없음)",
+            "no_order": 811,
+            "no_rank": 13
+        },
+        {
+            "sq_code_insure": 39,
+            "cd_code": "028",
+            "ty_code": "A3",
+            "nm_code": "무역·운송·생산·품질 사무원",
+            "no_order": 46,
+            "no_rank": 14
+        },
+        {
+            "sq_code_insure": 226,
+            "cd_code": "41",
+            "ty_code": "B2",
+            "nm_code": "고용보험 비적용",
+            "no_order": 314,
+            "no_rank": 14
+        },
+        {
+            "sq_code_insure": 315,
+            "cd_code": "14",
+            "ty_code": "C2",
+            "nm_code": "장루·요루장애인",
+            "no_order": 536,
+            "no_rank": 14
+        },
+        {
+            "sq_code_insure": 369,
+            "cd_code": "16",
+            "ty_code": "C0",
+            "nm_code": "숙부",
+            "no_order": 405,
+            "no_rank": 14
+        },
+        {
+            "sq_code_insure": 466,
+            "cd_code": "45",
+            "ty_code": "C1",
+            "nm_code": "부양요건충족에따른취득",
+            "no_order": 521,
+            "no_rank": 14
+        },
+        {
+            "sq_code_insure": 481,
+            "cd_code": "C3",
+            "ty_code": "E0",
+            "nm_code": "단기종합(C-3)",
+            "no_order": 762,
+            "no_rank": 14
+        },
+        {
+            "sq_code_insure": 699,
+            "cd_code": "64",
+            "ty_code": "A1",
+            "nm_code": "재외국민 주민등록",
+            "no_order": 19,
+            "no_rank": 14
+        },
+        {
+            "sq_code_insure": 722,
+            "cd_code": "31",
+            "ty_code": "A7",
+            "nm_code": "환경개선특별",
+            "no_order": 207,
+            "no_rank": 14
+        },
+        {
+            "sq_code_insure": 765,
+            "cd_code": "18",
+            "ty_code": "A8",
+            "nm_code": "전임전문직",
+            "no_order": 252,
+            "no_rank": 14
+        },
+        {
+            "sq_code_insure": 815,
+            "cd_code": "11-14",
+            "ty_code": "B4",
+            "nm_code": "사업·부서가 폐지되고 신설법인으로 고용승계되었으나 이를 거부하여 이직한 경우",
+            "no_order": 812,
+            "no_rank": 14
+        },
+        {
+            "sq_code_insure": 40,
+            "cd_code": "029",
+            "ty_code": "A3",
+            "nm_code": "안내·고객상담·통계·비서·사무보조 및 기타 사무원",
+            "no_order": 47,
+            "no_rank": 15
+        },
+        {
+            "sq_code_insure": 227,
+            "cd_code": "42",
+            "ty_code": "B2",
+            "nm_code": "이중고용",
+            "no_order": 315,
+            "no_rank": 15
+        },
+        {
+            "sq_code_insure": 316,
+            "cd_code": "15",
+            "ty_code": "C2",
+            "nm_code": "간질장애인",
+            "no_order": 537,
+            "no_rank": 15
+        },
+        {
+            "sq_code_insure": 370,
+            "cd_code": "17",
+            "ty_code": "C0",
+            "nm_code": "숙모",
+            "no_order": 406,
+            "no_rank": 15
+        },
+        {
+            "sq_code_insure": 467,
+            "cd_code": "64",
+            "ty_code": "C1",
+            "nm_code": "재외국민 주민등록",
+            "no_order": 522,
+            "no_rank": 15
+        },
+        {
+            "sq_code_insure": 482,
+            "cd_code": "C31",
+            "ty_code": "E0",
+            "nm_code": "단기일반(C-3-1)",
+            "no_order": 763,
+            "no_rank": 15
+        },
+        {
+            "sq_code_insure": 723,
+            "cd_code": "32",
+            "ty_code": "A7",
+            "nm_code": "고용보험기금",
+            "no_order": 208,
+            "no_rank": 15
+        },
+        {
+            "sq_code_insure": 766,
+            "cd_code": "19",
+            "ty_code": "A8",
+            "nm_code": "청원경찰",
+            "no_order": 253,
+            "no_rank": 15
+        },
+        {
+            "sq_code_insure": 816,
+            "cd_code": "11-15",
+            "ty_code": "B4",
+            "nm_code": "사업장에서 종교, 성별, 신체장애, 노조활동 등을 이유로 불합리한 차별대우를 받아 이직한 경우",
+            "no_order": 813,
+            "no_rank": 15
+        },
+        {
+            "sq_code_insure": 41,
+            "cd_code": "031",
+            "ty_code": "A3",
+            "nm_code": "금융·보험 전문가",
+            "no_order": 48,
+            "no_rank": 16
+        },
+        {
+            "sq_code_insure": 317,
+            "cd_code": "19",
+            "ty_code": "C2",
+            "nm_code": "국가유공자",
+            "no_order": 538,
+            "no_rank": 16
+        },
+        {
+            "sq_code_insure": 371,
+            "cd_code": "18",
+            "ty_code": "C0",
+            "nm_code": "양부",
+            "no_order": 407,
+            "no_rank": 16
+        },
+        {
+            "sq_code_insure": 483,
+            "cd_code": "C32",
+            "ty_code": "E0",
+            "nm_code": "단체관광등(C-3-2)",
+            "no_order": 764,
+            "no_rank": 16
+        },
+        {
+            "sq_code_insure": 724,
+            "cd_code": "33",
+            "ty_code": "A7",
+            "nm_code": "장애인고용촉진기금",
+            "no_order": 209,
+            "no_rank": 16
+        },
+        {
+            "sq_code_insure": 767,
+            "cd_code": "20",
+            "ty_code": "A8",
+            "nm_code": "지도직",
+            "no_order": 254,
+            "no_rank": 16
+        },
+        {
+            "sq_code_insure": 817,
+            "cd_code": "11-16",
+            "ty_code": "B4",
+            "nm_code": "사업장에서 본인의 의사에 반하여 성희롱, 성폭력, 그 밖의 성적인 괴롭힘을 당하여 이직한 경우",
+            "no_order": 814,
+            "no_rank": 16
+        },
+        {
+            "sq_code_insure": 42,
+            "cd_code": "032",
+            "ty_code": "A3",
+            "nm_code": "금융·보험 사무원",
+            "no_order": 49,
+            "no_rank": 17
+        },
+        {
+            "sq_code_insure": 372,
+            "cd_code": "19",
+            "ty_code": "C0",
+            "nm_code": "양모",
+            "no_order": 408,
+            "no_rank": 17
+        },
+        {
+            "sq_code_insure": 484,
+            "cd_code": "C33",
+            "ty_code": "E0",
+            "nm_code": "의료관광(C-3-3)",
+            "no_order": 765,
+            "no_rank": 17
+        },
+        {
+            "sq_code_insure": 725,
+            "cd_code": "34",
+            "ty_code": "A7",
+            "nm_code": "산업재해예방기금",
+            "no_order": 210,
+            "no_rank": 17
+        },
+        {
+            "sq_code_insure": 768,
+            "cd_code": "30",
+            "ty_code": "A8",
+            "nm_code": "원어민 영어교사",
+            "no_order": 237,
+            "no_rank": 17
+        },
+        {
+            "sq_code_insure": 818,
+            "cd_code": "11-17",
+            "ty_code": "B4",
+            "nm_code": "근로기준법 제76조의2에 따른 직장 내 괴롭힘을 당하여 이직한 경우",
+            "no_order": 815,
+            "no_rank": 17
+        },
+        {
+            "sq_code_insure": 43,
+            "cd_code": "033",
+            "ty_code": "A3",
+            "nm_code": "금융·보험 영업원",
+            "no_order": 50,
+            "no_rank": 18
+        },
+        {
+            "sq_code_insure": 485,
+            "cd_code": "C34",
+            "ty_code": "E0",
+            "nm_code": "단기상용(C-3-4)",
+            "no_order": 766,
+            "no_rank": 18
+        },
+        {
+            "sq_code_insure": 726,
+            "cd_code": "36",
+            "ty_code": "A7",
+            "nm_code": "결핵환자의구호요양사업",
+            "no_order": 211,
+            "no_rank": 18
+        },
+        {
+            "sq_code_insure": 769,
+            "cd_code": "33",
+            "ty_code": "A8",
+            "nm_code": "계약직",
+            "no_order": 238,
+            "no_rank": 18
+        },
+        {
+            "sq_code_insure": 773,
+            "cd_code": "1A",
+            "ty_code": "C0",
+            "nm_code": "외증손",
+            "no_order": 336,
+            "no_rank": 18
+        },
+        {
+            "sq_code_insure": 819,
+            "cd_code": "11-18",
+            "ty_code": "B4",
+            "nm_code": "산업안전보건법 제2조제2호에 따른 중대재해가 발생한 사업장으로서 그 재해와 관련된 안전보건상의 시정명령을 받고도 시정기간까지 시정하지 아니하여 같은 재해 위험에 노출되어 이직한 경우",
+            "no_order": 816,
+            "no_rank": 18
+        },
+        {
+            "sq_code_insure": 44,
+            "cd_code": "110",
+            "ty_code": "A3",
+            "nm_code": "인문·사회과학 연구원",
+            "no_order": 51,
+            "no_rank": 19
+        },
+        {
+            "sq_code_insure": 373,
+            "cd_code": "20",
+            "ty_code": "C0",
+            "nm_code": "형",
+            "no_order": 409,
+            "no_rank": 19
+        },
+        {
+            "sq_code_insure": 486,
+            "cd_code": "C35",
+            "ty_code": "E0",
+            "nm_code": "협정단기상용(C-3-5)",
+            "no_order": 767,
+            "no_rank": 19
+        },
+        {
+            "sq_code_insure": 727,
+            "cd_code": "37",
+            "ty_code": "A7",
+            "nm_code": "국립의료원",
+            "no_order": 212,
+            "no_rank": 19
+        },
+        {
+            "sq_code_insure": 820,
+            "cd_code": "11-19",
+            "ty_code": "B4",
+            "nm_code": "사업주의 사업 내용이 법령의 제정·개정으로 위법하게 되거나 취업 당시와는 달리 법령에서 금지하는 재화 또는 용역을 제조하거나 판매하게 된 경우",
+            "no_order": 817,
+            "no_rank": 19
+        },
+        {
+            "sq_code_insure": 45,
+            "cd_code": "121",
+            "ty_code": "A3",
+            "nm_code": "자연과학 연구원 및 시험원",
+            "no_order": 52,
+            "no_rank": 20
+        },
+        {
+            "sq_code_insure": 374,
+            "cd_code": "21",
+            "ty_code": "C0",
+            "nm_code": "형수",
+            "no_order": 410,
+            "no_rank": 20
+        },
+        {
+            "sq_code_insure": 487,
+            "cd_code": "C36",
+            "ty_code": "E0",
+            "nm_code": "단기상용(C-3-6)",
+            "no_order": 768,
+            "no_rank": 20
+        },
+        {
+            "sq_code_insure": 728,
+            "cd_code": "38",
+            "ty_code": "A7",
+            "nm_code": "국립재활사업",
+            "no_order": 213,
+            "no_rank": 20
+        },
+        {
+            "sq_code_insure": 821,
+            "cd_code": "11-20",
+            "ty_code": "B4",
+            "nm_code": "기타",
+            "no_order": 818,
+            "no_rank": 20
+        },
+        {
+            "sq_code_insure": 46,
+            "cd_code": "122",
+            "ty_code": "A3",
+            "nm_code": "생명과학 연구원 및 시험원",
+            "no_order": 53,
+            "no_rank": 21
+        },
+        {
+            "sq_code_insure": 375,
+            "cd_code": "22",
+            "ty_code": "C0",
+            "nm_code": "제",
+            "no_order": 411,
+            "no_rank": 21
+        },
+        {
+            "sq_code_insure": 488,
+            "cd_code": "C37",
+            "ty_code": "E0",
+            "nm_code": "도착관광(C-3-7)",
+            "no_order": 769,
+            "no_rank": 21
+        },
+        {
+            "sq_code_insure": 729,
+            "cd_code": "39",
+            "ty_code": "A7",
+            "nm_code": "특허관리",
+            "no_order": 214,
+            "no_rank": 21
+        },
+        {
+            "sq_code_insure": 47,
+            "cd_code": "131",
+            "ty_code": "A3",
+            "nm_code": "컴퓨터하드웨어·통신공학 기술자",
+            "no_order": 54,
+            "no_rank": 22
+        },
+        {
+            "sq_code_insure": 376,
+            "cd_code": "23",
+            "ty_code": "C0",
+            "nm_code": "제수",
+            "no_order": 412,
+            "no_rank": 22
+        },
+        {
+            "sq_code_insure": 489,
+            "cd_code": "C38",
+            "ty_code": "E0",
+            "nm_code": "동포방문(C-3-8)",
+            "no_order": 770,
+            "no_rank": 22
+        },
+        {
+            "sq_code_insure": 730,
+            "cd_code": "40",
+            "ty_code": "A7",
+            "nm_code": "조달물자사업",
+            "no_order": 215,
+            "no_rank": 22
+        },
+        {
+            "sq_code_insure": 48,
+            "cd_code": "132",
+            "ty_code": "A3",
+            "nm_code": "컴퓨터시스템 전문가",
+            "no_order": 55,
+            "no_rank": 23
+        },
+        {
+            "sq_code_insure": 377,
+            "cd_code": "24",
+            "ty_code": "C0",
+            "nm_code": "시숙",
+            "no_order": 413,
+            "no_rank": 23
+        },
+        {
+            "sq_code_insure": 490,
+            "cd_code": "C39",
+            "ty_code": "E0",
+            "nm_code": "일반관광(C-3-9)",
+            "no_order": 771,
+            "no_rank": 23
+        },
+        {
+            "sq_code_insure": 731,
+            "cd_code": "41",
+            "ty_code": "A7",
+            "nm_code": "등기관리",
+            "no_order": 216,
+            "no_rank": 23
+        },
+        {
+            "sq_code_insure": 49,
+            "cd_code": "133",
+            "ty_code": "A3",
+            "nm_code": "소프트웨어 개발자",
+            "no_order": 56,
+            "no_rank": 24
+        },
+        {
+            "sq_code_insure": 378,
+            "cd_code": "25",
+            "ty_code": "C0",
+            "nm_code": "올케",
+            "no_order": 414,
+            "no_rank": 24
+        },
+        {
+            "sq_code_insure": 491,
+            "cd_code": "C3M",
+            "ty_code": "E0",
+            "nm_code": "의료관광(C-3-M)",
+            "no_order": 772,
+            "no_rank": 24
+        },
+        {
+            "sq_code_insure": 732,
+            "cd_code": "42",
+            "ty_code": "A7",
+            "nm_code": "국제교육진흥사업",
+            "no_order": 217,
+            "no_rank": 24
+        },
+        {
+            "sq_code_insure": 50,
+            "cd_code": "134",
+            "ty_code": "A3",
+            "nm_code": "데이터·네트워크 및 시스템 운영 전문가",
+            "no_order": 57,
+            "no_rank": 25
+        },
+        {
+            "sq_code_insure": 379,
+            "cd_code": "26",
+            "ty_code": "C0",
+            "nm_code": "종형",
+            "no_order": 415,
+            "no_rank": 25
+        },
+        {
+            "sq_code_insure": 492,
+            "cd_code": "C4",
+            "ty_code": "E0",
+            "nm_code": "단기취업(C-4)",
+            "no_order": 773,
+            "no_rank": 25
+        },
+        {
+            "sq_code_insure": 733,
+            "cd_code": "43",
+            "ty_code": "A7",
+            "nm_code": "항공기상사업",
+            "no_order": 218,
+            "no_rank": 25
+        },
+        {
+            "sq_code_insure": 51,
+            "cd_code": "135",
+            "ty_code": "A3",
+            "nm_code": "정보보안 전문가",
+            "no_order": 58,
+            "no_rank": 26
+        },
+        {
+            "sq_code_insure": 380,
+            "cd_code": "27",
+            "ty_code": "C0",
+            "nm_code": "종형수",
+            "no_order": 416,
+            "no_rank": 26
+        },
+        {
+            "sq_code_insure": 493,
+            "cd_code": "D10",
+            "ty_code": "E0",
+            "nm_code": "구직(D-10)",
+            "no_order": 774,
+            "no_rank": 26
+        },
+        {
+            "sq_code_insure": 734,
+            "cd_code": "44",
+            "ty_code": "A7",
+            "nm_code": "국립수의과학검역사업",
+            "no_order": 219,
+            "no_rank": 26
+        },
+        {
+            "sq_code_insure": 52,
+            "cd_code": "136",
+            "ty_code": "A3",
+            "nm_code": "통신·방송송출 장비 기사",
+            "no_order": 59,
+            "no_rank": 27
+        },
+        {
+            "sq_code_insure": 381,
+            "cd_code": "28",
+            "ty_code": "C0",
+            "nm_code": "종제",
+            "no_order": 417,
+            "no_rank": 27
+        },
+        {
+            "sq_code_insure": 494,
+            "cd_code": "D100",
+            "ty_code": "E0",
+            "nm_code": "문화예술(D-1)",
+            "no_order": 775,
+            "no_rank": 27
+        },
+        {
+            "sq_code_insure": 735,
+            "cd_code": "45",
+            "ty_code": "A7",
+            "nm_code": "국립식품검역사업",
+            "no_order": 220,
+            "no_rank": 27
+        },
+        {
+            "sq_code_insure": 53,
+            "cd_code": "140",
+            "ty_code": "A3",
+            "nm_code": "건축·토목공학 기술자 및 시험원",
+            "no_order": 60,
+            "no_rank": 28
+        },
+        {
+            "sq_code_insure": 382,
+            "cd_code": "29",
+            "ty_code": "C0",
+            "nm_code": "종제수",
+            "no_order": 418,
+            "no_rank": 28
+        },
+        {
+            "sq_code_insure": 495,
+            "cd_code": "D101",
+            "ty_code": "E0",
+            "nm_code": "구직활동(D-10-1)",
+            "no_order": 776,
+            "no_rank": 28
+        },
+        {
+            "sq_code_insure": 736,
+            "cd_code": "46",
+            "ty_code": "A7",
+            "nm_code": "축산기술연구사업",
+            "no_order": 221,
+            "no_rank": 28
+        },
+        {
+            "sq_code_insure": 54,
+            "cd_code": "151",
+            "ty_code": "A3",
+            "nm_code": "기계·로봇공학 기술자 및 시험원",
+            "no_order": 61,
+            "no_rank": 29
+        },
+        {
+            "sq_code_insure": 496,
+            "cd_code": "D102",
+            "ty_code": "E0",
+            "nm_code": "기술창업활동",
+            "no_order": 777,
+            "no_rank": 29
+        },
+        {
+            "sq_code_insure": 737,
+            "cd_code": "47",
+            "ty_code": "A7",
+            "nm_code": "임업연구사업",
+            "no_order": 222,
+            "no_rank": 29
+        },
+        {
+            "sq_code_insure": 774,
+            "cd_code": "2A",
+            "ty_code": "C0",
+            "nm_code": "외증손부",
+            "no_order": 338,
+            "no_rank": 29
+        },
+        {
+            "sq_code_insure": 55,
+            "cd_code": "152",
+            "ty_code": "A3",
+            "nm_code": "금속·재료공학 기술자 및 시험원",
+            "no_order": 62,
+            "no_rank": 30
+        },
+        {
+            "sq_code_insure": 383,
+            "cd_code": "30",
+            "ty_code": "C0",
+            "nm_code": "누이",
+            "no_order": 419,
+            "no_rank": 30
+        },
+        {
+            "sq_code_insure": 497,
+            "cd_code": "D2",
+            "ty_code": "E0",
+            "nm_code": "유학(D-2)",
+            "no_order": 778,
+            "no_rank": 30
+        },
+        {
+            "sq_code_insure": 738,
+            "cd_code": "48",
+            "ty_code": "A7",
+            "nm_code": "지방통계사업",
+            "no_order": 223,
+            "no_rank": 30
+        },
+        {
+            "sq_code_insure": 56,
+            "cd_code": "153",
+            "ty_code": "A3",
+            "nm_code": "전기·전자공학 기술자 및 시험원",
+            "no_order": 63,
+            "no_rank": 31
+        },
+        {
+            "sq_code_insure": 384,
+            "cd_code": "31",
+            "ty_code": "C0",
+            "nm_code": "형부",
+            "no_order": 420,
+            "no_rank": 31
+        },
+        {
+            "sq_code_insure": 498,
+            "cd_code": "D21",
+            "ty_code": "E0",
+            "nm_code": "전문학사(D-2-1)",
+            "no_order": 779,
+            "no_rank": 31
+        },
+        {
+            "sq_code_insure": 739,
+            "cd_code": "49",
+            "ty_code": "A7",
+            "nm_code": "국가측지측량사업",
+            "no_order": 224,
+            "no_rank": 31
+        },
+        {
+            "sq_code_insure": 57,
+            "cd_code": "154",
+            "ty_code": "A3",
+            "nm_code": "화학공학 기술자 및 시험원",
+            "no_order": 64,
+            "no_rank": 32
+        },
+        {
+            "sq_code_insure": 385,
+            "cd_code": "32",
+            "ty_code": "C0",
+            "nm_code": "매",
+            "no_order": 421,
+            "no_rank": 32
+        },
+        {
+            "sq_code_insure": 499,
+            "cd_code": "D22",
+            "ty_code": "E0",
+            "nm_code": "학사유학(D-2-2)",
+            "no_order": 780,
+            "no_rank": 32
+        },
+        {
+            "sq_code_insure": 740,
+            "cd_code": "50",
+            "ty_code": "A7",
+            "nm_code": "해양수산사업",
+            "no_order": 225,
+            "no_rank": 32
+        },
+        {
+            "sq_code_insure": 58,
+            "cd_code": "155",
+            "ty_code": "A3",
+            "nm_code": "에너지·환경공학 기술자 및 시험원",
+            "no_order": 65,
+            "no_rank": 33
+        },
+        {
+            "sq_code_insure": 386,
+            "cd_code": "33",
+            "ty_code": "C0",
+            "nm_code": "매부",
+            "no_order": 422,
+            "no_rank": 33
+        },
+        {
+            "sq_code_insure": 500,
+            "cd_code": "D23",
+            "ty_code": "E0",
+            "nm_code": "석사유학(D-2-3)",
+            "no_order": 781,
+            "no_rank": 33
+        },
+        {
+            "sq_code_insure": 741,
+            "cd_code": "51",
+            "ty_code": "A7",
+            "nm_code": "해양경찰정비사업",
+            "no_order": 226,
+            "no_rank": 33
+        },
+        {
+            "sq_code_insure": 59,
+            "cd_code": "156",
+            "ty_code": "A3",
+            "nm_code": "섬유공학 기술자 및 시험원",
+            "no_order": 66,
+            "no_rank": 34
+        },
+        {
+            "sq_code_insure": 387,
+            "cd_code": "34",
+            "ty_code": "C0",
+            "nm_code": "시누이",
+            "no_order": 423,
+            "no_rank": 34
+        },
+        {
+            "sq_code_insure": 501,
+            "cd_code": "D24",
+            "ty_code": "E0",
+            "nm_code": "박사유학(D-2-4)",
+            "no_order": 782,
+            "no_rank": 34
+        },
+        {
+            "sq_code_insure": 742,
+            "cd_code": "52",
+            "ty_code": "A7",
+            "nm_code": "운전면허시험관리사업",
+            "no_order": 227,
+            "no_rank": 34
+        },
+        {
+            "sq_code_insure": 60,
+            "cd_code": "157",
+            "ty_code": "A3",
+            "nm_code": "식품공학 기술자 및 시험원",
+            "no_order": 67,
+            "no_rank": 35
+        },
+        {
+            "sq_code_insure": 388,
+            "cd_code": "35",
+            "ty_code": "C0",
+            "nm_code": "종매",
+            "no_order": 424,
+            "no_rank": 35
+        },
+        {
+            "sq_code_insure": 502,
+            "cd_code": "D25",
+            "ty_code": "E0",
+            "nm_code": "연구유학(D-2-5)",
+            "no_order": 783,
+            "no_rank": 35
+        },
+        {
+            "sq_code_insure": 743,
+            "cd_code": "53",
+            "ty_code": "A7",
+            "nm_code": "철도사업",
+            "no_order": 228,
+            "no_rank": 35
+        },
+        {
+            "sq_code_insure": 61,
+            "cd_code": "158",
+            "ty_code": "A3",
+            "nm_code": "소방·방재·산업안전·비파괴 기술자",
+            "no_order": 68,
+            "no_rank": 36
+        },
+        {
+            "sq_code_insure": 389,
+            "cd_code": "36",
+            "ty_code": "C0",
+            "nm_code": "종매부",
+            "no_order": 425,
+            "no_rank": 36
+        },
+        {
+            "sq_code_insure": 503,
+            "cd_code": "D26",
+            "ty_code": "E0",
+            "nm_code": "교환학생(D-2-6)",
+            "no_order": 784,
+            "no_rank": 36
+        },
+        {
+            "sq_code_insure": 744,
+            "cd_code": "54",
+            "ty_code": "A7",
+            "nm_code": "통신사업",
+            "no_order": 229,
+            "no_rank": 36
+        },
+        {
+            "sq_code_insure": 62,
+            "cd_code": "159",
+            "ty_code": "A3",
+            "nm_code": "제도사 및 기타 인쇄·목재 등 공학 기술자 및 시험원",
+            "no_order": 69,
+            "no_rank": 37
+        },
+        {
+            "sq_code_insure": 390,
+            "cd_code": "37",
+            "ty_code": "C0",
+            "nm_code": "제부",
+            "no_order": 426,
+            "no_rank": 37
+        },
+        {
+            "sq_code_insure": 504,
+            "cd_code": "D2F",
+            "ty_code": "E0",
+            "nm_code": "교환학생(D-2-F)",
+            "no_order": 785,
+            "no_rank": 37
+        },
+        {
+            "sq_code_insure": 745,
+            "cd_code": "55",
+            "ty_code": "A7",
+            "nm_code": "조달사업",
+            "no_order": 230,
+            "no_rank": 37
+        },
+        {
+            "sq_code_insure": 63,
+            "cd_code": "211",
+            "ty_code": "A3",
+            "nm_code": "대학 교수 및 강사",
+            "no_order": 70,
+            "no_rank": 38
+        },
+        {
+            "sq_code_insure": 391,
+            "cd_code": "38",
+            "ty_code": "C0",
+            "nm_code": "조카",
+            "no_order": 427,
+            "no_rank": 38
+        },
+        {
+            "sq_code_insure": 505,
+            "cd_code": "D2S",
+            "ty_code": "E0",
+            "nm_code": "시간취업(D-2-S)",
+            "no_order": 786,
+            "no_rank": 38
+        },
+        {
+            "sq_code_insure": 746,
+            "cd_code": "56",
+            "ty_code": "A7",
+            "nm_code": "국도유지건설사업",
+            "no_order": 231,
+            "no_rank": 38
+        },
+        {
+            "sq_code_insure": 64,
+            "cd_code": "212",
+            "ty_code": "A3",
+            "nm_code": "학교 교사",
+            "no_order": 71,
+            "no_rank": 39
+        },
+        {
+            "sq_code_insure": 392,
+            "cd_code": "39",
+            "ty_code": "C0",
+            "nm_code": "동서",
+            "no_order": 428,
+            "no_rank": 39
+        },
+        {
+            "sq_code_insure": 506,
+            "cd_code": "D31",
+            "ty_code": "E0",
+            "nm_code": "해투기술연수(D-3-1)",
+            "no_order": 787,
+            "no_rank": 39
+        },
+        {
+            "sq_code_insure": 747,
+            "cd_code": "65",
+            "ty_code": "A7",
+            "nm_code": "애국지사사업기금",
+            "no_order": 232,
+            "no_rank": 39
+        },
+        {
+            "sq_code_insure": 65,
+            "cd_code": "213",
+            "ty_code": "A3",
+            "nm_code": "유치원 교사",
+            "no_order": 72,
+            "no_rank": 40
+        },
+        {
+            "sq_code_insure": 393,
+            "cd_code": "3A",
+            "ty_code": "C0",
+            "nm_code": "언니",
+            "no_order": 429,
+            "no_rank": 40
+        },
+        {
+            "sq_code_insure": 507,
+            "cd_code": "D311",
+            "ty_code": "E0",
+            "nm_code": "해외직접(D-3-11)",
+            "no_order": 788,
+            "no_rank": 40
+        },
+        {
+            "sq_code_insure": 748,
+            "cd_code": "67",
+            "ty_code": "A7",
+            "nm_code": "원호기금",
+            "no_order": 233,
+            "no_rank": 40
+        },
+        {
+            "sq_code_insure": 66,
+            "cd_code": "214",
+            "ty_code": "A3",
+            "nm_code": "문리·기술·예능 강사",
+            "no_order": 73,
+            "no_rank": 41
+        },
+        {
+            "sq_code_insure": 394,
+            "cd_code": "40",
+            "ty_code": "C0",
+            "nm_code": "손",
+            "no_order": 430,
+            "no_rank": 41
+        },
+        {
+            "sq_code_insure": 508,
+            "cd_code": "D312",
+            "ty_code": "E0",
+            "nm_code": "기술수출(D-3-12)",
+            "no_order": 789,
+            "no_rank": 41
+        },
+        {
+            "sq_code_insure": 749,
+            "cd_code": "83",
+            "ty_code": "A7",
+            "nm_code": "진폐기금",
+            "no_order": 234,
+            "no_rank": 41
+        },
+        {
+            "sq_code_insure": 67,
+            "cd_code": "215",
+            "ty_code": "A3",
+            "nm_code": "장학관 및 기타 교육 종사자",
+            "no_order": 74,
+            "no_rank": 42
+        },
+        {
+            "sq_code_insure": 395,
+            "cd_code": "41",
+            "ty_code": "C0",
+            "nm_code": "손부",
+            "no_order": 431,
+            "no_rank": 42
+        },
+        {
+            "sq_code_insure": 509,
+            "cd_code": "D313",
+            "ty_code": "E0",
+            "nm_code": "플랜트수출(D-3-13)",
+            "no_order": 790,
+            "no_rank": 42
+        },
+        {
+            "sq_code_insure": 750,
+            "cd_code": "95",
+            "ty_code": "A7",
+            "nm_code": "교육공무원",
+            "no_order": 235,
+            "no_rank": 42
+        },
+        {
+            "sq_code_insure": 68,
+            "cd_code": "221",
+            "ty_code": "A3",
+            "nm_code": "법률 전문가",
+            "no_order": 75,
+            "no_rank": 43
+        },
+        {
+            "sq_code_insure": 396,
+            "cd_code": "42",
+            "ty_code": "C0",
+            "nm_code": "손서",
+            "no_order": 432,
+            "no_rank": 43
+        },
+        {
+            "sq_code_insure": 510,
+            "cd_code": "D3B",
+            "ty_code": "E0",
+            "nm_code": "중기협(D-3-B)",
+            "no_order": 791,
+            "no_rank": 43
+        },
+        {
+            "sq_code_insure": 751,
+            "cd_code": "99",
+            "ty_code": "A7",
+            "nm_code": "사립학교교직원",
+            "no_order": 236,
+            "no_rank": 43
+        },
+        {
+            "sq_code_insure": 69,
+            "cd_code": "222",
+            "ty_code": "A3",
+            "nm_code": "법률 사무원",
+            "no_order": 76,
+            "no_rank": 44
+        },
+        {
+            "sq_code_insure": 397,
+            "cd_code": "43",
+            "ty_code": "C0",
+            "nm_code": "증손",
+            "no_order": 433,
+            "no_rank": 44
+        },
+        {
+            "sq_code_insure": 511,
+            "cd_code": "D3C",
+            "ty_code": "E0",
+            "nm_code": "수산협(D-3-C)",
+            "no_order": 792,
+            "no_rank": 44
+        },
+        {
+            "sq_code_insure": 70,
+            "cd_code": "231",
+            "ty_code": "A3",
+            "nm_code": "사회복지사 및 상담사",
+            "no_order": 77,
+            "no_rank": 45
+        },
+        {
+            "sq_code_insure": 398,
+            "cd_code": "44",
+            "ty_code": "C0",
+            "nm_code": "증손부",
+            "no_order": 434,
+            "no_rank": 45
+        },
+        {
+            "sq_code_insure": 512,
+            "cd_code": "D3D",
+            "ty_code": "E0",
+            "nm_code": "각부처(D-3-D)",
+            "no_order": 565,
+            "no_rank": 45
+        },
+        {
+            "sq_code_insure": 92,
+            "cd_code": "232",
+            "ty_code": "A3",
+            "nm_code": "보육교사 및 기타 사회복지 종사자",
+            "no_order": 78,
+            "no_rank": 46
+        },
+        {
+            "sq_code_insure": 399,
+            "cd_code": "45",
+            "ty_code": "C0",
+            "nm_code": "고손",
+            "no_order": 435,
+            "no_rank": 46
+        },
+        {
+            "sq_code_insure": 513,
+            "cd_code": "D3E",
+            "ty_code": "E0",
+            "nm_code": "건설협(D-3-E)",
+            "no_order": 566,
+            "no_rank": 46
+        },
+        {
+            "sq_code_insure": 93,
+            "cd_code": "233",
+            "ty_code": "A3",
+            "nm_code": "성직자 및 기타 종교 종사자",
+            "no_order": 79,
+            "no_rank": 47
+        },
+        {
+            "sq_code_insure": 400,
+            "cd_code": "46",
+            "ty_code": "C0",
+            "nm_code": "고손부",
+            "no_order": 436,
+            "no_rank": 47
+        },
+        {
+            "sq_code_insure": 514,
+            "cd_code": "D3F",
+            "ty_code": "E0",
+            "nm_code": "농협(D-3-F)",
+            "no_order": 567,
+            "no_rank": 47
+        },
+        {
+            "sq_code_insure": 94,
+            "cd_code": "240",
+            "ty_code": "A3",
+            "nm_code": "경찰관, 소방관 및 교도관",
+            "no_order": 80,
+            "no_rank": 48
+        },
+        {
+            "sq_code_insure": 401,
+            "cd_code": "47",
+            "ty_code": "C0",
+            "nm_code": "고종",
+            "no_order": 437,
+            "no_rank": 48
+        },
+        {
+            "sq_code_insure": 515,
+            "cd_code": "D4",
+            "ty_code": "E0",
+            "nm_code": "일반연수(D-4)",
+            "no_order": 568,
+            "no_rank": 48
+        },
+        {
+            "sq_code_insure": 95,
+            "cd_code": "250",
+            "ty_code": "A3",
+            "nm_code": "군인",
+            "no_order": 81,
+            "no_rank": 49
+        },
+        {
+            "sq_code_insure": 402,
+            "cd_code": "48",
+            "ty_code": "C0",
+            "nm_code": "오빠",
+            "no_order": 438,
+            "no_rank": 49
+        },
+        {
+            "sq_code_insure": 516,
+            "cd_code": "D41",
+            "ty_code": "E0",
+            "nm_code": "한국어연수(D-4-1)",
+            "no_order": 569,
+            "no_rank": 49
+        },
+        {
+            "sq_code_insure": 96,
+            "cd_code": "301",
+            "ty_code": "A3",
+            "nm_code": "의사, 한의사 및 치과의사",
+            "no_order": 82,
+            "no_rank": 50
+        },
+        {
+            "sq_code_insure": 517,
+            "cd_code": "D42",
+            "ty_code": "E0",
+            "nm_code": "기타연수(D-4-2)",
+            "no_order": 570,
+            "no_rank": 50
+        },
+        {
+            "sq_code_insure": 775,
+            "cd_code": "49",
+            "ty_code": "C0",
+            "nm_code": "배우자의 자녀",
+            "no_order": 340,
+            "no_rank": 50
+        },
+        {
+            "sq_code_insure": 97,
+            "cd_code": "302",
+            "ty_code": "A3",
+            "nm_code": "수의사",
+            "no_order": 83,
+            "no_rank": 51
+        },
+        {
+            "sq_code_insure": 518,
+            "cd_code": "D43",
+            "ty_code": "E0",
+            "nm_code": "초중고생(D-4-3)",
+            "no_order": 571,
+            "no_rank": 51
+        },
+        {
+            "sq_code_insure": 776,
+            "cd_code": "4A",
+            "ty_code": "C0",
+            "nm_code": "시외조부",
+            "no_order": 342,
+            "no_rank": 51
+        },
+        {
+            "sq_code_insure": 98,
+            "cd_code": "303",
+            "ty_code": "A3",
+            "nm_code": "약사 및 한약사",
+            "no_order": 84,
+            "no_rank": 52
+        },
+        {
+            "sq_code_insure": 403,
+            "cd_code": "50",
+            "ty_code": "C0",
+            "nm_code": "조부",
+            "no_order": 439,
+            "no_rank": 52
+        },
+        {
+            "sq_code_insure": 519,
+            "cd_code": "D44",
+            "ty_code": "E0",
+            "nm_code": "동포연수(D-4-4)",
+            "no_order": 572,
+            "no_rank": 52
+        },
+        {
+            "sq_code_insure": 99,
+            "cd_code": "304",
+            "ty_code": "A3",
+            "nm_code": "간호사",
+            "no_order": 85,
+            "no_rank": 53
+        },
+        {
+            "sq_code_insure": 404,
+            "cd_code": "51",
+            "ty_code": "C0",
+            "nm_code": "조모",
+            "no_order": 440,
+            "no_rank": 53
+        },
+        {
+            "sq_code_insure": 520,
+            "cd_code": "D45",
+            "ty_code": "E0",
+            "nm_code": "한식조리연수(D-4-5)",
+            "no_order": 573,
+            "no_rank": 53
+        },
+        {
+            "sq_code_insure": 100,
+            "cd_code": "305",
+            "ty_code": "A3",
+            "nm_code": "영양사",
+            "no_order": 86,
+            "no_rank": 54
+        },
+        {
+            "sq_code_insure": 405,
+            "cd_code": "52",
+            "ty_code": "C0",
+            "nm_code": "시조부",
+            "no_order": 441,
+            "no_rank": 54
+        },
+        {
+            "sq_code_insure": 521,
+            "cd_code": "D46",
+            "ty_code": "E0",
+            "nm_code": "사설기관연수(D-4-6)",
+            "no_order": 574,
+            "no_rank": 54
+        },
+        {
+            "sq_code_insure": 101,
+            "cd_code": "306",
+            "ty_code": "A3",
+            "nm_code": "의료기사·치료사·재활사",
+            "no_order": 87,
+            "no_rank": 55
+        },
+        {
+            "sq_code_insure": 406,
+            "cd_code": "53",
+            "ty_code": "C0",
+            "nm_code": "시조모",
+            "no_order": 442,
+            "no_rank": 55
+        },
+        {
+            "sq_code_insure": 522,
+            "cd_code": "D47",
+            "ty_code": "E0",
+            "nm_code": "외국어연수(D-4-7)",
+            "no_order": 575,
+            "no_rank": 55
+        },
+        {
+            "sq_code_insure": 102,
+            "cd_code": "307",
+            "ty_code": "A3",
+            "nm_code": "보건·의료 종사자",
+            "no_order": 88,
+            "no_rank": 56
+        },
+        {
+            "sq_code_insure": 407,
+            "cd_code": "54",
+            "ty_code": "C0",
+            "nm_code": "증조부",
+            "no_order": 443,
+            "no_rank": 56
+        },
+        {
+            "sq_code_insure": 523,
+            "cd_code": "D5",
+            "ty_code": "E0",
+            "nm_code": "취재(D-5)",
+            "no_order": 576,
+            "no_rank": 56
+        },
+        {
+            "sq_code_insure": 103,
+            "cd_code": "411",
+            "ty_code": "A3",
+            "nm_code": "작가·통번역가",
+            "no_order": 89,
+            "no_rank": 57
+        },
+        {
+            "sq_code_insure": 408,
+            "cd_code": "55",
+            "ty_code": "C0",
+            "nm_code": "증조모",
+            "no_order": 444,
+            "no_rank": 57
+        },
+        {
+            "sq_code_insure": 524,
+            "cd_code": "D6",
+            "ty_code": "E0",
+            "nm_code": "종교(D-6)",
+            "no_order": 577,
+            "no_rank": 57
+        },
+        {
+            "sq_code_insure": 104,
+            "cd_code": "412",
+            "ty_code": "A3",
+            "nm_code": "기자 및 언론 전문가",
+            "no_order": 90,
+            "no_rank": 58
+        },
+        {
+            "sq_code_insure": 409,
+            "cd_code": "56",
+            "ty_code": "C0",
+            "nm_code": "고조부",
+            "no_order": 445,
+            "no_rank": 58
+        },
+        {
+            "sq_code_insure": 525,
+            "cd_code": "D7",
+            "ty_code": "E0",
+            "nm_code": "상사주재(D-7)",
+            "no_order": 578,
+            "no_rank": 58
+        },
+        {
+            "sq_code_insure": 105,
+            "cd_code": "413",
+            "ty_code": "A3",
+            "nm_code": "학예사·사서·기록물관리사",
+            "no_order": 91,
+            "no_rank": 59
+        },
+        {
+            "sq_code_insure": 410,
+            "cd_code": "57",
+            "ty_code": "C0",
+            "nm_code": "고조모",
+            "no_order": 446,
+            "no_rank": 59
+        },
+        {
+            "sq_code_insure": 526,
+            "cd_code": "D71",
+            "ty_code": "E0",
+            "nm_code": "외국기업(D-7-1)",
+            "no_order": 579,
+            "no_rank": 59
+        },
+        {
+            "sq_code_insure": 106,
+            "cd_code": "414",
+            "ty_code": "A3",
+            "nm_code": "창작·공연 전문가(작가, 연극 제외)",
+            "no_order": 92,
+            "no_rank": 60
+        },
+        {
+            "sq_code_insure": 411,
+            "cd_code": "58",
+            "ty_code": "C0",
+            "nm_code": "장조부",
+            "no_order": 447,
+            "no_rank": 60
+        },
+        {
+            "sq_code_insure": 527,
+            "cd_code": "D72",
+            "ty_code": "E0",
+            "nm_code": "내국기업(D-7-2)",
+            "no_order": 580,
+            "no_rank": 60
+        },
+        {
+            "sq_code_insure": 107,
+            "cd_code": "415",
+            "ty_code": "A3",
+            "nm_code": "디자이너",
+            "no_order": 93,
+            "no_rank": 61
+        },
+        {
+            "sq_code_insure": 412,
+            "cd_code": "59",
+            "ty_code": "C0",
+            "nm_code": "장조모",
+            "no_order": 448,
+            "no_rank": 61
+        },
+        {
+            "sq_code_insure": 528,
+            "cd_code": "D791",
+            "ty_code": "E0",
+            "nm_code": "FTA전근(D-7-91)",
+            "no_order": 581,
+            "no_rank": 61
+        },
+        {
+            "sq_code_insure": 108,
+            "cd_code": "416",
+            "ty_code": "A3",
+            "nm_code": "연극·영화·방송 전문가",
+            "no_order": 94,
+            "no_rank": 62
+        },
+        {
+            "sq_code_insure": 529,
+            "cd_code": "D792",
+            "ty_code": "E0",
+            "nm_code": "FTA계약(D-7-92)",
+            "no_order": 582,
+            "no_rank": 62
+        },
+        {
+            "sq_code_insure": 777,
+            "cd_code": "5A",
+            "ty_code": "C0",
+            "nm_code": "시외조모",
+            "no_order": 344,
+            "no_rank": 62
+        },
+        {
+            "sq_code_insure": 109,
+            "cd_code": "417",
+            "ty_code": "A3",
+            "nm_code": "문화·예술 기획자 및 매니저",
+            "no_order": 95,
+            "no_rank": 63
+        },
+        {
+            "sq_code_insure": 413,
+            "cd_code": "60",
+            "ty_code": "C0",
+            "nm_code": "고모",
+            "no_order": 449,
+            "no_rank": 63
+        },
+        {
+            "sq_code_insure": 530,
+            "cd_code": "D8",
+            "ty_code": "E0",
+            "nm_code": "기업투자(D-8)",
+            "no_order": 583,
+            "no_rank": 63
+        },
+        {
+            "sq_code_insure": 110,
+            "cd_code": "420",
+            "ty_code": "A3",
+            "nm_code": "스포츠·레크리에이션 종사자",
+            "no_order": 96,
+            "no_rank": 64
+        },
+        {
+            "sq_code_insure": 414,
+            "cd_code": "61",
+            "ty_code": "C0",
+            "nm_code": "고모부",
+            "no_order": 450,
+            "no_rank": 64
+        },
+        {
+            "sq_code_insure": 531,
+            "cd_code": "D81",
+            "ty_code": "E0",
+            "nm_code": "투자기업(D-8-1)",
+            "no_order": 584,
+            "no_rank": 64
+        },
+        {
+            "sq_code_insure": 111,
+            "cd_code": "511",
+            "ty_code": "A3",
+            "nm_code": "미용 서비스원",
+            "no_order": 97,
+            "no_rank": 65
+        },
+        {
+            "sq_code_insure": 415,
+            "cd_code": "62",
+            "ty_code": "C0",
+            "nm_code": "대고모",
+            "no_order": 451,
+            "no_rank": 65
+        },
+        {
+            "sq_code_insure": 532,
+            "cd_code": "D82",
+            "ty_code": "E0",
+            "nm_code": "벤처기업(D-8-2)",
+            "no_order": 585,
+            "no_rank": 65
+        },
+        {
+            "sq_code_insure": 112,
+            "cd_code": "512",
+            "ty_code": "A3",
+            "nm_code": "결혼·장례 등 예식 서비스원",
+            "no_order": 98,
+            "no_rank": 66
+        },
+        {
+            "sq_code_insure": 416,
+            "cd_code": "63",
+            "ty_code": "C0",
+            "nm_code": "당숙",
+            "no_order": 452,
+            "no_rank": 66
+        },
+        {
+            "sq_code_insure": 533,
+            "cd_code": "D83",
+            "ty_code": "E0",
+            "nm_code": "국민기업개인(D-8-3)",
+            "no_order": 586,
+            "no_rank": 66
+        },
+        {
+            "sq_code_insure": 113,
+            "cd_code": "521",
+            "ty_code": "A3",
+            "nm_code": "여행 서비스원",
+            "no_order": 99,
+            "no_rank": 67
+        },
+        {
+            "sq_code_insure": 417,
+            "cd_code": "64",
+            "ty_code": "C0",
+            "nm_code": "당숙모",
+            "no_order": 453,
+            "no_rank": 67
+        },
+        {
+            "sq_code_insure": 534,
+            "cd_code": "D84",
+            "ty_code": "E0",
+            "nm_code": "법인창업(D-8-4)",
+            "no_order": 587,
+            "no_rank": 67
+        },
+        {
+            "sq_code_insure": 114,
+            "cd_code": "522",
+            "ty_code": "A3",
+            "nm_code": "항공기·선박·열차 객실승무원",
+            "no_order": 100,
+            "no_rank": 68
+        },
+        {
+            "sq_code_insure": 418,
+            "cd_code": "67",
+            "ty_code": "C0",
+            "nm_code": "이질",
+            "no_order": 454,
+            "no_rank": 68
+        },
+        {
+            "sq_code_insure": 535,
+            "cd_code": "D891",
+            "ty_code": "E0",
+            "nm_code": "FTA전근(D-8-91)",
+            "no_order": 588,
+            "no_rank": 68
+        },
+        {
+            "sq_code_insure": 115,
+            "cd_code": "523",
+            "ty_code": "A3",
+            "nm_code": "숙박시설 서비스원",
+            "no_order": 101,
+            "no_rank": 69
+        },
+        {
+            "sq_code_insure": 419,
+            "cd_code": "68",
+            "ty_code": "C0",
+            "nm_code": "당질",
+            "no_order": 455,
+            "no_rank": 69
+        },
+        {
+            "sq_code_insure": 536,
+            "cd_code": "D9",
+            "ty_code": "E0",
+            "nm_code": "무역경영(D-9)",
+            "no_order": 589,
+            "no_rank": 69
+        },
+        {
+            "sq_code_insure": 116,
+            "cd_code": "524",
+            "ty_code": "A3",
+            "nm_code": "오락시설 서비스원",
+            "no_order": 102,
+            "no_rank": 70
+        },
+        {
+            "sq_code_insure": 420,
+            "cd_code": "69",
+            "ty_code": "C0",
+            "nm_code": "질부",
+            "no_order": 456,
+            "no_rank": 70
+        },
+        {
+            "sq_code_insure": 537,
+            "cd_code": "D91",
+            "ty_code": "E0",
+            "nm_code": "무역고유거래(D-9-1)",
+            "no_order": 590,
+            "no_rank": 70
+        },
+        {
+            "sq_code_insure": 117,
+            "cd_code": "531",
+            "ty_code": "A3",
+            "nm_code": "주방장 및 조리사",
+            "no_order": 103,
+            "no_rank": 71
+        },
+        {
+            "sq_code_insure": 538,
+            "cd_code": "D92",
+            "ty_code": "E0",
+            "nm_code": "수출설비(D-9-2)",
+            "no_order": 591,
+            "no_rank": 71
+        },
+        {
+            "sq_code_insure": 778,
+            "cd_code": "6A",
+            "ty_code": "C0",
+            "nm_code": "누나",
+            "no_order": 346,
+            "no_rank": 71
+        },
+        {
+            "sq_code_insure": 118,
+            "cd_code": "532",
+            "ty_code": "A3",
+            "nm_code": "식당 서비스원",
+            "no_order": 104,
+            "no_rank": 72
+        },
+        {
+            "sq_code_insure": 421,
+            "cd_code": "70",
+            "ty_code": "C0",
+            "nm_code": "외숙",
+            "no_order": 457,
+            "no_rank": 72
+        },
+        {
+            "sq_code_insure": 539,
+            "cd_code": "D93",
+            "ty_code": "E0",
+            "nm_code": "선박설비(D-9-3)",
+            "no_order": 592,
+            "no_rank": 72
+        },
+        {
+            "sq_code_insure": 119,
+            "cd_code": "541",
+            "ty_code": "A3",
+            "nm_code": "경호·보안 종사자",
+            "no_order": 105,
+            "no_rank": 73
+        },
+        {
+            "sq_code_insure": 422,
+            "cd_code": "71",
+            "ty_code": "C0",
+            "nm_code": "외숙모",
+            "no_order": 458,
+            "no_rank": 73
+        },
+        {
+            "sq_code_insure": 540,
+            "cd_code": "D94",
+            "ty_code": "E0",
+            "nm_code": "경영영리사업(D-9-4)",
+            "no_order": 593,
+            "no_rank": 73
+        },
+        {
+            "sq_code_insure": 120,
+            "cd_code": "542",
+            "ty_code": "A3",
+            "nm_code": "경비원",
+            "no_order": 106,
+            "no_rank": 74
+        },
+        {
+            "sq_code_insure": 423,
+            "cd_code": "72",
+            "ty_code": "C0",
+            "nm_code": "외종",
+            "no_order": 459,
+            "no_rank": 74
+        },
+        {
+            "sq_code_insure": 541,
+            "cd_code": "E1",
+            "ty_code": "E0",
+            "nm_code": "교수(E-1)",
+            "no_order": 594,
+            "no_rank": 74
+        },
+        {
+            "sq_code_insure": 121,
+            "cd_code": "550",
+            "ty_code": "A3",
+            "nm_code": "돌봄 서비스 종사자",
+            "no_order": 107,
+            "no_rank": 75
+        },
+        {
+            "sq_code_insure": 424,
+            "cd_code": "73",
+            "ty_code": "C0",
+            "nm_code": "이모",
+            "no_order": 460,
+            "no_rank": 75
+        },
+        {
+            "sq_code_insure": 542,
+            "cd_code": "E101",
+            "ty_code": "E0",
+            "nm_code": "내항선원(E-10-1)",
+            "no_order": 595,
+            "no_rank": 75
+        },
+        {
+            "sq_code_insure": 122,
+            "cd_code": "561",
+            "ty_code": "A3",
+            "nm_code": "청소·방역 및 가사 서비스원",
+            "no_order": 108,
+            "no_rank": 76
+        },
+        {
+            "sq_code_insure": 425,
+            "cd_code": "74",
+            "ty_code": "C0",
+            "nm_code": "이모부",
+            "no_order": 461,
+            "no_rank": 76
+        },
+        {
+            "sq_code_insure": 543,
+            "cd_code": "E102",
+            "ty_code": "E0",
+            "nm_code": "어선원(E-10-2)",
+            "no_order": 596,
+            "no_rank": 76
+        },
+        {
+            "sq_code_insure": 123,
+            "cd_code": "562",
+            "ty_code": "A3",
+            "nm_code": "검침·주차관리 및 기타 서비스 단순 종사자",
+            "no_order": 109,
+            "no_rank": 77
+        },
+        {
+            "sq_code_insure": 426,
+            "cd_code": "75",
+            "ty_code": "C0",
+            "nm_code": "이종",
+            "no_order": 462,
+            "no_rank": 77
+        },
+        {
+            "sq_code_insure": 544,
+            "cd_code": "E103",
+            "ty_code": "E0",
+            "nm_code": "순항선원(E-10-3)",
+            "no_order": 597,
+            "no_rank": 77
+        },
+        {
+            "sq_code_insure": 124,
+            "cd_code": "611",
+            "ty_code": "A3",
+            "nm_code": "부동산 컨설턴트 및 중개인",
+            "no_order": 110,
+            "no_rank": 78
+        },
+        {
+            "sq_code_insure": 427,
+            "cd_code": "76",
+            "ty_code": "C0",
+            "nm_code": "외손",
+            "no_order": 463,
+            "no_rank": 78
+        },
+        {
+            "sq_code_insure": 545,
+            "cd_code": "E21",
+            "ty_code": "E0",
+            "nm_code": "일반회화강사(E-2-1)",
+            "no_order": 598,
+            "no_rank": 78
+        },
+        {
+            "sq_code_insure": 125,
+            "cd_code": "612",
+            "ty_code": "A3",
+            "nm_code": "영업원 및 상품중개인",
+            "no_order": 111,
+            "no_rank": 79
+        },
+        {
+            "sq_code_insure": 428,
+            "cd_code": "77",
+            "ty_code": "C0",
+            "nm_code": "외손부",
+            "no_order": 464,
+            "no_rank": 79
+        },
+        {
+            "sq_code_insure": 546,
+            "cd_code": "E22",
+            "ty_code": "E0",
+            "nm_code": "학교보조교사(E-2-2)",
+            "no_order": 599,
+            "no_rank": 79
+        },
+        {
+            "sq_code_insure": 126,
+            "cd_code": "613",
+            "ty_code": "A3",
+            "nm_code": "텔레마케터",
+            "no_order": 112,
+            "no_rank": 80
+        },
+        {
+            "sq_code_insure": 429,
+            "cd_code": "78",
+            "ty_code": "C0",
+            "nm_code": "외조부",
+            "no_order": 465,
+            "no_rank": 80
+        },
+        {
+            "sq_code_insure": 547,
+            "cd_code": "E291",
+            "ty_code": "E0",
+            "nm_code": "FTA영어(E-2-91)",
+            "no_order": 600,
+            "no_rank": 80
+        },
+        {
+            "sq_code_insure": 127,
+            "cd_code": "614",
+            "ty_code": "A3",
+            "nm_code": "소규모 상점 경영 및 일선 관리 종사자",
+            "no_order": 113,
+            "no_rank": 81
+        },
+        {
+            "sq_code_insure": 430,
+            "cd_code": "79",
+            "ty_code": "C0",
+            "nm_code": "외조모",
+            "no_order": 466,
+            "no_rank": 81
+        },
+        {
+            "sq_code_insure": 548,
+            "cd_code": "E3",
+            "ty_code": "E0",
+            "nm_code": "연구(E-3)",
+            "no_order": 601,
+            "no_rank": 81
+        },
+        {
+            "sq_code_insure": 128,
+            "cd_code": "615",
+            "ty_code": "A3",
+            "nm_code": "판매 종사자",
+            "no_order": 114,
+            "no_rank": 82
+        },
+        {
+            "sq_code_insure": 431,
+            "cd_code": "80",
+            "ty_code": "C0",
+            "nm_code": "처형",
+            "no_order": 467,
+            "no_rank": 82
+        },
+        {
+            "sq_code_insure": 549,
+            "cd_code": "E4",
+            "ty_code": "E0",
+            "nm_code": "기술지도(E-4)",
+            "no_order": 602,
+            "no_rank": 82
+        },
+        {
+            "sq_code_insure": 129,
+            "cd_code": "616",
+            "ty_code": "A3",
+            "nm_code": "매장 계산원 및 매표원",
+            "no_order": 115,
+            "no_rank": 83
+        },
+        {
+            "sq_code_insure": 432,
+            "cd_code": "81",
+            "ty_code": "C0",
+            "nm_code": "처제",
+            "no_order": 468,
+            "no_rank": 83
+        },
+        {
+            "sq_code_insure": 550,
+            "cd_code": "E5",
+            "ty_code": "E0",
+            "nm_code": "전문직업(E-5)",
+            "no_order": 603,
+            "no_rank": 83
+        },
+        {
+            "sq_code_insure": 130,
+            "cd_code": "617",
+            "ty_code": "A3",
+            "nm_code": "판촉 및 기타 판매 단순 종사자",
+            "no_order": 116,
+            "no_rank": 84
+        },
+        {
+            "sq_code_insure": 433,
+            "cd_code": "82",
+            "ty_code": "C0",
+            "nm_code": "처남",
+            "no_order": 469,
+            "no_rank": 84
+        },
+        {
+            "sq_code_insure": 551,
+            "cd_code": "E6",
+            "ty_code": "E0",
+            "nm_code": "예술흥행(E-6)",
+            "no_order": 604,
+            "no_rank": 84
+        },
+        {
+            "sq_code_insure": 131,
+            "cd_code": "621",
+            "ty_code": "A3",
+            "nm_code": "항공기·선박·철도 조종사 및 관제사",
+            "no_order": 117,
+            "no_rank": 85
+        },
+        {
+            "sq_code_insure": 434,
+            "cd_code": "83",
+            "ty_code": "C0",
+            "nm_code": "처남댁",
+            "no_order": 470,
+            "no_rank": 85
+        },
+        {
+            "sq_code_insure": 552,
+            "cd_code": "E61",
+            "ty_code": "E0",
+            "nm_code": "예술연예(E-6-1)",
+            "no_order": 605,
+            "no_rank": 85
+        },
+        {
+            "sq_code_insure": 132,
+            "cd_code": "622",
+            "ty_code": "A3",
+            "nm_code": "자동차 운전원",
+            "no_order": 118,
+            "no_rank": 86
+        },
+        {
+            "sq_code_insure": 435,
+            "cd_code": "84",
+            "ty_code": "C0",
+            "nm_code": "처조카",
+            "no_order": 471,
+            "no_rank": 86
+        },
+        {
+            "sq_code_insure": 553,
+            "cd_code": "E62",
+            "ty_code": "E0",
+            "nm_code": "호텔유흥(E-6-2)",
+            "no_order": 606,
+            "no_rank": 86
+        },
+        {
+            "sq_code_insure": 133,
+            "cd_code": "623",
+            "ty_code": "A3",
+            "nm_code": "물품이동장비 조작원(크레인·호이스트·지게차)",
+            "no_order": 119,
+            "no_rank": 87
+        },
+        {
+            "sq_code_insure": 436,
+            "cd_code": "85",
+            "ty_code": "C0",
+            "nm_code": "처질부",
+            "no_order": 472,
+            "no_rank": 87
+        },
+        {
+            "sq_code_insure": 554,
+            "cd_code": "E63",
+            "ty_code": "E0",
+            "nm_code": "운동(E-6-3)",
+            "no_order": 607,
+            "no_rank": 87
+        },
+        {
+            "sq_code_insure": 134,
+            "cd_code": "624",
+            "ty_code": "A3",
+            "nm_code": "택배원 및 기타 운송 종사자",
+            "no_order": 120,
+            "no_rank": 88
+        },
+        {
+            "sq_code_insure": 437,
+            "cd_code": "86",
+            "ty_code": "C0",
+            "nm_code": "처숙부",
+            "no_order": 473,
+            "no_rank": 88
+        },
+        {
+            "sq_code_insure": 555,
+            "cd_code": "E71",
+            "ty_code": "E0",
+            "nm_code": "특정활동(E-7-1)",
+            "no_order": 608,
+            "no_rank": 88
+        },
+        {
+            "sq_code_insure": 135,
+            "cd_code": "701",
+            "ty_code": "A3",
+            "nm_code": "건설구조 기능원",
+            "no_order": 121,
+            "no_rank": 89
+        },
+        {
+            "sq_code_insure": 438,
+            "cd_code": "87",
+            "ty_code": "C0",
+            "nm_code": "처숙모",
+            "no_order": 474,
+            "no_rank": 89
+        },
+        {
+            "sq_code_insure": 556,
+            "cd_code": "E72",
+            "ty_code": "E0",
+            "nm_code": "의료코디(E-7-2)",
+            "no_order": 609,
+            "no_rank": 89
+        },
+        {
+            "sq_code_insure": 136,
+            "cd_code": "702",
+            "ty_code": "A3",
+            "nm_code": "건축마감 기능원",
+            "no_order": 122,
+            "no_rank": 90
+        },
+        {
+            "sq_code_insure": 439,
+            "cd_code": "88",
+            "ty_code": "C0",
+            "nm_code": "처사촌",
+            "no_order": 475,
+            "no_rank": 90
+        },
+        {
+            "sq_code_insure": 557,
+            "cd_code": "E73",
+            "ty_code": "E0",
+            "nm_code": "해삼양식(E-7-3)",
+            "no_order": 610,
+            "no_rank": 90
+        },
+        {
+            "sq_code_insure": 137,
+            "cd_code": "703",
+            "ty_code": "A3",
+            "nm_code": "배관공",
+            "no_order": 123,
+            "no_rank": 91
+        },
+        {
+            "sq_code_insure": 440,
+            "cd_code": "89",
+            "ty_code": "C0",
+            "nm_code": "처고모",
+            "no_order": 476,
+            "no_rank": 91
+        },
+        {
+            "sq_code_insure": 558,
+            "cd_code": "E791",
+            "ty_code": "E0",
+            "nm_code": "FTA독립(E-7-91)",
+            "no_order": 611,
+            "no_rank": 91
+        },
+        {
+            "sq_code_insure": 138,
+            "cd_code": "704",
+            "ty_code": "A3",
+            "nm_code": "건설·채굴 기계 운전원",
+            "no_order": 124,
+            "no_rank": 92
+        },
+        {
+            "sq_code_insure": 441,
+            "cd_code": "90",
+            "ty_code": "C0",
+            "nm_code": "처고모부",
+            "no_order": 477,
+            "no_rank": 92
+        },
+        {
+            "sq_code_insure": 559,
+            "cd_code": "E91",
+            "ty_code": "E0",
+            "nm_code": "제조업(E-9-1)",
+            "no_order": 612,
+            "no_rank": 92
+        },
+        {
+            "sq_code_insure": 139,
+            "cd_code": "705",
+            "ty_code": "A3",
+            "nm_code": "기타 건설 기능원(채굴포함)",
+            "no_order": 125,
+            "no_rank": 93
+        },
+        {
+            "sq_code_insure": 442,
+            "cd_code": "91",
+            "ty_code": "C0",
+            "nm_code": "처고종",
+            "no_order": 478,
+            "no_rank": 93
+        },
+        {
+            "sq_code_insure": 560,
+            "cd_code": "E92",
+            "ty_code": "E0",
+            "nm_code": "건설업(E-9-2)",
+            "no_order": 613,
+            "no_rank": 93
+        },
+        {
+            "sq_code_insure": 140,
+            "cd_code": "706",
+            "ty_code": "A3",
+            "nm_code": "건설·채굴 단순 종사자",
+            "no_order": 126,
+            "no_rank": 94
+        },
+        {
+            "sq_code_insure": 443,
+            "cd_code": "92",
+            "ty_code": "C0",
+            "nm_code": "처이모",
+            "no_order": 479,
+            "no_rank": 94
+        },
+        {
+            "sq_code_insure": 561,
+            "cd_code": "E93",
+            "ty_code": "E0",
+            "nm_code": "농업(E-9-3)",
+            "no_order": 614,
+            "no_rank": 94
+        },
+        {
+            "sq_code_insure": 141,
+            "cd_code": "811",
+            "ty_code": "A3",
+            "nm_code": "기계장비 설치·정비원(운송장비 제외)",
+            "no_order": 127,
+            "no_rank": 95
+        },
+        {
+            "sq_code_insure": 444,
+            "cd_code": "93",
+            "ty_code": "C0",
+            "nm_code": "처이모부",
+            "no_order": 480,
+            "no_rank": 95
+        },
+        {
+            "sq_code_insure": 562,
+            "cd_code": "E94",
+            "ty_code": "E0",
+            "nm_code": "어업(E-9-4)",
+            "no_order": 615,
+            "no_rank": 95
+        },
+        {
+            "sq_code_insure": 142,
+            "cd_code": "812",
+            "ty_code": "A3",
+            "nm_code": "운송장비 정비원",
+            "no_order": 128,
+            "no_rank": 96
+        },
+        {
+            "sq_code_insure": 445,
+            "cd_code": "94",
+            "ty_code": "C0",
+            "nm_code": "처이종",
+            "no_order": 481,
+            "no_rank": 96
+        },
+        {
+            "sq_code_insure": 563,
+            "cd_code": "E95",
+            "ty_code": "E0",
+            "nm_code": "냉장냉동(E-9-5)",
+            "no_order": 616,
+            "no_rank": 96
+        },
+        {
+            "sq_code_insure": 143,
+            "cd_code": "813",
+            "ty_code": "A3",
+            "nm_code": "금형원 및 공작기계 조작원",
+            "no_order": 129,
+            "no_rank": 97
+        },
+        {
+            "sq_code_insure": 446,
+            "cd_code": "95",
+            "ty_code": "C0",
+            "nm_code": "처가친척",
+            "no_order": 482,
+            "no_rank": 97
+        },
+        {
+            "sq_code_insure": 564,
+            "cd_code": "E96",
+            "ty_code": "E0",
+            "nm_code": "재료수집(E-9-6)",
+            "no_order": 617,
+            "no_rank": 97
+        },
+        {
+            "sq_code_insure": 144,
+            "cd_code": "814",
+            "ty_code": "A3",
+            "nm_code": "냉·난방 설비 조작원",
+            "no_order": 130,
+            "no_rank": 98
+        },
+        {
+            "sq_code_insure": 447,
+            "cd_code": "96",
+            "ty_code": "C0",
+            "nm_code": "시가친척",
+            "no_order": 483,
+            "no_rank": 98
+        },
+        {
+            "sq_code_insure": 565,
+            "cd_code": "E97",
+            "ty_code": "E0",
+            "nm_code": "관광호텔(E-9-7)",
+            "no_order": 618,
+            "no_rank": 98
+        },
+        {
+            "sq_code_insure": 145,
+            "cd_code": "815",
+            "ty_code": "A3",
+            "nm_code": "자동조립라인·산업용로봇 조작원",
+            "no_order": 131,
+            "no_rank": 99
+        },
+        {
+            "sq_code_insure": 448,
+            "cd_code": "97",
+            "ty_code": "C0",
+            "nm_code": "외가친척",
+            "no_order": 484,
+            "no_rank": 99
+        },
+        {
+            "sq_code_insure": 566,
+            "cd_code": "E98",
+            "ty_code": "E0",
+            "nm_code": "축산업(E-9-8)",
+            "no_order": 619,
+            "no_rank": 99
+        },
+        {
+            "sq_code_insure": 146,
+            "cd_code": "816",
+            "ty_code": "A3",
+            "nm_code": "기계 조립원(운송장비 제외)",
+            "no_order": 132,
+            "no_rank": 100
+        },
+        {
+            "sq_code_insure": 449,
+            "cd_code": "98",
+            "ty_code": "C0",
+            "nm_code": "친척",
+            "no_order": 485,
+            "no_rank": 100
+        },
+        {
+            "sq_code_insure": 567,
+            "cd_code": "E995",
+            "ty_code": "E0",
+            "nm_code": "과거추천연수(E-9-95)",
+            "no_order": 620,
+            "no_rank": 100
+        },
+        {
+            "sq_code_insure": 147,
+            "cd_code": "817",
+            "ty_code": "A3",
+            "nm_code": "운송장비 조립원",
+            "no_order": 133,
+            "no_rank": 101
+        },
+        {
+            "sq_code_insure": 450,
+            "cd_code": "A1",
+            "ty_code": "C0",
+            "nm_code": "계부",
+            "no_order": 486,
+            "no_rank": 101
+        },
+        {
+            "sq_code_insure": 568,
+            "cd_code": "E996",
+            "ty_code": "E0",
+            "nm_code": "과거연수취업(E-9-96)",
+            "no_order": 621,
+            "no_rank": 101
+        },
+        {
+            "sq_code_insure": 148,
+            "cd_code": "821",
+            "ty_code": "A3",
+            "nm_code": "금속관련 기계·설비 조작원",
+            "no_order": 134,
+            "no_rank": 102
+        },
+        {
+            "sq_code_insure": 451,
+            "cd_code": "A2",
+            "ty_code": "C0",
+            "nm_code": "계모",
+            "no_order": 487,
+            "no_rank": 102
+        },
+        {
+            "sq_code_insure": 569,
+            "cd_code": "E997",
+            "ty_code": "E0",
+            "nm_code": "과거특례고용(E-9-97)",
+            "no_order": 622,
+            "no_rank": 102
+        },
+        {
+            "sq_code_insure": 149,
+            "cd_code": "822",
+            "ty_code": "A3",
+            "nm_code": "판금원 및 제관원",
+            "no_order": 135,
+            "no_rank": 103
+        },
+        {
+            "sq_code_insure": 452,
+            "cd_code": "A3",
+            "ty_code": "C0",
+            "nm_code": "생부",
+            "no_order": 488,
+            "no_rank": 103
+        },
+        {
+            "sq_code_insure": 570,
+            "cd_code": "E998",
+            "ty_code": "E0",
+            "nm_code": "과거합법조치(E-9-98)",
+            "no_order": 623,
+            "no_rank": 103
+        },
+        {
+            "sq_code_insure": 150,
+            "cd_code": "823",
+            "ty_code": "A3",
+            "nm_code": "단조원 및 주조원",
+            "no_order": 136,
+            "no_rank": 104
+        },
+        {
+            "sq_code_insure": 453,
+            "cd_code": "A4",
+            "ty_code": "C0",
+            "nm_code": "생모",
+            "no_order": 489,
+            "no_rank": 104
+        },
+        {
+            "sq_code_insure": 571,
+            "cd_code": "E9A",
+            "ty_code": "E0",
+            "nm_code": "음식업(E-9-A)",
+            "no_order": 624,
+            "no_rank": 104
+        },
+        {
+            "sq_code_insure": 151,
+            "cd_code": "824",
+            "ty_code": "A3",
+            "nm_code": "용접원",
+            "no_order": 137,
+            "no_rank": 105
+        },
+        {
+            "sq_code_insure": 454,
+            "cd_code": "A5",
+            "ty_code": "C0",
+            "nm_code": "계자",
+            "no_order": 490,
+            "no_rank": 105
+        },
+        {
+            "sq_code_insure": 572,
+            "cd_code": "E9B",
+            "ty_code": "E0",
+            "nm_code": "청소업(E-9-B)",
+            "no_order": 625,
+            "no_rank": 105
+        },
+        {
+            "sq_code_insure": 152,
+            "cd_code": "825",
+            "ty_code": "A3",
+            "nm_code": "도장원 및 도금원",
+            "no_order": 138,
+            "no_rank": 106
+        },
+        {
+            "sq_code_insure": 455,
+            "cd_code": "A6",
+            "ty_code": "C0",
+            "nm_code": "생자",
+            "no_order": 491,
+            "no_rank": 106
+        },
+        {
+            "sq_code_insure": 573,
+            "cd_code": "E9C",
+            "ty_code": "E0",
+            "nm_code": "간병가사(E-9-C)",
+            "no_order": 626,
+            "no_rank": 106
+        },
+        {
+            "sq_code_insure": 153,
+            "cd_code": "826",
+            "ty_code": "A3",
+            "nm_code": "비금속제품 생산기계 조작원",
+            "no_order": 139,
+            "no_rank": 107
+        },
+        {
+            "sq_code_insure": 456,
+            "cd_code": "A7",
+            "ty_code": "C0",
+            "nm_code": "기타",
+            "no_order": 492,
+            "no_rank": 107
+        },
+        {
+            "sq_code_insure": 574,
+            "cd_code": "E9D",
+            "ty_code": "E0",
+            "nm_code": "건설업(E-9-D)",
+            "no_order": 627,
+            "no_rank": 107
+        },
+        {
+            "sq_code_insure": 154,
+            "cd_code": "831",
+            "ty_code": "A3",
+            "nm_code": "전기공",
+            "no_order": 140,
+            "no_rank": 108
+        },
+        {
+            "sq_code_insure": 457,
+            "cd_code": "A8",
+            "ty_code": "C0",
+            "nm_code": "처조부",
+            "no_order": 493,
+            "no_rank": 108
+        },
+        {
+            "sq_code_insure": 575,
+            "cd_code": "E9E",
+            "ty_code": "E0",
+            "nm_code": "자차수리(E-9-E)",
+            "no_order": 628,
+            "no_rank": 108
+        },
+        {
+            "sq_code_insure": 155,
+            "cd_code": "832",
+            "ty_code": "A3",
+            "nm_code": "전기·전자 기기 설치·수리원",
+            "no_order": 141,
+            "no_rank": 109
+        },
+        {
+            "sq_code_insure": 576,
+            "cd_code": "E9F",
+            "ty_code": "E0",
+            "nm_code": "제조업(E-9-F)",
+            "no_order": 629,
+            "no_rank": 109
+        },
+        {
+            "sq_code_insure": 779,
+            "cd_code": "B1",
+            "ty_code": "C0",
+            "nm_code": "생시모",
+            "no_order": 348,
+            "no_rank": 109
+        },
+        {
+            "sq_code_insure": 156,
+            "cd_code": "833",
+            "ty_code": "A3",
+            "nm_code": "발전·배전 장치 조작원",
+            "no_order": 142,
+            "no_rank": 110
+        },
+        {
+            "sq_code_insure": 577,
+            "cd_code": "E9G",
+            "ty_code": "E0",
+            "nm_code": "농축산업(E-9-G)",
+            "no_order": 630,
+            "no_rank": 110
+        },
+        {
+            "sq_code_insure": 780,
+            "cd_code": "B2",
+            "ty_code": "C0",
+            "nm_code": "생장모",
+            "no_order": 350,
+            "no_rank": 110
+        },
+        {
+            "sq_code_insure": 157,
+            "cd_code": "834",
+            "ty_code": "A3",
+            "nm_code": "전기·전자 설비 조작원",
+            "no_order": 143,
+            "no_rank": 111
+        },
+        {
+            "sq_code_insure": 578,
+            "cd_code": "E9H",
+            "ty_code": "E0",
+            "nm_code": "연근해업(E-9-H)",
+            "no_order": 631,
+            "no_rank": 111
+        },
+        {
+            "sq_code_insure": 781,
+            "cd_code": "B3",
+            "ty_code": "C0",
+            "nm_code": "생조모",
+            "no_order": 352,
+            "no_rank": 111
+        },
+        {
+            "sq_code_insure": 158,
+            "cd_code": "835",
+            "ty_code": "A3",
+            "nm_code": "전기·전자 부품·제품 생산기계 조작원",
+            "no_order": 144,
+            "no_rank": 112
+        },
+        {
+            "sq_code_insure": 579,
+            "cd_code": "E9I",
+            "ty_code": "E0",
+            "nm_code": "욕탕업(E-9-I)",
+            "no_order": 632,
+            "no_rank": 112
+        },
+        {
+            "sq_code_insure": 782,
+            "cd_code": "B4",
+            "ty_code": "C0",
+            "nm_code": "생시조모",
+            "no_order": 354,
+            "no_rank": 112
+        },
+        {
+            "sq_code_insure": 159,
+            "cd_code": "836",
+            "ty_code": "A3",
+            "nm_code": "전기·전자 부품·제품 조립원",
+            "no_order": 145,
+            "no_rank": 113
+        },
+        {
+            "sq_code_insure": 580,
+            "cd_code": "E9J",
+            "ty_code": "E0",
+            "nm_code": "재료수집(E-9-J)",
+            "no_order": 633,
+            "no_rank": 113
+        },
+        {
+            "sq_code_insure": 783,
+            "cd_code": "B5",
+            "ty_code": "C0",
+            "nm_code": "생처조모",
+            "no_order": 356,
+            "no_rank": 113
+        },
+        {
+            "sq_code_insure": 160,
+            "cd_code": "841",
+            "ty_code": "A3",
+            "nm_code": "정보통신기기 설치·수리원",
+            "no_order": 146,
+            "no_rank": 114
+        },
+        {
+            "sq_code_insure": 581,
+            "cd_code": "E9K",
+            "ty_code": "E0",
+            "nm_code": "냉장냉동(E-9-K)",
+            "no_order": 634,
+            "no_rank": 114
+        },
+        {
+            "sq_code_insure": 784,
+            "cd_code": "B6",
+            "ty_code": "C0",
+            "nm_code": "처(사실혼)",
+            "no_order": 358,
+            "no_rank": 114
+        },
+        {
+            "sq_code_insure": 161,
+            "cd_code": "842",
+            "ty_code": "A3",
+            "nm_code": "방송·통신장비 설치·정비원",
+            "no_order": 147,
+            "no_rank": 115
+        },
+        {
+            "sq_code_insure": 582,
+            "cd_code": "E9L",
+            "ty_code": "E0",
+            "nm_code": "비전문취업(E-9-L)",
+            "no_order": 635,
+            "no_rank": 115
+        },
+        {
+            "sq_code_insure": 785,
+            "cd_code": "B7",
+            "ty_code": "C0",
+            "nm_code": "남편(사실혼)",
+            "no_order": 360,
+            "no_rank": 115
+        },
+        {
+            "sq_code_insure": 162,
+            "cd_code": "851",
+            "ty_code": "A3",
+            "nm_code": "석유·화학물 가공장치 조작원",
+            "no_order": 148,
+            "no_rank": 116
+        },
+        {
+            "sq_code_insure": 583,
+            "cd_code": "F1",
+            "ty_code": "E0",
+            "nm_code": "방문동거(F-1)",
+            "no_order": 636,
+            "no_rank": 116
+        },
+        {
+            "sq_code_insure": 786,
+            "cd_code": "B8",
+            "ty_code": "C0",
+            "nm_code": "처외조부",
+            "no_order": 362,
+            "no_rank": 116
+        },
+        {
+            "sq_code_insure": 163,
+            "cd_code": "852",
+            "ty_code": "A3",
+            "nm_code": "고무·플라스틱 및 화학제품 생산기계 조작원 및 조립원",
+            "no_order": 149,
+            "no_rank": 117
+        },
+        {
+            "sq_code_insure": 584,
+            "cd_code": "F11",
+            "ty_code": "E0",
+            "nm_code": "방문동거(F-1-1)",
+            "no_order": 637,
+            "no_rank": 117
+        },
+        {
+            "sq_code_insure": 787,
+            "cd_code": "B9",
+            "ty_code": "C0",
+            "nm_code": "처외조모",
+            "no_order": 364,
+            "no_rank": 117
+        },
+        {
+            "sq_code_insure": 164,
+            "cd_code": "853",
+            "ty_code": "A3",
+            "nm_code": "환경관련 장치 조작원",
+            "no_order": 150,
+            "no_rank": 118
+        },
+        {
+            "sq_code_insure": 585,
+            "cd_code": "F110",
+            "ty_code": "E0",
+            "nm_code": "동포고령(F-1-10)",
+            "no_order": 638,
+            "no_rank": 118
+        },
+        {
+            "sq_code_insure": 788,
+            "cd_code": "C1",
+            "ty_code": "C0",
+            "nm_code": "친생부",
+            "no_order": 366,
+            "no_rank": 118
+        },
+        {
+            "sq_code_insure": 165,
+            "cd_code": "861",
+            "ty_code": "A3",
+            "nm_code": "섬유 제조·가공 기계 조작원",
+            "no_order": 151,
+            "no_rank": 119
+        },
+        {
+            "sq_code_insure": 586,
+            "cd_code": "F111",
+            "ty_code": "E0",
+            "nm_code": "방문취업자녀(F-1-11)",
+            "no_order": 639,
+            "no_rank": 119
+        },
+        {
+            "sq_code_insure": 789,
+            "cd_code": "C2",
+            "ty_code": "C0",
+            "nm_code": "친생모",
+            "no_order": 368,
+            "no_rank": 119
+        },
+        {
+            "sq_code_insure": 166,
+            "cd_code": "862",
+            "ty_code": "A3",
+            "nm_code": "패턴사, 재단사 및 재봉사",
+            "no_order": 152,
+            "no_rank": 120
+        },
+        {
+            "sq_code_insure": 587,
+            "cd_code": "F112",
+            "ty_code": "E0",
+            "nm_code": "거주배우자(F-1-12)",
+            "no_order": 640,
+            "no_rank": 120
+        },
+        {
+            "sq_code_insure": 790,
+            "cd_code": "D1",
+            "ty_code": "C0",
+            "nm_code": "계장인",
+            "no_order": 370,
+            "no_rank": 120
+        },
+        {
+            "sq_code_insure": 167,
+            "cd_code": "863",
+            "ty_code": "A3",
+            "nm_code": "의복 제조원 및 수선원",
+            "no_order": 153,
+            "no_rank": 121
+        },
+        {
+            "sq_code_insure": 588,
+            "cd_code": "F113",
+            "ty_code": "E0",
+            "nm_code": "유학생부모(F-1-13)",
+            "no_order": 641,
+            "no_rank": 121
+        },
+        {
+            "sq_code_insure": 791,
+            "cd_code": "D2",
+            "ty_code": "C0",
+            "nm_code": "계장모",
+            "no_order": 372,
+            "no_rank": 121
+        },
+        {
+            "sq_code_insure": 168,
+            "cd_code": "864",
+            "ty_code": "A3",
+            "nm_code": "제화원, 기타 섬유·의복 기계 조작원 및 조립원",
+            "no_order": 154,
+            "no_rank": 122
+        },
+        {
+            "sq_code_insure": 589,
+            "cd_code": "F114",
+            "ty_code": "E0",
+            "nm_code": "중국미혼친자(F-1-14)",
+            "no_order": 642,
+            "no_rank": 122
+        },
+        {
+            "sq_code_insure": 792,
+            "cd_code": "D3",
+            "ty_code": "C0",
+            "nm_code": "계시부",
+            "no_order": 374,
+            "no_rank": 122
+        },
+        {
+            "sq_code_insure": 169,
+            "cd_code": "871",
+            "ty_code": "A3",
+            "nm_code": "제과·제빵원 및 떡제조원",
+            "no_order": 155,
+            "no_rank": 123
+        },
+        {
+            "sq_code_insure": 590,
+            "cd_code": "F12",
+            "ty_code": "E0",
+            "nm_code": "가사보조(F-1-2)",
+            "no_order": 643,
+            "no_rank": 123
+        },
+        {
+            "sq_code_insure": 793,
+            "cd_code": "D4",
+            "ty_code": "C0",
+            "nm_code": "계시모",
+            "no_order": 376,
+            "no_rank": 123
+        },
+        {
+            "sq_code_insure": 170,
+            "cd_code": "872",
+            "ty_code": "A3",
+            "nm_code": "식품가공 기능원",
+            "no_order": 156,
+            "no_rank": 124
+        },
+        {
+            "sq_code_insure": 591,
+            "cd_code": "F121",
+            "ty_code": "E0",
+            "nm_code": "외교가사보조(F-1-21)",
+            "no_order": 644,
+            "no_rank": 124
+        },
+        {
+            "sq_code_insure": 794,
+            "cd_code": "10",
+            "ty_code": "C3",
+            "nm_code": "심한 장애",
+            "no_order": 539,
+            "no_rank": 124
+        },
+        {
+            "sq_code_insure": 171,
+            "cd_code": "873",
+            "ty_code": "A3",
+            "nm_code": "식품가공 기계 조작원",
+            "no_order": 157,
+            "no_rank": 125
+        },
+        {
+            "sq_code_insure": 592,
+            "cd_code": "F122",
+            "ty_code": "E0",
+            "nm_code": "고액가사보조(F-1-22)",
+            "no_order": 645,
+            "no_rank": 125
+        },
+        {
+            "sq_code_insure": 795,
+            "cd_code": "20",
+            "ty_code": "C3",
+            "nm_code": "심하지 않은 장애",
+            "no_order": 540,
+            "no_rank": 125
+        },
+        {
+            "sq_code_insure": 172,
+            "cd_code": "881",
+            "ty_code": "A3",
+            "nm_code": "인쇄기계·사진현상기 조작원",
+            "no_order": 158,
+            "no_rank": 126
+        },
+        {
+            "sq_code_insure": 593,
+            "cd_code": "F123",
+            "ty_code": "E0",
+            "nm_code": "첨단가사보조(F-1-23)",
+            "no_order": 646,
+            "no_rank": 126
+        },
+        {
+            "sq_code_insure": 173,
+            "cd_code": "882",
+            "ty_code": "A3",
+            "nm_code": "목재·펄프·종이 생산기계 조작원",
+            "no_order": 159,
+            "no_rank": 127
+        },
+        {
+            "sq_code_insure": 594,
+            "cd_code": "F124",
+            "ty_code": "E0",
+            "nm_code": "전문가사보조(F-1-24)",
+            "no_order": 647,
+            "no_rank": 127
+        },
+        {
+            "sq_code_insure": 174,
+            "cd_code": "883",
+            "ty_code": "A3",
+            "nm_code": "가구·목제품 제조·수리원",
+            "no_order": 160,
+            "no_rank": 128
+        },
+        {
+            "sq_code_insure": 595,
+            "cd_code": "F13",
+            "ty_code": "E0",
+            "nm_code": "외교동거(F-1-3)",
+            "no_order": 648,
+            "no_rank": 128
+        },
+        {
+            "sq_code_insure": 175,
+            "cd_code": "884",
+            "ty_code": "A3",
+            "nm_code": "공예원 및 귀금속세공원",
+            "no_order": 161,
+            "no_rank": 129
+        },
+        {
+            "sq_code_insure": 596,
+            "cd_code": "F15",
+            "ty_code": "E0",
+            "nm_code": "결혼이민가족(F-1-5)",
+            "no_order": 649,
+            "no_rank": 129
+        },
+        {
+            "sq_code_insure": 176,
+            "cd_code": "885",
+            "ty_code": "A3",
+            "nm_code": "악기·간판 및 기타 제조 종사자",
+            "no_order": 162,
+            "no_rank": 130
+        },
+        {
+            "sq_code_insure": 597,
+            "cd_code": "F16",
+            "ty_code": "E0",
+            "nm_code": "결혼가사정리(F-1-6)",
+            "no_order": 650,
+            "no_rank": 130
+        },
+        {
+            "sq_code_insure": 177,
+            "cd_code": "890",
+            "ty_code": "A3",
+            "nm_code": "제조 단순 종사자",
+            "no_order": 163,
+            "no_rank": 131
+        },
+        {
+            "sq_code_insure": 598,
+            "cd_code": "F17",
+            "ty_code": "E0",
+            "nm_code": "국적신청(F-1-7)",
+            "no_order": 651,
+            "no_rank": 131
+        },
+        {
+            "sq_code_insure": 178,
+            "cd_code": "901",
+            "ty_code": "A3",
+            "nm_code": "작물재배 종사자",
+            "no_order": 164,
+            "no_rank": 132
+        },
+        {
+            "sq_code_insure": 599,
+            "cd_code": "F171",
+            "ty_code": "E0",
+            "nm_code": "국적신청가족(F-1-71)",
+            "no_order": 652,
+            "no_rank": 132
+        },
+        {
+            "sq_code_insure": 179,
+            "cd_code": "902",
+            "ty_code": "A3",
+            "nm_code": "낙농·사육 종사자",
+            "no_order": 165,
+            "no_rank": 133
+        },
+        {
+            "sq_code_insure": 600,
+            "cd_code": "F172",
+            "ty_code": "E0",
+            "nm_code": "영주신청가족(F-1-72)",
+            "no_order": 653,
+            "no_rank": 133
+        },
+        {
+            "sq_code_insure": 180,
+            "cd_code": "903",
+            "ty_code": "A3",
+            "nm_code": "임업 종사자",
+            "no_order": 166,
+            "no_rank": 134
+        },
+        {
+            "sq_code_insure": 601,
+            "cd_code": "F18",
+            "ty_code": "E0",
+            "nm_code": "합법출생자녀(F-1-8)",
+            "no_order": 654,
+            "no_rank": 134
+        },
+        {
+            "sq_code_insure": 181,
+            "cd_code": "904",
+            "ty_code": "A3",
+            "nm_code": "어업 종사자",
+            "no_order": 167,
+            "no_rank": 135
+        },
+        {
+            "sq_code_insure": 602,
+            "cd_code": "F19",
+            "ty_code": "E0",
+            "nm_code": "동포배우자등(F-1-9)",
+            "no_order": 655,
+            "no_rank": 135
+        },
+        {
+            "sq_code_insure": 182,
+            "cd_code": "905",
+            "ty_code": "A3",
+            "nm_code": "농림어업 단순 종사자",
+            "no_order": 168,
+            "no_rank": 136
+        },
+        {
+            "sq_code_insure": 603,
+            "cd_code": "F199",
+            "ty_code": "E0",
+            "nm_code": "기타동거(F-1-99)",
+            "no_order": 656,
+            "no_rank": 136
+        },
+        {
+            "sq_code_insure": 604,
+            "cd_code": "F2",
+            "ty_code": "E0",
+            "nm_code": "거주(F-2)",
+            "no_order": 657,
+            "no_rank": 137
+        },
+        {
+            "sq_code_insure": 605,
+            "cd_code": "F21",
+            "ty_code": "E0",
+            "nm_code": "국민배우자(F-2-1)",
+            "no_order": 658,
+            "no_rank": 138
+        },
+        {
+            "sq_code_insure": 606,
+            "cd_code": "F210",
+            "ty_code": "E0",
+            "nm_code": "자녀양육(F-2-10)",
+            "no_order": 659,
+            "no_rank": 139
+        },
+        {
+            "sq_code_insure": 607,
+            "cd_code": "F211",
+            "ty_code": "E0",
+            "nm_code": "공무임용(F-2-11)",
+            "no_order": 660,
+            "no_rank": 140
+        },
+        {
+            "sq_code_insure": 608,
+            "cd_code": "F212",
+            "ty_code": "E0",
+            "nm_code": "공익사업투자(F-2-12)",
+            "no_order": 661,
+            "no_rank": 141
+        },
+        {
+            "sq_code_insure": 609,
+            "cd_code": "F213",
+            "ty_code": "E0",
+            "nm_code": "공익은퇴가족(F-2-13)",
+            "no_order": 662,
+            "no_rank": 142
+        },
+        {
+            "sq_code_insure": 610,
+            "cd_code": "F214",
+            "ty_code": "E0",
+            "nm_code": "은퇴이민투자(F-2-14)",
+            "no_order": 663,
+            "no_rank": 143
+        },
+        {
+            "sq_code_insure": 611,
+            "cd_code": "F22",
+            "ty_code": "E0",
+            "nm_code": "국민자녀(F-2-2)",
+            "no_order": 664,
+            "no_rank": 144
+        },
+        {
+            "sq_code_insure": 612,
+            "cd_code": "F23",
+            "ty_code": "E0",
+            "nm_code": "영주자가족(F-2-3)",
+            "no_order": 665,
+            "no_rank": 145
+        },
+        {
+            "sq_code_insure": 613,
+            "cd_code": "F24",
+            "ty_code": "E0",
+            "nm_code": "난민(F-2-4)",
+            "no_order": 666,
+            "no_rank": 146
+        },
+        {
+            "sq_code_insure": 614,
+            "cd_code": "F25",
+            "ty_code": "E0",
+            "nm_code": "고액투자(F-2-5)",
+            "no_order": 667,
+            "no_rank": 147
+        },
+        {
+            "sq_code_insure": 615,
+            "cd_code": "F26",
+            "ty_code": "E0",
+            "nm_code": "숙련기능(F-2-6)",
+            "no_order": 668,
+            "no_rank": 148
+        },
+        {
+            "sq_code_insure": 616,
+            "cd_code": "F27",
+            "ty_code": "E0",
+            "nm_code": "점수우수인력(F-2-7)",
+            "no_order": 669,
+            "no_rank": 149
+        },
+        {
+            "sq_code_insure": 617,
+            "cd_code": "F271",
+            "ty_code": "E0",
+            "nm_code": "점수가족(F-2-71)",
+            "no_order": 670,
+            "no_rank": 150
+        },
+        {
+            "sq_code_insure": 618,
+            "cd_code": "F28",
+            "ty_code": "E0",
+            "nm_code": "부동산투자(F-2-8)",
+            "no_order": 671,
+            "no_rank": 151
+        },
+        {
+            "sq_code_insure": 619,
+            "cd_code": "F281",
+            "ty_code": "E0",
+            "nm_code": "부동가족(F-2-81)",
+            "no_order": 672,
+            "no_rank": 152
+        },
+        {
+            "sq_code_insure": 620,
+            "cd_code": "F29",
+            "ty_code": "E0",
+            "nm_code": "영주상실(F-2-9)",
+            "no_order": 673,
+            "no_rank": 153
+        },
+        {
+            "sq_code_insure": 621,
+            "cd_code": "F299",
+            "ty_code": "E0",
+            "nm_code": "기타장기(F-2-99)",
+            "no_order": 674,
+            "no_rank": 154
+        },
+        {
+            "sq_code_insure": 622,
+            "cd_code": "F31",
+            "ty_code": "E0",
+            "nm_code": "동반(F-3-1)",
+            "no_order": 675,
+            "no_rank": 155
+        },
+        {
+            "sq_code_insure": 623,
+            "cd_code": "F391",
+            "ty_code": "E0",
+            "nm_code": "FTA동반(F-3-91)",
+            "no_order": 676,
+            "no_rank": 156
+        },
+        {
+            "sq_code_insure": 624,
+            "cd_code": "F41",
+            "ty_code": "E0",
+            "nm_code": "기여동포(F-4-1)",
+            "no_order": 677,
+            "no_rank": 157
+        },
+        {
+            "sq_code_insure": 625,
+            "cd_code": "F411",
+            "ty_code": "E0",
+            "nm_code": "비고시본인(F-4-11)",
+            "no_order": 678,
+            "no_rank": 158
+        },
+        {
+            "sq_code_insure": 626,
+            "cd_code": "F412",
+            "ty_code": "E0",
+            "nm_code": "비고시부모(F-4-12)",
+            "no_order": 679,
+            "no_rank": 159
+        },
+        {
+            "sq_code_insure": 627,
+            "cd_code": "F413",
+            "ty_code": "E0",
+            "nm_code": "DE체류자(F-4-13)",
+            "no_order": 680,
+            "no_rank": 160
+        },
+        {
+            "sq_code_insure": 628,
+            "cd_code": "F414",
+            "ty_code": "E0",
+            "nm_code": "대학졸업자(F-4-14)",
+            "no_order": 681,
+            "no_rank": 161
+        },
+        {
+            "sq_code_insure": 629,
+            "cd_code": "F415",
+            "ty_code": "E0",
+            "nm_code": "OECD영주자(F-4-15)",
+            "no_order": 682,
+            "no_rank": 162
+        },
+        {
+            "sq_code_insure": 630,
+            "cd_code": "F416",
+            "ty_code": "E0",
+            "nm_code": "법인대표등(F-4-16)",
+            "no_order": 683,
+            "no_rank": 163
+        },
+        {
+            "sq_code_insure": 631,
+            "cd_code": "F417",
+            "ty_code": "E0",
+            "nm_code": "10만불기업가(F-4-17",
+            "no_order": 684,
+            "no_rank": 164
+        },
+        {
+            "sq_code_insure": 632,
+            "cd_code": "F418",
+            "ty_code": "E0",
+            "nm_code": "다국적기업(F-4-18)",
+            "no_order": 685,
+            "no_rank": 165
+        },
+        {
+            "sq_code_insure": 633,
+            "cd_code": "F419",
+            "ty_code": "E0",
+            "nm_code": "동포단체대표(F-4-19)",
+            "no_order": 686,
+            "no_rank": 166
+        },
+        {
+            "sq_code_insure": 634,
+            "cd_code": "F42",
+            "ty_code": "E0",
+            "nm_code": "일반동포(F-4-2)",
+            "no_order": 687,
+            "no_rank": 167
+        },
+        {
+            "sq_code_insure": 635,
+            "cd_code": "F420",
+            "ty_code": "E0",
+            "nm_code": "공무원등(F-4-20)",
+            "no_order": 688,
+            "no_rank": 168
+        },
+        {
+            "sq_code_insure": 636,
+            "cd_code": "F421",
+            "ty_code": "E0",
+            "nm_code": "교원(F-4-21)",
+            "no_order": 689,
+            "no_rank": 169
+        },
+        {
+            "sq_code_insure": 637,
+            "cd_code": "F422",
+            "ty_code": "E0",
+            "nm_code": "개인사업가(F-4-22)",
+            "no_order": 690,
+            "no_rank": 170
+        },
+        {
+            "sq_code_insure": 638,
+            "cd_code": "F423",
+            "ty_code": "E0",
+            "nm_code": "빈번출입자(F-4-23)",
+            "no_order": 691,
+            "no_rank": 171
+        },
+        {
+            "sq_code_insure": 639,
+            "cd_code": "F424",
+            "ty_code": "E0",
+            "nm_code": "제조등근속자(F-4-24)",
+            "no_order": 692,
+            "no_rank": 172
+        },
+        {
+            "sq_code_insure": 640,
+            "cd_code": "F425",
+            "ty_code": "E0",
+            "nm_code": "60세이상자(F-4-25)",
+            "no_order": 693,
+            "no_rank": 173
+        },
+        {
+            "sq_code_insure": 641,
+            "cd_code": "F426",
+            "ty_code": "E0",
+            "nm_code": "수교전입국자(F-4-26)",
+            "no_order": 694,
+            "no_rank": 174
+        },
+        {
+            "sq_code_insure": 642,
+            "cd_code": "F427",
+            "ty_code": "E0",
+            "nm_code": "자격증소지자(F-4-27)",
+            "no_order": 695,
+            "no_rank": 175
+        },
+        {
+            "sq_code_insure": 643,
+            "cd_code": "F499",
+            "ty_code": "E0",
+            "nm_code": "재외동포기타(F-4-99)",
+            "no_order": 696,
+            "no_rank": 176
+        },
+        {
+            "sq_code_insure": 644,
+            "cd_code": "F5",
+            "ty_code": "E0",
+            "nm_code": "영주(F-5)",
+            "no_order": 697,
+            "no_rank": 177
+        },
+        {
+            "sq_code_insure": 645,
+            "cd_code": "F51",
+            "ty_code": "E0",
+            "nm_code": "장기체류(F-5-1)",
+            "no_order": 698,
+            "no_rank": 178
+        },
+        {
+            "sq_code_insure": 646,
+            "cd_code": "F510",
+            "ty_code": "E0",
+            "nm_code": "첨단학사(F-5-10)",
+            "no_order": 699,
+            "no_rank": 179
+        },
+        {
+            "sq_code_insure": 647,
+            "cd_code": "F511",
+            "ty_code": "E0",
+            "nm_code": "특정능력(F-5-11)",
+            "no_order": 700,
+            "no_rank": 180
+        },
+        {
+            "sq_code_insure": 648,
+            "cd_code": "F512",
+            "ty_code": "E0",
+            "nm_code": "특별공로(F-5-12)",
+            "no_order": 701,
+            "no_rank": 181
+        },
+        {
+            "sq_code_insure": 649,
+            "cd_code": "F513",
+            "ty_code": "E0",
+            "nm_code": "연금수혜(F-5-13)",
+            "no_order": 702,
+            "no_rank": 182
+        },
+        {
+            "sq_code_insure": 650,
+            "cd_code": "F514",
+            "ty_code": "E0",
+            "nm_code": "방문취업4년(F-5-14)",
+            "no_order": 703,
+            "no_rank": 183
+        },
+        {
+            "sq_code_insure": 651,
+            "cd_code": "F515",
+            "ty_code": "E0",
+            "nm_code": "국내박사(F-5-15)",
+            "no_order": 704,
+            "no_rank": 184
+        },
+        {
+            "sq_code_insure": 652,
+            "cd_code": "F516",
+            "ty_code": "E0",
+            "nm_code": "점수제(F-5-16)",
+            "no_order": 705,
+            "no_rank": 185
+        },
+        {
+            "sq_code_insure": 653,
+            "cd_code": "F517",
+            "ty_code": "E0",
+            "nm_code": "부동산투자(F-5-17)",
+            "no_order": 706,
+            "no_rank": 186
+        },
+        {
+            "sq_code_insure": 654,
+            "cd_code": "F518",
+            "ty_code": "E0",
+            "nm_code": "점수가족(F-5-18)",
+            "no_order": 707,
+            "no_rank": 187
+        },
+        {
+            "sq_code_insure": 655,
+            "cd_code": "F519",
+            "ty_code": "E0",
+            "nm_code": "부동가족(F-5-19)",
+            "no_order": 708,
+            "no_rank": 188
+        },
+        {
+            "sq_code_insure": 656,
+            "cd_code": "F52",
+            "ty_code": "E0",
+            "nm_code": "국민배우자(F-5-2)",
+            "no_order": 709,
+            "no_rank": 189
+        },
+        {
+            "sq_code_insure": 657,
+            "cd_code": "F520",
+            "ty_code": "E0",
+            "nm_code": "영주출생(F-5-20)",
+            "no_order": 710,
+            "no_rank": 190
+        },
+        {
+            "sq_code_insure": 658,
+            "cd_code": "F521",
+            "ty_code": "E0",
+            "nm_code": "공익사업투자(F-5-21)",
+            "no_order": 711,
+            "no_rank": 191
+        },
+        {
+            "sq_code_insure": 659,
+            "cd_code": "F522",
+            "ty_code": "E0",
+            "nm_code": "공익은퇴가족(F-5-22)",
+            "no_order": 712,
+            "no_rank": 192
+        },
+        {
+            "sq_code_insure": 660,
+            "cd_code": "F523",
+            "ty_code": "E0",
+            "nm_code": "은퇴이민투자(F-5-23)",
+            "no_order": 713,
+            "no_rank": 193
+        },
+        {
+            "sq_code_insure": 661,
+            "cd_code": "F524",
+            "ty_code": "E0",
+            "nm_code": "법인창업영주(F-5-24)",
+            "no_order": 714,
+            "no_rank": 194
+        },
+        {
+            "sq_code_insure": 662,
+            "cd_code": "F525",
+            "ty_code": "E0",
+            "nm_code": "고액투자조건부영주(F-5-25)",
+            "no_order": 715,
+            "no_rank": 195
+        },
+        {
+            "sq_code_insure": 663,
+            "cd_code": "F53",
+            "ty_code": "E0",
+            "nm_code": "국민자녀(F-5-3)",
+            "no_order": 716,
+            "no_rank": 196
+        },
+        {
+            "sq_code_insure": 664,
+            "cd_code": "F54",
+            "ty_code": "E0",
+            "nm_code": "영주가족(F-5-4)",
+            "no_order": 717,
+            "no_rank": 197
+        },
+        {
+            "sq_code_insure": 665,
+            "cd_code": "F55",
+            "ty_code": "E0",
+            "nm_code": "고액투자(F-5-5)",
+            "no_order": 718,
+            "no_rank": 198
+        },
+        {
+            "sq_code_insure": 666,
+            "cd_code": "F56",
+            "ty_code": "E0",
+            "nm_code": "재외동포2년(F-5-6)",
+            "no_order": 719,
+            "no_rank": 199
+        },
+        {
+            "sq_code_insure": 667,
+            "cd_code": "F57",
+            "ty_code": "E0",
+            "nm_code": "동포국적요건(F-5-7)",
+            "no_order": 720,
+            "no_rank": 200
+        },
+        {
+            "sq_code_insure": 668,
+            "cd_code": "F58",
+            "ty_code": "E0",
+            "nm_code": "재한화교(F-5-8)",
+            "no_order": 721,
+            "no_rank": 201
+        },
+        {
+            "sq_code_insure": 669,
+            "cd_code": "F59",
+            "ty_code": "E0",
+            "nm_code": "첨단박사(F-5-9)",
+            "no_order": 722,
+            "no_rank": 202
+        },
+        {
+            "sq_code_insure": 670,
+            "cd_code": "F61",
+            "ty_code": "E0",
+            "nm_code": "국민배우자(F-6-1)",
+            "no_order": 723,
+            "no_rank": 203
+        },
+        {
+            "sq_code_insure": 671,
+            "cd_code": "F62",
+            "ty_code": "E0",
+            "nm_code": "자녀양육(F-6-2)",
+            "no_order": 724,
+            "no_rank": 204
+        },
+        {
+            "sq_code_insure": 672,
+            "cd_code": "F63",
+            "ty_code": "E0",
+            "nm_code": "혼인단절(F-6-3)",
+            "no_order": 725,
+            "no_rank": 205
+        },
+        {
+            "sq_code_insure": 673,
+            "cd_code": "G1",
+            "ty_code": "E0",
+            "nm_code": "기타(G-1)",
+            "no_order": 726,
+            "no_rank": 206
+        },
+        {
+            "sq_code_insure": 674,
+            "cd_code": "G11",
+            "ty_code": "E0",
+            "nm_code": "산재보상(G-1-1)",
+            "no_order": 727,
+            "no_rank": 207
+        },
+        {
+            "sq_code_insure": 675,
+            "cd_code": "G110",
+            "ty_code": "E0",
+            "nm_code": "치료요양(G-1-10)",
+            "no_order": 728,
+            "no_rank": 208
+        },
+        {
+            "sq_code_insure": 676,
+            "cd_code": "G111",
+            "ty_code": "E0",
+            "nm_code": "성매매피해자(G-1-11)",
+            "no_order": 729,
+            "no_rank": 209
+        },
+        {
+            "sq_code_insure": 677,
+            "cd_code": "G12",
+            "ty_code": "E0",
+            "nm_code": "질병사고(G-1-2)",
+            "no_order": 730,
+            "no_rank": 210
+        },
+        {
+            "sq_code_insure": 678,
+            "cd_code": "G13",
+            "ty_code": "E0",
+            "nm_code": "소송진행(G-1-3)",
+            "no_order": 731,
+            "no_rank": 211
+        },
+        {
+            "sq_code_insure": 679,
+            "cd_code": "G14",
+            "ty_code": "E0",
+            "nm_code": "체임중재(G-1-4)",
+            "no_order": 732,
+            "no_rank": 212
+        },
+        {
+            "sq_code_insure": 680,
+            "cd_code": "G15",
+            "ty_code": "E0",
+            "nm_code": "난민신청(G-1-5)",
+            "no_order": 733,
+            "no_rank": 213
+        },
+        {
+            "sq_code_insure": 681,
+            "cd_code": "G16",
+            "ty_code": "E0",
+            "nm_code": "난민인허(G-1-6)",
+            "no_order": 734,
+            "no_rank": 214
+        },
+        {
+            "sq_code_insure": 682,
+            "cd_code": "G17",
+            "ty_code": "E0",
+            "nm_code": "가족사망(G-1-7)",
+            "no_order": 735,
+            "no_rank": 215
+        },
+        {
+            "sq_code_insure": 683,
+            "cd_code": "G19",
+            "ty_code": "E0",
+            "nm_code": "임신출산(G-1-9)",
+            "no_order": 736,
+            "no_rank": 216
+        },
+        {
+            "sq_code_insure": 684,
+            "cd_code": "G199",
+            "ty_code": "E0",
+            "nm_code": "기타(G-1-99)",
+            "no_order": 737,
+            "no_rank": 217
+        },
+        {
+            "sq_code_insure": 685,
+            "cd_code": "G1M",
+            "ty_code": "E0",
+            "nm_code": "의료관광(G-1-M)",
+            "no_order": 738,
+            "no_rank": 218
+        },
+        {
+            "sq_code_insure": 686,
+            "cd_code": "H1",
+            "ty_code": "E0",
+            "nm_code": "관광취업(H-1)",
+            "no_order": 739,
+            "no_rank": 219
+        },
+        {
+            "sq_code_insure": 687,
+            "cd_code": "H21",
+            "ty_code": "E0",
+            "nm_code": "연고방취(H-2-1)",
+            "no_order": 740,
+            "no_rank": 220
+        },
+        {
+            "sq_code_insure": 688,
+            "cd_code": "H22",
+            "ty_code": "E0",
+            "nm_code": "유학방취(H-2-2)",
+            "no_order": 741,
+            "no_rank": 221
+        },
+        {
+            "sq_code_insure": 689,
+            "cd_code": "H23",
+            "ty_code": "E0",
+            "nm_code": "자진방취(H-2-3)",
+            "no_order": 742,
+            "no_rank": 222
+        },
+        {
+            "sq_code_insure": 690,
+            "cd_code": "H24",
+            "ty_code": "E0",
+            "nm_code": "연수방취(H-2-4)",
+            "no_order": 743,
+            "no_rank": 223
+        },
+        {
+            "sq_code_insure": 691,
+            "cd_code": "H25",
+            "ty_code": "E0",
+            "nm_code": "추첨방취(H-2-5)",
+            "no_order": 744,
+            "no_rank": 224
+        },
+        {
+            "sq_code_insure": 692,
+            "cd_code": "H26",
+            "ty_code": "E0",
+            "nm_code": "변경방취(H-2-6)",
+            "no_order": 745,
+            "no_rank": 225
+        },
+        {
+            "sq_code_insure": 693,
+            "cd_code": "H27",
+            "ty_code": "E0",
+            "nm_code": "만기방취(H-2-7)",
+            "no_order": 746,
+            "no_rank": 226
+        },
+        {
+            "sq_code_insure": 694,
+            "cd_code": "H299",
+            "ty_code": "E0",
+            "nm_code": "기타방취(H-2-99)",
+            "no_order": 747,
+            "no_rank": 227
+        },
+        {
+            "sq_code_insure": 695,
+            "cd_code": "T11",
+            "ty_code": "E0",
+            "nm_code": "관광상륙(T-1-1)",
+            "no_order": 748,
+            "no_rank": 228
+        }
+    ]
+}

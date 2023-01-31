@@ -1,0 +1,7948 @@
+[
+    {
+        "BCSEA2": "곡물 및 기타 식량작물 재배업",
+        "BCCODE": "011000",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "채소작물 재배업",
+        "BCCODE": "011001",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "화훼작물 재배업",
+        "BCCODE": "011002",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "종자 및 묘목 생산업",
+        "BCCODE": "011003",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "과실작물 재배업",
+        "BCCODE": "011004",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "음료용 및 향신용 작물 재배업",
+        "BCCODE": "011005",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "기타 작물 재배업",
+        "BCCODE": "011006",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "콩나물 재배업",
+        "BCCODE": "011007",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "채소, 화훼 및 과실작물 시설 재배업",
+        "BCCODE": "011008",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "기타 시설작물 재배업",
+        "BCCODE": "011009",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "육우 사육업",
+        "BCCODE": "012101",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "말 및 양 사육업",
+        "BCCODE": "012102",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "그 외 기타 축산업(사슴, 토끼, 개)",
+        "BCCODE": "012103",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "젖소 사육업",
+        "BCCODE": "012104",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "양돈업",
+        "BCCODE": "012201",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "양계업",
+        "BCCODE": "012202",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "기타 가금류 및 조류 사육업",
+        "BCCODE": "012203",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "그 외 기타 축산업",
+        "BCCODE": "012204",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "축산 관련 서비스업",
+        "BCCODE": "014300",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "작물재배 및 축산 복합농업",
+        "BCCODE": "014301",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "작물재배 지원 서비스업",
+        "BCCODE": "014302",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "농산물 건조, 선별 및 기타 수확 후 서비스업",
+        "BCCODE": "014303",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "수렵 및 관련 서비스업",
+        "BCCODE": "015000",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "임업용 종묘 생산업",
+        "BCCODE": "020100",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "육림업",
+        "BCCODE": "020101",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "임산물 채취업",
+        "BCCODE": "020102",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "벌목업",
+        "BCCODE": "020200",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "임업 관련 서비스업",
+        "BCCODE": "020300",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "연근해 어업",
+        "BCCODE": "051102",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "원양 어업",
+        "BCCODE": "051104",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "내수면 어업",
+        "BCCODE": "051200",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "해수면 양식 어업",
+        "BCCODE": "052101",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "내수면 양식 어업",
+        "BCCODE": "052103",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "수산물 부화 및 수산 종자 생산업",
+        "BCCODE": "052104",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "어업 관련 서비스업",
+        "BCCODE": "052200",
+        "BCBIZTYPE": "농업, 임업 및 어업"
+    },
+    {
+        "BCSEA2": "석탄 광업",
+        "BCCODE": "101000",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "그 외 기타 비금속광물 광업",
+        "BCCODE": "101001",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "철 광업",
+        "BCCODE": "131000",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "비철금속 광업",
+        "BCCODE": "131003",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "비철금속 광업",
+        "BCCODE": "132002",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "비철금속 광업",
+        "BCCODE": "132003",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "건설용 석재 채굴 및 쇄석 생산업",
+        "BCCODE": "141001",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "석회석 및 점토 광업",
+        "BCCODE": "141002",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "건설용 석재 채굴 및 쇄석 생산업",
+        "BCCODE": "141003",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "모래 및 자갈 채취업",
+        "BCCODE": "141004",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "모래 및 자갈 채취업",
+        "BCCODE": "141006",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "그 외 기타 비금속광물 광업",
+        "BCCODE": "142101",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "화학용 및 비료 원료용 광물 광업",
+        "BCCODE": "142102",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "화학용 및 비료 원료용 광물 광업",
+        "BCCODE": "142104",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "천일염 생산 및 암염 채취업",
+        "BCCODE": "142200",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "그 외 기타 비금속광물 광업",
+        "BCCODE": "142902",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "원유 및 천연가스 채굴업",
+        "BCCODE": "142909",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "광업 지원 서비스업",
+        "BCCODE": "142910",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "비철금속 광업(조광권자)",
+        "BCCODE": "143101",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "철 광업(조광권자)",
+        "BCCODE": "143103",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "석탄 광업(조광권자)",
+        "BCCODE": "143106",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "석회석 및 점토 광업",
+        "BCCODE": "143107",
+        "BCBIZTYPE": "광업"
+    },
+    {
+        "BCSEA2": "무형 재산권 임대업",
+        "BCCODE": "143200",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "육류 도축업(가금류 제외)",
+        "BCCODE": "151101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "가금류 가공 및 저장 처리업",
+        "BCCODE": "151102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "가금류 도축업",
+        "BCCODE": "151103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "육류 포장육 및 냉동육 가공업(가금류 제외)",
+        "BCCODE": "151104",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "육류 기타 가공 및 저장 처리업(가금류 제외)",
+        "BCCODE": "151105",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "수산동물 건조 및 염장품 제조업",
+        "BCCODE": "151200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "수산동물 훈제, 조리 및 유사 조제식품 제조업",
+        "BCCODE": "151201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "수산동물 냉동품 제조업",
+        "BCCODE": "151202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 수산동물 가공 및 저장 처리업",
+        "BCCODE": "151203",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "김치류 제조업",
+        "BCCODE": "151301",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 과실ㆍ채소 가공 및 저장 처리업",
+        "BCCODE": "151302",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "과실 및 그 외 채소 절임식품 제조업",
+        "BCCODE": "151304",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "식물성 유지 제조업",
+        "BCCODE": "151400",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "동물성 유지 제조업",
+        "BCCODE": "151401",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "식용 정제유 및 가공유 제조업",
+        "BCCODE": "151402",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "액상 시유 및 기타 낙농제품 제조업(분유 및 조제분유)",
+        "BCCODE": "152001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "액상 시유 및 기타 낙농제품 제조업",
+        "BCCODE": "152002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "아이스크림 및 기타 식용 빙과류 제조업",
+        "BCCODE": "152003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 곡물 가공품 제조업",
+        "BCCODE": "153101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "곡물 도정업",
+        "BCCODE": "153102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "곡물 제분업",
+        "BCCODE": "153103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "단미사료 및 기타 사료 제조업",
+        "BCCODE": "153104",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전분제품 및 당류 제조업",
+        "BCCODE": "153105",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "곡물 혼합 분말 및 반죽 제조업",
+        "BCCODE": "153106",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "도시락류 제조업",
+        "BCCODE": "153107",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전분제품 및 당류 제조업",
+        "BCCODE": "153202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "배합 사료 제조업",
+        "BCCODE": "153300",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "단미사료 및 기타 사료 제조업",
+        "BCCODE": "153301",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "떡류 제조업",
+        "BCCODE": "154101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "과자류 및 코코아 제품 제조업",
+        "BCCODE": "154102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 식사용 가공처리 조리식품 제조업",
+        "BCCODE": "154103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "빵류 제조업",
+        "BCCODE": "154104",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "설탕 제조업",
+        "BCCODE": "154200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "면류, 마카로니 및 유사 식품 제조업",
+        "BCCODE": "154400",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "천연 및 혼합 조제 조미료 제조업",
+        "BCCODE": "154501",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "장류 제조업",
+        "BCCODE": "154502",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "식초, 발효 및 화학 조미료 제조업",
+        "BCCODE": "154503",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 식품 첨가물 제조업",
+        "BCCODE": "154509",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "곡물 도정업",
+        "BCCODE": "154801",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "곡물 제분업",
+        "BCCODE": "154802",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "육류 도축업(가금류 제외)",
+        "BCCODE": "154803",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "가금류 가공 및 저장 처리업",
+        "BCCODE": "154804",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "수산동물 건조 및 염장품 제조업",
+        "BCCODE": "154805",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "곡물 제분업",
+        "BCCODE": "154806",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "커피 가공업",
+        "BCCODE": "154901",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "두부 및 유사 식품 제조업",
+        "BCCODE": "154902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "건강 보조용 액화식품 제조업",
+        "BCCODE": "154903",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "수산식물 가공 및 저장 처리업",
+        "BCCODE": "154904",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "차류 가공업",
+        "BCCODE": "154905",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "인삼식품 제조업",
+        "BCCODE": "154906",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "수프 및 균질화식품 제조업",
+        "BCCODE": "154907",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "건강 기능식품 제조업",
+        "BCCODE": "154908",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 식료품 제조업",
+        "BCCODE": "154909",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "주정 제조업",
+        "BCCODE": "155101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "소주 제조업",
+        "BCCODE": "155102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 증류주 및 합성주 제조업",
+        "BCCODE": "155103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "탁주 및 약주 제조업",
+        "BCCODE": "155201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "탁주 및 약주 제조업",
+        "BCCODE": "155202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 발효주 제조업",
+        "BCCODE": "155203",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "맥아 및 맥주 제조업",
+        "BCCODE": "155300",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 비알코올 음료 제조업",
+        "BCCODE": "155401",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 비알코올 음료 제조업",
+        "BCCODE": "155402",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "생수 생산업",
+        "BCCODE": "155403",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "얼음 제조업",
+        "BCCODE": "155404",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "담배제품 제조업",
+        "BCCODE": "160000",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "화학섬유 방적업",
+        "BCCODE": "171101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "면 방적업",
+        "BCCODE": "171102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "모 방적업",
+        "BCCODE": "171104",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "연사 및 가공사 제조업",
+        "BCCODE": "171105",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "화학섬유 방적업",
+        "BCCODE": "171106",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "화학섬유 방적업",
+        "BCCODE": "171107",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "화학섬유 방적업",
+        "BCCODE": "171108",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "화학섬유직물 직조업",
+        "BCCODE": "171109",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 방적업",
+        "BCCODE": "171110",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "모직물 직조업",
+        "BCCODE": "171112",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 방적업",
+        "BCCODE": "171114",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "면직물 직조업",
+        "BCCODE": "171115",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "특수직물 및 기타 직물 직조업",
+        "BCCODE": "171116",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "직물, 편조 원단 및 의복류 염색 가공업",
+        "BCCODE": "171200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "솜 및 실 염색 가공업",
+        "BCCODE": "171201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "날염 가공업",
+        "BCCODE": "171202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "섬유제품 기타 정리 및 마무리 가공업",
+        "BCCODE": "171203",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "침구 및 관련제품 제조업",
+        "BCCODE": "172101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자수제품 및 자수용 재료 제조업",
+        "BCCODE": "172102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "천막, 텐트 및 유사 제품 제조업",
+        "BCCODE": "172103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "커튼 및 유사 제품 제조업",
+        "BCCODE": "172106",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "직물포대 제조업",
+        "BCCODE": "172107",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자동차용 신품 의자 제조업",
+        "BCCODE": "172108",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 직물제품 제조업",
+        "BCCODE": "172109",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 직물제품 제조업",
+        "BCCODE": "172111",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "카펫, 마루덮개 및 유사 제품 제조업",
+        "BCCODE": "172200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "어망 및 기타 끈 가공품 제조업",
+        "BCCODE": "172300",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "끈 및 로프 제조업",
+        "BCCODE": "172301",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "세폭직물 제조업",
+        "BCCODE": "172901",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 섬유제품 제조업",
+        "BCCODE": "172902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "부직포 및 펠트 제조업",
+        "BCCODE": "172903",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "특수사 및 코드직물 제조업",
+        "BCCODE": "172904",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "표면처리 및 적층 직물 제조업",
+        "BCCODE": "172905",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "편조의복 제조업",
+        "BCCODE": "173001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "편조 원단 제조업",
+        "BCCODE": "173002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "스타킹 및 기타양말 제조업",
+        "BCCODE": "173004",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 편조 의복 액세서리 제조업",
+        "BCCODE": "173006",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 편조 의복 액세서리 제조업",
+        "BCCODE": "173009",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "남자용 겉옷 제조업",
+        "BCCODE": "181101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "한복 제조업",
+        "BCCODE": "181103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "여자용 겉옷 제조업",
+        "BCCODE": "181105",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "셔츠 및 블라우스 제조업",
+        "BCCODE": "181109",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "근무복, 작업복 및 유사 의복 제조업",
+        "BCCODE": "181110",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "가죽의복 제조업",
+        "BCCODE": "181201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "모자 제조업",
+        "BCCODE": "181202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "속옷 및 잠옷 제조업",
+        "BCCODE": "181203",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 의복 액세서리 제조업",
+        "BCCODE": "181204",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "남자용 겉옷 제조업",
+        "BCCODE": "181205",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "여자용 겉옷 제조업",
+        "BCCODE": "181206",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "근무복, 작업복 및 유사 의복 제조업",
+        "BCCODE": "181207",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "유아용 의복 제조업",
+        "BCCODE": "181208",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "한복 제조업",
+        "BCCODE": "181209",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 봉제의복 제조업",
+        "BCCODE": "181211",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "모피제품 제조업",
+        "BCCODE": "182001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "모피 및 가죽 제조업",
+        "BCCODE": "191100",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "가방 및 기타 보호용 케이스 제조업",
+        "BCCODE": "191200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 가죽제품 제조업",
+        "BCCODE": "191201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "핸드백 및 지갑 제조업",
+        "BCCODE": "191202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "구두류 제조업",
+        "BCCODE": "192001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 신발 제조업",
+        "BCCODE": "192004",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "신발 부분품 제조업",
+        "BCCODE": "192005",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "연사 및 가공사 제조업",
+        "BCCODE": "193001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "솜 및 실 염색 가공업",
+        "BCCODE": "193009",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "일반 제재업",
+        "BCCODE": "201001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "목재 보존, 방부처리, 도장 및 유사 처리업",
+        "BCCODE": "201002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "표면 가공목재 및 특정 목적용 제재목 제조업",
+        "BCCODE": "201009",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "강화 및 재생 목재 제조업",
+        "BCCODE": "202101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "박판, 합판 및 유사 적층판 제조업",
+        "BCCODE": "202102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 건축용 나무제품 제조업",
+        "BCCODE": "202200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "목재 포장용 상자, 드럼 및 유사 용기 제조업",
+        "BCCODE": "202201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "목재 문 및 관련제품 제조업",
+        "BCCODE": "202202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "목재 깔판류 및 기타 적재판 제조업",
+        "BCCODE": "202203",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "목재 도구 및 주방용 나무제품 제조업",
+        "BCCODE": "202901",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "장식용 목제품 제조업",
+        "BCCODE": "202902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "코르크 및 조물 제품 제조업",
+        "BCCODE": "202903",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "장식용 목제품 제조업",
+        "BCCODE": "202904",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 나무제품 제조업",
+        "BCCODE": "202905",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "코르크 및 조물 제품 제조업",
+        "BCCODE": "202906",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "코르크 및 조물 제품 제조업",
+        "BCCODE": "202907",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "신문용지 제조업",
+        "BCCODE": "210101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "적층, 합성 및 특수 표면처리 종이 제조업",
+        "BCCODE": "210102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 종이 및 판지 제조업",
+        "BCCODE": "210104",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "펄프 제조업",
+        "BCCODE": "210106",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "인쇄용 및 필기용 원지 제조업",
+        "BCCODE": "210107",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "위생용 원지 제조업",
+        "BCCODE": "210108",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "크라프트지 및 상자용 판지 제조업",
+        "BCCODE": "210111",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 종이 및 판지 제조업",
+        "BCCODE": "210112",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "골판지 제조업",
+        "BCCODE": "210200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "판지 상자 및 용기 제조업",
+        "BCCODE": "210201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "골판지 상자 및 가공제품 제조업",
+        "BCCODE": "210202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "종이 포대 및 가방 제조업",
+        "BCCODE": "210203",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "식품 위생용 종이 상자 및 용기 제조업",
+        "BCCODE": "210204",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 종이 상자 및 용기 제조업",
+        "BCCODE": "210205",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 종이 및 판지 제품 제조업",
+        "BCCODE": "210206",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "문구용 종이제품 제조업",
+        "BCCODE": "210901",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "벽지 및 장판지 제조업",
+        "BCCODE": "210902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "위생용 종이제품 제조업",
+        "BCCODE": "210903",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 종이 및 판지 제품 제조업",
+        "BCCODE": "210905",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "일반 서적 출판업",
+        "BCCODE": "221100",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "교과서 및 학습 서적 출판업",
+        "BCCODE": "221103",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "만화 출판업",
+        "BCCODE": "221104",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "잡지 및 정기 간행물 발행업",
+        "BCCODE": "221200",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "신문 발행업",
+        "BCCODE": "221201",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "정기 광고 간행물 발행업",
+        "BCCODE": "221202",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "음악 및 기타 오디오물 출판업",
+        "BCCODE": "221300",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "기타 인쇄물 출판업",
+        "BCCODE": "221900",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "경 인쇄업",
+        "BCCODE": "222101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "스크린 인쇄업",
+        "BCCODE": "222102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "경 인쇄업",
+        "BCCODE": "222103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "오프셋 인쇄업",
+        "BCCODE": "222104",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 인쇄업",
+        "BCCODE": "222105",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "제책업",
+        "BCCODE": "222201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 인쇄관련 산업",
+        "BCCODE": "222202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "제판 및 조판업",
+        "BCCODE": "222203",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기록매체 복제업",
+        "BCCODE": "223001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "코크스 및 관련제품 제조업",
+        "BCCODE": "231001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "연탄 및 기타 석탄 가공품 제조업",
+        "BCCODE": "231002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "원유 정제처리업",
+        "BCCODE": "232100",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 기초 무기화학 물질 제조업",
+        "BCCODE": "232101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "윤활유 및 그리스 제조업",
+        "BCCODE": "232200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 석유 정제물 재처리업",
+        "BCCODE": "232201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "산업용 가스 제조업",
+        "BCCODE": "241101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 기초 무기화학 물질 제조업",
+        "BCCODE": "241102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 기초 무기화학 물질 제조업",
+        "BCCODE": "241105",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "석탄화학계 화합물 및 기타 기초 유기화학 물질 제조업",
+        "BCCODE": "241106",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "무기 안료용 금속 산화물 및 관련 제품 제조업",
+        "BCCODE": "241109",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "석유화학계 기초 화학 물질 제조업",
+        "BCCODE": "241110",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "천연수지 및 나무 화학 물질 제조업",
+        "BCCODE": "241114",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "염료, 조제 무기 안료, 유연제 및 기타 착색제 제조업",
+        "BCCODE": "241115",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "복합비료 및 기타 화학비료 제조업",
+        "BCCODE": "241200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "질소 화합물, 질소ㆍ인산 및 칼리질 화학비료 제조업",
+        "BCCODE": "241201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "유기질 비료 및 상토 제조업",
+        "BCCODE": "241202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "합성고무 제조업",
+        "BCCODE": "241301",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "합성수지 및 기타 플라스틱 물질 제조업",
+        "BCCODE": "241302",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "혼성 및 재생 플라스틱 소재 물질 제조업",
+        "BCCODE": "241303",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "화학 살균ㆍ살충제 및 농업용 약제 제조업",
+        "BCCODE": "242101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "화학 살균ㆍ살충제 및 농업용 약제 제조업",
+        "BCCODE": "242102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "생물 살균ㆍ살충제 및 식물보호제 제조업",
+        "BCCODE": "242103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "생물 살균ㆍ살충제 및 식물보호제 제조업",
+        "BCCODE": "242104",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "인쇄 잉크 및 회화용 물감 제조업",
+        "BCCODE": "242201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "인쇄 잉크 및 회화용 물감 제조업",
+        "BCCODE": "242202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "일반용 도료 및 관련제품 제조업",
+        "BCCODE": "242203",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "일반용 도료 및 관련제품 제조업",
+        "BCCODE": "242204",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "요업용 도포제 및 관련제품 제조업",
+        "BCCODE": "242205",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "완제 의약품 제조업",
+        "BCCODE": "242301",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "한의약품 제조업",
+        "BCCODE": "242302",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "의약용 화합물 및 항생물질 제조업",
+        "BCCODE": "242303",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "동물용 의약품 제조업",
+        "BCCODE": "242304",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "생물학적 제제 제조업",
+        "BCCODE": "242305",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "의료용품 및 기타 의약 관련제품 제조업",
+        "BCCODE": "242309",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "치약, 비누 및 기타 세제 제조업",
+        "BCCODE": "242401",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "치약, 비누 및 기타 세제 제조업",
+        "BCCODE": "242402",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "화장품 제조업",
+        "BCCODE": "242403",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "계면활성제 제조업",
+        "BCCODE": "242404",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "표면 광택제 및 실내 가향제 제조업",
+        "BCCODE": "242405",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "표면 광택제 및 실내 가향제 제조업",
+        "BCCODE": "242406",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "접착제 및 젤라틴 제조업",
+        "BCCODE": "242901",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "마그네틱 및 광학 매체 제조업",
+        "BCCODE": "242902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 화학제품 제조업",
+        "BCCODE": "242903",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "가공 및 정제염 제조업",
+        "BCCODE": "242904",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "감광 재료 및 관련 화학제품 제조업",
+        "BCCODE": "242905",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "화약 및 불꽃제품 제조업",
+        "BCCODE": "242906",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 화학제품 제조업",
+        "BCCODE": "242907",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "바이오 연료 및 혼합물 제조업",
+        "BCCODE": "242908",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "합성섬유 제조업",
+        "BCCODE": "243000",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "재생 섬유 제조업",
+        "BCCODE": "243001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "타이어 및 튜브 제조업",
+        "BCCODE": "251101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "타이어 재생업",
+        "BCCODE": "251102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "산업용 그 외 비경화 고무제품 제조업",
+        "BCCODE": "251901",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 고무제품 제조업",
+        "BCCODE": "251902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "고무 패킹류 제조업",
+        "BCCODE": "251903",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "고무 의류 및 기타 위생용 비경화 고무제품 제조업",
+        "BCCODE": "251904",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "플라스틱 선, 봉, 관 및 호스 제조업",
+        "BCCODE": "252101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "플라스틱 필름 제조업",
+        "BCCODE": "252102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "플라스틱 합성피혁 제조업",
+        "BCCODE": "252103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "플라스틱 필름 제조업",
+        "BCCODE": "252105",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "플라스틱 시트 및 판 제조업",
+        "BCCODE": "252106",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "폴리스티렌 발포 성형제품 제조업",
+        "BCCODE": "252200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 플라스틱 발포 성형제품 제조업",
+        "BCCODE": "252201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "설치용 및 위생용 플라스틱제품 제조업",
+        "BCCODE": "252301",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "벽 및 바닥 피복용 플라스틱 제품 제조업",
+        "BCCODE": "252303",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "플라스틱 창호 제조업",
+        "BCCODE": "252400",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 건축용 플라스틱 조립제품 제조업",
+        "BCCODE": "252401",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "플라스틱 포대, 봉투 및 유사제품 제조업",
+        "BCCODE": "252402",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "플라스틱 접착처리 제품 제조업",
+        "BCCODE": "252403",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "플라스틱 적층, 도포 및 기타 표면처리 제품 제조업",
+        "BCCODE": "252404",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "포장용 플라스틱 성형용기 제조업",
+        "BCCODE": "252901",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 플라스틱 제품 제조업",
+        "BCCODE": "252902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "운송장비 조립용 플라스틱제품 제조업",
+        "BCCODE": "252903",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 기계ㆍ장비 조립용 플라스틱제품 제조업",
+        "BCCODE": "252904",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 플라스틱 제품 제조업",
+        "BCCODE": "252909",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "판유리 제조업",
+        "BCCODE": "261001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "가정용 유리제품 제조업",
+        "BCCODE": "261002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "안전유리 제조업",
+        "BCCODE": "261004",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 판유리 가공품 제조업",
+        "BCCODE": "261005",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "1차 유리제품, 유리섬유 및 광학용 유리 제조업",
+        "BCCODE": "261006",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "디스플레이 장치용 유리 제조업",
+        "BCCODE": "261007",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 산업용 유리제품 제조업",
+        "BCCODE": "261008",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "포장용 유리용기 제조업",
+        "BCCODE": "261009",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 유리제품 제조업",
+        "BCCODE": "261011",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "가정용 및 장식용 도자기 제조업",
+        "BCCODE": "269100",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "위생용 및 산업용 도자기 제조업",
+        "BCCODE": "269101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 일반 도자기 제조업",
+        "BCCODE": "269102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "정형 내화 요업제품 제조업",
+        "BCCODE": "269200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "부정형 내화 요업제품 제조업",
+        "BCCODE": "269201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "타일 및 유사 비내화 요업제품 제조업",
+        "BCCODE": "269300",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "점토 벽돌, 블록 및 유사 비내화 요업제품 제조업",
+        "BCCODE": "269301",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 건축용 비내화 요업제품 제조업",
+        "BCCODE": "269302",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "시멘트 제조업",
+        "BCCODE": "269401",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "석회 및 플라스터 제조업",
+        "BCCODE": "269402",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "석회 및 플라스터 제조업",
+        "BCCODE": "269403",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "레미콘 제조업",
+        "BCCODE": "269501",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "플라스터 혼합제품 제조업",
+        "BCCODE": "269502",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "콘크리트 관 및 기타 구조용 콘크리트제품 제조업",
+        "BCCODE": "269503",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "콘크리트 타일, 기와, 벽돌 및 블록 제조업",
+        "BCCODE": "269504",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "비내화 모르타르 제조업",
+        "BCCODE": "269505",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 콘크리트 제품 및 유사 제품 제조업",
+        "BCCODE": "269506",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "콘크리트 타일, 기와, 벽돌 및 블록 제조업",
+        "BCCODE": "269507",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "콘크리트 관 및 기타 구조용 콘크리트제품 제조업",
+        "BCCODE": "269508",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 콘크리트 제품 및 유사 제품 제조업",
+        "BCCODE": "269509",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "건설용 석제품 제조업",
+        "BCCODE": "269601",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 석제품 제조업",
+        "BCCODE": "269603",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "암면 및 유사 제품 제조업",
+        "BCCODE": "269901",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "연마재 제조업",
+        "BCCODE": "269902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "아스팔트 콘크리트 및 혼합제품 제조업",
+        "BCCODE": "269903",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "비금속광물 분쇄물 생산업",
+        "BCCODE": "269904",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "탄소섬유 제조업",
+        "BCCODE": "269905",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 비금속 광물제품 제조업",
+        "BCCODE": "269906",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "연마재 제조업",
+        "BCCODE": "269907",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 비금속 광물제품 제조업",
+        "BCCODE": "269908",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "제철업",
+        "BCCODE": "271101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "제강업",
+        "BCCODE": "271102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "합금철 제조업",
+        "BCCODE": "271103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 제철 및 제강업",
+        "BCCODE": "271104",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 1차 철강 제조업",
+        "BCCODE": "271201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "주철관 제조업",
+        "BCCODE": "271202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "열간 압연 및 압출제품 제조업",
+        "BCCODE": "271204",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "냉간 압연 및 압출 제품 제조업",
+        "BCCODE": "271205",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "철강선 제조업",
+        "BCCODE": "271206",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "강관 제조업",
+        "BCCODE": "271207",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "강관 가공품 및 관 연결구류 제조업",
+        "BCCODE": "271208",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "도금, 착색 및 기타 표면 처리 강재 제조업",
+        "BCCODE": "271901",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 1차 철강 제조업",
+        "BCCODE": "271902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 비철금속 제련, 정련 및 합금 제조업",
+        "BCCODE": "272100",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "동 제련, 정련 및 합금 제조업",
+        "BCCODE": "272101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "알루미늄 제련, 정련 및 합금 제조업",
+        "BCCODE": "272102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "연 및 아연 제련, 정련 및 합금 제조업",
+        "BCCODE": "272103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 비철금속 제련, 정련 및 합금 제조업",
+        "BCCODE": "272200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "동 제련, 정련 및 합금 제조업",
+        "BCCODE": "272201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "알루미늄 제련, 정련 및 합금 제조업",
+        "BCCODE": "272202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "연 및 아연 제련, 정련 및 합금 제조업",
+        "BCCODE": "272203",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "알루미늄 압연, 압출 및 연신제품 제조업",
+        "BCCODE": "272300",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "동 압연, 압출 및 연신제품 제조업",
+        "BCCODE": "272301",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 비철금속 압연, 압출 및 연신제품 제조업",
+        "BCCODE": "272302",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 1차 비철금속 제조업",
+        "BCCODE": "272900",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "선철 주물 주조업",
+        "BCCODE": "273101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "강 주물 주조업",
+        "BCCODE": "273102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "알루미늄 주물 주조업",
+        "BCCODE": "273200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "동 주물 주조업",
+        "BCCODE": "273201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 비철금속 주조업",
+        "BCCODE": "273202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속 문, 창, 셔터 및 관련제품 제조업",
+        "BCCODE": "281100",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 금속 가공제품 제조업",
+        "BCCODE": "281101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "탭, 밸브 및 유사 장치 제조업",
+        "BCCODE": "281102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "구조용 금속 판제품 및 공작물 제조업",
+        "BCCODE": "281103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "육상 금속 골조 구조재 제조업",
+        "BCCODE": "281104",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "수상 금속 골조 구조재 제조업",
+        "BCCODE": "281105",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 구조용 금속제품 제조업",
+        "BCCODE": "281106",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "산업용 난방보일러 및 방열기 제조업",
+        "BCCODE": "281201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "산업용 난방보일러 및 방열기 제조업",
+        "BCCODE": "281202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속 탱크 및 저장 용기 제조업",
+        "BCCODE": "281204",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "압축 및 액화 가스 용기 제조업",
+        "BCCODE": "281205",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "핵반응기 및 증기보일러 제조업",
+        "BCCODE": "281300",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "분말 야금제품 제조업",
+        "BCCODE": "289101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속 단조제품 제조업",
+        "BCCODE": "289102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자동차용 금속 압형제품 제조업",
+        "BCCODE": "289103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 금속 압형제품 제조업",
+        "BCCODE": "289104",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 금속 가공업",
+        "BCCODE": "289201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "도장 및 기타 피막 처리업",
+        "BCCODE": "289202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "절삭 가공 및 유사 처리업",
+        "BCCODE": "289205",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속 열처리업",
+        "BCCODE": "289206",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "도금업",
+        "BCCODE": "289207",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 금속 가공업",
+        "BCCODE": "289208",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "비동력식 수공구 제조업",
+        "BCCODE": "289301",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "일반 철물 제조업",
+        "BCCODE": "289302",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "톱 및 호환성 공구 제조업",
+        "BCCODE": "289303",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "날붙이 제조업",
+        "BCCODE": "289304",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "일반 철물 제조업",
+        "BCCODE": "289305",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "비동력식 수공구 제조업",
+        "BCCODE": "289306",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속선 가공제품 제조업",
+        "BCCODE": "289901",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속 캔 및 기타 포장용기 제조업",
+        "BCCODE": "289902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "수동식 식품 가공 기기 및 금속 주방용기 제조업",
+        "BCCODE": "289903",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "볼트 및 너트류 제조업",
+        "BCCODE": "289908",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 금속 파스너 및 나사제품 제조업",
+        "BCCODE": "289910",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속 스프링 제조업",
+        "BCCODE": "289913",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "피복 및 충전 용접봉 제조업",
+        "BCCODE": "289914",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 금속 가공제품 제조업",
+        "BCCODE": "289915",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속 위생용품 제조업",
+        "BCCODE": "289916",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속 표시판 제조업",
+        "BCCODE": "289917",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 금속 가공제품 제조업",
+        "BCCODE": "289918",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "내연기관 제조업",
+        "BCCODE": "291100",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 기관 및 터빈 제조업",
+        "BCCODE": "291101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "유압 기기 제조업",
+        "BCCODE": "291200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "액체 펌프 제조업",
+        "BCCODE": "291201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기체 펌프 및 압축기 제조업",
+        "BCCODE": "291202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기어 및 동력전달장치 제조업",
+        "BCCODE": "291300",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "구름베어링 제조업",
+        "BCCODE": "291301",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "산업용 오븐, 노 및 노용 버너 제조업",
+        "BCCODE": "291401",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "산업용 트럭 및 적재기 제조업",
+        "BCCODE": "291501",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 물품 취급장비 제조업",
+        "BCCODE": "291502",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "승강기 제조업",
+        "BCCODE": "291503",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "컨베이어 장치 제조업",
+        "BCCODE": "291504",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "일반 저울 제조업",
+        "BCCODE": "291901",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "산업용 냉장 및 냉동장비 제조업",
+        "BCCODE": "291902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "공기 조화장치 제조업",
+        "BCCODE": "291903",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "산업용 송풍기 및 배기장치 제조업",
+        "BCCODE": "291904",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기체 여과기 제조업",
+        "BCCODE": "291905",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "액체 여과기 제조업",
+        "BCCODE": "291906",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "증류기, 열 교환기 및 가스 발생기 제조업",
+        "BCCODE": "291907",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "용기 세척, 포장 및 충전기 제조업",
+        "BCCODE": "291908",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "분사기 및 소화기 제조업",
+        "BCCODE": "291909",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 일반 목적용 기계 제조업",
+        "BCCODE": "291911",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "농업 및 임업용 기계 제조업",
+        "BCCODE": "292100",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "동력식 수지 공구 제조업",
+        "BCCODE": "292201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속 절삭기계 제조업",
+        "BCCODE": "292202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전자 응용 절삭기계 제조업",
+        "BCCODE": "292203",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 가공 공작기계 제조업",
+        "BCCODE": "292204",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "디지털 적층 성형기계 제조업",
+        "BCCODE": "292205",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속 성형기계 제조업",
+        "BCCODE": "292206",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속 주조 및 기타 야금용 기계 제조업",
+        "BCCODE": "292300",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "건설 및 채광용 기계장비 제조업",
+        "BCCODE": "292400",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "광물 처리 및 취급장비 제조업",
+        "BCCODE": "292401",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "음ㆍ식료품 및 담배 가공기계 제조업",
+        "BCCODE": "292500",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 섬유, 의복 및 가죽 가공기계 제조업",
+        "BCCODE": "292600",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "산업용 섬유 세척, 염색, 정리 및 가공 기계 제조업",
+        "BCCODE": "292601",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "무기 및 총포탄 제조업",
+        "BCCODE": "292700",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "산업용 로봇 제조업",
+        "BCCODE": "292901",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "인쇄 및 제책용 기계 제조업",
+        "BCCODE": "292902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "주형 및 금형 제조업",
+        "BCCODE": "292903",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "펄프 및 종이 가공용 기계 제조업",
+        "BCCODE": "292905",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "고무, 화학섬유 및 플라스틱 성형기 제조업",
+        "BCCODE": "292906",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 특수 목적용 기계 제조업",
+        "BCCODE": "292907",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "반도체 제조용 기계 제조업",
+        "BCCODE": "292908",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "디스플레이 제조용 기계 제조업",
+        "BCCODE": "292909",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "주방용 전기 기기 제조업",
+        "BCCODE": "293001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 가정용 전기 기기 제조업",
+        "BCCODE": "293002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "가정용 비전기식 조리 및 난방 기구 제조업",
+        "BCCODE": "293004",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "가정용 전기 난방기기 제조업",
+        "BCCODE": "293005",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "컴퓨터 제조업",
+        "BCCODE": "300100",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 주변 기기 제조업",
+        "BCCODE": "300101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기억 장치 제조업",
+        "BCCODE": "300102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "컴퓨터 모니터 제조업",
+        "BCCODE": "300103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "컴퓨터 프린터 제조업",
+        "BCCODE": "300104",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "사무용 기계 및 장비 제조업",
+        "BCCODE": "300201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "사무용 기계 및 장비 제조업",
+        "BCCODE": "300202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전자코일, 변성기 및 기타 전자 유도자 제조업",
+        "BCCODE": "311001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전동기 및 발전기 제조업",
+        "BCCODE": "311002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "변압기 제조업",
+        "BCCODE": "311003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "방전 램프용 안정기 제조업",
+        "BCCODE": "311004",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "에너지 저장장치 제조업",
+        "BCCODE": "311005",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 전기 변환장치 제조업",
+        "BCCODE": "311006",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "배전반 및 전기 자동제어반 제조업",
+        "BCCODE": "312000",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전기회로 개폐, 보호 장치 제조업",
+        "BCCODE": "312001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전기회로 접속장치 제조업",
+        "BCCODE": "312002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 절연선 및 케이블 제조업",
+        "BCCODE": "313001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "절연 코드세트 및 기타 도체 제조업",
+        "BCCODE": "313002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "광섬유 케이블 제조업",
+        "BCCODE": "313003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "축전지 제조업",
+        "BCCODE": "314000",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "일차전지 제조업",
+        "BCCODE": "314001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "일반용 전기 조명장치 제조업",
+        "BCCODE": "315001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전시 및 광고용 조명장치 제조업",
+        "BCCODE": "315002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전구 및 램프 제조업",
+        "BCCODE": "315003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 조명장치 제조업",
+        "BCCODE": "315005",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "운송장비용 조명장치 제조업",
+        "BCCODE": "319001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 전기장비 제조업",
+        "BCCODE": "319002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전기 경보 및 신호장치 제조업",
+        "BCCODE": "319003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전기용 탄소제품 및 절연제품 제조업",
+        "BCCODE": "319004",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "교통 신호장치 제조업",
+        "BCCODE": "319005",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 반도체 소자 제조업",
+        "BCCODE": "321000",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 전자 부품 제조업",
+        "BCCODE": "321001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "메모리용 전자집적회로 제조업",
+        "BCCODE": "321002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "비메모리용 및 기타 전자집적회로 제조업",
+        "BCCODE": "321003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "발광 다이오드 제조업",
+        "BCCODE": "321004",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "액정 표시장치 제조업",
+        "BCCODE": "321005",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "유기 발광 표시장치 제조업",
+        "BCCODE": "321006",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 표시장치 제조업",
+        "BCCODE": "321007",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "인쇄회로기판용 적층판 제조업",
+        "BCCODE": "321008",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "경성 인쇄회로기판 제조업",
+        "BCCODE": "321009",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "연성 및 기타 인쇄회로기판 제조업",
+        "BCCODE": "321011",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전자 부품 실장기판 제조업",
+        "BCCODE": "321012",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전자 축전기 제조업",
+        "BCCODE": "321013",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전자 저항기 제조업",
+        "BCCODE": "321014",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전자카드 제조업",
+        "BCCODE": "321015",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전자 감지장치 제조업",
+        "BCCODE": "321016",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "유선 통신장비 제조업",
+        "BCCODE": "322002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "방송장비 제조업",
+        "BCCODE": "322003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "이동 전화기 제조업",
+        "BCCODE": "322004",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 무선 통신장비 제조업",
+        "BCCODE": "322005",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "비디오 및 기타 영상 기기 제조업",
+        "BCCODE": "323001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "텔레비전 제조업",
+        "BCCODE": "323005",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "라디오, 녹음 및 재생 기기 제조업",
+        "BCCODE": "323006",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 음향기기 제조업",
+        "BCCODE": "323007",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전기식 진단 및 요법 기기 제조업",
+        "BCCODE": "331100",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "정형 외과용 및 신체 보정용 기기 제조업",
+        "BCCODE": "331101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 의료용 기기 제조업",
+        "BCCODE": "331102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "방사선 장치 제조업",
+        "BCCODE": "331103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "치과용 기기 제조업",
+        "BCCODE": "331104",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "정형 외과용 및 신체 보정용 기기 제조업",
+        "BCCODE": "331105",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "의료용 가구 제조업",
+        "BCCODE": "331106",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "물질 검사, 측정 및 분석 기구 제조업",
+        "BCCODE": "331201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "레이더, 항행용 무선 기기 및 측량 기구 제조업",
+        "BCCODE": "331203",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전자기 측정, 시험 및 분석 기구 제조업",
+        "BCCODE": "331204",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "속도계 및 적산계기 제조업",
+        "BCCODE": "331205",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기기용 자동 측정 및 제어장치 제조업",
+        "BCCODE": "331206",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 측정, 시험, 항해, 제어 및 정밀 기기 제조업",
+        "BCCODE": "331207",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "산업 처리공정 제어장비 제조업",
+        "BCCODE": "331300",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "안경 및 안경렌즈 제조업",
+        "BCCODE": "332000",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "사진기, 영사기 및 관련 장비 제조업",
+        "BCCODE": "332001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "안경 및 안경렌즈 제조업",
+        "BCCODE": "332002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "광학 렌즈 및 광학 요소 제조업",
+        "BCCODE": "332003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 광학 기기 제조업",
+        "BCCODE": "332004",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "시계 및 시계 부품 제조업",
+        "BCCODE": "333000",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "화물 자동차 및 특수 목적용 자동차 제조업",
+        "BCCODE": "341001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자동차용 엔진 제조업",
+        "BCCODE": "341003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "승용차 및 기타 여객용 자동차 제조업",
+        "BCCODE": "341004",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "트레일러 및 세미 트레일러 제조업",
+        "BCCODE": "342000",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "차체 및 특장차 제조업",
+        "BCCODE": "342001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자동차 구조 및 장치 변경업",
+        "BCCODE": "342002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 자동차용 신품 부품 제조업",
+        "BCCODE": "343000",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자동차 엔진용 신품 부품 제조업",
+        "BCCODE": "343001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자동차 차체용 신품 부품 제조업",
+        "BCCODE": "343002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자동차용 신품 동력 전달장치 제조업",
+        "BCCODE": "343003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자동차용 신품 전기장치 제조업",
+        "BCCODE": "343004",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자동차용 신품 조향장치 및 현가장치 제조업",
+        "BCCODE": "343005",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자동차용 신품 제동장치 제조업",
+        "BCCODE": "343006",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자동차 재제조 부품 제조업",
+        "BCCODE": "343007",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "강선 건조업",
+        "BCCODE": "351101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 선박 건조업",
+        "BCCODE": "351102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "선박 구성 부분품 제조업",
+        "BCCODE": "351103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속류 해체 및 선별업",
+        "BCCODE": "351104",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "기타 선박 건조업",
+        "BCCODE": "351105",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "합성수지선 건조업",
+        "BCCODE": "351106",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 선박 건조업",
+        "BCCODE": "351107",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "오락 및 스포츠용 보트 건조업",
+        "BCCODE": "351200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "철도 차량 부품 및 관련 장치물 제조업",
+        "BCCODE": "352000",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기관차 및 기타 철도 차량 제조업",
+        "BCCODE": "352001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "항공기용 부품 제조업",
+        "BCCODE": "353000",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "유인 항공기, 항공 우주선 및 보조장치 제조업",
+        "BCCODE": "353001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "무인 항공기 및 무인 비행장치 제조업",
+        "BCCODE": "353002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "항공기용 엔진 제조업",
+        "BCCODE": "353003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "모터사이클 제조업",
+        "BCCODE": "359100",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "자전거 및 환자용 차량 제조업",
+        "BCCODE": "359200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전투용 차량 제조업",
+        "BCCODE": "359201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 달리 분류되지 않은 운송장비 제조업",
+        "BCCODE": "359202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속 가구 제조업",
+        "BCCODE": "361001",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 목재 가구 제조업",
+        "BCCODE": "361002",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 가구 제조업",
+        "BCCODE": "361003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "매트리스 및 침대 제조업",
+        "BCCODE": "361005",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "소파 및 기타 내장 가구 제조업",
+        "BCCODE": "361006",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "주방용 및 음식점용 목재 가구 제조업",
+        "BCCODE": "361007",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "귀금속 및 관련제품 제조업",
+        "BCCODE": "369101",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 악기 제조업",
+        "BCCODE": "369200",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "건반 악기 제조업",
+        "BCCODE": "369201",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전자 악기 제조업",
+        "BCCODE": "369202",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "체조, 육상 및 체력 단련용 장비 제조업",
+        "BCCODE": "369301",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 운동 및 경기용구 제조업",
+        "BCCODE": "369302",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "놀이터용 장비 제조업",
+        "BCCODE": "369305",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "낚시 및 수렵용구 제조업",
+        "BCCODE": "369306",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "인형 및 장난감 제조업",
+        "BCCODE": "369401",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "인형 및 장난감 제조업",
+        "BCCODE": "369402",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "영상게임기 제조업",
+        "BCCODE": "369404",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 오락용품 제조업",
+        "BCCODE": "369405",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 오락용품 제조업",
+        "BCCODE": "369409",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "모조 귀금속 및 모조 장신용품 제조업",
+        "BCCODE": "369501",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "가발 및 유사 제품 제조업",
+        "BCCODE": "369502",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "간판 및 광고물 제조업",
+        "BCCODE": "369503",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "표구 처리업",
+        "BCCODE": "369504",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전시용 모형 제조업",
+        "BCCODE": "369505",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "사무 및 회화용품 제조업",
+        "BCCODE": "369902",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "비 및 솔 제조업",
+        "BCCODE": "369903",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 달리 분류되지 않은 제품 제조업",
+        "BCCODE": "369904",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "단추 및 유사 파스너 제조업",
+        "BCCODE": "369905",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "라이터, 연소물 및 흡연용품 제조업",
+        "BCCODE": "369906",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "화약 및 불꽃제품 제조업",
+        "BCCODE": "369907",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 달리 분류되지 않은 제품 제조업",
+        "BCCODE": "369908",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "금속류 원료 재생업",
+        "BCCODE": "371000",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "금속류 해체 및 선별업",
+        "BCCODE": "371001",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "비금속류 원료 재생업",
+        "BCCODE": "372000",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "비금속류 해체 및 선별업",
+        "BCCODE": "372001",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "토양 및 지하수 정화업",
+        "BCCODE": "372002",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "기타 환경 정화 및 복원업",
+        "BCCODE": "372003",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "절삭 가공 및 유사 처리업",
+        "BCCODE": "381000",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 금속 가공업",
+        "BCCODE": "381003",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 자동차용 신품 부품 제조업",
+        "BCCODE": "381004",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "그 외 기타 달리 분류되지 않은 제품 제조업",
+        "BCCODE": "381005",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "포장 및 충전업",
+        "BCCODE": "381006",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "기타 소사장제",
+        "BCCODE": "381007",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "태양력 발전업",
+        "BCCODE": "401000",
+        "BCBIZTYPE": "전기, 가스, 증기 및 공기 조절 공급업"
+    },
+    {
+        "BCSEA2": "원자력 발전업",
+        "BCCODE": "401001",
+        "BCBIZTYPE": "전기, 가스, 증기 및 공기 조절 공급업"
+    },
+    {
+        "BCSEA2": "수력 발전업",
+        "BCCODE": "401002",
+        "BCBIZTYPE": "전기, 가스, 증기 및 공기 조절 공급업"
+    },
+    {
+        "BCSEA2": "화력 발전업",
+        "BCCODE": "401003",
+        "BCBIZTYPE": "전기, 가스, 증기 및 공기 조절 공급업"
+    },
+    {
+        "BCSEA2": "기타 발전업",
+        "BCCODE": "401004",
+        "BCBIZTYPE": "전기, 가스, 증기 및 공기 조절 공급업"
+    },
+    {
+        "BCSEA2": "송전 및 배전업",
+        "BCCODE": "401005",
+        "BCBIZTYPE": "전기, 가스, 증기 및 공기 조절 공급업"
+    },
+    {
+        "BCSEA2": "전기 판매업",
+        "BCCODE": "401006",
+        "BCBIZTYPE": "전기, 가스, 증기 및 공기 조절 공급업"
+    },
+    {
+        "BCSEA2": "연료용 가스 제조 및 배관공급업",
+        "BCCODE": "402001",
+        "BCBIZTYPE": "전기, 가스, 증기 및 공기 조절 공급업"
+    },
+    {
+        "BCSEA2": "증기, 냉ㆍ온수 및 공기 조절 공급업",
+        "BCCODE": "403000",
+        "BCBIZTYPE": "전기, 가스, 증기 및 공기 조절 공급업"
+    },
+    {
+        "BCSEA2": "생활용수 공급업",
+        "BCCODE": "410000",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "산업용수 공급업",
+        "BCCODE": "410001",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "아파트 건설업",
+        "BCCODE": "451101",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "주거용 건물 건설업",
+        "BCCODE": "451102",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "주거용 건물 건설업",
+        "BCCODE": "451103",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "기타 비주거용 건물 건설업",
+        "BCCODE": "451104",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "단독 주택 건설업",
+        "BCCODE": "451105",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "단독 주택 건설업",
+        "BCCODE": "451106",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "기타 공동 주택 건설업",
+        "BCCODE": "451107",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "사무ㆍ상업용 및 공공기관용 건물 건설업",
+        "BCCODE": "451108",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "제조업 및 유사 산업용 건물 건설업",
+        "BCCODE": "451109",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "기타 토목 시설물 건설업",
+        "BCCODE": "451200",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "지반조성 건설업",
+        "BCCODE": "451204",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "도로 건설업",
+        "BCCODE": "451205",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "교량, 터널 및 철도 건설업",
+        "BCCODE": "451206",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "항만, 수로, 댐 및 유사 구조물 건설업",
+        "BCCODE": "451207",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "환경설비 건설업",
+        "BCCODE": "451208",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "산업 생산시설 종합 건설업",
+        "BCCODE": "451300",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "조경 건설업",
+        "BCCODE": "451400",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "미장, 타일 및 방수 공사업",
+        "BCCODE": "452101",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "유리 및 창호 공사업",
+        "BCCODE": "452102",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "보링, 그라우팅 및 관정 공사업",
+        "BCCODE": "452103",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "배관 및 냉ㆍ난방 공사업",
+        "BCCODE": "452104",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "도배, 실내 장식 및 내장 목공사업",
+        "BCCODE": "452105",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "도배, 실내 장식 및 내장 목공사업",
+        "BCCODE": "452106",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "도배, 실내 장식 및 내장 목공사업",
+        "BCCODE": "452107",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "포장 공사업",
+        "BCCODE": "452108",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "수중 공사업",
+        "BCCODE": "452109",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "토공사업",
+        "BCCODE": "452110",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "시설물 유지관리 공사업",
+        "BCCODE": "452111",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "보링, 그라우팅 및 관정 공사업",
+        "BCCODE": "452112",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "파일공사 및 축조관련 기초 공사업",
+        "BCCODE": "452113",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "조적 및 석공사업",
+        "BCCODE": "452114",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "방음, 방진 및 내화 공사업",
+        "BCCODE": "452115",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "소방시설 공사업",
+        "BCCODE": "452116",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "건물 및 구축물 해체 공사업",
+        "BCCODE": "452117",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "철골 및 관련 구조물 공사업",
+        "BCCODE": "452118",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "콘크리트 및 철근 공사업",
+        "BCCODE": "452119",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "비계 및 형틀 공사업",
+        "BCCODE": "452120",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "건물용 금속 공작물 설치 공사업",
+        "BCCODE": "452121",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "철도 궤도 전문공사업",
+        "BCCODE": "452122",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "지붕, 내ㆍ외벽 축조 관련 전문공사업",
+        "BCCODE": "452123",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "건물용 기계ㆍ장비 설치 공사업",
+        "BCCODE": "452124",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "일반 전기 공사업",
+        "BCCODE": "452125",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "내부 전기배선 공사업",
+        "BCCODE": "452126",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "일반 통신 공사업",
+        "BCCODE": "452127",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "내부 통신배선 공사업",
+        "BCCODE": "452128",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "도장 공사업",
+        "BCCODE": "452129",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "기타 기반조성 관련 전문공사업",
+        "BCCODE": "452130",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "기타 옥외 시설물 축조관련 전문공사업",
+        "BCCODE": "452131",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "배관 및 냉ㆍ난방 공사업",
+        "BCCODE": "452132",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "그 외 기타 건축 마무리 공사업",
+        "BCCODE": "452200",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "기타 건물 관련설비 설치 공사업",
+        "BCCODE": "452201",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "건설장비 운영업",
+        "BCCODE": "453000",
+        "BCBIZTYPE": "건 설 업"
+    },
+    {
+        "BCSEA2": "자동차 신품 판매업",
+        "BCCODE": "501101",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "중고 자동차 판매업",
+        "BCCODE": "501103",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자동차 신품 판매업",
+        "BCCODE": "501201",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "중고 자동차 판매업",
+        "BCCODE": "501202",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자동차 신품 판매업",
+        "BCCODE": "501301",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자동차 신품 판매업",
+        "BCCODE": "501302",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "중고 자동차 판매업",
+        "BCCODE": "501303",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자동차 신품 타이어 및 튜브 판매업",
+        "BCCODE": "503001",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자동차 신품 타이어 및 튜브 판매업",
+        "BCCODE": "503002",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자동차 중고 부품 및 내장품 판매업",
+        "BCCODE": "503003",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자동차 중고 부품 및 내장품 판매업",
+        "BCCODE": "503004",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 자동차 신품 부품 및 내장품 판매업",
+        "BCCODE": "503005",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자동차용 전용 신품 부품 판매업",
+        "BCCODE": "503006",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자동차 내장용 신품 전기ㆍ전자ㆍ정밀기기 판매업",
+        "BCCODE": "503007",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 자동차 신품 부품 및 내장품 판매업",
+        "BCCODE": "503008",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자동차용 전용 신품 부품 판매업",
+        "BCCODE": "503009",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자동차 내장용 신품 전기ㆍ전자ㆍ정밀기기 판매업",
+        "BCCODE": "503010",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 자동차 신품 부품 및 내장품 판매업",
+        "BCCODE": "503013",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "모터사이클 및 부품 도매업",
+        "BCCODE": "504001",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "모터사이클 및 부품 소매업",
+        "BCCODE": "504002",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "운송장비용 주유소 운영업",
+        "BCCODE": "505001",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "운송장비용 가스 충전업",
+        "BCCODE": "505002",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "산업용 농ㆍ축산물, 섬유 원료 및 동물 중개업",
+        "BCCODE": "511111",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "산업용 농ㆍ축산물, 섬유 원료 및 동물 중개업",
+        "BCCODE": "511112",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음ㆍ식료품 및 담배 중개업",
+        "BCCODE": "511113",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음ㆍ식료품 및 담배 중개업",
+        "BCCODE": "511114",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "섬유, 의복, 신발 및 가죽제품 중개업",
+        "BCCODE": "511115",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "섬유, 의복, 신발 및 가죽제품 중개업",
+        "BCCODE": "511116",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "섬유, 의복, 신발 및 가죽제품 중개업",
+        "BCCODE": "511117",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음ㆍ식료품 및 담배 중개업",
+        "BCCODE": "511118",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "섬유, 의복, 신발 및 가죽제품 중개업",
+        "BCCODE": "511119",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음ㆍ식료품 및 담배 중개업",
+        "BCCODE": "511121",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음ㆍ식료품 및 담배 중개업",
+        "BCCODE": "511122",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음ㆍ식료품 및 담배 중개업",
+        "BCCODE": "511123",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "곡물 및 유지작물 도매업",
+        "BCCODE": "512111",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "곡물 및 유지작물 도매업",
+        "BCCODE": "512112",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "종자 및 묘목 도매업",
+        "BCCODE": "512113",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 가공식품 도매업",
+        "BCCODE": "512116",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "곡물 및 유지작물 도매업",
+        "BCCODE": "512119",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "사료 도매업",
+        "BCCODE": "512120",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "화훼류 및 식물 도매업",
+        "BCCODE": "512131",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "화훼류 및 식물 도매업",
+        "BCCODE": "512132",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "화훼류 및 식물 도매업",
+        "BCCODE": "512133",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "종자 및 묘목 도매업",
+        "BCCODE": "512135",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "육지 동물 및 애완 동물 도매업",
+        "BCCODE": "512140",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 산업용 농산물 도매업",
+        "BCCODE": "512190",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "육지 동물 및 애완 동물 도매업",
+        "BCCODE": "512192",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "과실류 도매업",
+        "BCCODE": "512211",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "채소류, 서류 및 향신작물류 도매업",
+        "BCCODE": "512212",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "과실류 도매업",
+        "BCCODE": "512214",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "채소류, 서류 및 향신작물류 도매업",
+        "BCCODE": "512215",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 산업용 농산물 도매업",
+        "BCCODE": "512221",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 산업용 농산물 도매업",
+        "BCCODE": "512222",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "육류 도매업",
+        "BCCODE": "512223",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "육류 도매업",
+        "BCCODE": "512224",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "신선, 냉동 및 기타 수산물 도매업",
+        "BCCODE": "512231",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "신선, 냉동 및 기타 수산물 도매업",
+        "BCCODE": "512232",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "건어물 및 젓갈류 도매업",
+        "BCCODE": "512233",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "신선, 냉동 및 기타 수산물 도매업",
+        "BCCODE": "512234",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "신선, 냉동 및 기타 수산물 도매업",
+        "BCCODE": "512235",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "건어물 및 젓갈류 도매업",
+        "BCCODE": "512236",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "빵류, 과자류, 당류, 초콜릿 도매업",
+        "BCCODE": "512241",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "빵류, 과자류, 당류, 초콜릿 도매업",
+        "BCCODE": "512242",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "빵류, 과자류, 당류, 초콜릿 도매업",
+        "BCCODE": "512243",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "빵류, 과자류, 당류, 초콜릿 도매업",
+        "BCCODE": "512244",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "낙농품 및 동ㆍ식물성 유지 도매업",
+        "BCCODE": "512245",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "주류 도매업",
+        "BCCODE": "512251",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "주류 도매업",
+        "BCCODE": "512252",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "비알코올 음료 도매업",
+        "BCCODE": "512260",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "육류 가공식품 도매업",
+        "BCCODE": "512271",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "조미료 도매업",
+        "BCCODE": "512272",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "커피 및 차류 도매업",
+        "BCCODE": "512273",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 가공식품 도매업",
+        "BCCODE": "512274",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 가공식품 도매업",
+        "BCCODE": "512279",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 가공식품 도매업",
+        "BCCODE": "512280",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 신선 식품 및 단순 가공 식품 도매업",
+        "BCCODE": "512281",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "낙농품 및 동ㆍ식물성 유지 도매업",
+        "BCCODE": "512282",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "낙농품 및 동ㆍ식물성 유지 도매업",
+        "BCCODE": "512283",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 가공식품 도매업",
+        "BCCODE": "512284",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "낙농품 및 동ㆍ식물성 유지 도매업",
+        "BCCODE": "512285",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "담배 도매업",
+        "BCCODE": "512286",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 가공식품 도매업",
+        "BCCODE": "512287",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 가공식품 도매업",
+        "BCCODE": "512288",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "수산물 가공식품 도매업",
+        "BCCODE": "512289",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "낙농품 및 동ㆍ식물성 유지 도매업",
+        "BCCODE": "512290",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "복권 발행 및 판매업",
+        "BCCODE": "512293",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "낙농품 및 동ㆍ식물성 유지 도매업",
+        "BCCODE": "512294",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 가공식품 도매업",
+        "BCCODE": "512295",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "생활용 섬유 및 실 도매업",
+        "BCCODE": "513111",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "커튼 및 침구용품 도매업",
+        "BCCODE": "513112",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "커튼 및 침구용품 도매업",
+        "BCCODE": "513113",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 생활용 섬유 및 직물 제품 도매업",
+        "BCCODE": "513119",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "남녀용 겉옷 및 셔츠 도매업",
+        "BCCODE": "513121",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "남녀용 겉옷 및 셔츠 도매업",
+        "BCCODE": "513130",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "유아용 의류 도매업",
+        "BCCODE": "513131",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "속옷 및 잠옷 도매업",
+        "BCCODE": "513132",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "신발 도매업",
+        "BCCODE": "513141",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가죽 및 모피 제품 도매업",
+        "BCCODE": "513150",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의복 액세서리 및 모조 장신구 도매업",
+        "BCCODE": "513191",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "생활용 가구 도매업",
+        "BCCODE": "513211",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가전제품 및 부품 도매업",
+        "BCCODE": "513221",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "생활용 유리ㆍ요업ㆍ목재ㆍ금속 제품 및 날붙이 도매업",
+        "BCCODE": "513230",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 기계 및 장비 도매업",
+        "BCCODE": "513231",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "전구, 램프 및 조명장치 도매업",
+        "BCCODE": "513241",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "악기 도매업",
+        "BCCODE": "513250",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음반 및 비디오물 도매업",
+        "BCCODE": "513253",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 생활용 섬유 및 직물 제품 도매업",
+        "BCCODE": "513261",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "벽지 및 장판류 도매업",
+        "BCCODE": "513263",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "생활용 유리ㆍ요업ㆍ목재ㆍ금속 제품 및 날붙이 도매업",
+        "BCCODE": "513271",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "생활용 유리ㆍ요업ㆍ목재ㆍ금속 제품 및 날붙이 도매업",
+        "BCCODE": "513272",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "생활용 가구 도매업",
+        "BCCODE": "513290",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가전제품 및 부품 도매업",
+        "BCCODE": "513291",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "생활용 유리ㆍ요업ㆍ목재ㆍ금속 제품 및 날붙이 도매업",
+        "BCCODE": "513295",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 비전기식 생활용 기기 및 기구 도매업",
+        "BCCODE": "513296",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자전거 및 기타 운송장비 도매업",
+        "BCCODE": "513297",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 상품 전문 도매업",
+        "BCCODE": "513298",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의약품 도매업",
+        "BCCODE": "513311",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의약품 도매업",
+        "BCCODE": "513312",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의료용품 도매업",
+        "BCCODE": "513313",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "화장품 및 화장용품 도매업",
+        "BCCODE": "513320",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "비누 및 세정제 도매업",
+        "BCCODE": "513330",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "생활용 포장 및 위생용품, 봉투 및 유사 제품 도매업",
+        "BCCODE": "513410",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "종이 원지, 판지, 종이상자 도매업",
+        "BCCODE": "513414",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 상품 전문 도매업",
+        "BCCODE": "513415",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "서적, 잡지 및 기타 인쇄물 도매업",
+        "BCCODE": "513421",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "문구용품, 회화용품, 사무용품 도매업",
+        "BCCODE": "513430",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "안경, 사진장비 및 광학용품 도매업",
+        "BCCODE": "513911",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "안경, 사진장비 및 광학용품 도매업",
+        "BCCODE": "513912",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "안경, 사진장비 및 광학용품 도매업",
+        "BCCODE": "513913",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의복 액세서리 및 모조 장신구 도매업",
+        "BCCODE": "513920",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "장난감 및 취미, 오락용품 도매업",
+        "BCCODE": "513921",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "시계 및 귀금속 제품 도매업",
+        "BCCODE": "513931",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "시계 및 귀금속 제품 도매업",
+        "BCCODE": "513933",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "시계 및 귀금속 제품 도매업",
+        "BCCODE": "513934",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "운동 및 경기용품 도매업",
+        "BCCODE": "513941",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "운동 및 경기용품 도매업",
+        "BCCODE": "513942",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "장난감 및 취미, 오락용품 도매업",
+        "BCCODE": "513945",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가방 및 보호용 케이스 도매업",
+        "BCCODE": "513950",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자전거 및 기타 운송장비 도매업",
+        "BCCODE": "513960",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의복 액세서리 및 모조 장신구 도매업",
+        "BCCODE": "513991",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 생활용품 도매업",
+        "BCCODE": "513992",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "고체 연료 및 관련제품 도매업",
+        "BCCODE": "514111",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "고체 연료 및 관련제품 도매업",
+        "BCCODE": "514112",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "액체 연료 및 관련제품 도매업",
+        "BCCODE": "514121",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 상품 전문 도매업",
+        "BCCODE": "514122",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기체 연료 및 관련제품 도매업",
+        "BCCODE": "514130",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "1차 금속제품 도매업",
+        "BCCODE": "514210",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "1차 금속제품 도매업",
+        "BCCODE": "514220",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "1차 금속제품 도매업",
+        "BCCODE": "514232",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "1차 금속제품 도매업",
+        "BCCODE": "514239",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "1차 금속제품 도매업",
+        "BCCODE": "514240",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "금속광물 도매업",
+        "BCCODE": "514250",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "1차 금속제품 도매업",
+        "BCCODE": "514291",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "1차 금속제품 도매업",
+        "BCCODE": "514292",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "원목 및 건축관련 목제품 도매업",
+        "BCCODE": "514312",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "골재, 벽돌 및 시멘트 도매업",
+        "BCCODE": "514320",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "유리 및 창호 도매업",
+        "BCCODE": "514321",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "골재, 벽돌 및 시멘트 도매업",
+        "BCCODE": "514330",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "도료 도매업",
+        "BCCODE": "514350",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "철물, 금속 파스너 및 수공구 도매업",
+        "BCCODE": "514361",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "배관 및 냉ㆍ난방장치 도매업",
+        "BCCODE": "514366",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 건축자재 도매업",
+        "BCCODE": "514370",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "골재, 벽돌 및 시멘트 도매업",
+        "BCCODE": "514380",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 건축자재 도매업",
+        "BCCODE": "514392",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 건축자재 도매업",
+        "BCCODE": "514393",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 화학 물질 및 화학제품 도매업",
+        "BCCODE": "514911",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 화학 물질 및 화학제품 도매업",
+        "BCCODE": "514912",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "플라스틱 물질 및 합성고무 도매업",
+        "BCCODE": "514916",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 화학 물질 및 화학제품 도매업",
+        "BCCODE": "514919",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "염료, 안료 및 관련제품 도매업",
+        "BCCODE": "514920",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "비료 및 농약 도매업",
+        "BCCODE": "514930",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "비료 및 농약 도매업",
+        "BCCODE": "514940",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "플라스틱 물질 및 합성고무 도매업",
+        "BCCODE": "514950",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "방직용 섬유 및 실 도매업",
+        "BCCODE": "514961",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "직물 도매업",
+        "BCCODE": "514969",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "재생용 재료 수집 및 판매업",
+        "BCCODE": "514971",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 상품 전문 도매업",
+        "BCCODE": "514990",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 기계 및 장비 도매업",
+        "BCCODE": "515010",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "농림업용 기계 및 장비 도매업",
+        "BCCODE": "515020",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "건설ㆍ광업용 기계 및 장비 도매업",
+        "BCCODE": "515030",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 기계 및 장비 도매업",
+        "BCCODE": "515031",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "공작용 기계 및 장비 도매업",
+        "BCCODE": "515040",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "컴퓨터 및 주변장치, 소프트웨어 도매업",
+        "BCCODE": "515050",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "사무용 가구 및 기기 도매업",
+        "BCCODE": "515051",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "통신ㆍ방송장비 및 부품 도매업",
+        "BCCODE": "515060",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "전기용 기계ㆍ장비 및 관련 기자재 도매업",
+        "BCCODE": "515070",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "전지 및 케이블 도매업",
+        "BCCODE": "515074",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의료 기기 도매업",
+        "BCCODE": "515080",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "정밀 기기 및 과학 기기 도매업",
+        "BCCODE": "515081",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 산업용 기계 및 장비 도매업",
+        "BCCODE": "515090",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자전거 및 기타 운송장비 도매업",
+        "BCCODE": "515093",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "수송용 운송장비 도매업",
+        "BCCODE": "515094",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "상품 종합 도매업",
+        "BCCODE": "519111",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "상품 종합 도매업",
+        "BCCODE": "519112",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "상품 종합 도매업",
+        "BCCODE": "519113",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "상품 종합 도매업",
+        "BCCODE": "519910",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "장난감 및 취미, 오락용품 도매업",
+        "BCCODE": "519991",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 상품 전문 도매업",
+        "BCCODE": "519992",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "슈퍼마켓",
+        "BCCODE": "521100",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "백화점",
+        "BCCODE": "521910",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 대형 종합 소매업",
+        "BCCODE": "521911",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "대형 마트",
+        "BCCODE": "521912",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "면세점",
+        "BCCODE": "521913",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 종합 소매업",
+        "BCCODE": "521991",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "체인화 편의점",
+        "BCCODE": "521992",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "곡물, 곡분 및 가축 사료 소매업",
+        "BCCODE": "522011",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "곡물, 곡분 및 가축 사료 소매업",
+        "BCCODE": "522012",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "육류 소매업",
+        "BCCODE": "522020",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "신선, 냉동 및 기타 수산물 소매업",
+        "BCCODE": "522031",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "건어물 및 젓갈류 소매업",
+        "BCCODE": "522039",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "채소, 과실 및 뿌리작물 소매업",
+        "BCCODE": "522040",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "채소, 과실 및 뿌리작물 소매업",
+        "BCCODE": "522050",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "빵류, 과자류 및 당류 소매업",
+        "BCCODE": "522061",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "빵류, 과자류 및 당류 소매업",
+        "BCCODE": "522062",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 식료품 소매업",
+        "BCCODE": "522063",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 음ㆍ식료품 위주 종합 소매업",
+        "BCCODE": "522071",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "담배 소매업",
+        "BCCODE": "522080",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 가정용품 소매업",
+        "BCCODE": "522081",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "복권 발행 및 판매업",
+        "BCCODE": "522082",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "건강 보조식품 소매업",
+        "BCCODE": "522091",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 상품 전문 소매업",
+        "BCCODE": "522092",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음료 소매업",
+        "BCCODE": "522093",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음료 소매업",
+        "BCCODE": "522094",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음료 소매업",
+        "BCCODE": "522095",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 식료품 소매업",
+        "BCCODE": "522096",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음료 소매업",
+        "BCCODE": "522098",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음료 소매업",
+        "BCCODE": "522099",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "건강 보조식품 소매업",
+        "BCCODE": "522101",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 상품 전문 소매업",
+        "BCCODE": "522105",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "조리 반찬류 소매업",
+        "BCCODE": "522109",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의약품 및 의료용품 소매업",
+        "BCCODE": "523111",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의약품 및 의료용품 소매업",
+        "BCCODE": "523114",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의약품 및 의료용품 소매업",
+        "BCCODE": "523116",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의료용 기구 소매업",
+        "BCCODE": "523120",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "화장품, 비누 및 방향제 소매업",
+        "BCCODE": "523131",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "방문 판매업",
+        "BCCODE": "523132",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "섬유 원단, 실 및 기타 섬유제품 소매업",
+        "BCCODE": "523211",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "섬유 원단, 실 및 기타 섬유제품 소매업",
+        "BCCODE": "523214",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "속옷 및 잠옷 소매업",
+        "BCCODE": "523221",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "유아용 의류 소매업",
+        "BCCODE": "523223",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "셔츠 및 블라우스 소매업",
+        "BCCODE": "523231",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "남자용 겉옷 소매업",
+        "BCCODE": "523233",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "여자용 겉옷 소매업",
+        "BCCODE": "523234",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "한복 소매업",
+        "BCCODE": "523235",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가죽 및 모피 의복 소매업",
+        "BCCODE": "523236",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 의복 소매업",
+        "BCCODE": "523237",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "신발 소매업",
+        "BCCODE": "523241",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "신발 소매업",
+        "BCCODE": "523242",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의복 액세서리 및 모조 장신구 소매업",
+        "BCCODE": "523252",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가방 및 기타 가죽제품 소매업",
+        "BCCODE": "523260",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "섬유 원단, 실 및 기타 섬유제품 소매업",
+        "BCCODE": "523291",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의복 액세서리 및 모조 장신구 소매업",
+        "BCCODE": "523292",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가구 소매업",
+        "BCCODE": "523311",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가구 소매업",
+        "BCCODE": "523312",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가구 소매업",
+        "BCCODE": "523314",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가전제품 소매업",
+        "BCCODE": "523321",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "통신기기 소매업",
+        "BCCODE": "523323",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가전제품 소매업",
+        "BCCODE": "523330",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가구 소매업",
+        "BCCODE": "523331",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "주방용품 및 가정용 유리, 요업제품 소매업",
+        "BCCODE": "523332",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "악기 소매업",
+        "BCCODE": "523341",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "악기 소매업",
+        "BCCODE": "523349",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "전기용품 및 조명장치 소매업",
+        "BCCODE": "523352",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가정용 직물제품 소매업",
+        "BCCODE": "523361",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가정용 직물제품 소매업",
+        "BCCODE": "523363",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 가정용품 소매업",
+        "BCCODE": "523370",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가전제품 소매업",
+        "BCCODE": "523390",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 가정용품 소매업",
+        "BCCODE": "523391",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "철물 및 난방용구 소매업",
+        "BCCODE": "523411",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "철물 및 난방용구 소매업",
+        "BCCODE": "523412",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "공구 소매업",
+        "BCCODE": "523413",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "페인트, 창호 및 기타 건설자재 소매업",
+        "BCCODE": "523421",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "주방용품 및 가정용 유리, 요업제품 소매업",
+        "BCCODE": "523422",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "페인트, 창호 및 기타 건설자재 소매업",
+        "BCCODE": "523491",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "페인트, 창호 및 기타 건설자재 소매업",
+        "BCCODE": "523492",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "페인트, 창호 및 기타 건설자재 소매업",
+        "BCCODE": "523494",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "페인트, 창호 및 기타 건설자재 소매업",
+        "BCCODE": "523499",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "서적, 신문 및 잡지류 소매업",
+        "BCCODE": "523511",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "문구용품 및 회화용품 소매업",
+        "BCCODE": "523520",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "서적, 신문 및 잡지류 소매업",
+        "BCCODE": "523521",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "컴퓨터 및 주변장치, 소프트웨어 소매업",
+        "BCCODE": "523531",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "사무용 기기 소매업",
+        "BCCODE": "523532",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "안경 및 렌즈 소매업",
+        "BCCODE": "523541",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "사진기 및 사진용품 소매업",
+        "BCCODE": "523550",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 광학 및 정밀 기기 소매업",
+        "BCCODE": "523552",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가정용 고체 연료 소매업",
+        "BCCODE": "523611",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가정용 고체 연료 소매업",
+        "BCCODE": "523612",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가정용 고체 연료 소매업",
+        "BCCODE": "523619",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가정용 액체 연료 소매업",
+        "BCCODE": "523621",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "가정용 가스 연료 소매업",
+        "BCCODE": "523630",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "벽지, 마루덮개 및 장판류 소매업",
+        "BCCODE": "523910",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "시계 및 귀금속 소매업",
+        "BCCODE": "523921",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "시계 및 귀금속 소매업",
+        "BCCODE": "523922",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "시계 및 귀금속 소매업",
+        "BCCODE": "523923",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "운동 및 경기용품 소매업",
+        "BCCODE": "523931",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "운동 및 경기용품 소매업",
+        "BCCODE": "523932",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 의복 소매업",
+        "BCCODE": "523935",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 의복 소매업",
+        "BCCODE": "523936",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "게임용구, 인형 및 장난감 소매업",
+        "BCCODE": "523940",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "예술품 및 골동품 소매업",
+        "BCCODE": "523951",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "예술품 및 골동품 소매업",
+        "BCCODE": "523952",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 상품 전문 소매업",
+        "BCCODE": "523954",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기념품, 관광 민예품 및 장식용품 소매업",
+        "BCCODE": "523961",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자전거 및 기타 운송장비 소매업",
+        "BCCODE": "523970",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "음반 및 비디오물 소매업",
+        "BCCODE": "523980",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 가정용품 소매업",
+        "BCCODE": "523981",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 가정용품 소매업",
+        "BCCODE": "523982",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "문구용품 및 회화용품 소매업",
+        "BCCODE": "523983",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 상품 전문 소매업",
+        "BCCODE": "523984",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 상품 전문 소매업",
+        "BCCODE": "523985",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 상품 전문 소매업",
+        "BCCODE": "523986",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "화초 및 식물 소매업",
+        "BCCODE": "523987",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "화초 및 식물 소매업",
+        "BCCODE": "523988",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 여행 보조 및 예약 서비스업",
+        "BCCODE": "523990",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "가방 및 기타 가죽제품 소매업",
+        "BCCODE": "523993",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 상품 전문 소매업",
+        "BCCODE": "523994",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 상품 전문 소매업",
+        "BCCODE": "523995",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "애완용 동물 및 관련용품 소매업",
+        "BCCODE": "523996",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 상품 전문 소매업",
+        "BCCODE": "523999",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "의복 액세서리 및 모조 장신구 소매업",
+        "BCCODE": "524000",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "공구 소매업",
+        "BCCODE": "524001",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "중고 가구 소매업",
+        "BCCODE": "524010",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 중고 상품 소매업",
+        "BCCODE": "524020",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 중고 상품 소매업",
+        "BCCODE": "524091",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "중고 가전제품 및 통신장비 소매업",
+        "BCCODE": "524092",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 중고 상품 소매업",
+        "BCCODE": "524093",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "전자상거래 소매업",
+        "BCCODE": "525101",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "기타 통신 판매업",
+        "BCCODE": "525102",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "전자상거래 소매 중개업",
+        "BCCODE": "525103",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "SNS마켓",
+        "BCCODE": "525104",
+        "BCBIZTYPE": ""
+    },
+    {
+        "BCSEA2": "방문 판매업",
+        "BCCODE": "525200",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "계약배달 판매업",
+        "BCCODE": "525300",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "자동 판매기 운영업",
+        "BCCODE": "525910",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "노점 및 유사 이동 소매업",
+        "BCCODE": "525911",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "그 외 기타 무점포 소매업",
+        "BCCODE": "525912",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "호텔업",
+        "BCCODE": "551001",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "여관업",
+        "BCCODE": "551002",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "청소년 수련시설 운영업",
+        "BCCODE": "551003",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "휴양 콘도 운영업",
+        "BCCODE": "551004",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "민박업",
+        "BCCODE": "551005",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "기타 일반 및 생활 숙박시설 운영업",
+        "BCCODE": "551006",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "숙박공유업",
+        "BCCODE": "551007",
+        "BCBIZTYPE": ""
+    },
+    {
+        "BCSEA2": "여관업",
+        "BCCODE": "551009",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "휴양 콘도 운영업",
+        "BCCODE": "551010",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "기타 일반 및 생활 숙박시설 운영업",
+        "BCCODE": "551015",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "기숙사 및 고시원 운영업",
+        "BCCODE": "551016",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "그 외 기타 숙박업",
+        "BCCODE": "551017",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "한식 일반 음식점업",
+        "BCCODE": "552101",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "중식 음식점업",
+        "BCCODE": "552102",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "일식 음식점업",
+        "BCCODE": "552103",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "서양식 음식점업",
+        "BCCODE": "552104",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "출장 음식 서비스업",
+        "BCCODE": "552105",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "치킨 전문점",
+        "BCCODE": "552107",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "김밥 및 기타 간이 음식점업",
+        "BCCODE": "552108",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "기관 구내식당업",
+        "BCCODE": "552109",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "한식 면 요리 전문점",
+        "BCCODE": "552114",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "한식 육류 요리 전문점",
+        "BCCODE": "552115",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "한식 해산물 요리 전문점",
+        "BCCODE": "552116",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "기타 외국식 음식점업",
+        "BCCODE": "552117",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "피자, 햄버거, 샌드위치 및 유사 음식점업",
+        "BCCODE": "552118",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "김밥 및 기타 간이 음식점업",
+        "BCCODE": "552119",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "간이 음식 포장 판매 전문점",
+        "BCCODE": "552123",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "일반 유흥 주점업",
+        "BCCODE": "552201",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "일반 유흥 주점업",
+        "BCCODE": "552202",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "무도 유흥 주점업",
+        "BCCODE": "552203",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "일반 유흥 주점업",
+        "BCCODE": "552204",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "생맥주 전문점",
+        "BCCODE": "552205",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "일반 유흥 주점업",
+        "BCCODE": "552206",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "기타 주점업",
+        "BCCODE": "552207",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "기타 주점업",
+        "BCCODE": "552208",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "기타 주점업",
+        "BCCODE": "552209",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "기타 주점업",
+        "BCCODE": "552210",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "제과점업",
+        "BCCODE": "552301",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "커피 전문점",
+        "BCCODE": "552303",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "간이 음식 포장 판매 전문점",
+        "BCCODE": "552305",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "기타 비알코올 음료점업",
+        "BCCODE": "552307",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "이동 음식점업",
+        "BCCODE": "552308",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "피자, 햄버거, 샌드위치 및 유사 음식점업",
+        "BCCODE": "552309",
+        "BCBIZTYPE": "숙박 및 음식점업"
+    },
+    {
+        "BCSEA2": "도시철도 운송업",
+        "BCCODE": "601000",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "철도 여객 운송업",
+        "BCCODE": "601001",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "철도 화물 운송업",
+        "BCCODE": "601002",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "시외버스 운송업",
+        "BCCODE": "602101",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "시외버스 운송업",
+        "BCCODE": "602102",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "시내버스 운송업",
+        "BCCODE": "602103",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "기타 도시 정기 육상 여객 운송업",
+        "BCCODE": "602104",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "기타 도시 정기 육상 여객 운송업",
+        "BCCODE": "602109",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "택시 운송업",
+        "BCCODE": "602201",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "택시 운송업",
+        "BCCODE": "602203",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "시내버스 운송업",
+        "BCCODE": "602204",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "전세버스 운송업",
+        "BCCODE": "602205",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "택시 운송업",
+        "BCCODE": "602206",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "기타 부정기 여객 육상 운송업",
+        "BCCODE": "602209",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "용달 화물 자동차 운송업",
+        "BCCODE": "602301",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "일반 화물 자동차 운송업",
+        "BCCODE": "602302",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "일반 화물 자동차 운송업",
+        "BCCODE": "602303",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "일반 화물 자동차 운송업",
+        "BCCODE": "602304",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "일반 화물 자동차 운송업",
+        "BCCODE": "602305",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "특수 여객 자동차 운송업",
+        "BCCODE": "602306",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "용달 화물 자동차 운송업",
+        "BCCODE": "602307",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "용달 화물 자동차 운송업",
+        "BCCODE": "602308",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "화물 운송 중개, 대리 및 관련 서비스업",
+        "BCCODE": "602309",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "개별 화물 자동차 운송업",
+        "BCCODE": "602310",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "기타 도로 화물 운송업",
+        "BCCODE": "602313",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "파이프라인 운송업",
+        "BCCODE": "603000",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "내항 여객 운송업",
+        "BCCODE": "611001",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "외항 화물 운송업",
+        "BCCODE": "611002",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "내항 화물 운송업",
+        "BCCODE": "611003",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "기타 해상 운송업",
+        "BCCODE": "611004",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "외항 여객 운송업",
+        "BCCODE": "611005",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "내륙 수상 여객 및 화물 운송업",
+        "BCCODE": "612000",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "항만 내 여객 운송업",
+        "BCCODE": "612001",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "기타 내륙 수상 운송업",
+        "BCCODE": "612002",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "수상 화물 취급업",
+        "BCCODE": "612003",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "항공 여객 운송업",
+        "BCCODE": "621000",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "항공 화물 운송업",
+        "BCCODE": "621001",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "항공 및 육상 화물 취급업",
+        "BCCODE": "630101",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "수상 화물 취급업",
+        "BCCODE": "630102",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "일반 창고업",
+        "BCCODE": "630201",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "냉장 및 냉동 창고업",
+        "BCCODE": "630202",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "농산물 창고업",
+        "BCCODE": "630203",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "위험 물품 보관업",
+        "BCCODE": "630204",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "기타 보관 및 창고업",
+        "BCCODE": "630205",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "철도 운송 지원 서비스업",
+        "BCCODE": "630301",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "여객 자동차 터미널 운영업",
+        "BCCODE": "630302",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "주차장 운영업",
+        "BCCODE": "630303",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "자동차 임대업(렌트카)",
+        "BCCODE": "630304",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "물류 터미널 운영업",
+        "BCCODE": "630305",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "기타 육상 운송지원 서비스업",
+        "BCCODE": "630309",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "도로 및 관련시설 운영업",
+        "BCCODE": "630311",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "기타 수상 운송 지원 서비스업",
+        "BCCODE": "630401",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "기타 수상 운송 지원 서비스업",
+        "BCCODE": "630402",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "기타 수상 운송 지원 서비스업",
+        "BCCODE": "630403",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "항구 및 기타 해상 터미널 운영업",
+        "BCCODE": "630405",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "기타 항공 운송지원 서비스업",
+        "BCCODE": "630500",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "공항 운영업",
+        "BCCODE": "630501",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "여행사업",
+        "BCCODE": "630600",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "기타 여행 보조 및 예약 서비스업",
+        "BCCODE": "630601",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "시내버스 운송업",
+        "BCCODE": "630701",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "일반 화물 자동차 운송업",
+        "BCCODE": "630702",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "택배업",
+        "BCCODE": "630901",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "통관 대리 및 관련서비스업",
+        "BCCODE": "630902",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "화물 포장, 검수 및 계량 서비스업",
+        "BCCODE": "630903",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "늘찬 배달업",
+        "BCCODE": "630904",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "화물 포장, 검수 및 계량 서비스업",
+        "BCCODE": "630905",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 운송관련 서비스업",
+        "BCCODE": "630909",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "중앙은행",
+        "BCCODE": "641100",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "공영 우편업",
+        "BCCODE": "641200",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "택배업",
+        "BCCODE": "641201",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "무선 및 위성 통신업",
+        "BCCODE": "642001",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "통신 재판매업",
+        "BCCODE": "642002",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "그 외 기타 전기 통신업",
+        "BCCODE": "642003",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "포털 및 기타 인터넷 정보 매개 서비스업",
+        "BCCODE": "642004",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "유선 통신업",
+        "BCCODE": "642005",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "국내은행",
+        "BCCODE": "659201",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "신용조합",
+        "BCCODE": "659202",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "그 외 기타 여신 금융업",
+        "BCCODE": "659203",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "그 외 기타 여신 금융업",
+        "BCCODE": "659204",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "상호 저축은행 및 기타 저축기관",
+        "BCCODE": "659205",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "신용카드 및 할부 금융업",
+        "BCCODE": "659206",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "외국은행",
+        "BCCODE": "659207",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "금융 리스업",
+        "BCCODE": "659208",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "개발 금융기관",
+        "BCCODE": "659209",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "기타 금융 투자업",
+        "BCCODE": "659900",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 사업 지원 서비스업",
+        "BCCODE": "659901",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 금융업",
+        "BCCODE": "659902",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "신탁업 및 집합 투자업",
+        "BCCODE": "659903",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "그 외 기타 여신 금융업",
+        "BCCODE": "659904",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "기금 운영업",
+        "BCCODE": "659905",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "지주회사",
+        "BCCODE": "659906",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "생명보험업",
+        "BCCODE": "660100",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "재보험업",
+        "BCCODE": "660101",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "손해보험업",
+        "BCCODE": "660301",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "손해보험업",
+        "BCCODE": "660302",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "손해보험업",
+        "BCCODE": "660303",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "보증보험업",
+        "BCCODE": "660304",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "건강보험업",
+        "BCCODE": "660305",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "산업 재해 및 기타 사회보장보험업",
+        "BCCODE": "660306",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "개인 공제업",
+        "BCCODE": "660307",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "사업 공제업",
+        "BCCODE": "660308",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "연금업",
+        "BCCODE": "660309",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "그 외 기타 금융 지원 서비스업",
+        "BCCODE": "671201",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "증권 중개업",
+        "BCCODE": "671202",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "선물 중개업",
+        "BCCODE": "671203",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "그 외 기타 금융 지원 서비스업",
+        "BCCODE": "671900",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "금융시장 관리업",
+        "BCCODE": "671901",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "증권 발행, 관리, 보관 및 거래 지원 서비스업",
+        "BCCODE": "671902",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "투자 자문업 및 투자 일임업",
+        "BCCODE": "671903",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "보험 대리 및 중개업",
+        "BCCODE": "672000",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "기타 보험 및 연금관련 서비스업",
+        "BCCODE": "672001",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "주거용 건물 임대업",
+        "BCCODE": "701101",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "주거용 건물 임대업",
+        "BCCODE": "701102",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "주거용 건물 임대업(장기임대공동·단독주택)",
+        "BCCODE": "701103",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "주거용 건물 임대업(장기임대다가구주택)",
+        "BCCODE": "701104",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 임대업(점포, 자기땅)",
+        "BCCODE": "701201",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 임대업(점포, 타인땅)",
+        "BCCODE": "701202",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 임대업",
+        "BCCODE": "701203",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 임대업",
+        "BCCODE": "701204",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 임대업",
+        "BCCODE": "701300",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "주거용 건물 임대업",
+        "BCCODE": "701301",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "기타 부동산 임대업",
+        "BCCODE": "701400",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 임대업(자기땅)",
+        "BCCODE": "701501",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 임대업(타인땅)",
+        "BCCODE": "701502",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "기타 부동산 임대업(자기땅)",
+        "BCCODE": "701503",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "기타 부동산 임대업(타인땅)",
+        "BCCODE": "701504",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "무형 재산권 임대업",
+        "BCCODE": "701600",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "화장터 운영, 묘지 분양 및 관리업",
+        "BCCODE": "701700",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "부동산 중개 및 대리업",
+        "BCCODE": "702001",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "부동산 감정 평가업",
+        "BCCODE": "702002",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 부동산 관리업",
+        "BCCODE": "702003",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "부동산 투자 자문업",
+        "BCCODE": "702004",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "주거용 부동산 관리업",
+        "BCCODE": "702005",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "주거용 건물 개발 및 공급업",
+        "BCCODE": "703011",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "주거용 건물 개발 및 공급업",
+        "BCCODE": "703012",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 개발 및 공급업",
+        "BCCODE": "703014",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "기타 부동산 개발 및 공급업",
+        "BCCODE": "703015",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 개발 및 공급업",
+        "BCCODE": "703016",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "기타 부동산 개발 및 공급업",
+        "BCCODE": "703017",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 개발 및 공급업",
+        "BCCODE": "703021",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 개발 및 공급업",
+        "BCCODE": "703022",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 개발 및 공급업",
+        "BCCODE": "703023",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 개발 및 공급업",
+        "BCCODE": "703024",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "기타 산업용 기계 및 장비 임대업",
+        "BCCODE": "712100",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "기타 운송장비 임대업",
+        "BCCODE": "712200",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "기타 산업용 기계 및 장비 임대업",
+        "BCCODE": "712201",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "건설 및 토목공사용 기계ㆍ장비 임대업",
+        "BCCODE": "712202",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "컴퓨터 및 사무용 기계ㆍ장비 임대업",
+        "BCCODE": "712203",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 개인 및 가정용품 임대업",
+        "BCCODE": "713001",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "스포츠 및 레크리에이션 용품 임대업",
+        "BCCODE": "713002",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "기타 산업용 기계 및 장비 임대업",
+        "BCCODE": "713003",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "음반 및 비디오물 임대업",
+        "BCCODE": "713004",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "서적 임대업",
+        "BCCODE": "713005",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "의류 임대업",
+        "BCCODE": "713006",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "컴퓨터 시스템 통합 자문 및 구축 서비스업",
+        "BCCODE": "721000",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "컴퓨터시설 관리업",
+        "BCCODE": "721001",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "응용 소프트웨어 개발 및 공급업",
+        "BCCODE": "722000",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "유선 온라인 게임 소프트웨어 개발 및 공급업",
+        "BCCODE": "722001",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "모바일 게임 소프트웨어 개발 및 공급업",
+        "BCCODE": "722002",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "기타 게임 소프트웨어 개발 및 공급업",
+        "BCCODE": "722003",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "시스템 소프트웨어 개발 및 공급업",
+        "BCCODE": "722004",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "컴퓨터 프로그래밍 서비스업",
+        "BCCODE": "722005",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "자료 처리업",
+        "BCCODE": "723000",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "호스팅 및 관련 서비스업",
+        "BCCODE": "723001",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "데이터베이스 및 온라인 정보 제공업",
+        "BCCODE": "724000",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "뉴스 제공업",
+        "BCCODE": "724001",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "그 외 기타 정보 서비스업",
+        "BCCODE": "724002",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "컴퓨터 및 주변 기기 수리업",
+        "BCCODE": "725000",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "기타 정보 기술 및 컴퓨터 운영 관련 서비스업",
+        "BCCODE": "729000",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "기타 인문 및 사회과학 연구개발업",
+        "BCCODE": "730000",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "물리, 화학 및 생물학 연구개발업",
+        "BCCODE": "730001",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "농림수산학 및 수의학 연구개발업",
+        "BCCODE": "730002",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "의학 및 약학 연구개발업",
+        "BCCODE": "730003",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "기타 자연과학 연구개발업",
+        "BCCODE": "730004",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "전기ㆍ전자공학 연구개발업",
+        "BCCODE": "730005",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "기타 공학 연구개발업",
+        "BCCODE": "730006",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "자연과학 및 공학 융합 연구개발업",
+        "BCCODE": "730007",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "경제 및 경영학 연구개발업",
+        "BCCODE": "730008",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "변호사업",
+        "BCCODE": "741101",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "변리사업",
+        "BCCODE": "741104",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "기타 법무관련 서비스업(공증인)",
+        "BCCODE": "741106",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "법무사업",
+        "BCCODE": "741107",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "기타 법무관련 서비스업(집행관)",
+        "BCCODE": "741108",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "기타 법무관련 서비스업",
+        "BCCODE": "741109",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "기타 법무관련 서비스업(노무사)",
+        "BCCODE": "741110",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "기타 법무관련 서비스업",
+        "BCCODE": "741114",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "세무사업",
+        "BCCODE": "741201",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "공인회계사업",
+        "BCCODE": "741202",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "세무사업(기장대리)",
+        "BCCODE": "741203",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "공인회계사업(기장대리)",
+        "BCCODE": "741204",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "시장 조사 및 여론 조사업",
+        "BCCODE": "741300",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "경영 컨설팅업",
+        "BCCODE": "741400",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "경영 컨설팅업(경영지도사)",
+        "BCCODE": "741401",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "직원 훈련기관",
+        "BCCODE": "741402",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "공공관계 서비스업",
+        "BCCODE": "741403",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "측량업",
+        "BCCODE": "742101",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "지도 제작업",
+        "BCCODE": "742102",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "건축 설계 및 관련 서비스업",
+        "BCCODE": "742103",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "기타 엔지니어링 서비스업",
+        "BCCODE": "742104",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "건축 설계 및 관련 서비스업(건축사)",
+        "BCCODE": "742105",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "건물 및 토목 엔지니어링 서비스업(기술사)",
+        "BCCODE": "742106",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "도시 계획 및 조경 설계 서비스업",
+        "BCCODE": "742107",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "제도업",
+        "BCCODE": "742108",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "건물 및 토목 엔지니어링 서비스업",
+        "BCCODE": "742109",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "환경 관련 엔지니어링 서비스업",
+        "BCCODE": "742110",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "지질 조사 및 탐사업",
+        "BCCODE": "742113",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "기타 기술 시험, 검사 및 분석업",
+        "BCCODE": "742201",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "기타 기술 시험, 검사 및 분석업(기술지도사)",
+        "BCCODE": "742202",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "물질 성분 검사 및 분석업",
+        "BCCODE": "742203",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "옥외 및 전시 광고업",
+        "BCCODE": "743001",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "광고 대행업",
+        "BCCODE": "743002",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "광고 매체 판매업",
+        "BCCODE": "743003",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "광고물 문안, 도안, 설계 등 작성업",
+        "BCCODE": "743004",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 광고 관련 서비스업",
+        "BCCODE": "743005",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "고용 알선업",
+        "BCCODE": "749100",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "임시 및 일용 인력 공급업",
+        "BCCODE": "749101",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "상용 인력 공급 및 인사관리 서비스업",
+        "BCCODE": "749102",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "경비 및 경호 서비스업",
+        "BCCODE": "749200",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "보안 시스템 서비스업",
+        "BCCODE": "749201",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "건축물 일반 청소업",
+        "BCCODE": "749300",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "하수 처리업",
+        "BCCODE": "749301",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "소독, 구충 및 방제 서비스업",
+        "BCCODE": "749302",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "조경관리 및 유지 서비스업",
+        "BCCODE": "749303",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "인물 사진 및 행사용 영상 촬영업",
+        "BCCODE": "749400",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 달리 분류되지 않은 개인 서비스업",
+        "BCCODE": "749401",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "상업용 사진 촬영업",
+        "BCCODE": "749402",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "사진 처리업",
+        "BCCODE": "749403",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "포장 및 충전업",
+        "BCCODE": "749500",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 사업 지원 서비스업",
+        "BCCODE": "749601",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 사업 지원 서비스업",
+        "BCCODE": "749602",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 사업 지원 서비스업",
+        "BCCODE": "749603",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 사업 지원 서비스업(기타임가공)",
+        "BCCODE": "749604",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 사업 지원 서비스업",
+        "BCCODE": "749609",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "문서 작성업",
+        "BCCODE": "749901",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "번역 및 통역 서비스업",
+        "BCCODE": "749902",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "사업 및 무형 재산권 중개업",
+        "BCCODE": "749903",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "손해 사정업",
+        "BCCODE": "749904",
+        "BCBIZTYPE": "금융 및 보험업"
+    },
+    {
+        "BCSEA2": "문서 작성업",
+        "BCCODE": "749905",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "통관 대리 및 관련서비스업",
+        "BCCODE": "749906",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "전시, 컨벤션 및 행사 대행업",
+        "BCCODE": "749907",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "복사업",
+        "BCCODE": "749909",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "시각 디자인업",
+        "BCCODE": "749910",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "매니저업",
+        "BCCODE": "749911",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "물품 감정, 계량 및 견본 추출업",
+        "BCCODE": "749912",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "신용 조사 및 추심 대행업",
+        "BCCODE": "749913",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "인테리어 디자인업",
+        "BCCODE": "749914",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "제품 디자인업",
+        "BCCODE": "749915",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "패션, 섬유류 및 기타 전문 디자인업",
+        "BCCODE": "749916",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 사업 지원 서비스업",
+        "BCCODE": "749921",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "섬유, 의복, 신발 및 가죽제품 중개업",
+        "BCCODE": "749927",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "도로 및 관련시설 운영업",
+        "BCCODE": "749930",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "무형 재산권 임대업",
+        "BCCODE": "749934",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "사업시설 유지ㆍ관리 서비스업",
+        "BCCODE": "749935",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "기타 사무 지원 서비스업",
+        "BCCODE": "749937",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "콜센터 및 텔레마케팅 서비스업",
+        "BCCODE": "749938",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 전문, 과학 및 기술 서비스업",
+        "BCCODE": "749939",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "재생용 재료 수집 및 판매업",
+        "BCCODE": "749940",
+        "BCBIZTYPE": "도매 및 소매업"
+    },
+    {
+        "BCSEA2": "사업 및 무형 재산권 중개업",
+        "BCCODE": "749941",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "기타 전문 서비스업",
+        "BCCODE": "749942",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "외국인학교",
+        "BCCODE": "804101",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "운전학원",
+        "BCCODE": "809001",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "기타 기술 및 직업 훈련학원",
+        "BCCODE": "809002",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "레크리에이션 교육기관",
+        "BCCODE": "809003",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "일반 교과학원",
+        "BCCODE": "809004",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "일반 교과학원",
+        "BCCODE": "809005",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 스포츠시설 운영업",
+        "BCCODE": "809006",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "일반 교과학원",
+        "BCCODE": "809007",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "음악학원",
+        "BCCODE": "809009",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "기타 기술 및 직업 훈련학원",
+        "BCCODE": "809010",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "운전학원",
+        "BCCODE": "809011",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "일반 교과학원",
+        "BCCODE": "809012",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "컴퓨터 학원",
+        "BCCODE": "809013",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "태권도 및 무술 교육기관",
+        "BCCODE": "809014",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "기타 스포츠 교육기관",
+        "BCCODE": "809015",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "온라인 교육학원",
+        "BCCODE": "809016",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "외국어학원",
+        "BCCODE": "809017",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "기타 교습학원",
+        "BCCODE": "809018",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "기원 운영업",
+        "BCCODE": "809019",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "미술학원",
+        "BCCODE": "809020",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "기타 예술학원",
+        "BCCODE": "809021",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 교육기관",
+        "BCCODE": "809022",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "입법기관",
+        "BCCODE": "841110",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "중앙 최고 집행기관",
+        "BCCODE": "841121",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "지방행정 집행기관",
+        "BCCODE": "841131",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "재정 및 경제정책 행정",
+        "BCCODE": "841141",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "기타 일반 공공 행정",
+        "BCCODE": "841190",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "정부기관 일반 보조 행정",
+        "BCCODE": "841200",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "교육 행정",
+        "BCCODE": "842110",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "문화 및 관광 행정",
+        "BCCODE": "842121",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "환경 행정",
+        "BCCODE": "842130",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "보건 및 복지 행정",
+        "BCCODE": "842140",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "기타 사회서비스 관리 행정",
+        "BCCODE": "842190",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "노동 행정",
+        "BCCODE": "842211",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "농림수산 행정",
+        "BCCODE": "842221",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "건설 및 운송 행정",
+        "BCCODE": "842231",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "우편 및 통신 행정",
+        "BCCODE": "842241",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "기타 산업 진흥 행정",
+        "BCCODE": "842291",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "외무 행정",
+        "BCCODE": "843100",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "국방 행정",
+        "BCCODE": "843200",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "법원",
+        "BCCODE": "844010",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "검찰",
+        "BCCODE": "844020",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "교도기관",
+        "BCCODE": "844030",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "경찰",
+        "BCCODE": "844040",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "소방서",
+        "BCCODE": "844050",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "기타 사법 및 공공 질서 행정",
+        "BCCODE": "844090",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "사회보장 행정",
+        "BCCODE": "845000",
+        "BCBIZTYPE": "공공 행정, 국방 및 사회보장 행정"
+    },
+    {
+        "BCSEA2": "유아 교육기관",
+        "BCCODE": "851100",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "요양병원",
+        "BCCODE": "851101",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "치과병원",
+        "BCCODE": "851102",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "한방병원",
+        "BCCODE": "851103",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "종합병원",
+        "BCCODE": "851113",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "일반병원",
+        "BCCODE": "851114",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "초등학교",
+        "BCCODE": "851200",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "일반의원",
+        "BCCODE": "851201",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "일반의원",
+        "BCCODE": "851202",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "일반의원",
+        "BCCODE": "851203",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "일반의원",
+        "BCCODE": "851204",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "일반의원",
+        "BCCODE": "851205",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "일반의원",
+        "BCCODE": "851206",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "일반의원",
+        "BCCODE": "851207",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "방사선 진단 및 병리 검사 의원",
+        "BCCODE": "851208",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "일반의원",
+        "BCCODE": "851209",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "치과의원",
+        "BCCODE": "851211",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "한의원",
+        "BCCODE": "851212",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "일반의원",
+        "BCCODE": "851219",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 보건업",
+        "BCCODE": "851901",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "유사 의료업",
+        "BCCODE": "851902",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "유사 의료업",
+        "BCCODE": "851903",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "유사 의료업",
+        "BCCODE": "851904",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "방사선 진단 및 병리 검사 의원",
+        "BCCODE": "851905",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 보건업",
+        "BCCODE": "851906",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 보건업",
+        "BCCODE": "851907",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "유사 의료업",
+        "BCCODE": "851908",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "방사선 진단 및 병리 검사 의원",
+        "BCCODE": "851909",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "앰뷸런스 서비스업",
+        "BCCODE": "851911",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "수의업",
+        "BCCODE": "852000",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "중학교",
+        "BCCODE": "852110",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "일반 고등학교",
+        "BCCODE": "852120",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "상업 및 정보산업 특성화 고등학교",
+        "BCCODE": "852210",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "공업 특성화 고등학교",
+        "BCCODE": "852220",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "기타 특성화 고등학교",
+        "BCCODE": "852290",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "전문대학",
+        "BCCODE": "853010",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "대학교",
+        "BCCODE": "853020",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "대학원",
+        "BCCODE": "853030",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "특수학교",
+        "BCCODE": "854100",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "대안학교",
+        "BCCODE": "854300",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "사회교육시설",
+        "BCCODE": "856400",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "공중 보건 의료업",
+        "BCCODE": "863000",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "노인 요양 복지시설 운영업",
+        "BCCODE": "871110",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "신체 부자유자 거주 복지시설 운영업",
+        "BCCODE": "871210",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "정신 질환, 정신 지체 및 약물 중독자 거주 복지시설 운영업",
+        "BCCODE": "871220",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "아동 및 부녀자 거주 복지시설 운영업",
+        "BCCODE": "871310",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 거주 복지시설 운영업",
+        "BCCODE": "871390",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "보육시설 운영업",
+        "BCCODE": "872100",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "직업 재활원 운영업",
+        "BCCODE": "872910",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "종합복지관 운영업",
+        "BCCODE": "872920",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "방문 복지서비스 제공업",
+        "BCCODE": "872930",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "사회복지 상담 서비스 제공업",
+        "BCCODE": "872940",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 비거주 복지 서비스업",
+        "BCCODE": "872990",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "지정 외 폐기물 수집, 운반업",
+        "BCCODE": "900100",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "지정 외 폐기물 처리업",
+        "BCCODE": "900101",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "방사성 폐기물 수집, 운반 및 처리업",
+        "BCCODE": "900102",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "지정 폐기물 수집, 운반업",
+        "BCCODE": "900103",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "건설 폐기물 수집, 운반업",
+        "BCCODE": "900104",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "지정 폐기물 처리업",
+        "BCCODE": "900105",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "건설 폐기물 처리업",
+        "BCCODE": "900106",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "하수 처리업",
+        "BCCODE": "900200",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "사람 분뇨 처리업",
+        "BCCODE": "900201",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "폐수 처리업",
+        "BCCODE": "900202",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "축산 분뇨 처리업",
+        "BCCODE": "900203",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "금속류 해체 및 선별업",
+        "BCCODE": "900300",
+        "BCBIZTYPE": "수도, 하수 및 폐기물 처리, 원료 재생업"
+    },
+    {
+        "BCSEA2": "산업설비, 운송장비 및 공공장소 청소업",
+        "BCCODE": "900900",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "영화, 비디오물 및 방송 프로그램 배급업",
+        "BCCODE": "921100",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "영화관 운영업",
+        "BCCODE": "921200",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "라디오 방송업",
+        "BCCODE": "921301",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "지상파 방송업",
+        "BCCODE": "921302",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "유선 방송업",
+        "BCCODE": "921303",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "방송 프로그램 제작업",
+        "BCCODE": "921304",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "위성 및 기타 방송업",
+        "BCCODE": "921305",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "프로그램 공급업",
+        "BCCODE": "921306",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "공연 기획업",
+        "BCCODE": "921401",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "무용 및 음악단체",
+        "BCCODE": "921402",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "연극단체",
+        "BCCODE": "921403",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "비주거용 건물 임대업",
+        "BCCODE": "921404",
+        "BCBIZTYPE": "부동산업"
+    },
+    {
+        "BCSEA2": "공연 및 제작관련 대리업",
+        "BCCODE": "921405",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 창작 및 예술관련 서비스업",
+        "BCCODE": "921406",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "기타 공연단체",
+        "BCCODE": "921407",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "광고 영화 및 비디오물 제작업",
+        "BCCODE": "921501",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "일반 영화 및 비디오물 제작업",
+        "BCCODE": "921502",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "영화, 비디오물 및 방송 프로그램 제작 관련 서비스업",
+        "BCCODE": "921503",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "애니메이션 영화 및 비디오물 제작업",
+        "BCCODE": "921504",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "미디어콘텐츠창작업",
+        "BCCODE": "921505",
+        "BCBIZTYPE": "정보서비스"
+    },
+    {
+        "BCSEA2": "공연시설 운영업",
+        "BCCODE": "921901",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "레크리에이션 교육기관",
+        "BCCODE": "921902",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "유원지 및 테마파크 운영업",
+        "BCCODE": "921903",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "무도장 운영업",
+        "BCCODE": "921904",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 개인 및 가정용품 수리업",
+        "BCCODE": "922101",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "기타 일반 기계 및 장비 수리업",
+        "BCCODE": "922102",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "전기ㆍ전자 및 정밀 기기 수리업",
+        "BCCODE": "922103",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "가전제품 수리업",
+        "BCCODE": "922104",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "의복 및 기타 가정용 직물제품 수리업",
+        "BCCODE": "922105",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "건설ㆍ광업용 기계 및 장비 수리업",
+        "BCCODE": "922106",
+        "BCBIZTYPE": "제조업"
+    },
+    {
+        "BCSEA2": "통신장비 수리업",
+        "BCCODE": "922107",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "가죽, 가방 및 신발 수리업",
+        "BCCODE": "922108",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "시계, 귀금속 및 악기 수리업",
+        "BCCODE": "922109",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "자동차 종합 수리업",
+        "BCCODE": "922201",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "자동차 전문 수리업",
+        "BCCODE": "922202",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "자동차 세차업",
+        "BCCODE": "922203",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "모터사이클 수리업",
+        "BCCODE": "922204",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "독서실 운영업",
+        "BCCODE": "923100",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "도서관 및 기록 보존소 운영업",
+        "BCCODE": "923101",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "박물관 운영업",
+        "BCCODE": "923200",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "사적지 관리 운영업",
+        "BCCODE": "923201",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "식물원 및 동물원 운영업",
+        "BCCODE": "923300",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "기타 유사 여가관련 서비스업",
+        "BCCODE": "923301",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 스포츠 서비스업",
+        "BCCODE": "924101",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 스포츠 서비스업",
+        "BCCODE": "924102",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "스포츠 클럽 운영업",
+        "BCCODE": "924103",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "실내 경기장 운영업",
+        "BCCODE": "924200",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "실외 경기장 운영업",
+        "BCCODE": "924201",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "경주장 및 동물 경기장 운영업",
+        "BCCODE": "924202",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "볼링장 운영업",
+        "BCCODE": "924302",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "골프장 운영업",
+        "BCCODE": "924303",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "스키장 운영업",
+        "BCCODE": "924304",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "체력 단련시설 운영업",
+        "BCCODE": "924305",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 스포츠시설 운영업",
+        "BCCODE": "924306",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "골프 연습장 운영업",
+        "BCCODE": "924307",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "골프 연습장 운영업",
+        "BCCODE": "924308",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "당구장 운영업",
+        "BCCODE": "924309",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 스포츠시설 운영업",
+        "BCCODE": "924310",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "수영장 운영업",
+        "BCCODE": "924311",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 스포츠시설 운영업",
+        "BCCODE": "924312",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "종합 스포츠시설 운영업",
+        "BCCODE": "924313",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 스포츠시설 운영업",
+        "BCCODE": "924314",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "녹음시설 운영업",
+        "BCCODE": "924901",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "기타 오락장 운영업",
+        "BCCODE": "924902",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "노래 연습장 운영업",
+        "BCCODE": "924903",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "기타 오락장 운영업",
+        "BCCODE": "924904",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "자연공원 운영업",
+        "BCCODE": "924905",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "복권 발행 및 판매업",
+        "BCCODE": "924906",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "전자 게임장 운영업",
+        "BCCODE": "924907",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "전자 게임장 운영업",
+        "BCCODE": "924908",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "컴퓨터 게임방 운영업",
+        "BCCODE": "924909",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "비디오물 감상실 운영업",
+        "BCCODE": "924910",
+        "BCBIZTYPE": "정보통신업"
+    },
+    {
+        "BCSEA2": "그 외 기타 분류 안된 오락관련 서비스업",
+        "BCCODE": "924911",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "전자 게임장 운영업",
+        "BCCODE": "924912",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "기타 오락장 운영업",
+        "BCCODE": "924913",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "낚시장 운영업",
+        "BCCODE": "924914",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "기타 수상오락 서비스업",
+        "BCCODE": "924915",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "체육 공원 및 유사 공원 운영업",
+        "BCCODE": "924916",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "기타 사행시설 관리 및 운영업",
+        "BCCODE": "924917",
+        "BCBIZTYPE": "예술, 스포츠 및 여가관련 서비스업"
+    },
+    {
+        "BCSEA2": "가정용 세탁업",
+        "BCCODE": "930100",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "산업용 세탁업",
+        "BCCODE": "930101",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "세탁물 공급업",
+        "BCCODE": "930102",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "이용업",
+        "BCCODE": "930201",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "두발 미용업",
+        "BCCODE": "930203",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "피부 미용업",
+        "BCCODE": "930205",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "기타 미용업",
+        "BCCODE": "930207",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "마사지업",
+        "BCCODE": "930208",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "체형 등 기타 신체 관리 서비스업",
+        "BCCODE": "930209",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "장례식장 및 장의관련 서비스업",
+        "BCCODE": "930301",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "화장터 운영, 묘지 분양 및 관리업",
+        "BCCODE": "930302",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "예식장업",
+        "BCCODE": "930901",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "욕탕업",
+        "BCCODE": "930902",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "의류 임대업",
+        "BCCODE": "930903",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "인물 사진 및 행사용 영상 촬영업",
+        "BCCODE": "930904",
+        "BCBIZTYPE": "전문, 과학 및 기술 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 달리 분류되지 않은 개인 서비스업",
+        "BCCODE": "930908",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "점술 및 유사 서비스업",
+        "BCCODE": "930909",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 달리 분류되지 않은 개인 서비스업",
+        "BCCODE": "930911",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "결혼 상담 및 준비 서비스업",
+        "BCCODE": "930912",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "개인 간병 및 유사 서비스업",
+        "BCCODE": "930913",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "노인 양로 복지시설 운영업",
+        "BCCODE": "930914",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "기타 교육지원 서비스업",
+        "BCCODE": "930915",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "탐정 및 조사 서비스업",
+        "BCCODE": "930916",
+        "BCBIZTYPE": "사업시설 관리, 사업 지원 및 임대 서비스업"
+    },
+    {
+        "BCSEA2": "기타 육상 운송지원 서비스업",
+        "BCCODE": "930917",
+        "BCBIZTYPE": "운수 및 창고업"
+    },
+    {
+        "BCSEA2": "애완 동물 장묘 및 보호 서비스업",
+        "BCCODE": "930919",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "교육관련 자문 및 평가업",
+        "BCCODE": "930921",
+        "BCBIZTYPE": "교육서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 달리 분류되지 않은 개인 서비스업",
+        "BCCODE": "930925",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "작가",
+        "BCCODE": "940100",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "화가 및 관련예술가",
+        "BCCODE": "940200",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "작곡가",
+        "BCCODE": "940301",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "배우,탤런트등",
+        "BCCODE": "940302",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "모델",
+        "BCCODE": "940303",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "가수",
+        "BCCODE": "940304",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "성악가 등",
+        "BCCODE": "940305",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "1인미디어콘텐츠창작자",
+        "BCCODE": "940306",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "연예보조서비스",
+        "BCCODE": "940500",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "자문,감독,지도료,고문료,교정료",
+        "BCCODE": "940600",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "바둑기사",
+        "BCCODE": "940901",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "꽃꽂이교사",
+        "BCCODE": "940902",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "학원강사,강사,과외교습자,재단사",
+        "BCCODE": "940903",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "직업운동가",
+        "BCCODE": "940904",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "유흥접객원 및 댄서",
+        "BCCODE": "940905",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "보험설계사",
+        "BCCODE": "940906",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "음료품배달원",
+        "BCCODE": "940907",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "서적외판원,학습지방문판매원,화장품외판원,정수기,자동차방문판매원,기타외판원",
+        "BCCODE": "940908",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "기타자영업",
+        "BCCODE": "940909",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "다단계판매원의후원수당",
+        "BCCODE": "940910",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "기타모집수당,채권회수수당",
+        "BCCODE": "940911",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "개인간병인",
+        "BCCODE": "940912",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "대리운전기사",
+        "BCCODE": "940913",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "골프장캐디",
+        "BCCODE": "940914",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "목욕관리사",
+        "BCCODE": "940915",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "행사도우미",
+        "BCCODE": "940916",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "심부름용역원",
+        "BCCODE": "940917",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "퀵서비스배달원",
+        "BCCODE": "940918",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "기타물품배달원",
+        "BCCODE": "940919",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인서비스"
+    },
+    {
+        "BCSEA2": "산업 단체",
+        "BCCODE": "941100",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "전문가 단체",
+        "BCCODE": "941200",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "노동조합",
+        "BCCODE": "942000",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "불교 단체",
+        "BCCODE": "949111",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "기독교 단체",
+        "BCCODE": "949121",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "천주교 단체",
+        "BCCODE": "949131",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "민족 종교 단체",
+        "BCCODE": "949141",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "천도교 단체",
+        "BCCODE": "949142",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "원불교 단체",
+        "BCCODE": "949143",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "기타 종교 단체",
+        "BCCODE": "949190",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "유교 단체",
+        "BCCODE": "949191",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "정치 단체",
+        "BCCODE": "949200",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "환경운동 단체",
+        "BCCODE": "949311",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "기타 시민운동 단체",
+        "BCCODE": "949390",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 협회 및 단체",
+        "BCCODE": "949900",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 협회 및 단체",
+        "BCCODE": "949901",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 협회 및 단체",
+        "BCCODE": "949902",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "그 외 기타 달리 분류되지 않은 개인 서비스업",
+        "BCCODE": "950000",
+        "BCBIZTYPE": "협회 및 단체, 수리 및 기타 개인 서비스업"
+    },
+    {
+        "BCSEA2": "가구 내 고용활동",
+        "BCCODE": "950001",
+        "BCBIZTYPE": "가구 내 고용활동 및 달리 분류되지 않은 자가 소비 생산활동"
+    },
+    {
+        "BCSEA2": "보육시설 운영업",
+        "BCCODE": "950002",
+        "BCBIZTYPE": "보건업 및 사회복지 서비스업"
+    },
+    {
+        "BCSEA2": "주한 외국 공관",
+        "BCCODE": "990010",
+        "BCBIZTYPE": "국제 및 외국기관"
+    },
+    {
+        "BCSEA2": "기타 국제 및 외국기관",
+        "BCCODE": "990090",
+        "BCBIZTYPE": "국제 및 외국기관"
+    }
+]
+

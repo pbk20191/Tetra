@@ -23,8 +23,10 @@ import Foundation
  - Does not support `Data` and `Date` in `PropertyList` cause `Data` and `Date` have no unique form in `JSONSerialization`
  - Drops `null` when `Decoding` cause `PropertyList` can't handle `null`
  
+    - Note: Decoding complex nested object could cause performance issue
  */
-public enum CodablePrimitive {
+@available(*, deprecated, message: "poor Decoding performance, migrate to your own Codable type")
+public enum CodablePrimitive: Sendable {
 
     case bool(Bool)
     case string(String)
@@ -34,10 +36,6 @@ public enum CodablePrimitive {
     case object([String:Self])
     
 }
-
-#if canImport(_Concurrency)
-extension CodablePrimitive: Sendable {}
-#endif
 
 // MARK: - Codable
 extension CodablePrimitive: Codable {
@@ -100,7 +98,6 @@ extension CodablePrimitive: Codable {
     internal static func decodeSingle(from container:SingleValueDecodingContainer) throws -> Self {
         do {
             let string = try container.decode(String.self)
-            print(container.codingPath, string)
             return .string(string)
         } catch DecodingError.typeMismatch(let expectType, let context) {
             if context.underlyingError == nil && expectType == String.self {
