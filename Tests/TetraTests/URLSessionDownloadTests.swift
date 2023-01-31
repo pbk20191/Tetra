@@ -10,33 +10,12 @@ import XCTest
 
 final class URLSessionDownloadTests: XCTestCase {
 
-    
-    override func tearDown() async throws {
-        let temporaryDirectory = FileManager.default.temporaryDirectory
-        let temporalFiles = FileManager.default.subpaths(atPath: temporaryDirectory.path)?.map{
-            temporaryDirectory.appendingPathComponent($0)
-        }
-            .filter{
-                $0.pathExtension == "tmp"
-            } ?? []
-        
-        try await withThrowingTaskGroup(of: Void.self) { group in
-            temporalFiles.forEach{ url in
-                print(url)
-                group.addTask {
-                    try FileManager.default.removeItem(at: url)
-                }
-            }
-            while let _ = try await group.next() {
-                
-            }
-        }
-    }
-
     func testDefaultDownload() async throws {
         let (fileURL, response) = try await performDownload(on: .shared, from: URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!)
         let httpResponse = response as! HTTPURLResponse
-
+        addTeardownBlock {
+            XCTAssertNoThrow(try FileManager.default.removeItem(at: fileURL))
+        }
         let image = CGImage(jpegDataProviderSource: .init(url: fileURL as CFURL).unsafelyUnwrapped, decode: nil, shouldInterpolate: false, intent: .defaultIntent)
         XCTAssertNotNil(image)
         XCTAssertEqual(httpResponse.statusCode, 200)
