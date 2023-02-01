@@ -67,6 +67,33 @@ extension PlistWrapper: Encodable {
     }
     
     @inlinable
+    public init(unsafeObject: Any) throws {
+        if PropertyListSerialization.propertyList(unsafeObject, isValidFor: .binary) {
+            self = try Self.init(unsafeObject, path: [])
+        } else if let value = unsafeObject as? Self {
+            self = value
+        } else {
+            switch unsafeObject {
+            case let value as Bool:
+                self = .bool(value)
+            case let value as String:
+                self = .string(value)
+            case let value as Double:
+                self = .double(value)
+            case let value as Int:
+                self = .integer(value)
+            case let value as Date:
+                self = .date(value)
+            case let value as Data:
+                self = .data(value)
+            default:
+                let context = DecodingError.Context(codingPath: [], debugDescription: "\(type(of: unsafeObject)) is not supported")
+                throw DecodingError.dataCorrupted(context)
+            }
+        }
+    }
+    
+    @inlinable
     public func write(to stream:OutputStream, format: PropertyListSerialization.PropertyListFormat, options opt: PropertyListSerialization.WriteOptions) throws -> Int {
         var error:NSError? = nil
         let byteCount = PropertyListSerialization.writePropertyList(propertyObject, to: stream, format: format, options: opt, error: &error)

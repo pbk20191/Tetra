@@ -58,6 +58,38 @@ extension JsonWrapper: Encodable {
         }
     }
     
+    @inlinable
+    public init(unsafeObject: Any) throws {
+        if JSONSerialization.isValidJSONObject(unsafeObject) {
+            if let value = try Self?.init(unsafeObject, path: []) {
+                self = value
+            } else {
+                let context = DecodingError.Context(codingPath: [], debugDescription: "top level null is not allowed")
+                throw DecodingError.valueNotFound(Self.self, context)
+            }
+        } else if let value = unsafeObject as? Self {
+            self = value
+        } else {
+            switch unsafeObject {
+            case let value as Bool:
+                self = .bool(value)
+            case let value as String:
+                self = .string(value)
+            case let value as Double:
+                self = .double(value)
+            case let value as Int:
+                self = .integer(value)
+            case Optional<Any>.none:
+                fallthrough
+            case is NSNull:
+                let context = DecodingError.Context(codingPath: [], debugDescription: "top level null is not allowed")
+                throw DecodingError.valueNotFound(Self.self, context)
+            default:
+                let context = DecodingError.Context(codingPath: [], debugDescription: "\(type(of: unsafeObject)) is not supported")
+                throw DecodingError.dataCorrupted(context)
+            }
+        }
+    }
     
     @inlinable
     public func write(to stream:OutputStream, options opt: JSONSerialization.WritingOptions) throws -> Int {
@@ -137,6 +169,8 @@ extension JsonWrapper?: SerializableMappingProtocol {
             self = .double(value)
         case let value as Int:
             self = .integer(value)
+        case Optional<Any>.none:
+            fallthrough
         case is NSNull:
             self = nil
         case let value as [Any]:
@@ -220,9 +254,9 @@ public extension JsonWrapper {
         case .double(let double):
             return double
         case .array(let array):
-            return array.map(\.?.propertyObject)
+            return array.map{ $0?.propertyObject as Any }
         case .object(let dictionary):
-            return dictionary.mapValues(\.?.propertyObject)
+            return dictionary.mapValues{ $0?.propertyObject as Any }
         }
     }
     
