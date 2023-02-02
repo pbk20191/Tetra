@@ -277,7 +277,7 @@ public extension JsonWrapper {
     }
     
     @inlinable
-    var object:[String:Self?]? {
+    var object:[String:Self]? {
         switch self {
         case .object(let object):
             return object
@@ -287,7 +287,7 @@ public extension JsonWrapper {
     }
     
     @inlinable
-    var array:[Self?]? {
+    var array:[Self]? {
         switch self {
         case .array(let array):
             return array
