@@ -28,12 +28,13 @@ import Foundation
  */
 public enum JsonWrapper: Sendable {
     
+    case null
     case bool(Bool)
     case string(String)
     case integer(Int)
     case double(Double)
-    case array([Self?])
-    case object([String:Self?])
+    case array([Self])
+    case object([String:Self])
     
 }
 
@@ -55,18 +56,15 @@ extension JsonWrapper: Encodable {
             try container.encode(value)
         case .object(let value):
             try container.encode(value)
+        case .null:
+            try container.encodeNil()
         }
     }
     
     @inlinable
     public init(unsafeObject: Any) throws {
         if JSONSerialization.isValidJSONObject(unsafeObject) {
-            if let value = try Self?.init(unsafeObject, path: []) {
-                self = value
-            } else {
-                let context = DecodingError.Context(codingPath: [], debugDescription: "top level null is not allowed")
-                throw DecodingError.valueNotFound(Self.self, context)
-            }
+            self = try .init(unsafeObject, path: [])
         } else if let value = unsafeObject as? Self {
             self = value
         } else {
@@ -82,8 +80,7 @@ extension JsonWrapper: Encodable {
             case Optional<Any>.none:
                 fallthrough
             case is NSNull:
-                let context = DecodingError.Context(codingPath: [], debugDescription: "top level null is not allowed")
-                throw DecodingError.valueNotFound(Self.self, context)
+                self = .null
             default:
                 let context = DecodingError.Context(codingPath: [], debugDescription: "\(type(of: unsafeObject)) is not supported")
                 throw DecodingError.dataCorrupted(context)
@@ -111,11 +108,7 @@ extension JsonWrapper: Encodable {
     @inlinable
     public init(from data: Data, options opt: JSONSerialization.ReadingOptions = []) throws {
         let topLevelRawObject = try JSONSerialization.jsonObject(with: data, options: opt)
-        guard let box = try JsonWrapper?(topLevelRawObject, path: []) else {
-            let context = DecodingError.Context(codingPath: [], debugDescription: "top level null is not allowed")
-            throw DecodingError.valueNotFound(Self.self, context)
-        }
-        self = box
+        self = try JsonWrapper(topLevelRawObject, path: [])
     }
     
     /// perform `JSONSerialization`and map the object into `JsonWrapper`
@@ -130,11 +123,7 @@ extension JsonWrapper: Encodable {
         options opt: JSONSerialization.ReadingOptions = []
     ) throws {
         let topLevelRawObject = try JSONSerialization.jsonObject(with: stream, options: opt)
-        guard let box = try JsonWrapper?(topLevelRawObject, path: []) else {
-            let context = DecodingError.Context(codingPath: [], debugDescription: "top level null is not allowed")
-            throw DecodingError.valueNotFound(Self.self, context)
-        }
-        self = box
+        self = try JsonWrapper(topLevelRawObject, path: [])
     }
     
     @inlinable
@@ -156,7 +145,7 @@ extension JsonWrapper: Encodable {
     
 }
 
-extension JsonWrapper?: SerializableMappingProtocol {
+extension JsonWrapper: SerializableMappingProtocol {
     
     @usableFromInline
     init(_ deserializedValue: Any, path: [TetraCodingKey]) throws {
@@ -172,7 +161,7 @@ extension JsonWrapper?: SerializableMappingProtocol {
         case Optional<Any>.none:
             fallthrough
         case is NSNull:
-            self = nil
+            self = .null
         case let value as [Any]:
             var nestedContainer = [Self]()
             nestedContainer.reserveCapacity(value.capacity)
@@ -222,12 +211,12 @@ extension JsonWrapper: ExpressibleByStringLiteral, ExpressibleByBooleanLiteral, 
     }
     
     @inlinable
-    public init(dictionaryLiteral elements: (String, Self?)...) {
+    public init(dictionaryLiteral elements: (String, Self)...) {
         self = .object(.init(elements) { old, new in new })
     }
     
     @inlinable
-    public init(arrayLiteral elements: Self?...) {
+    public init(arrayLiteral elements: Self...) {
         self = .array(elements)
     }
     
@@ -243,6 +232,7 @@ extension JsonWrapper: ExpressibleByStringLiteral, ExpressibleByBooleanLiteral, 
 // MARK: - custom operator
 public extension JsonWrapper {
     
+    @inlinable
     var propertyObject:Any {
         switch self {
         case .bool(let bool):
@@ -254,9 +244,11 @@ public extension JsonWrapper {
         case .double(let double):
             return double
         case .array(let array):
-            return array.map{ $0?.propertyObject as Any }
+            return array.map(\.propertyObject)
         case .object(let dictionary):
-            return dictionary.mapValues{ $0?.propertyObject as Any }
+            return dictionary.mapValues(\.propertyObject)
+        case .null:
+            return Optional<Any>.none as Any
         }
     }
     
@@ -265,11 +257,7 @@ public extension JsonWrapper {
         get {
             switch self {
             case .object(let dictionary):
-                if let value = dictionary[key] {
-                    return value
-                } else {
-                    return nil
-                }
+                return dictionary[key]
             default:
                 return nil
             }
@@ -364,26 +352,12 @@ public extension JsonWrapper {
     
     @inlinable
     static func == (lhs: Self, rhs: Int) -> Bool {
-        switch lhs {
-        case .integer(let integer):
-            return integer == rhs
-        case .double(let double):
-            return double == Double(rhs)
-        default:
-            return false
-        }
+        lhs.integer == rhs
     }
     
     @inlinable
     static func == (lhs: Self, rhs: Double) -> Bool {
-        switch lhs {
-        case .integer(let integer):
-            return Double(integer) == rhs
-        case .double(let double):
-            return double == rhs
-        default:
-            return false
-        }
+        lhs.double == rhs
     }
     
     @inlinable
@@ -397,12 +371,12 @@ public extension JsonWrapper {
     }
     
     @inlinable
-    static func == (lhs: Self, rhs: [Self?]) -> Bool {
+    static func == (lhs: Self, rhs: [Self]) -> Bool {
         lhs.array == rhs
     }
     
     @inlinable
-    static func == (lhs: Self, rhs: [String:Self?]) -> Bool {
+    static func == (lhs: Self, rhs: [String:Self]) -> Bool {
         lhs.object == rhs
     }
     

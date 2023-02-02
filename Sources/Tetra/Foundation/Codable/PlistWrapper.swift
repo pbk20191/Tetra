@@ -358,26 +358,12 @@ public extension PlistWrapper {
     
     @inlinable
     static func == (lhs: Self, rhs: Int) -> Bool {
-        switch lhs {
-        case .integer(let integer):
-            return integer == rhs
-        case .double(let double):
-            return double == Double(rhs)
-        default:
-            return false
-        }
+        lhs.integer == rhs
     }
     
     @inlinable
     static func == (lhs: Self, rhs: Double) -> Bool {
-        switch lhs {
-        case .integer(let integer):
-            return Double(integer) == rhs
-        case .double(let double):
-            return double == rhs
-        default:
-            return false
-        }
+        lhs.double == rhs
     }
     
     @inlinable
