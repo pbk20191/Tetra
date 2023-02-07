@@ -73,10 +73,10 @@ extension JsonWrapper: Encodable {
                 self = .bool(value)
             case let value as String:
                 self = .string(value)
-            case let value as Double:
-                self = .double(value)
             case let value as Int:
                 self = .integer(value)
+            case let value as Double:
+                self = .double(value)
             case Optional<Any>.none:
                 fallthrough
             case is NSNull:
@@ -154,10 +154,10 @@ extension JsonWrapper: SerializableMappingProtocol {
             self = .bool(value)
         case let value as String:
             self = .string(value)
-        case let value as Double:
-            self = .double(value)
         case let value as Int:
             self = .integer(value)
+        case let value as Double:
+            self = .double(value)
         case Optional<Any>.none:
             fallthrough
         case is NSNull:

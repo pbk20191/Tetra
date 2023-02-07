@@ -78,10 +78,10 @@ extension PlistWrapper: Encodable {
                 self = .bool(value)
             case let value as String:
                 self = .string(value)
-            case let value as Double:
-                self = .double(value)
             case let value as Int:
                 self = .integer(value)
+            case let value as Double:
+                self = .double(value)
             case let value as Date:
                 self = .date(value)
             case let value as Data:
@@ -407,10 +407,10 @@ extension PlistWrapper: SerializableMappingProtocol {
             self = .bool(value)
         case let value as String:
             self = .string(value)
-        case let value as Double:
-            self = .double(value)
         case let value as Int:
             self = .integer(value)
+        case let value as Double:
+            self = .double(value)
         case let value as Date:
             self = .date(value)
         case let value as Data:
