@@ -79,7 +79,16 @@ extension PlistWrapper: Encodable {
             case let value as String:
                 self = .string(value)
             case let value as Int:
-                self = .integer(value)
+                if let nsNumber = unsafeObject as? NSNumber {
+                    let objcType = String(cString: nsNumber.objCType)
+                    if objcType == "f" || objcType == "d" {
+                        self = .double(nsNumber.doubleValue)
+                    } else {
+                        self = .integer(nsNumber.intValue)
+                    }
+                } else {
+                    self = .integer(value)
+                }
             case let value as Double:
                 self = .double(value)
             case let value as Date:
@@ -408,7 +417,16 @@ extension PlistWrapper: SerializableMappingProtocol {
         case let value as String:
             self = .string(value)
         case let value as Int:
-            self = .integer(value)
+            if let nsNumber = deserializedValue as? NSNumber {
+                let objcType = String(cString: nsNumber.objCType)
+                if objcType == "f" || objcType == "d" {
+                    self = .double(nsNumber.doubleValue)
+                } else {
+                    self = .integer(nsNumber.intValue)
+                }
+            } else {
+                self = .integer(value)
+            }
         case let value as Double:
             self = .double(value)
         case let value as Date:
