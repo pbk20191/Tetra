@@ -76,18 +76,19 @@ extension PlistWrapper: Encodable {
             switch unsafeObject {
             case let value as Bool:
                 self = .bool(value)
+                if let nsNumber = unsafeObject as? NSNumber {
+                    if nsNumber.isReal {
+                        self = .double(nsNumber.doubleValue)
+                    } else if nsNumber.isInt {
+                        self = .integer(nsNumber.intValue)
+                    }
+                }
             case let value as String:
                 self = .string(value)
             case let value as Int:
-                if let nsNumber = unsafeObject as? NSNumber {
-                    let objcType = String(cString: nsNumber.objCType)
-                    if objcType == "f" || objcType == "d" {
-                        self = .double(nsNumber.doubleValue)
-                    } else {
-                        self = .integer(nsNumber.intValue)
-                    }
-                } else {
-                    self = .integer(value)
+                self = .integer(value)
+                if let nsNumber = unsafeObject as? NSNumber, nsNumber.isReal {
+                    self = .double(nsNumber.doubleValue)
                 }
             case let value as Double:
                 self = .double(value)
@@ -414,18 +415,19 @@ extension PlistWrapper: SerializableMappingProtocol {
         switch deserializedValue {
         case let value as Bool:
             self = .bool(value)
+            if let nsNumber = deserializedValue as? NSNumber {
+                if nsNumber.isReal {
+                    self = .double(nsNumber.doubleValue)
+                } else if nsNumber.isInt {
+                    self = .integer(nsNumber.intValue)
+                }
+            }
         case let value as String:
             self = .string(value)
         case let value as Int:
-            if let nsNumber = deserializedValue as? NSNumber {
-                let objcType = String(cString: nsNumber.objCType)
-                if objcType == "f" || objcType == "d" {
-                    self = .double(nsNumber.doubleValue)
-                } else {
-                    self = .integer(nsNumber.intValue)
-                }
-            } else {
-                self = .integer(value)
+            self = .integer(value)
+            if let nsNumber = deserializedValue as? NSNumber, nsNumber.isReal {
+                self = .double(nsNumber.doubleValue)
             }
         case let value as Double:
             self = .double(value)

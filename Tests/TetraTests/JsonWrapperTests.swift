@@ -44,5 +44,13 @@ final class JsonWrapperTests: XCTestCase {
         }
         
     }
+    
+    func testNumeric() throws {
+        let sample = Data("""
+{"a": 0.0, "b": 1}
+""".utf8)
+        
+        XCTAssertEqual(try JsonWrapper(from: sample), ["a": 0.0, "b": 1])
+    }
 
 }
