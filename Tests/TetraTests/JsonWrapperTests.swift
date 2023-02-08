@@ -34,6 +34,7 @@ final class JsonWrapperTests: XCTestCase {
         measure {
 
             do {
+//                let _ = try JSONSerialization.jsonObject(with: json3)
                 let _ = try JsonWrapper.init(from: json3)
 //                let _ = try JSONDecoder().decode([[String:String]].self, from: json3)
             } catch {
@@ -46,11 +47,12 @@ final class JsonWrapperTests: XCTestCase {
     }
     
     func testNumeric() throws {
+        
         let sample = Data("""
-{"a": 0.0, "b": 1}
+{"a": 0.0, "b": 1, "K":true}
 """.utf8)
         
-        XCTAssertEqual(try JsonWrapper(from: sample), ["a": 0.0, "b": 1])
+        XCTAssertEqual(try JsonWrapper(from: sample), ["a": 0.0, "b": 1, "K":true])
     }
 
 }

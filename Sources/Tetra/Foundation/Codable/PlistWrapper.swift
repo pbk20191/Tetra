@@ -68,38 +68,13 @@ extension PlistWrapper: Encodable {
     
     @inlinable
     public init(unsafeObject: Any) throws {
-        if PropertyListSerialization.propertyList(unsafeObject, isValidFor: .binary) {
+        if PropertyListSerialization.propertyList([unsafeObject], isValidFor: .binary) {
             self = try Self.init(unsafeObject, path: [])
         } else if let value = unsafeObject as? Self {
             self = value
         } else {
-            switch unsafeObject {
-            case let value as Bool:
-                self = .bool(value)
-                if let nsNumber = unsafeObject as? NSNumber {
-                    if nsNumber.isReal {
-                        self = .double(nsNumber.doubleValue)
-                    } else if nsNumber.isInt {
-                        self = .integer(nsNumber.intValue)
-                    }
-                }
-            case let value as String:
-                self = .string(value)
-            case let value as Int:
-                self = .integer(value)
-                if let nsNumber = unsafeObject as? NSNumber, nsNumber.isReal {
-                    self = .double(nsNumber.doubleValue)
-                }
-            case let value as Double:
-                self = .double(value)
-            case let value as Date:
-                self = .date(value)
-            case let value as Data:
-                self = .data(value)
-            default:
-                let context = DecodingError.Context(codingPath: [], debugDescription: "\(type(of: unsafeObject)) is not supported")
-                throw DecodingError.dataCorrupted(context)
-            }
+            let context = DecodingError.Context(codingPath: [], debugDescription: "\(type(of: unsafeObject)) is not supported")
+            throw DecodingError.dataCorrupted(context)
         }
     }
     
@@ -413,24 +388,20 @@ extension PlistWrapper: SerializableMappingProtocol {
     @usableFromInline
     init(_ deserializedValue: Any, path: [TetraCodingKey]) throws {
         switch deserializedValue {
-        case let value as Bool:
-            self = .bool(value)
-            if let nsNumber = deserializedValue as? NSNumber {
-                if nsNumber.isReal {
-                    self = .double(nsNumber.doubleValue)
-                } else if nsNumber.isInt {
-                    self = .integer(nsNumber.intValue)
-                }
+        case let value as any FixedWidthInteger:
+            self = .integer(Int(value))
+        case let value as any BinaryFloatingPoint:
+            self = .double(Double(value))
+        case let value as NSNumber:
+            if value.isBool {
+                self = .bool(value.boolValue)
+            } else if value.isReal {
+                self = .double(value.doubleValue)
+            } else {
+                self = .integer(value.intValue)
             }
         case let value as String:
             self = .string(value)
-        case let value as Int:
-            self = .integer(value)
-            if let nsNumber = deserializedValue as? NSNumber, nsNumber.isReal {
-                self = .double(nsNumber.doubleValue)
-            }
-        case let value as Double:
-            self = .double(value)
         case let value as Date:
             self = .date(value)
         case let value as Data:

@@ -63,38 +63,13 @@ extension JsonWrapper: Encodable {
     
     @inlinable
     public init(unsafeObject: Any) throws {
-        if JSONSerialization.isValidJSONObject(unsafeObject) {
+        if JSONSerialization.isValidJSONObject([unsafeObject]) {
             self = try .init(unsafeObject, path: [])
         } else if let value = unsafeObject as? Self {
             self = value
         } else {
-            switch unsafeObject {
-            case let value as String:
-                self = .string(value)
-            case let value as Bool:
-                self = .bool(value)
-                if let nsNumber = unsafeObject as? NSNumber {
-                    if nsNumber.isReal {
-                        self = .double(nsNumber.doubleValue)
-                    } else if nsNumber.isInt {
-                        self = .integer(nsNumber.intValue)
-                    }
-                }
-            case let value as Int:
-                self = .integer(value)
-                if let nsNumber = unsafeObject as? NSNumber, nsNumber.isReal {
-                    self = .double(nsNumber.doubleValue)
-                }
-            case let value as Double:
-                self = .double(value)
-            case Optional<Any>.none:
-                fallthrough
-            case is NSNull:
-                self = .null
-            default:
-                let context = DecodingError.Context(codingPath: [], debugDescription: "\(type(of: unsafeObject)) is not supported")
-                throw DecodingError.dataCorrupted(context)
-            }
+            let context = DecodingError.Context(codingPath: [], debugDescription: "\(type(of: unsafeObject)) is not supported")
+            throw DecodingError.dataCorrupted(context)
         }
     }
     
@@ -160,24 +135,20 @@ extension JsonWrapper: SerializableMappingProtocol {
     @usableFromInline
     init(_ deserializedValue: Any, path: [TetraCodingKey]) throws {
         switch deserializedValue {
-        case let value as Bool:
-            self = .bool(value)
-            if let nsNumber = deserializedValue as? NSNumber {
-                if nsNumber.isReal {
-                    self = .double(nsNumber.doubleValue)
-                } else if nsNumber.isInt {
-                    self = .integer(nsNumber.intValue)
-                }
-            }
         case let value as String:
             self = .string(value)
-        case let value as Int:
-            self = .integer(value)
-            if let nsNumber = deserializedValue as? NSNumber, nsNumber.isReal {
-                self = .double(nsNumber.doubleValue)
+        case let value as any FixedWidthInteger:
+            self = .integer(Int(value))
+        case let value as any BinaryFloatingPoint:
+            self = .double(Double(value))
+        case let value as NSNumber:
+            if value.isBool {
+                self = .bool(value.boolValue)
+            } else if value.isReal {
+                self = .double(value.doubleValue)
+            } else {
+                self = .integer(value.intValue)
             }
-        case let value as Double:
-            self = .double(value)
         case Optional<Any>.none:
             fallthrough
         case is NSNull:
