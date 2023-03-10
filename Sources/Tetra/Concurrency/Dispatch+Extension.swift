@@ -27,7 +27,6 @@ public extension Task where Success == Never, Failure == Never {
      */
     @inlinable
     static func sleep(until wallDeadline:DispatchWallTime, tolerance:DispatchTimeInterval? = nil) async throws {
-        try await Task.sleep(nanoseconds: 1000)
         try await dispatchTimerSleep(wait: wallDeadline, leeway: tolerance)
     }
     
