@@ -14,19 +14,6 @@ import CoreData
 @available(iOS 13.0, tvOS 13.0, macCatalyst 13.0, watchOS 6.0, macOS 10.15, *)
 public extension NSPersistentContainer {
     
-    @inlinable
-    func loadPersistent() async throws -> NSPersistentStoreDescription {
-        try await withUnsafeThrowingContinuation { continuation in
-            loadPersistentStores {
-                if let error = $1 {
-                    continuation.resume(throwing: error)
-                } else {
-                    continuation.resume(returning: $0)
-                }
-            }
-        }
-    }
-    
     @available(iOS, introduced: 13.0, deprecated: 15.0, renamed: "performBackgroundTask(_:)")
     @available(tvOS, introduced: 13.0, deprecated: 15.0, renamed: "performBackgroundTask(_:)")
     @available(macCatalyst, introduced: 13.0, deprecated: 15.0, renamed: "performBackgroundTask(_:)")

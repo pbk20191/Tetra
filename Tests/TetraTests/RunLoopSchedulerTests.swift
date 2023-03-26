@@ -43,7 +43,7 @@ final class RunLoopSchedulerTests: XCTestCase {
         let scheduler = await RunLoopScheduler(async: (), config: .init(qos: .background))
         let name = Notification.Name(UUID().uuidString)
         let object = NSObject()
-        expectation(forNotification: name, object: object, notificationCenter: .default) { notification in
+        let expect1 = expectation(forNotification: name, object: object, notificationCenter: .default) { notification in
             XCTAssertTrue(notification.userInfo?["A"] as? String == "B")
             return true
         }
@@ -63,8 +63,11 @@ final class RunLoopSchedulerTests: XCTestCase {
 
             }
         }
-        await waitForExpectations(timeout: 1)
-        expectation(forNotification: name, object: object, notificationCenter: .default) {
+        await withUnsafeContinuation{
+            wait(for: [expect1], timeout: 1)
+            $0.resume()
+        }
+        let expect2 = expectation(forNotification: name, object: object, notificationCenter: .default) {
             XCTAssertTrue($0.userInfo?["A"] as? String == "C")
             return true
         }
@@ -75,7 +78,10 @@ final class RunLoopSchedulerTests: XCTestCase {
                 continuation.resume()
             }
         }
-        await waitForExpectations(timeout: 1)
+        await withUnsafeContinuation{
+            wait(for: [expect2], timeout: 1)
+            $0.resume()
+        }
     }
 
 }
