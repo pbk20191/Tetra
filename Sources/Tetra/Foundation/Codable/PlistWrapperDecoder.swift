@@ -243,7 +243,6 @@ extension PlistWrapperDecoderImp.UnkeyedDecoder: UnkeyedDecodingContainer {
     
     mutating func decodeNil() throws -> Bool {
         try checkEnd()
-        let object = container[currentIndex]
         return false
     }
     
@@ -448,7 +447,7 @@ extension PlistWrapperDecoderImp.KeyedDecoder: KeyedDecodingContainerProtocol {
     }
     
     func decodeNil(forKey key: Key) throws -> Bool {
-        guard let item = dictionary[key.stringValue] else {
+        guard dictionary[key.stringValue] != nil else {
             let context = DecodingError.Context(codingPath: codingPath, debugDescription: "No value associated with key \(key) (\"\(key.stringValue)\").")
             throw DecodingError.keyNotFound(key, context)
         }
@@ -522,7 +521,6 @@ extension PlistWrapperDecoderImp.KeyedDecoder: KeyedDecodingContainerProtocol {
     
     func decode<T>(_ type: T.Type, forKey key: Key) throws -> T where T : Decodable {
         let item = try getValue(forKey: key)
-        let context = DecodingError.Context(codingPath: codingPath + [key], debugDescription: item.typeMissmatchDescription(for: type))
         let decoder = PlistWrapperDecoderImp(container: item, codingPath: codingPath + [key], userInfo: userInfo)
         return try T(from: decoder)
     }

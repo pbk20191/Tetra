@@ -79,61 +79,34 @@ struct JsonWrapperSingleDecodingContainer: SingleValueDecodingContainer {
     }
     
     func decode(_ type: Bool.Type) throws -> Bool {
-        let reachedType:Any.Type
+        let context = DecodingError.Context(codingPath: codingPath, debugDescription: container.typeMissmatchDescription(for: type))
         switch container {
         case .null:
-            let context = DecodingError.Context(codingPath: codingPath, debugDescription: "expected \(type) but found null instead")
             throw DecodingError.valueNotFound(type, context)
         case .bool(let bool):
             return bool
-        case .string(_):
-            reachedType = String.self
-        case .integer(_):
-            reachedType = Int.self
-        case .double(_):
-            reachedType = Double.self
-        case .array(_):
-            reachedType = [Any].self
-        case .object(_):
-            reachedType = [String:Any].self
+        default:
+            throw DecodingError.typeMismatch(type, context)
         }
-        let context = DecodingError.Context(codingPath: codingPath, debugDescription: "expected \(type) but found \(reachedType) instead")
-        throw DecodingError.typeMismatch(reachedType, context)
     }
     
     func decode(_ type: String.Type) throws -> String {
-        let reachedType:Any.Type
+        let context = DecodingError.Context(codingPath: codingPath, debugDescription: container.typeMissmatchDescription(for: type))
         switch container {
         case .null:
-            let context = DecodingError.Context(codingPath: codingPath, debugDescription: "expected \(type) but found null instead")
             throw DecodingError.valueNotFound(type, context)
-        case .bool(_):
-            reachedType = Bool.self
         case .string(let string):
             return string
-        case .integer(_):
-            reachedType = Int.self
-        case .double(_):
-            reachedType = Double.self
-        case .array(_):
-            reachedType = [Any].self
-        case .object(_):
-            reachedType = [String:Any].self
+        default:
+            throw DecodingError.typeMismatch(type, context)
         }
-        let context = DecodingError.Context(codingPath: codingPath, debugDescription: "expected \(type) but found \(reachedType) instead")
-        throw DecodingError.typeMismatch(reachedType, context)
     }
     
     func decodeBinaryFloating<T:BinaryFloatingPoint>(_ type:T.Type) throws -> T {
-        let reachedType:Any.Type
+        let context = DecodingError.Context(codingPath: codingPath, debugDescription: container.typeMissmatchDescription(for: type))
         switch container {
         case .null:
-            let context = DecodingError.Context(codingPath: codingPath, debugDescription: "expected \(type) but found null instead")
             throw DecodingError.valueNotFound(type, context)
-        case .bool(_):
-            reachedType = Bool.self
-        case .string(_):
-            reachedType = String.self
         case .integer(let integer):
             if let value = T.init(exactly: integer) {
                 return value
@@ -146,25 +119,16 @@ struct JsonWrapperSingleDecodingContainer: SingleValueDecodingContainer {
                 return T.signalingNaN
             }
             return T(double)
-        case .array(_):
-            reachedType = [Any].self
-        case .object(_):
-            reachedType = [String:Any].self
+        default:
+            throw DecodingError.typeMismatch(type, context)
         }
-        let context = DecodingError.Context(codingPath: codingPath, debugDescription: "expected \(type) but found \(reachedType) instead")
-        throw DecodingError.typeMismatch(reachedType, context)
     }
     
     func decodeInteger<T:FixedWidthInteger>(_ type:T.Type) throws -> T {
-        let reachedType:Any.Type
+        let context = DecodingError.Context(codingPath: codingPath, debugDescription: container.typeMissmatchDescription(for: type))
         switch container {
         case .null:
-            let context = DecodingError.Context(codingPath: codingPath, debugDescription: "expected \(type) but found null instead")
             throw DecodingError.valueNotFound(type, context)
-        case .bool(_):
-            reachedType = Bool.self
-        case .string(_):
-            reachedType = String.self
         case .integer(let integer):
             if let value = T.init(exactly: integer) {
                 return value
@@ -172,15 +136,9 @@ struct JsonWrapperSingleDecodingContainer: SingleValueDecodingContainer {
                 let context = DecodingError.Context(codingPath: codingPath, debugDescription: "\(integer) does not fit in \(type)")
                 throw DecodingError.typeMismatch(type, context)
             }
-        case .double(_):
-            reachedType = Double.self
-        case .array(_):
-            reachedType = [Any].self
-        case .object(_):
-            reachedType = [String:Any].self
+        default:
+            throw DecodingError.typeMismatch(type, context)
         }
-        let context = DecodingError.Context(codingPath: codingPath, debugDescription: "expected \(type) but found \(reachedType) instead")
-        throw DecodingError.typeMismatch(reachedType, context)
     }
     
     func decode(_ type: Double.Type) throws -> Double {
