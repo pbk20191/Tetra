@@ -252,7 +252,7 @@ struct JsonWrapperUnkeyedDecoder: UnkeyedDecodingContainer {
         if (container.isEmpty) {
             return true
         } else {
-            return container.indices.contains(currentIndex)
+            return !container.indices.contains(currentIndex)
         }
     }
     

@@ -54,5 +54,13 @@ final class JsonWrapperTests: XCTestCase {
         
         XCTAssertEqual(try JsonWrapper(from: sample), ["a": 0.0, "b": 1, "K":true])
     }
+    
+    func testDecoder() throws {
+        let json3 = try Data(contentsOf: Bundle.module.url(forResource: "JsonSample3", withExtension: ".json").unsafelyUnwrapped)
+        let model = try JSONDecoder().decode([[String:String]].self, from: json3)
+        let jsonWrapper = try JsonWrapper.init(from: json3)
+        let model2 = try JsonWrapperDecoder().decode([[String:String]].self, from: jsonWrapper)
+        XCTAssertEqual(model, model2)
+    }
 
 }
