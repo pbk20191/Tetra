@@ -371,10 +371,6 @@ struct JsonWrapperUnkeyedDecoder: UnkeyedDecodingContainer {
         try checkEnd()
         let currentPath = codingPath + [TetraCodingKey(index: currentIndex)]
         let item = container[currentIndex]
-        if item == .null {
-            let context = DecodingError.Context(codingPath: currentPath, debugDescription: "expected \(type) but found null instead")
-            throw DecodingError.valueNotFound(type, context)
-        }
         let container = JsonWrapperSingleDecodingContainer(container: item, codingPath: currentPath, userInfo: userInfo)
         let value = try container.decode(type)
         currentIndex += 1
@@ -537,17 +533,8 @@ struct JsonWrapperKeyedDecoder<Key:CodingKey>: KeyedDecodingContainerProtocol {
     
     func decode<T>(_ type: T.Type, forKey key: Key) throws -> T where T : Decodable {
         let item = try getValue(forKey: key)
-        let context = DecodingError.Context(codingPath: codingPath + [key], debugDescription: item.typeMissmatchDescription(for: type))
-        if item == .null {
-            /// Bypass strict null checking on Optional type
-            if let value = Optional<Any>.none as? T {
-                return value
-            }
-            throw DecodingError.valueNotFound(type, context)
-        } else {
-            let container = JsonWrapperSingleDecodingContainer(container: item, codingPath: codingPath + [key], userInfo: userInfo)
-            return try container.decode(type)
-        }
+        let container = JsonWrapperSingleDecodingContainer(container: item, codingPath: codingPath + [key], userInfo: userInfo)
+        return try container.decode(type)
     }
     
     func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type, forKey key: Key) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {
