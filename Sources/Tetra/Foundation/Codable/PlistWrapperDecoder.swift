@@ -211,6 +211,14 @@ extension PlistWrapperDecoderImp.SingleValueDecoder: SingleValueDecodingContaine
     }
     
     func decode<T>(_ type: T.Type) throws -> T where T : Decodable {
+        switch container {
+        case .data(let data) where type == Data.self:
+            return data as! T
+        case .date(let  date) where type == Date.self:
+            return date as! T
+        default:
+            break
+        }
         let decoder = PlistWrapperDecoderImp(container: container, codingPath: codingPath, userInfo: userInfo)
         return try T(from: decoder)
     }
@@ -371,10 +379,10 @@ extension PlistWrapperDecoderImp.UnkeyedDecoder: UnkeyedDecodingContainer {
         try checkEnd()
         let currentPath = codingPath + [TetraCodingKey(index: currentIndex)]
         let item = container[currentIndex]
-        
-        let decoder = PlistWrapperDecoderImp(container: item, codingPath: currentPath, userInfo: userInfo)
+        let container = PlistWrapperDecoderImp.SingleValueDecoder(container: item, codingPath: currentPath, userInfo: userInfo)
+        let value = try container.decode(type)
         currentIndex += 1
-        return try T(from: decoder)
+        return value
     }
     
     mutating func decode(_ type: Double.Type) throws -> Double {
@@ -521,8 +529,8 @@ extension PlistWrapperDecoderImp.KeyedDecoder: KeyedDecodingContainerProtocol {
     
     func decode<T>(_ type: T.Type, forKey key: Key) throws -> T where T : Decodable {
         let item = try getValue(forKey: key)
-        let decoder = PlistWrapperDecoderImp(container: item, codingPath: codingPath + [key], userInfo: userInfo)
-        return try T(from: decoder)
+        let container = PlistWrapperDecoderImp.SingleValueDecoder(container: item, codingPath: codingPath + [key], userInfo: userInfo)
+        return try container.decode(type)
     }
     
     func nestedContainer<NestedKey>(keyedBy type: NestedKey.Type, forKey key: Key) throws -> KeyedDecodingContainer<NestedKey> where NestedKey : CodingKey {

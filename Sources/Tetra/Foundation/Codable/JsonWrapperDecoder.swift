@@ -375,9 +375,10 @@ struct JsonWrapperUnkeyedDecoder: UnkeyedDecodingContainer {
             let context = DecodingError.Context(codingPath: currentPath, debugDescription: "expected \(type) but found null instead")
             throw DecodingError.valueNotFound(type, context)
         }
-        let decoder = JsonWrapperDecoderImp(container: item, codingPath: currentPath, userInfo: userInfo)
+        let container = JsonWrapperSingleDecodingContainer(container: item, codingPath: currentPath, userInfo: userInfo)
+        let value = try container.decode(type)
         currentIndex += 1
-        return try T(from: decoder)
+        return value
     }
     
     mutating func decode(_ type: Double.Type) throws -> Double {
@@ -444,7 +445,7 @@ struct JsonWrapperKeyedDecoder<Key:CodingKey>: KeyedDecodingContainerProtocol {
     var allKeys: [Key] { dictionary.keys.compactMap(Key.init)}
     
     func contains(_ key: Key) -> Bool {
-        dictionary.keys.contains(key.stringValue)
+        dictionary[key.stringValue] != nil
     }
     
     func getValue(forKey key: some CodingKey) throws -> JsonWrapper {
@@ -544,8 +545,8 @@ struct JsonWrapperKeyedDecoder<Key:CodingKey>: KeyedDecodingContainerProtocol {
             }
             throw DecodingError.valueNotFound(type, context)
         } else {
-            let decoder = JsonWrapperDecoderImp(container: item, codingPath: codingPath + [key], userInfo: userInfo)
-            return try T(from: decoder)
+            let container = JsonWrapperSingleDecodingContainer(container: item, codingPath: codingPath + [key], userInfo: userInfo)
+            return try container.decode(type)
         }
     }
     
