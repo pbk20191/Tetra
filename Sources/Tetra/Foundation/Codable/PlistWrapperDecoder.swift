@@ -11,9 +11,9 @@ import Combine
 
 public struct PlistWrapperDecoder: TopLevelDecoder {
     
-//    public init() {
-//        
-//    }
+    public init() {
+        
+    }
     
     public var userInfo: [CodingUserInfoKey : Any] = [:]
     
