@@ -254,12 +254,12 @@ extension JsonWrapperEncoder.KeyedEncoder: KeyedEncodingContainerProtocol {
     }
     
     @inline(__always)
-    func insert(_ ref: JSONReference, for key: String) {
+    func insert(_ newValue: JSONReference, for key: String) {
         guard case .object(var object) = self.ref.backing else {
             preconditionFailure("Wrong underlying JSON reference type")
         }
         self.ref.backing = .primitive(.null)
-        object[key] = ref
+        object[key] = newValue
         self.ref.backing = .object(object)
     }
     
@@ -373,12 +373,12 @@ extension JsonWrapperEncoder.UnkeyedEncoder: UnkeyedEncodingContainer {
     }
 
     @inline(__always)
-    func insert(_ ref: JSONReference) {
+    func insert(_ newValue: JSONReference) {
         guard case .array(var array) = self.ref.backing else {
             preconditionFailure("Wrong underlying JSON reference type")
         }
         self.ref.backing = .primitive(.null)
-        array.append(ref)
+        array.append(newValue)
         self.ref.backing = .array(array)
     }
     

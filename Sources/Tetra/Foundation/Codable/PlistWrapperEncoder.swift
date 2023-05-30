@@ -188,6 +188,7 @@ extension PlistWrapperEncoder.SingleEncoder: SingleValueEncodingContainer {
     }
     
     func encode<T>(_ value: T) throws where T : Encodable {
+        assertCanEncodeNewValue()
         switch value {
         case let v as Data:
             ref.backing = .primitive(.data(v))
@@ -256,19 +257,19 @@ extension PlistWrapperEncoder.KeyedEncoder: KeyedEncodingContainerProtocol {
     }
     
     @inline(__always)
-    func insert(_ ref: PlistReference, for key: String) {
-        guard case .dictionary(var object) = ref.backing else {
+    func insert(_ newValue: PlistReference, for key: String) {
+        guard case .dictionary(var object) = self.ref.backing else {
             preconditionFailure("Wrong underlying PropertyList reference type")
         }
-        object[key] = ref
+        object[key] = newValue
         ref.backing = .dictionary(object)
     }
     
 }
 
 extension PlistWrapperEncoder.KeyedEncoder {
+    
     func encode(_ value: Bool, forKey key: Key) throws {
-        
         insert(.bool(value), for: key.stringValue)
     }
 
@@ -369,11 +370,11 @@ extension PlistWrapperEncoder.UnkeyedEncoder: UnkeyedEncodingContainer {
     
     
     @inline(__always)
-    func insert(_ ref: PlistReference) {
-        guard case .array(var array) = ref.backing else {
+    func insert(_ newValue: PlistReference) {
+        guard case .array(var array) = self.ref.backing else {
             preconditionFailure("Wrong underlying PropertyList reference type")
         }
-        array.append(ref)
+        array.append(newValue)
         ref.backing = .array(array)
     }
     
