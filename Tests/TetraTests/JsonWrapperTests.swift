@@ -10,27 +10,11 @@ import XCTest
 
 final class JsonWrapperTests: XCTestCase {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-    }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
 
     func testMappingPerformance() throws {
         let json1 = try Data(contentsOf: Bundle.module.url(forResource: "JsonSample1", withExtension: "json").unsafelyUnwrapped)
-        let json2 = try Data(contentsOf: Bundle.module.url(forResource: "JsonSample2", withExtension: ".json").unsafelyUnwrapped)
-        let json3 = try Data(contentsOf: Bundle.module.url(forResource: "JsonSample3", withExtension: ".json").unsafelyUnwrapped)
+        let json2 = try Data(contentsOf: Bundle.module.url(forResource: "JsonSample2", withExtension: "json").unsafelyUnwrapped)
+        let json3 = try Data(contentsOf: Bundle.module.url(forResource: "JsonSample3", withExtension: "json").unsafelyUnwrapped)
         measure {
 
             do {
@@ -55,12 +39,65 @@ final class JsonWrapperTests: XCTestCase {
         XCTAssertEqual(try JsonWrapper(from: sample), ["a": 0.0, "b": 1, "K":true])
     }
     
-    func testDecoder() throws {
-        let json3 = try Data(contentsOf: Bundle.module.url(forResource: "JsonSample3", withExtension: ".json").unsafelyUnwrapped)
-        let model = try JSONDecoder().decode([[String:String]].self, from: json3)
-        let jsonWrapper = try JsonWrapper.init(from: json3)
-        let model2 = try JsonWrapperDecoder().decode([[String:String]].self, from: jsonWrapper)
+    func testCustomDecoder1() throws {
+        try runCustomDecoder(
+            JsonSample1Model.self,
+            url: XCTUnwrap(
+                Bundle.module.url(forResource: "JsonSample1", withExtension: "json")
+            )
+        )
+    }
+    
+    func testCustomDecoder2() throws {
+        try runCustomDecoder(
+            JsonSample2Model.self,
+            url: XCTUnwrap(
+                Bundle.module.url(forResource: "JsonSample2", withExtension: "json")
+            )
+        )
+    }
+    
+    func testCustomDecoder3() throws {
+        try runCustomDecoder(
+            JsonSample3Model.self,
+            url: XCTUnwrap(
+                Bundle.module.url(forResource: "JsonSample3", withExtension: "json")
+            )
+        )
+    }
+    
+    private func runCustomDecoder<T:Decodable& Equatable>(_ type:T.Type, url:URL) throws {
+        let data = try Data(contentsOf: url)
+        let model = try JSONDecoder().decode(type, from: data)
+        let jsonWrapper = try JsonWrapper(from: data)
+        let model2 = try JsonWrapperDecoder().decode(type, from: jsonWrapper)
         XCTAssertEqual(model, model2)
     }
+    
+    private func runCustomEncoder<T:Codable>(_ value:T) throws {
+        let data = try JSONEncoder().encode(value)
+        let jsonWrapper = try JSONSerialization.jsonObject(with: data) as! NSObject
+        let model = try JsonWrapperEncoder().encode(value).propertyObject as! NSObject
+        XCTAssertEqual(model, jsonWrapper)
+    }
+    
+    
+    func testCustomEncoder1() throws {
+        let url = try XCTUnwrap(Bundle.module.url(forResource: "JsonSample1", withExtension: "json"))
+        let model = try JSONDecoder().decode(JsonSample1Model.self, from: Data(contentsOf: url))
+        try runCustomEncoder(model)
+    }
 
+    func testCustomEncoder2() throws {
+        let url = try XCTUnwrap(Bundle.module.url(forResource: "JsonSample2", withExtension: "json"))
+        let model = try JSONDecoder().decode(JsonSample2Model.self, from: Data(contentsOf: url))
+        try runCustomEncoder(model)
+    }
+    
+    func testCustomEncoder3() throws {
+        let url = try XCTUnwrap(Bundle.module.url(forResource: "JsonSample3", withExtension: "json"))
+        let model = try JSONDecoder().decode(JsonSample3Model.self, from: Data(contentsOf: url))
+        try runCustomEncoder(model)
+    }
+    
 }

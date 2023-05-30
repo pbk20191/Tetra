@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>imaging</key>
+	<array>
+		<dict>
+			<key>location</key>
+			<string>Main Hospital Radiology</string>
+			<key>name</key>
+			<string>Chest X-Ray</string>
+			<key>time</key>
+			<string>Today</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Main Hospital Radiology</string>
+			<key>name</key>
+			<string>Chest X-Ray</string>
+			<key>time</key>
+			<string>Today</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Main Hospital Radiology</string>
+			<key>name</key>
+			<string>Chest X-Ray</string>
+			<key>time</key>
+			<string>Today</string>
+		</dict>
+	</array>
+	<key>labs</key>
+	<array>
+		<dict>
+			<key>location</key>
+			<string>Main Hospital Lab</string>
+			<key>name</key>
+			<string>Arterial Blood Gas</string>
+			<key>time</key>
+			<string>Today</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Primary Care Clinic</string>
+			<key>name</key>
+			<string>BMP</string>
+			<key>time</key>
+			<string>Today</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Primary Care Clinic</string>
+			<key>name</key>
+			<string>BNP</string>
+			<key>time</key>
+			<string>3 Weeks</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Primary Care Clinic</string>
+			<key>name</key>
+			<string>BUN</string>
+			<key>time</key>
+			<string>1 Year</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Primary Care Clinic</string>
+			<key>name</key>
+			<string>Cardiac Enzymes</string>
+			<key>time</key>
+			<string>Today</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Primary Care Clinic</string>
+			<key>name</key>
+			<string>CBC</string>
+			<key>time</key>
+			<string>1 Year</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Main Hospital Lab</string>
+			<key>name</key>
+			<string>Creatinine</string>
+			<key>time</key>
+			<string>1 Year</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Primary Care Clinic</string>
+			<key>name</key>
+			<string>Electrolyte Panel</string>
+			<key>time</key>
+			<string>1 Year</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Main Hospital Lab</string>
+			<key>name</key>
+			<string>Glucose</string>
+			<key>time</key>
+			<string>1 Year</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Primary Care Clinic</string>
+			<key>name</key>
+			<string>PT/INR</string>
+			<key>time</key>
+			<string>3 Weeks</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Coumadin Clinic</string>
+			<key>name</key>
+			<string>PTT</string>
+			<key>time</key>
+			<string>3 Weeks</string>
+		</dict>
+		<dict>
+			<key>location</key>
+			<string>Primary Care Clinic</string>
+			<key>name</key>
+			<string>TSH</string>
+			<key>time</key>
+			<string>1 Year</string>
+		</dict>
+	</array>
+	<key>medications</key>
+	<array>
+		<dict>
+			<key>aceInhibitors</key>
+			<array>
+				<dict>
+					<key>dose</key>
+					<string>1 tab</string>
+					<key>name</key>
+					<string>lisinopril</string>
+					<key>pillCount</key>
+					<string>#90</string>
+					<key>refills</key>
+					<string>Refill 3</string>
+					<key>route</key>
+					<string>PO</string>
+					<key>sig</key>
+					<string>daily</string>
+					<key>strength</key>
+					<string>10 mg Tab</string>
+				</dict>
+			</array>
+			<key>antianginal</key>
+			<array>
+				<dict>
+					<key>dose</key>
+					<string>1 tab</string>
+					<key>name</key>
+					<string>nitroglycerin</string>
+					<key>pillCount</key>
+					<string>#30</string>
+					<key>refills</key>
+					<string>Refill 1</string>
+					<key>route</key>
+					<string>SL</string>
+					<key>sig</key>
+					<string>q15min PRN</string>
+					<key>strength</key>
+					<string>0.4 mg Sublingual Tab</string>
+				</dict>
+			</array>
+			<key>anticoagulants</key>
+			<array>
+				<dict>
+					<key>dose</key>
+					<string>1 tab</string>
+					<key>name</key>
+					<string>warfarin sodium</string>
+					<key>pillCount</key>
+					<string>#90</string>
+					<key>refills</key>
+					<string>Refill 3</string>
+					<key>route</key>
+					<string>PO</string>
+					<key>sig</key>
+					<string>daily</string>
+					<key>strength</key>
+					<string>3 mg Tab</string>
+				</dict>
+			</array>
+			<key>betaBlocker</key>
+			<array>
+				<dict>
+					<key>dose</key>
+					<string>1 tab</string>
+					<key>name</key>
+					<string>metoprolol tartrate</string>
+					<key>pillCount</key>
+					<string>#90</string>
+					<key>refills</key>
+					<string>Refill 3</string>
+					<key>route</key>
+					<string>PO</string>
+					<key>sig</key>
+					<string>daily</string>
+					<key>strength</key>
+					<string>25 mg Tab</string>
+				</dict>
+			</array>
+			<key>diuretic</key>
+			<array>
+				<dict>
+					<key>dose</key>
+					<string>1 tab</string>
+					<key>name</key>
+					<string>furosemide</string>
+					<key>pillCount</key>
+					<string>#90</string>
+					<key>refills</key>
+					<string>Refill 3</string>
+					<key>route</key>
+					<string>PO</string>
+					<key>sig</key>
+					<string>daily</string>
+					<key>strength</key>
+					<string>40 mg Tab</string>
+				</dict>
+			</array>
+			<key>mineral</key>
+			<array>
+				<dict>
+					<key>dose</key>
+					<string>1 tab</string>
+					<key>name</key>
+					<string>potassium chloride ER</string>
+					<key>pillCount</key>
+					<string>#90</string>
+					<key>refills</key>
+					<string>Refill 3</string>
+					<key>route</key>
+					<string>PO</string>
+					<key>sig</key>
+					<string>daily</string>
+					<key>strength</key>
+					<string>10 mEq Tab</string>
+				</dict>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>
