@@ -372,3 +372,29 @@ public extension JsonWrapper {
     }
     
 }
+
+internal extension JsonWrapper {
+    
+    @usableFromInline
+    func typeMissmatchDescription(for type:Any.Type) -> String {
+        let word:String
+        switch self {
+        case .null:
+            word = "null"
+        case .bool(_):
+            word = "Bool"
+        case .string(_):
+            word = "String"
+        case .integer(_):
+            word = "Int"
+        case .double(_):
+            word = "Double"
+        case .array(_):
+            word = "Array"
+        case .object(_):
+            word = "Dictionary"
+        }
+        return "Expected \(type) but found \(word) instead."
+    }
+    
+}

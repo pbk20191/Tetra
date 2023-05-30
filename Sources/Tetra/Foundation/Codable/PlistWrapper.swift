@@ -429,3 +429,30 @@ extension PlistWrapper: SerializableMappingProtocol {
 
 
 
+internal extension PlistWrapper {
+    
+    @usableFromInline
+    func typeMissmatchDescription(for type:Any.Type) -> String {
+        let word:String
+        switch self {
+        case .bool(_):
+            word = "Bool"
+        case .string(_):
+            word = "String"
+        case .integer(_):
+            word = "Int"
+        case .double(_):
+            word = "Double"
+        case .array(_):
+            word = "Array"
+        case .object(_):
+            word = "Dictionary"
+        case .data(_):
+            word = "Data"
+        case .date(_):
+            word = "Date"
+        }
+        return "Expected \(type) but found \(word) instead."
+    }
+    
+}
