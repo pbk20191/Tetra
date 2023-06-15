@@ -7,7 +7,7 @@
 
 import Foundation
 import os
-
+import _Concurrency
 
 /**
  Wrapper object which act like CoroutineScope in Coroutine.
@@ -94,58 +94,42 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
             }
         }
         task = creator(priority) {
-          // TODO: use withDiscardingTaskGroup
-            await withTaskGroup(of: Void.self) { group in
-                group.addTask(priority: .background) {
-                    let lock = createCheckedStateLock(checkedState: TaskCancellationState.waiting)
-                    await withTaskCancellationHandler {
-                        await withUnsafeContinuation{ continuation in
-                            
-                            let snapShot = lock.withLock{
-                                let oldValue = $0
-                                switch oldValue {
-                                case .cancelled:
-                                    break
-                                case .suspending:
-                                    assertionFailure("unexpected state")
-                                    fallthrough
-                                case .waiting:
-                                    $0 = .suspending(continuation)
-                                
-                                }
-                                return oldValue
-                            }
-                            switch snapShot {
-                            case .cancelled:
-                                continuation.resume()
-                            case .waiting:
-                                break
-                            case .suspending(let unsafeContinuation):
-                                unsafeContinuation.resume()
-                            }
-                        }
-                    } onCancel: {
-                        lock.withLock{
-                            $0.take()
-                        }?.resume()
+            if #available(macOS 13.3, iOS 16.4, watchOS 9.4, tvOS 16.4, *) {
+                await withDiscardingTaskGroup { group in
+                    group.addTask(priority: .background) {
+                        await suspendUntilCancelled()
+                    }
+                    for await operation in sequence {
+                        group.addTask(operation: operation)
                     }
                 }
-                
-                var childIterator = group.makeAsyncIterator()
-                let stream = AsyncStream<Void> {
-                    await childIterator.next()
-                } onCancel: {
-                    sequence.finish()
+            } else {
+                await withTaskGroup(of: Void.self) { group in
+                    group.addTask(priority: .background) {
+                        await suspendUntilCancelled()
+                    }
+                    
+                    var childIterator = group.makeAsyncIterator()
+                    let stream = AsyncStream<Void> {
+                        await childIterator.next()
+                    } onCancel: {
+                        sequence.finish()
+                    }
+                    // consume finished child Task to be released
+                    async let iteratingTask: Void = await {
+                        for await _ in stream {
+                            print("release")
+                        }
+                    }()
+                    
+                    for await operation in sequence {
+                        group.addTask(operation: operation)
+                        // await Task.yield()
+                    }
+                    await iteratingTask
+                    // release all the childTask which is not release from `stream` caused by early Task cancellation
+                    //for await _ in group { print("release2") }
                 }
-                // consume finished child Task to be released
-                async let iteratingTask: Void = await {
-                    for await _ in stream { }
-                }()
-
-                for await operation in sequence {
-                    group.addTask(operation: operation)
-                }
-                await iteratingTask
             }
             
         }
@@ -154,27 +138,65 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
         cancellable = nil
     }
     
-    public func launch(operation: __owned @escaping Job) -> Bool {
+    public func launch(operation: __owned @escaping PendingWork) -> Bool {
         buffer.append(job: operation)
     }
     
     
-    private enum TaskCancellationState: Sendable {
-        
-        case waiting
-        case suspending(UnsafeContinuation<Void,Never>)
-        case cancelled
-        
-        mutating func take() -> UnsafeContinuation<Void,Never>? {
-            if case let .suspending(continuation) = self {
-                self = .cancelled
-                return continuation
-            } else {
-                self = .cancelled
-                return nil
+
+    
+}
+
+private enum TaskCancellationState: Sendable {
+    
+    case waiting
+    case suspending(UnsafeContinuation<Void,Never>)
+    case cancelled
+    
+    mutating func take() -> UnsafeContinuation<Void,Never>? {
+        if case let .suspending(continuation) = self {
+            self = .cancelled
+            return continuation
+        } else {
+            self = .cancelled
+            return nil
+        }
+    }
+    
+}
+
+private func suspendUntilCancelled() async {
+    let lock = createCheckedStateLock(checkedState: TaskCancellationState.waiting)
+    await withTaskCancellationHandler {
+        await withUnsafeContinuation{ continuation in
+            
+            let snapShot = lock.withLock{
+                let oldValue = $0
+                switch oldValue {
+                case .cancelled:
+                    break
+                case .suspending:
+                    assertionFailure("unexpected state")
+                    fallthrough
+                case .waiting:
+                    $0 = .suspending(continuation)
+                
+                }
+                return oldValue
+            }
+            switch snapShot {
+            case .cancelled:
+                continuation.resume()
+            case .waiting:
+                break
+            case .suspending(let unsafeContinuation):
+                unsafeContinuation.resume()
             }
         }
-        
+    } onCancel: {
+        lock.withLock{
+            $0.take()
+        }?.resume()
     }
 }
 
