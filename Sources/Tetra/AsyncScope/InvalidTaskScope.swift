@@ -14,7 +14,7 @@ struct InvalidTaskScope: TaskScopeProtocol {
     var isCancelled:Bool { true }
     
     @usableFromInline
-    func launch(operation: @escaping Job) -> Bool {
+    func launch(operation: @escaping PendingWork) -> Bool {
         print("InvalidTaskScope never launch")
         return false
     }

@@ -9,7 +9,7 @@ import Foundation
 
 @usableFromInline
 struct JobSequence: Sendable, AsyncSequence {
-    
+
     @usableFromInline
     func makeAsyncIterator() -> AsyncIterator {
         stream.makeAsyncIterator()
@@ -25,14 +25,9 @@ struct JobSequence: Sendable, AsyncSequence {
     private let continuation:AsyncStream<Element>.Continuation
     
     init() {
-        var reference: AsyncStream<Element>.Continuation? = nil
-        let semaphore = DispatchSemaphore(value: 0)
-        stream = .init{ continuation in
-            reference = continuation
-            semaphore.signal()
-        }
-        semaphore.wait()
-        continuation = reference.unsafelyUnwrapped
+        let (source, ref) = AsyncStream<Element>.makeStream()
+        stream = source
+        continuation = ref
     }
     
     func append(job: __owned @escaping Element) -> Bool {

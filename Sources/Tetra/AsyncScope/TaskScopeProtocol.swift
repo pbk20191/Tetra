@@ -9,7 +9,10 @@ import Foundation
 
 public protocol TaskScopeProtocol: Sendable, Hashable {
     
-    typealias Job = @Sendable () async -> Void
+    typealias PendingWork = @Sendable () async -> Void
+    
+    @available(*, deprecated, renamed: "PendingJob", message: "Job is deprecated since Swift has own type named Job")
+    typealias Job = PendingWork
     
     /**
      submit the Job to this `TaskScope`. Job will be executed on the next possible opportunity unless it's cancelled.

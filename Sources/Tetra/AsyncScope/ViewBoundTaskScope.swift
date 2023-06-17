@@ -12,7 +12,7 @@ public struct ViewBoundTaskScope: TaskScopeProtocol {
     
     @discardableResult
     @inlinable
-    public func launch(operation: @escaping Job) -> Bool {
+    public func launch(operation: @escaping PendingWork) -> Bool {
         switch scope {
         case .invalid:
             return InvalidTaskScope().launch(operation: operation)
