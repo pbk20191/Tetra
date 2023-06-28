@@ -25,9 +25,17 @@ struct JobSequence: Sendable, AsyncSequence {
     private let continuation:AsyncStream<Element>.Continuation
     
     init() {
+#if swift(<5.9)
+        var continuation:AsyncStream<Element>.Continuation? = nil
+        let source = AsyncStream<Element>.init {
+            continuation = $0
+        }
+        let ref = continuation!
+#else
         let (source, ref) = AsyncStream<Element>.makeStream()
-        stream = source
-        continuation = ref
+#endif
+        self.stream = source
+        self.continuation = ref
     }
     
     func append(job: __owned @escaping Element) -> Bool {
