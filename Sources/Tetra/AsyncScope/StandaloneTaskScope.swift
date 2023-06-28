@@ -94,7 +94,7 @@ public struct StandaloneTaskScope: TaskScopeProtocol {
             }
         }
         task = creator(priority) {
-            if #available(macOS 13.3, iOS 16.4, watchOS 9.4, tvOS 16.4, *) {
+            if #available(macOS 14, iOS 17, watchOS 10, tvOS 17, *) {
                 await withDiscardingTaskGroup { group in
                     group.addTask(priority: .background) {
                         await suspendUntilCancelled()
