@@ -27,9 +27,9 @@ struct JsonWrapperDecoderImp: Decoder {
     
     let container:JsonWrapper
     
-    var codingPath: [CodingKey]
+    let codingPath: [CodingKey]
     
-    var userInfo: [CodingUserInfoKey : Any]
+    let userInfo: [CodingUserInfoKey : Any]
     
     func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key : CodingKey {
         let context = DecodingError.Context(codingPath: codingPath, debugDescription: container.typeMissmatchDescription(for: [String:Any].self))
@@ -200,9 +200,9 @@ struct JsonWrapperUnkeyedDecoder: UnkeyedDecodingContainer {
 
     let container:[JsonWrapper]
     
-    var codingPath: [CodingKey]
+    let codingPath: [CodingKey]
     
-    var userInfo: [CodingUserInfoKey : Any]
+    let userInfo: [CodingUserInfoKey : Any]
     
     var count: Int? { container.count }
     
@@ -433,9 +433,9 @@ struct JsonWrapperKeyedDecoder<Key:CodingKey>: KeyedDecodingContainerProtocol {
     
     let dictionary:[String:JsonWrapper]
     
-    var codingPath: [CodingKey]
+    let codingPath: [CodingKey]
     
-    var userInfo: [CodingUserInfoKey : Any]
+    let userInfo: [CodingUserInfoKey : Any]
     
     
     var allKeys: [Key] { dictionary.keys.compactMap(Key.init)}

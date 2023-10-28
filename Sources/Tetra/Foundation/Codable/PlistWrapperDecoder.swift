@@ -29,9 +29,9 @@ struct PlistWrapperDecoderImp: Decoder {
     
     let container:PlistWrapper
     
-    var codingPath: [CodingKey]
+    let codingPath: [CodingKey]
     
-    var userInfo: [CodingUserInfoKey : Any]
+    let userInfo: [CodingUserInfoKey : Any]
     
     func container<Key>(keyedBy type: Key.Type) throws -> KeyedDecodingContainer<Key> where Key : CodingKey {
         let context = DecodingError.Context(codingPath: codingPath, debugDescription: container.typeMissmatchDescription(for: [String:Any].self))
@@ -72,9 +72,9 @@ extension PlistWrapperDecoderImp {
         
         let container:PlistWrapper
         
-        var codingPath: [CodingKey]
+        let codingPath: [CodingKey]
         
-        var userInfo: [CodingUserInfoKey : Any]
+        let userInfo: [CodingUserInfoKey : Any]
         
     }
     
@@ -82,9 +82,9 @@ extension PlistWrapperDecoderImp {
         
         let container:[PlistWrapper]
         
-        var codingPath: [CodingKey]
+        let codingPath: [CodingKey]
         
-        var userInfo: [CodingUserInfoKey : Any]
+        let userInfo: [CodingUserInfoKey : Any]
         
         private(set) var currentIndex: Int = 0
     }
@@ -93,9 +93,9 @@ extension PlistWrapperDecoderImp {
         
         let dictionary:[String:PlistWrapper]
         
-        var codingPath: [CodingKey]
+        let codingPath: [CodingKey]
         
-        var userInfo: [CodingUserInfoKey : Any]
+        let userInfo: [CodingUserInfoKey : Any]
         
     }
     
