@@ -8,11 +8,11 @@
 import Foundation
 import Dispatch
 
-final class DispatchQueueExeuctor: SerialExecutor {
+public final class DispatchQueueExecutor: SerialExecutor {
     
     let queue:DispatchQueue
     
-    init(rootQueue: DispatchQueue) {
+    public init(rootQueue: DispatchQueue) {
         #if canImport(Darwin)
         // DispatchSerialQueue and DispatchWorkloop conforms to SerialExecutor in runtime so lets use runtime check
         if (rootQueue is any SerialExecutor || rootQueue is DispatchSerialQueue || rootQueue is DispatchWorkloop) {
@@ -50,7 +50,7 @@ final class DispatchQueueExeuctor: SerialExecutor {
         self.queue = queue
     }
   
-    func asUnownedSerialExecutor() -> UnownedSerialExecutor {
+    public func asUnownedSerialExecutor() -> UnownedSerialExecutor {
         if let executor = queue as? any SerialExecutor {
             return executor.asUnownedSerialExecutor()
         }
@@ -62,7 +62,7 @@ final class DispatchQueueExeuctor: SerialExecutor {
     }
     
 #if os(macOS) || os(iOS) || os(watchOS) || os(tvOS)
-    func enqueue(_ job: UnownedJob) {
+    public func enqueue(_ job: UnownedJob) {
         if let executor = queue as? any SerialExecutor {
             if #available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *) {
                 executor.enqueue(ExecutorJob(job))
@@ -75,7 +75,7 @@ final class DispatchQueueExeuctor: SerialExecutor {
         }
     }
 #else
-    func enqueue(_ job: consuming ExecutorJob) {
+    public func enqueue(_ job: consuming ExecutorJob) {
         if let executor = queue as? any SerialExecutor {
             return executor.enqueue(job)
         }
@@ -86,7 +86,7 @@ final class DispatchQueueExeuctor: SerialExecutor {
     }
 #endif
 
-    func isSameExclusiveExecutionContext(other: DispatchQueueExeuctor) -> Bool {
+    public func isSameExclusiveExecutionContext(other: DispatchQueueExecutor) -> Bool {
         guard let lhs = queue as? any SerialExecutor,
               let rhs = queue as? any SerialExecutor,
               let result = lhs.evaluteContext(rhs)
