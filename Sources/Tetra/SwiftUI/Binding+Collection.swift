@@ -33,9 +33,10 @@ public struct BindingCollection<T:MutableCollection>: Collection {
     
     public typealias Element = Binding<T.Element>
     public typealias Index = T.Index
+    public typealias Indices = T.Indices
     
     @inlinable
-    public subscript(position: T.Index) -> Binding<T.Element> {
+    public subscript(position: Index) -> Element {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
             return binding[position]
         } else {
@@ -54,7 +55,7 @@ public struct BindingCollection<T:MutableCollection>: Collection {
     internal var binding:Binding<T> { $collection }
     
     @inlinable
-    public var startIndex: T.Index {
+    public var startIndex: Index {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
             return binding.startIndex
         } else {
@@ -63,7 +64,7 @@ public struct BindingCollection<T:MutableCollection>: Collection {
     }
     
     @inlinable
-    public var endIndex: T.Index {
+    public var endIndex: Index {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
             return binding.endIndex
         } else {
@@ -72,7 +73,7 @@ public struct BindingCollection<T:MutableCollection>: Collection {
     }
     
     @inlinable
-    public func index(after i: T.Index) -> T.Index {
+    public func index(after i: Index) -> Index {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
             return binding.index(after: i)
         } else {
@@ -81,13 +82,24 @@ public struct BindingCollection<T:MutableCollection>: Collection {
     }
     
     @inlinable
-    public func index(before i: T.Index) -> T.Index where T: BidirectionalCollection {
+    public func index(before i: Index) -> Index where T: BidirectionalCollection {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
             return binding.index(before: i)
         } else {
             return collection.index(before: i)
         }
     }
+    
+    @inlinable
+    public var indices: Indices {
+        if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
+            return binding.indices
+        } else {
+            return collection.indices
+        }
+    }
+
+    
 
 }
 

@@ -66,7 +66,6 @@ public final class RunLoopExecutor: SerialExecutor {
     }
     
     public func enqueue(_ job: consuming ExecutorJob) {
-        print("runtime", #function)
         let ref = UnownedJob(job)
         let executor = self.asUnownedSerialExecutor()
         runner.submit {

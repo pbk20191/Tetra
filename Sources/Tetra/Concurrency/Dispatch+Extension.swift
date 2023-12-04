@@ -17,7 +17,9 @@ public extension Task where Success == Never, Failure == Never {
      */
     @inlinable
     static func sleep(until deadline:DispatchTime, tolerance:DispatchTimeInterval? = nil) async throws {
-        try await dispatchTimerSleep(wait: deadline, leeway: tolerance)
+        let source = DispatchSource.makeTimerSource(flags: [.strict])
+        source.schedule(deadline: deadline, repeating: .never, leeway: tolerance ?? .nanoseconds(0))
+        try await dispatchTimerSleep(source: source)
     }
     
     /**
@@ -27,18 +29,18 @@ public extension Task where Success == Never, Failure == Never {
      */
     @inlinable
     static func sleep(until wallDeadline:DispatchWallTime, tolerance:DispatchTimeInterval? = nil) async throws {
-        try await dispatchTimerSleep(wait: wallDeadline, leeway: tolerance)
+        let source = DispatchSource.makeTimerSource(flags: [.strict])
+        source.schedule(wallDeadline: wallDeadline, repeating: .never, leeway: tolerance ?? .nanoseconds(0))
+        try await dispatchTimerSleep(source: source)
     }
     
 }
 
 
 @usableFromInline
-internal func dispatchTimerSleep(wait deadline:DispatchTime, leeway:DispatchTimeInterval?) async throws {
+internal func dispatchTimerSleep(source:DispatchSourceTimer) async throws {
     
     let lock = createCheckedStateLock(checkedState: DispatchSleepState.waiting)
-    let source = DispatchSource.makeTimerSource(flags: [.strict])
-    source.schedule(deadline: deadline, repeating: .never, leeway: leeway ?? .nanoseconds(0))
     source.setEventHandler{
         lock.withLock{
             $0.take()
@@ -81,55 +83,6 @@ internal func dispatchTimerSleep(wait deadline:DispatchTime, leeway:DispatchTime
     }
 
 }
-
-
-@usableFromInline
-internal func dispatchTimerSleep(wait wallDeadline:DispatchWallTime, leeway: DispatchTimeInterval?) async throws {
-    let lock = createCheckedStateLock(checkedState: DispatchSleepState.waiting)
-    let source = DispatchSource.makeTimerSource(flags: [.strict])
-    source.schedule(wallDeadline: wallDeadline, repeating: .never, leeway: leeway ?? .nanoseconds(0))
-    source.setEventHandler{
-        lock.withLock{
-            $0.take()
-        }?.resume()
-    }
-    source.setCancelHandler{
-        lock.withLock{
-            $0.take()
-        }?.resume(throwing: CancellationError())
-    }
-    return try await withTaskCancellationHandler {
-        return try await withUnsafeThrowingContinuation{ continuation in
-            let snapShot = lock.withLock{
-                let oldValue = $0
-                switch oldValue {
-                case .finished:
-                    break
-                case .waiting, .continuation:
-                    $0 = .continuation(continuation)
-                    
-                }
-                return oldValue
-            }
-            switch snapShot {
-            case .continuation(let unsafeContinuation):
-                assertionFailure("reached unexpected state")
-                unsafeContinuation.resume(throwing: CancellationError())
-            case .finished:
-                continuation.resume(throwing: CancellationError())
-            case .waiting:
-                break
-            }
-            source.activate()
-        }
-    } onCancel: {
-        lock.withLock{
-            $0.take()
-        }?.resume(throwing: CancellationError())
-        source.cancel()
-    }
-}
-
 
 
 private

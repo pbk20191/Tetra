@@ -1,6 +1,7 @@
 //
 //  CompatAsyncThrowingPublisher.swift
-//  
+//  It's simply rewritten from OpenCombine/Concurrency with manual Mirror inspection
+//  See https://github.com/OpenCombine/OpenCombine/tree/master/Sources/OpenCombine/Concurrency
 //
 //  Created by pbk on 2022/12/16.
 //
