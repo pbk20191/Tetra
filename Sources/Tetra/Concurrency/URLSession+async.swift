@@ -41,7 +41,7 @@ public extension URLSession {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
             return try await download(from: url, delegate: nil)
         } else {
-            return try await performDownload(on: self, from: url)
+            return try await tetraExtra.download(from: url)
         }
     }
     
@@ -61,7 +61,7 @@ public extension URLSession {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
             return try await download(for: request, delegate: nil)
         } else {
-            return try await performDownload(on: self, for: request)
+            return try await tetraExtra.download(for: request)
         }
     }
     
@@ -79,7 +79,8 @@ public extension URLSession {
         if #available(iOS 15.0, tvOS 15.0, macCatalyst 15.0, macOS 12.0, watchOS 8.0, *) {
             return try await download(resumeFrom: data, delegate: nil)
         } else {
-            return try await performDownload(on: self, resumeFrom: data)
+            
+            return try await tetraExtra.download(resumeFrom: data)
         }
     }
     

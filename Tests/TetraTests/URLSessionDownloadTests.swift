@@ -11,7 +11,10 @@ import XCTest
 final class URLSessionDownloadTests: XCTestCase {
 
     func testDefaultDownload() async throws {
-        let (fileURL, response) = try await performDownload(on: .shared, from: URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!)
+        
+        let (fileURL, response) = try await TetraExtension(base: URLSession.shared).download(
+            from:  URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!
+        )
         let httpResponse = response as! HTTPURLResponse
         addTeardownBlock {
             XCTAssertNoThrow(try FileManager.default.removeItem(at: fileURL))
@@ -24,7 +27,10 @@ final class URLSessionDownloadTests: XCTestCase {
     func testCancelledDownload() async throws {
         let result = await Task {
             withUnsafeCurrentTask { $0?.cancel() }
-            return try await performDownload(on: .shared, from: URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!)
+            
+            return try await TetraExtension(base: URLSession.shared).download(
+                from:  URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!
+            )
         }.result
         XCTAssertThrowsError(try result.get()) {
             let urlError = $0 as! URLError
@@ -34,7 +40,9 @@ final class URLSessionDownloadTests: XCTestCase {
     
     func testCancellDuringDownload() async throws {
         let cancelTask2 = Task {
-            try await performDownload(on: .shared, from: URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!)
+            try await TetraExtension(base: URLSession.shared).download(
+                from:  URL(string: "https://www.shutterstock.com/image-photo/red-apple-isolated-on-white-260nw-1727544364.jpg")!
+            )
         }
         try await Task.sleep(nanoseconds: 50_000_000)
         cancelTask2.cancel()

@@ -6,8 +6,9 @@
 //
 
 import Foundation
+import Combine
 
-public struct PlistWrapperEncoder {
+public struct PlistWrapperEncoder: TopLevelEncoder {
     
     public var userInfo: [CodingUserInfoKey : Any] = [:]
     
@@ -32,6 +33,30 @@ public struct PlistWrapperEncoder {
             return value
         }
         
+    }
+    
+    @available(iOS 15.0, tvOS 15.0, watchOS 8.0, macCatalyst 15.0, macOS 12, *)
+    func encode<T>(_ value: T, configuration: T.EncodingConfiguration) throws -> PlistWrapper where T : EncodableWithConfiguration {
+        let container = PlistReference.emptyContainer
+        try value.encode(to: EncoderImp(codingPath: [], userInfo: userInfo, ref: container), configuration: configuration)
+        defer { container.backing = nil }
+        switch container.unwrap() {
+        case .none:
+            throw EncodingError.invalidValue(
+                value,
+                EncodingError.Context(
+                    codingPath: [],
+                    debugDescription: "Top-level \(T.self) did not encode any values."
+                )
+            )
+        case .some(let value):
+            return value
+        }
+    }
+
+    @available(iOS 15.0, tvOS 15.0, watchOS 8.0, macCatalyst 15.0, macOS 12, *)
+    func encode<T, C>(_ value: T, configuration: C.Type) throws -> PlistWrapper where T : EncodableWithConfiguration, C : EncodingConfigurationProviding, T.EncodingConfiguration == C.EncodingConfiguration {
+        try encode(value, configuration: configuration.encodingConfiguration)
     }
     
 }

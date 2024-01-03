@@ -22,6 +22,26 @@ public struct PlistWrapperDecoder: TopLevelDecoder {
         return try T(from: decoder)
     }
     
+    @available(iOS 15.0, tvOS 15.0, watchOS 8.0, macCatalyst 15.0, macOS 12, *)
+    func decode<T, C>(
+        _ type: T.Type,
+        from data: Input,
+        configuration: C.Type
+    ) throws -> T where T : DecodableWithConfiguration, C : DecodingConfigurationProviding, T.DecodingConfiguration == C.DecodingConfiguration {
+        try decode(type, from: data, configuration: configuration.decodingConfiguration)
+
+    }
+    
+    @available(iOS 15.0, tvOS 15.0, watchOS 8.0, macCatalyst 15.0, macOS 12, *)
+    func decode<T>(
+        _ type: T.Type,
+        from data: Input,
+        configuration: T.DecodingConfiguration
+    ) throws -> T where T : DecodableWithConfiguration {
+        let decoder = PlistWrapperDecoderImp(container: data, codingPath: [], userInfo: userInfo)
+        return try T(from: decoder, configuration: configuration)
+    }
+    
 }
 
 

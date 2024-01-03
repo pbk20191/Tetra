@@ -36,6 +36,29 @@ public struct JsonWrapperEncoder: TopLevelEncoder {
         
     }
     
+    @available(iOS 15.0, tvOS 15.0, watchOS 8.0, macCatalyst 15.0, macOS 12, *)
+    func encode<T>(_ value: T, configuration: T.EncodingConfiguration) throws -> Output where T : EncodableWithConfiguration {
+        let container = JSONReference.emptyContainer
+        try value.encode(to: EncoderImp(ref: container, codingPath: [], userInfo: userInfo), configuration: configuration)
+        defer { container.backing = nil }
+        switch container.unwrap() {
+        case .none:
+            throw EncodingError.invalidValue(
+                value,
+                EncodingError.Context(
+                    codingPath: [],
+                    debugDescription: "Top-level \(T.self) did not encode any values."
+                )
+            )
+        case .some(let value):
+            return value
+        }
+    }
+
+    @available(iOS 15.0, tvOS 15.0, watchOS 8.0, macCatalyst 15.0, macOS 12, *)
+    func encode<T, C>(_ value: T, configuration: C.Type) throws -> Output where T : EncodableWithConfiguration, C : EncodingConfigurationProviding, T.EncodingConfiguration == C.EncodingConfiguration {
+        try encode(value, configuration: configuration.encodingConfiguration)
+    }
     
 }
 
