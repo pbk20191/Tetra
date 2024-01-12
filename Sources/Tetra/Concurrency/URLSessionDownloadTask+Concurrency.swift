@@ -44,7 +44,7 @@ internal func download_transformer(
 
 @usableFromInline
 internal func urltask_transformer<T:URLSessionTask, Value, R>(
-    transform:@escaping @Sendable (Value) -> Result<R,Error>,
+    transform: @Sendable (Value) -> Result<R,Error>,
     creator:(
         @escaping @Sendable (Value?, URLResponse?, Error?) -> Void
     ) -> T
@@ -52,32 +52,44 @@ internal func urltask_transformer<T:URLSessionTask, Value, R>(
     let stateLock = createCheckedStateLock(checkedState: URLSessionTaskAsyncState<T>.waiting)
     
     return try await withTaskCancellationHandler {
-        try await withUnsafeThrowingContinuation { continuation in
-            let sessionTask = creator() { data, response, error in
-                do {
-                    guard let data, let response else {
-                        throw error ?? URLError(.unknown, userInfo: [
-                            NSLocalizedDescriptionKey: NSLocalizedString("Err-998", bundle: .init(for: URLSession.self), comment: "unknown error")
-                        ])
+        try await withoutActuallyEscaping(transform) { escapingTransform in
+            try await withUnsafeThrowingContinuation { continuation in
+                let sessionTask = creator() { data, response, error in
+                    do {
+                        guard let data, let response else {
+                            throw error ?? URLError(.unknown, userInfo: [
+                                NSLocalizedDescriptionKey: NSLocalizedString("Err-998", bundle: .init(for: URLSession.self), comment: "unknown error")
+                            ])
+                        }
+                        let value = try escapingTransform(data).get()
+                        continuation.resume(returning: (value, response))
+                    } catch {
+                        continuation.resume(throwing: error)
                     }
-                    let value = try transform(data).get()
-                    continuation.resume(returning: (value, response))
-                } catch {
-                    continuation.resume(throwing: error)
                 }
-            }
-            sessionTask.resume()
+                sessionTask.resume()
 
-            let snapShot = stateLock.withLock{
-                let oldValue = $0
-                switch oldValue {
-                case .cancelled:
-                    break
-                case .task:
-                    assertionFailure("unexpected state")
-                    fallthrough
+                let snapShot = stateLock.withLock{
+                    let oldValue = $0
+                    switch oldValue {
+                    case .cancelled:
+                        break
+                    case .task:
+                        assertionFailure("unexpected state")
+                        fallthrough
+                    case .waiting:
+                        $0 = .task(sessionTask)
+                    }
+                    return oldValue
+                    
+                }
+                switch snapShot {
                 case .waiting:
-                    $0 = .task(sessionTask)
+                    break
+                case .task(let uRLSessionDownloadTask):
+                    uRLSessionDownloadTask.cancel()
+                case .cancelled:
+                    sessionTask.cancel()
                 }
                 return oldValue
                 
