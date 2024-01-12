@@ -415,6 +415,13 @@ extension PlistWrapper: SerializableMappingProtocol {
             var nestedContainer = [String:Self](minimumCapacity: value.capacity)
             try drillDownDictionary(value, &nestedContainer, path: path)
             self = .object(nestedContainer)
+        case let value as CFTypeRef where PropertyListSerialization.propertyList(value, isValidFor: .xml):
+            // unknown CF Plist object possibly CFKeyedArchiverUID?
+            let typeId = CFGetTypeID(value)
+            let typeDescription = CFCopyTypeIDDescription(typeId) as String
+            let instanceDescription = CFCopyDescription(value) as String
+            let context = DecodingError.Context(codingPath: path, debugDescription: "\(typeDescription) is not supported ")
+            throw DecodingError.typeMismatch(Self.self, context)
         default:
             let context = DecodingError.Context(
                 codingPath: path,
