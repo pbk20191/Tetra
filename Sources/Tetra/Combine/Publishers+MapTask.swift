@@ -118,13 +118,11 @@ extension Publishers.MapTask {
                             }
                         }
                     }
-                    if !Task.isCancelled {
-                        lock.withLockUnchecked{
-                            let oldValue = $0
-                            $0 = nil
-                            return oldValue
-                        }?.receive(completion: .finished)
-                    }
+                    lock.withLockUnchecked{
+                        let oldValue = $0
+                        $0 = nil
+                        return oldValue
+                    }?.receive(completion: .finished)
                 } onCancel: {
                     subscription.cancel()
                     lock.withLock{ $0 = nil }

@@ -54,7 +54,7 @@ public final class DispatchQueueExecutor: SerialExecutor {
         if let executor = queue as? any SerialExecutor {
             return executor.asUnownedSerialExecutor()
         }
-        if #available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *) {
+        if #available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, visionOS 1.0, *) {
             return .init(complexEquality: self)
         } else {
             return .init(ordinary: self)
