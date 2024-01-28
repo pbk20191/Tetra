@@ -91,16 +91,6 @@ internal func urltask_transformer<T:URLSessionTask, Value, R>(
                 case .cancelled:
                     sessionTask.cancel()
                 }
-                return oldValue
-                
-            }
-            switch snapShot {
-            case .waiting:
-                break
-            case .task(let uRLSessionDownloadTask):
-                uRLSessionDownloadTask.cancel()
-            case .cancelled:
-                sessionTask.cancel()
             }
         }
     } onCancel: {
