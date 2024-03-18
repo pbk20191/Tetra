@@ -41,7 +41,9 @@ internal func download_transformer(
         creator: creator
     )
 }
-
+/// 모든 URLSession completion API를 async await으로 바꾸기 위한 generic 함수
+/// - transform: success completion handler가 리턴직전에 호출되는 callback (at most 1)
+/// - creator: completion handler를 인자로 받아서 URLSessionTask를 생성하는 함수(exactly 1)
 @usableFromInline
 internal func urltask_transformer<T:URLSessionTask, Value, R>(
     transform: @Sendable (Value) -> Result<R,Error>,

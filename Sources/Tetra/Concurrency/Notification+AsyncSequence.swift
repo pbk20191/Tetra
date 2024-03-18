@@ -3,6 +3,7 @@
 //  
 //
 //  Created by pbk on 2022/12/09.
+//  NotificationCenter.notifications를 Mirror로 내부 property를 확인한 것을 바탕으로 구현했습니다.
 //
 
 import Foundation
@@ -42,13 +43,14 @@ public final class NotificationSequence: AsyncSequence {
     
     let center: NotificationCenter
     private let lock:some UnfairStateLock<NotficationState> = createUncheckedStateLock(uncheckedState: NotficationState())
-    
+
     public struct Iterator: NonThrowingAsyncIteratorProtocol {
         public typealias Element = Notification
         
         let parent:NotificationSequence
-        
+
         public func next() async -> Notification? {
+//            next를 호출한 동안에 task cancellation이 발생하면 observer Token이 무효화되는 것이 확인되므로 아래와 같이 canellation을 추가한다.
             await withTaskCancellationHandler(
                 operation: parent.next,
                 onCancel: parent.cancel
