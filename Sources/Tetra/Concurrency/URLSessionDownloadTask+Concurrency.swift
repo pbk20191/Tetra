@@ -86,8 +86,8 @@ internal func urltask_transformer<T:URLSessionTask, Value, R>(
                 switch snapShot {
                 case .waiting:
                     break
-                case .task(let uRLSessionDownloadTask):
-                    uRLSessionDownloadTask.cancel()
+                case .task(let uRLSessionTask):
+                    uRLSessionTask.cancel()
                 case .cancelled:
                     sessionTask.cancel()
                 }
@@ -119,5 +119,4 @@ enum URLSessionTaskAsyncState<Task:URLSessionTask>: Sendable {
     }
     
 }
-
 

@@ -3,6 +3,7 @@
 //  
 //
 //  Created by pbk on 2022/12/08.
+//  SwiftUI AsyncImage를 iOS 13에서도 사용이 가능하지만 15부터는 framework 구현체에 의존하도록 작성한 개체
 //
 
 import Foundation

@@ -4,6 +4,9 @@
 //
 //  Created by pbk on 2022/12/19.
 //
+//  Binding<MutableCollection>의 경우 iOS 15부터 Collection protocol를 지원한다.
+// 그에 반해서 List(Binding<MutableCollection)은 
+//
 
 import Foundation
 import SwiftUI
