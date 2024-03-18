@@ -6,20 +6,27 @@ This provides some features that were only available at least iOS 15 and macOS 1
 iOS 15, macOS 12 등에서만 사용이 가능한 API를 iOS 13, iOS 10.15 등에서 사용할 수 있도록 하는 것으로 목표로 개발되었습니다.
 
 ## Backport
-    [async await URLSession download, upload](./Sources/Tetra/Concurrency/TetraExtension+URLSession.swift)
+[async await URLSession download, upload](./Sources/Tetra/Concurrency/TetraExtension+URLSession.swift)
     
-    async await NSManagedContext peform
+[async await NSManagedContext peform](./Sources/Tetra/Concurrency/CoreDataStack+Concurrency.swift)    
+
+Combine <-> AsyncSequence interchanging 
+
+<details closed>
     
-    Combine <-> AsyncSequence interchanging 
-    <details open>
-        [CompatAsyncPublisher](./Sources/Tetra/Combine/CompatAsyncPublisher.swift.swift)
-        [CompatAsyncThrowingPublisher](./Sources/Tetra/Combine/CompatAsyncThrowingPublisher.swift)
-        [MapTask](./Sources/Tetra/Combine/Publishers+MapTask.swift)
-        [TryMapTask](./Sources/Tetra/Combine/Publishers+TryMapTask.swift)
-    </details>
-    [SwiftUI.AsyncImage](./Sources/Tetra/SwiftUI/AsyncImage+BackPort.swift)
-    [SwiftUI.Binding Collction conformance](./Sources/Tetra/SwiftUI/Binding+Collection.swift)
-    [SwiftUI.List Pull to Refresh](./Sources/Tetra/SwiftUI/RefreshableScrollView.swift)
+[CompatAsyncPublisher](./Sources/Tetra/Combine/CompatAsyncPublisher.swift)
+    
+[CompatAsyncThrowingPublisher](./Sources/Tetra/Combine/CompatAsyncThrowingPublisher.swift)
+
+[MapTask](./Sources/Tetra/Combine/Publishers+MapTask.swift)
+
+[TryMapTask](./Sources/Tetra/Combine/Publishers+TryMapTask.swift)
+
+</details>
+
+[SwiftUI.AsyncImage](./Sources/Tetra/SwiftUI/AsyncImage+BackPort.swift)
+[SwiftUI.Binding Collction conformance](./Sources/Tetra/SwiftUI/Binding+Collection.swift)
+[SwiftUI.List Pull to Refresh](./Sources/Tetra/SwiftUI/RefreshableScrollView.swift)
 
 ## Usage
 <details open>
@@ -70,7 +77,7 @@ import Tetra
 </details>
 
 <details open>
-  <summary>NotificationSequence</summary>
+  <summary>[NotificationSequence]</summary>
   AsyncSequence compatible with `NotificationCenter.Notifications`
   Available even in iOS 13
   
