@@ -6,7 +6,9 @@
 //
 
 import Foundation
+#if canImport(os) && canImport(Darwin)
 import os
+import Darwin
 
 @usableFromInline
 internal final class LockBuffer<State,Primitive>: ManagedBuffer<State,Primitive> {
@@ -67,6 +69,16 @@ public struct ManagedUnfairLock<State>: @unchecked Sendable {
         }
     }
     
+    @available(iOS 18.0, tvOS 18.0, macOS 15.0, macCatalyst 18.0, watchOS 11.0, visionOS 2.0, *)
+    @inlinable
+    func withLockUnchecked<R:~Copyable, Failure:Error>(flags: UnfairLockFlags, _ body: (inout State) throws(Failure) -> R) throws(Failure) -> R {
+        try __lock.withUnsafeMutablePointers { state, lock throws(Failure) in
+            os_unfair_lock_lock_with_flags(lock, flags.unwrapped)
+            defer { os_unfair_lock_unlock(lock) }
+            return try body(&state.pointee)
+        }
+    }
+    
     ///  Perform a sendable closure while holding this lock.
     ///
     ///
@@ -76,6 +88,12 @@ public struct ManagedUnfairLock<State>: @unchecked Sendable {
     ///
     @inlinable
     public func withLock<R:~Copyable, Failure:Error>(_ body: @Sendable (inout State) throws(Failure) -> R) throws(Failure) -> R where R : Sendable {
+        try withLockUnchecked(body)
+    }
+    
+    @available(iOS 18.0, tvOS 18.0, macOS 15.0, macCatalyst 18.0, watchOS 11.0, visionOS 2.0, *)
+    @inlinable
+    func withLock<R:~Copyable,Failure:Error>(flags:UnfairLockFlags ,_ body: @Sendable (inout State) throws(Failure) -> R) throws(Failure) -> R where R : Sendable {
         try withLockUnchecked(body)
     }
     
@@ -164,6 +182,15 @@ public extension ManagedUnfairLock where State == Void {
         }
     }
     
+    @_unavailableFromAsync(message: "Use async-safe scoped locking instead")
+    @available(iOS 18.0, tvOS 18.0, macOS 15.0, macCatalyst 18.0, watchOS 11.0, visionOS 2.0, *)
+    @inlinable
+    func lock(flags: UnfairLockFlags) {
+        __lock.withUnsafeMutablePointerToElements {
+            os_unfair_lock_lock_with_flags($0,  flags.unwrapped)
+        }
+    }
+    
     /// Unlock this lock.
     @_unavailableFromAsync(message: "Use async-safe scoped locking instead")
     @inlinable
@@ -182,6 +209,13 @@ public extension ManagedUnfairLock where State == Void {
         try withLockUnchecked(body)
     }
     
+    @available(iOS 18.0, tvOS 18.0, macOS 15.0, macCatalyst 18.0, watchOS 11.0, visionOS 2.0, *)
+    @inlinable
+    func withLock<R:~Copyable,Failure:Error>(flags:UnfairLockFlags ,_ body: @Sendable () throws(Failure) -> R) throws(Failure) -> R where R : Sendable {
+        try withLockUnchecked(body)
+    }
+    
+    
     ///  Perform a closure while holding this lock.
     ///  This method does not enforce sendability requirement
     ///  on closure body and its return type.
@@ -196,6 +230,16 @@ public extension ManagedUnfairLock where State == Void {
     func withLockUnchecked<R:~Copyable, Failure:Error>(_ body: () throws(Failure) -> R) throws(Failure) -> R {
         try __lock.withUnsafeMutablePointerToElements { lock throws(Failure) in
             os_unfair_lock_lock(lock)
+            defer { os_unfair_lock_unlock(lock) }
+            return try body()
+        }
+    }
+    
+    @available(iOS 18.0, tvOS 18.0, macOS 15.0, macCatalyst 18.0, watchOS 11.0, visionOS 2.0, *)
+    @inlinable
+    func withLockUnchecked<R:~Copyable, Failure:Error>(flags: UnfairLockFlags, _ body: () throws(Failure) -> R) throws(Failure) -> R {
+        try __lock.withUnsafeMutablePointerToElements { lock throws(Failure) in
+            os_unfair_lock_lock_with_flags(lock, flags.unwrapped)
             defer { os_unfair_lock_unlock(lock) }
             return try body()
         }
@@ -246,6 +290,30 @@ public extension ManagedUnfairLock where State == Void {
     }
     
 }
+
+
+public extension ManagedUnfairLock {
+    
+    struct UnfairLockFlags: OptionSet, BitwiseCopyable, Hashable {
+        
+        public var rawValue: __os_unfair_lock_flags_t.RawValue
+    
+        public init(rawValue: RawValue) {
+            self.rawValue = rawValue
+        }
+        
+        @available(iOS 18.0, tvOS 18.0, macOS 15.0, macCatalyst 18.0, watchOS 11.0, visionOS 2.0, *)
+        static var adaptiveSpin:Self { .init(rawValue: os.OSAllocatedUnfairLockFlags.adaptiveSpin.rawValue) }
+        
+        @usableFromInline
+        internal var unwrapped: __os_unfair_lock_flags_t {
+            .init(rawValue: self.rawValue)
+        }
+    }
+    
+}
+
+
 
 public extension ManagedUnfairLock {
     
@@ -335,3 +403,6 @@ package func createUnfairLock() -> some UnfairLockProtocol {
         return ManagedUnfairLock()
     }
 }
+
+
+#endif // canImport(os) && canImport(Darwin)
