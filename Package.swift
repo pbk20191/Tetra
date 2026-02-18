@@ -68,6 +68,8 @@ let package = Package(
                 .enableExperimentalFeature("StaticExclusiveOnly"),
                 .enableExperimentalFeature("RawLayout"),
                 .enableExperimentalFeature("BuiltinModule"),
+                .enableExperimentalFeature("Lifetimes"),
+                .enableExperimentalFeature("LifetimeDependence"),
             ]
         ),
         .target(
@@ -92,7 +94,7 @@ let package = Package(
                 "CriticalSection",
                 "BackportDiscardingTaskGroup",
                 "Namespace",
-                "NamespaceExtension",
+                "NamespaceExtension", "TetraRunLoopConcurrency",
                 .product(name: "AsyncAlgorithms", package: "swift-async-algorithms"),
             ],
             swiftSettings: [
@@ -101,19 +103,19 @@ let package = Package(
                 .swiftLanguageMode(.v6)
             ]
         ),
-        .target(
-            name: "TetraConcurrentQueueShim",
-            linkerSettings: [
-                .linkedFramework("CoreFoundation")
-            ]
-        ),
+
         .target(
             name: "TetraRunLoopConcurrency",
             dependencies: [
-                "TetraConcurrentQueueShim",
+                "CriticalSection",
+                .product(name: "Atomics", package: "swift-atomics"),
+                .product(name: "HeapModule", package: "swift-collections"),
+                .product(name: "BasicContainers", package: "swift-collections"),
+                .product(name: "ContainersPreview", package:  "swift-collections"),
             ],
             swiftSettings: [
-                .swiftLanguageMode(.v6)
+                .swiftLanguageMode(.v6),
+                .enableExperimentalFeature("BuiltinModule"),
             ]
         ),
         .target(
@@ -134,5 +136,4 @@ let package = Package(
             ]
         )
     ],
-    cxxLanguageStandard: .cxx17
 )

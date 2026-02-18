@@ -30,7 +30,9 @@ public struct MultiMapTask<Upstream:Publisher, Output>: Publisher where Upstream
     
     public func receive<S>(subscriber: S) where S : Subscriber, Upstream.Failure == S.Failure, Output == S.Input {
         let processor = Inner(maxTasks: maxTasks, subscriber: subscriber, transform: transform)
-        let task = if #available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *), let executor = taskExecutor as? (any TaskExecutor) {
+        let task = if #available(macOS 26.0, iOS 26.0, watchOS 26.0, tvOS 26.0, *) {
+            Task.immediate(priority: priority, executorPreference: taskExecutor as? (any TaskExecutor), operation: processor.run)
+        } else if #available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *), let executor = taskExecutor as? (any TaskExecutor) {
             Task(executorPreference: executor, priority: priority, operation: processor.run)
         } else {
             Task(priority: priority, operation: processor.run)

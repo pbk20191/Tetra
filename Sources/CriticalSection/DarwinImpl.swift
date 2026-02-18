@@ -17,11 +17,11 @@ import Darwin
 @_staticExclusiveOnly
 public struct _MutexHandle: ~Copyable {
   @usableFromInline
-  let value: _Cell<os_unfair_lock>
+  let value: BackportedCell<os_unfair_lock>
 
   @_transparent
   public init() {
-    value = _Cell(os_unfair_lock())
+    value = BackportedCell(os_unfair_lock())
   }
 
   @_transparent
