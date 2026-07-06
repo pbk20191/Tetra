@@ -15,7 +15,7 @@ struct AsyncFlatMap<Upstream:Publisher, Segment:AsyncSequence>: Publisher where 
     
     typealias Output = Segment.Element
     typealias Failure = Upstream.Failure
-    typealias Transform = @Sendable (Upstream.Output) async throws(Failure) -> Segment
+    typealias Transform = @Sendable @isolated(any) (Upstream.Output) async throws(Failure) -> sending Segment
     var priority: TaskPriority? = nil
     let taskExecutor: (any Executor)?
     var maxTasks:Subscribers.Demand
@@ -89,7 +89,7 @@ extension AsyncFlatMap {
     struct Inner<Down:Subscriber>: Subscriber, Sendable, Subscription, CustomStringConvertible, CustomPlaygroundDisplayConvertible
     where Segment.Element == Down.Input, Down.Failure == AsyncFlatMap.Failure {
         
-        typealias Transformer = @Sendable (Upstream.Output) async throws(Failure) -> Segment
+        typealias Transformer =  @isolated(any)  @Sendable (Upstream.Output) async throws(Failure) -> sending Segment
         typealias Input = Upstream.Output
         typealias Failure = Upstream.Failure
         

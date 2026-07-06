@@ -18,10 +18,10 @@ import UIKit
 @available(macOS, deprecated: 13, renamed: "ScrollView")
 @available(watchOS, deprecated: 9, renamed: "ScrollView")
 public struct RefreshableScrollView<Content:View>: View {
-    
+#if os(iOS) || targetEnvironment(macCatalyst)
     @State private var task:Task<Void,Never>? = nil
     @State private var flag = false
-    
+#endif
     public var content:Content
     public var axes: Axis.Set = .vertical
     public var showsIndicators: Bool = true
@@ -42,9 +42,11 @@ public struct RefreshableScrollView<Content:View>: View {
 
         }
         .onDisappear{
+#if os(iOS) || targetEnvironment(macCatalyst)
             task?.cancel()
             task = nil
             flag = false
+#endif
         }
     }
     

@@ -69,13 +69,13 @@ package struct ThreeArray<T:~Copyable>:~Copyable {
     package var _address: UnsafeMutableBufferPointer<T> {
         .init(start: .init(_rawAddress), count: 3)
     }
-    
+
     public init<E>(initializingWith initializer: (inout OutputSpan<T>) throws(E) -> Void) throws(E) where E : Error {
         var span = unsafe OutputSpan(buffer: _address, initializedCount: 0)
         try initializer(&span)
         let count = span.finalize(for: _address)
-        
-        precondition(5 == count)
+
+        precondition(3 == count)
     }
     
     deinit {

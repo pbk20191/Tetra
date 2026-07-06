@@ -41,7 +41,8 @@ extension TetraExtension where Base: NSPersistentStoreCoordinator {
                     withExtendedLifetime(block, {})
                 }
                 return await base.perform{ [unowned block] in
-                    block()
+                    let result:Result<T,Failure> = block()
+                    return result
                 }
             }.get()
         } else {
@@ -209,7 +210,8 @@ extension TetraExtension where Base: NSPersistentContainer {
                 let block = CoreDataContextClosureHolder(closure: $0)
                 defer { withExtendedLifetime(block, {}) }
                 return await base.performBackgroundTask{ [unowned block] in
-                    block($0)
+                    let result:Result<T,Failure> = block($0)
+                    return result
                 }
             }.get()
         } else {

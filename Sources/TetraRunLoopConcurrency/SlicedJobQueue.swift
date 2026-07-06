@@ -19,13 +19,10 @@ internal struct SlicedJobQueue: ~Copyable, Sendable {
     let jobs:FiveArray<__MPSCQueue<UnownedJob>>
     nonisolated(unsafe)
     let boost:FiveArray<AtomicStore<UnsafeRawPointer?>>
-//    nonisolated(unsafe)
-    let delayedJobs: some UnfairStateLock<ContiguousArray<Heap<TimestampJob>>> = createCheckedStateLock(checkedState: ContiguousArray<Heap<TimestampJob>>.init(repeating: .init(), count: 3))
-//    let lock = NSRecursiveLock()
-    
+
     let cache1:__MPSCQueue<UnownedJob>.NodeCache
 //    let cache2:__MPSCQueue<TimestampJob>.NodeCache
-    
+
     init(cacheSize:Int = 2048) {
         let cache1 = __MPSCQueue<UnownedJob>.NodeCache(size: cacheSize)
 //        let cache2 = __MPSCQueue<TimestampJob>.NodeCache(size: cacheSize / 2)
@@ -43,12 +40,24 @@ internal struct SlicedJobQueue: ~Copyable, Sendable {
         })
     }
     
+    /// Drains the 5 ready lanes on the owning thread, highest-priority-first.
+    ///
+    /// Two disciplines ported from the reference engine:
+    ///   * I4a (QoS-once): the per-lane `pthread_override` boosts are NOT ended
+    ///     here. They are held across drains and released ONCE by the engine's
+    ///     `endAllBoosts()` on the idle path (no refire) / at teardown — avoiding
+    ///     per-drain start/end syscall thrash and a mid-busy priority drop. This
+    ///     method only sets the *thread* QoS floor (`pthread_set_qos_class_self_np`)
+    ///     per lane so the owning thread runs each lane's jobs at that lane's class.
+    ///   * I4b (fairness cap): each lane's dequeue loop is capped at
+    ///     `getDrainIterations(queueIndex:)`, so a high-priority flood cannot starve
+    ///     the run loop's other CFRunLoop sources. A capped lane may leave jobs; the
+    ///     engine pump re-checks `readyLanesEmpty()` and re-fires until empty.
     internal func runBatch(
         executor:UnownedSerialExecutor,
         taskRef: Builtin.Executor? = nil
     ) {
-        
-        var currentJobs = ContiguousArray<ContiguousArray<UnownedJob>>.init(repeating: [], count: 5)
+
         let qos:DispatchQoS
         do {
             var _qos = QOS_CLASS_UNSPECIFIED
@@ -60,71 +69,61 @@ internal struct SlicedJobQueue: ~Copyable, Sendable {
         defer {
             pthread_set_qos_class_self_np(qos.qosClass.rawValue, .init(qos.relativePriority))
         }
-        repeat {
-            
+        do {
+
             for i in 0..<5 {
-                while let t = self.jobs[i].dequeue() {
-                    currentJobs[i].append(t)
+                let laneQos = switch i {
+                case 0:
+                    QOS_CLASS_USER_INTERACTIVE
+                case 1:
+                    QOS_CLASS_USER_INITIATED
+                case 2:
+                    QOS_CLASS_DEFAULT
+                case 3:
+                    QOS_CLASS_UTILITY
+                case 4:
+                    fallthrough
+                default:
+                    QOS_CLASS_BACKGROUND
                 }
-                var buffer = ContiguousArray<UnownedJob>()
-                buffer.reserveCapacity(currentJobs.capacity)
-                swap(&buffer, &currentJobs[i])
-                
-                do {
-                    let qos = switch i {
-                    case 0:
-                        QOS_CLASS_USER_INTERACTIVE
-                    case 1:
-                        QOS_CLASS_USER_INITIATED
-                    case 2:
-                        QOS_CLASS_DEFAULT
-                    case 3:
-                        QOS_CLASS_UTILITY
-                    case 4:
-                        fallthrough
-                    default:
-                        QOS_CLASS_BACKGROUND
-                    }
-                    if qos != currentQos, !buffer.isEmpty {
-                        pthread_set_qos_class_self_np(qos, 0)
-                        currentQos = qos
-                    }
-                }
-                do {
-                    if let override = boost[i].exchange(nil, ordering: .relaxed) {
-                        pthread_override_qos_class_end_np(.init(override))
-                    }
-                }
+                let iterations = getDrainIterations(queueIndex: i)
+                var count = 0
                 if #available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *), let t = taskRef {
                     let taskExecutor = UnownedTaskExecutor(t)
-                    for j in buffer {
+                    while count < iterations, let j = self.jobs[i].dequeue() {
+                        if count == 0, laneQos != currentQos {
+                            pthread_set_qos_class_self_np(laneQos, 0)
+                            currentQos = laneQos
+                        }
                         j.runSynchronously(isolatedTo: executor, taskExecutor: taskExecutor)
+                        count &+= 1
                     }
                 } else {
-                    for j in buffer {
-                        j.runSynchronously(on: executor)
-                    }
-                }
-            }
-            let times = [
-                Dispatch.__dispatch_time(1 << 63,0) & ~(1 << 63),
-                Dispatch.__dispatch_time(0,0),
-                0 &- Dispatch.__dispatch_walltime(nil,0)
-            ]
-            self.delayedJobs.withLockUnchecked {
-                for i in 0..<3 {
-                    while let jobBox = $0[i].min, jobBox.timestamp.target <= times[i] {
-                        $0[i].removeMin()
-                        let index = if #available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *) {
-                            TaskPriority(jobBox.job.priority)?.jobQueueIndex ?? 4
-                        } else {
-                            2
+                    while count < iterations, let j = self.jobs[i].dequeue() {
+                        if count == 0, laneQos != currentQos {
+                            pthread_set_qos_class_self_np(laneQos, 0)
+                            currentQos = laneQos
                         }
-                        currentJobs[index].append(jobBox.job)
+                        j.runSynchronously(on: executor)
+                        count &+= 1
                     }
                 }
             }
-        } while !currentJobs.allSatisfy(\.isEmpty)
+        }
+    }
+
+    /// Release every active QoS override. Called by the engine ONLY when the busy
+    /// period ends (no refire) or at teardown — NOT per drain. Holding overrides
+    /// across drains mirrors libdispatch's runloop-queue discipline
+    /// (`_dispatch_runloop_queue_wakeup`: end the override only when the queue drains
+    /// empty), avoiding per-drain start/end syscall thrash and the mid-busy priority
+    /// drop that would otherwise open an inversion window.
+    internal func endAllBoosts() {
+        for i in 0..<5 {
+            if let override = boost[i].exchange(nil, ordering: .acquiring) {
+                pthread_override_qos_class_end_np(.init(override))
+            }
+        }
     }
     
     nonisolated func enqueue(_ job:UnownedJob, _ thread:pthread_t) {
@@ -132,7 +131,10 @@ internal struct SlicedJobQueue: ~Copyable, Sendable {
             let priority = TaskPriority(job.priority)
             let index = priority?.jobQueueIndex ?? 4
             jobs[index].enqueue(job)
-            if boost[index].load(ordering: .acquiring) != nil {
+            // Install a QoS override for this lane only when none is active yet — the
+            // hot path (a burst of same-priority jobs) then costs one acquiring load and
+            // no syscall. (Was inverted `!= nil`, which never installed an override.)
+            if boost[index].load(ordering: .acquiring) == nil {
                 let qos = switch index {
                 case 0:
                     QOS_CLASS_USER_INTERACTIVE
@@ -157,63 +159,6 @@ internal struct SlicedJobQueue: ~Copyable, Sendable {
         } else {
             jobs[2].enqueue(job)
         }
-    }
-    
-    @available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *)
-    nonisolated
-    internal func enqueue(
-        _ job:UnownedJob,
-        after delay: Swift.Duration,
-        tolerance: Swift.Duration? = nil,
-        index:ClockIndex
-    ) -> Bool {
-        let (delaySec, delayAtto) = delay.components
-        let dispatch_now:UInt64
-        
-        switch index {
-        case .continuous:
-            let mask = 1 << 63 as dispatch_time_t
-            dispatch_now = mask
-        case .suspending:
-            dispatch_now = 0
-        case .walltime:
-            dispatch_now = .init(DISPATCH_WALLTIME_NOW)
-        }
-        let dispatch_target = Dispatch.__dispatch_time(
-            dispatch_now,
-            delaySec * Int64(Dispatch.NSEC_PER_SEC) + Int64(delayAtto / 1_000_000_000)
-        )
-        let dispatch_deadline:dispatch_time_t
-        if let tolerance {
-            let (tol_sec, tol_atto) = tolerance.components
-            dispatch_deadline = Dispatch.__dispatch_time(
-                dispatch_target,
-                Int64(Dispatch.NSEC_PER_SEC) * tol_sec + Int64(tol_atto / 1_000_000_000)
-            )
-        } else {
-            dispatch_deadline = dispatch_target
-        }
-        let timestamp:Timestamp
-        switch index {
-        case .continuous:
-            timestamp = .init(target: dispatch_target & ~dispatch_now, leeway: (dispatch_deadline & ~dispatch_now) - (dispatch_target & ~dispatch_now))
-            break
-        case .suspending:
-            timestamp = .init(target: dispatch_target, leeway: dispatch_deadline - dispatch_target)
-            break
-        case .walltime:
-            timestamp = .init(target:  0 &- dispatch_target, leeway: (0 &- dispatch_deadline) - (0 &- dispatch_target))
-            break
-        }
-        let needsWakeup = delayedJobs.withLock {
-            let oldStamp = $0[index.rawValue].min?.timestamp
-            $0[index.rawValue].insert(
-                .init(job: job, timestamp: timestamp)
-            )
-            let newStamp = $0[index.rawValue].min?.timestamp
-            return oldStamp != newStamp
-        }
-        return needsWakeup
     }
     
     internal enum ClockIndex:Int, Sendable, BitwiseCopyable {
@@ -358,6 +303,16 @@ internal struct SlicedJobQueue: ~Copyable, Sendable {
             return result
         }
         
+        /// Consumer-side emptiness check: true when there is no dequeuable node.
+        /// Mirrors `dequeue`'s producer-published-`next` protocol (an in-flight
+        /// producer that has swung `tail` but not yet published `next` reads as empty,
+        /// same as `dequeue` returning nil).
+        @inline(__always)
+        public var isEmpty: Bool {
+            let currentHead = head.load(ordering: .relaxed).load(BufferNode.self)
+            return currentHead.pointee.next.load(ordering: .acquiring) == nil
+        }
+
         @inline(__always)
         public func withFirst<T:~Copyable,Failure:Error>(_ body: (borrowing Element?) throws(Failure) -> T) throws(Failure) -> T {
             let currentHead = head.load(ordering: .relaxed).load(BufferNode.self)
@@ -465,14 +420,19 @@ extension TaskPriority {
     
 }
 
+/// Per-lane drain cap (I4b fairness). Ported from the reference engine's exact
+/// values: userInteractive(0) is uncapped; high(1) and default(2) get 128; utility(3)
+/// gets 2; background(4) gets 1. A capped lane leaves residual jobs, which the engine
+/// pump drains on subsequent re-fires (see `handleReadable`'s `readyLanesEmpty` recheck).
 @inlinable
 @inline(__always)
 internal func getDrainIterations(queueIndex: Int) -> Int {
     switch queueIndex {
-        case 0: .max // high
-        case 1: 128 // medium
-        case 2: 2 // low
-        default : 1 // background and lower
+        case 0: .max        // userInteractive
+        case 1: 128         // high
+        case 2: 128         // default
+        case 3: 2           // utility
+        default: 1          // background and lower
     }
 }
 
@@ -541,31 +501,6 @@ class Backing {
     
     func dispatch() {
         store.runBatch(executor: serialExecutor.unsafelyUnwrapped, taskRef: taskRef)
-        
-        let timeout = store.delayedJobs.withLock {
-            
-            $0.map(\.min?.timestamp)
-        }
-        
-        for i in timeout.indices {
-            if var t = timeout[i] {
-                let s = timers[i]
-                var start = t.target
-                if i == 0 {
-                    start |= 1 << 63
-                }
-                if i == 2 {
-                    start = 0 &- start
-                }
-                Dispatch.__dispatch_source_set_timer(
-                    s,
-                    start,
-                    DispatchTime.distantFuture.rawValue,
-                    t.leeway
-                )
-            }
-        }
-        
     }
     
     func schedule(_ runloop:CFRunLoop, _ mode:CFRunLoopMode) {
