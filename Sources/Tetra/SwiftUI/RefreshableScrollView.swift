@@ -18,10 +18,10 @@ import UIKit
 @available(macOS, deprecated: 13, renamed: "ScrollView")
 @available(watchOS, deprecated: 9, renamed: "ScrollView")
 public struct RefreshableScrollView<Content:View>: View {
-    
+#if os(iOS) || targetEnvironment(macCatalyst)
     @State private var task:Task<Void,Never>? = nil
     @State private var flag = false
-    
+#endif
     public var content:Content
     public var axes: Axis.Set = .vertical
     public var showsIndicators: Bool = true
@@ -42,9 +42,11 @@ public struct RefreshableScrollView<Content:View>: View {
 
         }
         .onDisappear{
+#if os(iOS) || targetEnvironment(macCatalyst)
             task?.cancel()
             task = nil
             flag = false
+#endif
         }
     }
     
@@ -81,56 +83,38 @@ public extension View {
 }
 
 @usableFromInline internal
-struct RefreshActionModifier: EnvironmentalModifier {
+struct RefreshActionModifier: ViewModifier {
     
     @Binding var task:Task<Void,Never>?
     @Binding var refreshing:Bool
+    @Environment(\.self) private var environment
     
     @usableFromInline
-    func resolve(in environment: EnvironmentValues) -> ResolvedModifier {
-        var modifier = ResolvedModifier(task: $task, refreshing: refreshing)
-        if #available(iOS 15.0, tvOS 15.0, macOS 12.0, macCatalyst 15.0, watchOS 8.0, *),
-            let refresh = environment.refresh {
-            modifier.action = {
-                refreshing = true
-                await refresh()
-                refreshing = false
-            }
-        } else if let refresh = environment.refreshControl {
-            modifier.action = {
-                refreshing = true
-                await refresh.action()
-                refreshing = false
-            }
-        }
-        return modifier
-    }
-    
-    @usableFromInline
-    struct ResolvedModifier: ViewModifier {
-        @usableFromInline
-        @Binding var task:Task<Void,Never>?
-        @usableFromInline
-        var refreshing:Bool
-        @usableFromInline
-        var action:( () async -> ())?
-        
-        @usableFromInline
-        func body(content: Content) -> some View {
+    func body(content: Content) -> some View {
 #if os(iOS) || targetEnvironment(macCatalyst)
-            content.background(Group{
-                if let action {
-                    ScrollRefreshImp(task: $task, refreshing: refreshing, operation: action)
-                        .frame(width: 0, height: 0)
+        content.background(
+            Group{
+                let action = if #available(iOS 15.0, tvOS 15.0, macOS 12.0, macCatalyst 15.0, watchOS 8.0, *) {
+                    environment.refresh?.callAsFunction
+                } else {
+                    environment.refreshControl?.action
                 }
-            })
+                if let action {
+                    ScrollRefreshImp(task: $task, refreshing: refreshing) {
+                        refreshing = true
+                        defer { refreshing = false }
+                        await action()
+                    }.frame(width: 0, height: 0)
+                }
+                
+            }
+        )
 #else
-            content
+        content
 #endif
-        }
-        
     }
     
+
 }
 
 
