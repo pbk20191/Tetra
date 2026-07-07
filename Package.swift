@@ -155,6 +155,7 @@ let package = Package(
             swiftSettings: [
                 .swiftLanguageMode(.v6),
                 .unsafeFlags(["-Xfrontend", "-disable-availability-checking"]),
+                
             ]
         ),
     ],

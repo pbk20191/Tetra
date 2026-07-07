@@ -320,7 +320,7 @@ public final class StackBoundRunLoopExecutor: SerialExecutor, @unchecked Sendabl
         // (stack-bound lifetime).
         //
         // On the iOS-18 path this facade is a `TaskExecutor`, so hand the engine a
-        // task-executor ref; `runBatch` then runs jobs via
+        // task-executor ref; `processLane` then runs jobs via
         // `runSynchronously(isolatedTo:taskExecutor:)`. Below iOS 18 the ref stays nil
         // (the `SerialExecutor`-only `runSynchronously(on:)` path).
         let taskRef: Builtin.Executor?
@@ -413,7 +413,7 @@ public final class StackBoundRunLoopExecutor: SerialExecutor, @unchecked Sendabl
 // MARK: - Gated executor-protocol conformances (Task 5)
 //
 // All four protocols floor at iOS 16 / macOS 13, but this executor supplies a
-// task executor to `runBatch` via `runSynchronously(isolatedTo:taskExecutor:)`,
+// task executor to `processLane` via `runSynchronously(isolatedTo:taskExecutor:)`,
 // which is iOS 18 / macOS 15. So the conformances are gated at that higher floor.
 // `SchedulingExecutor` / `RunLoopExecutor` / `MainExecutor` are SPI (see the
 // `@_spi(...) import _Concurrency` at the top of this file).

@@ -135,8 +135,7 @@ enum KQueueSelector {
 
     // MARK: Clock
 
-    /// The domain's current instant in the same units that `SlicedJobQueue.Timestamp.target`
-    /// is stored in, matching `SlicedJobQueue.runBatch`'s `times` array.
+    /// The domain's current instant in the same units that `Timestamp.target` is stored in.
     static func now(index: SlicedJobQueue.ClockIndex) -> UInt64 {
         switch index {
         case .continuous:

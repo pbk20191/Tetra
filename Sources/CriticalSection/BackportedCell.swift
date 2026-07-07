@@ -57,6 +57,11 @@ package struct FiveArray<T:~Copyable>:~Copyable {
     
 }
 
+extension FiveArray: @unchecked Sendable where T:~Copyable, T:Sendable {}
+extension ThreeArray: @unchecked Sendable where T:~Copyable, T:Sendable {}
+
+
+
 @_rawLayout(likeArrayOf: T, count: 3, movesAsLike)
 package struct ThreeArray<T:~Copyable>:~Copyable {
     @_transparent

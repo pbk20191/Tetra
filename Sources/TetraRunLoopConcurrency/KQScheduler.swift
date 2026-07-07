@@ -18,6 +18,7 @@
 //
 
 #if canImport(Darwin)
+import Atomics
 import Darwin
 import Dispatch
 import Foundation
@@ -37,32 +38,55 @@ final class KQScheduler: @unchecked Sendable {
 
     private let facade: StackBoundRunLoopExecutor
     private let serial: UnownedSerialExecutor
-    /// Optional task-executor reference threaded through to `runBatch`.
+    /// Optional task-executor reference threaded through to `processLane`.
     private let taskRefOrNil: Builtin.Executor?
     let cfRunLoop: CFRunLoop
     let thread: pthread_t
     /// Raw kqueue descriptor, valid from init; exposed for cross-thread wakeups.
     let kqueueFD: Int32
 
-    /// The 5-QoS ready lanes. Drained (only) by `runBatch` on the owning thread.
+    /// The 5-QoS ready lanes. Drained (only) by `drainReadyJobs` on the owning thread.
     let ready = SlicedJobQueue(cacheSize: 2048)
 
-    /// Timer state, MOVED here from `SlicedJobQueue` (DESIGN A). One min-heap per
-    /// clock domain — continuous / suspending / wall — behind a single state lock.
-    let delayedJobs: some UnfairStateLock<ContiguousArray<Heap<TimestampJob>>> =
-        createCheckedStateLock(checkedState: .init(repeating: .init(), count: 3))
+    /// Pending-timer heaps and the armed-deadline record, per clock domain, together
+    /// behind one lock — the reference engine's `TimerState` shape. Producers arm the
+    /// kqueue `EVFILT_TIMER` directly under this lock (`kevent64` is thread-safe), so
+    /// there is no producer/owning-thread split-brain over the armed idents and no
+    /// `EVFILT_USER` wakeup per timer enqueue.
+    struct TimerState {
+        /// Monotonic insertion counter — the FIFO tie-break for equal deadlines.
+        var sequence: UInt64 = 0
+        /// One min-heap per clock domain — continuous / suspending / wall. MOVED here
+        /// from `SlicedJobQueue` (DESIGN A).
+        var heaps: ThreeElement<Heap<TimestampJob>> = .init(repeating: .init())
+        /// The deadline currently armed on the kqueue per domain (`nil` = unarmed).
+        /// `armIfEarlierLocked` re-arms a domain only when the candidate is strictly
+        /// earlier than what is armed, and one-shot fires clear the entry —
+        /// eliminating the per-pump re-arm `kevent64` thrash of unconditional arming.
+        var armed: ThreeElement<Timestamp?> = .init(repeating: nil)
+    }
 
-    /// The deadline currently armed on the kqueue per clock domain (`nil` = unarmed).
-    /// OWNING-THREAD-ONLY — mutated only by the pump (`handleReadable` and its
-    /// `fireDueTimers`/`armNextDeadlines`), never by producers — so it needs no lock
-    /// (and can therefore be the noncopyable `ThreeArray`, which `UnfairStateLock`'s
-    /// copyable `State` could not hold). Arming is deferred from producers to the pump;
-    /// `armNextDeadlines` re-arms a domain only when its heap min is strictly earlier
-    /// than what is armed, and one-shot fires clear the entry — eliminating the
-    /// per-pump re-arm `kevent64` thrash of the previous unconditional arming.
-    private nonisolated(unsafe) var armed = ThreeArray<Timestamp?>(initializingWith: {
-        while !$0.isFull { $0.append(nil) }
-    })
+    let timers: some UnfairStateLock<TimerState> =
+        createCheckedStateLock(checkedState: TimerState())
+
+    /// Timers currently in the heaps. Lets the drain pump skip the whole timer pass
+    /// (no lock, no clock reads) when zero — the common, timer-free case.
+    private let timerCount = ManagedAtomic<Int>(0)
+
+    /// Owning-thread-only scratch for due jobs, so fired timer jobs are moved into
+    /// the ready lanes OUTSIDE the timer lock; reused so steady state allocates nothing.
+    private nonisolated(unsafe) var dueBuffer = ContiguousArray<UnownedJob>()
+
+    /// Arm `index` if `candidate` is strictly earlier than what is armed (or nothing
+    /// is). Caller holds `timers`. Reads the domain clock only when it actually arms.
+    private func armIfEarlierLocked(_ state: inout TimerState, index: SlicedJobQueue.ClockIndex, candidate: Timestamp) {
+        let raw = index.rawValue
+        if let armedStamp = state.armed[raw], candidate.deadline >= armedStamp.deadline { return }
+        KQueueSelector.armTimer(fileDescriptor: kqueueFD, index: index,
+                                target: candidate.target, leeway: candidate.leeway,
+                                now: KQueueSelector.now(index: index))
+        state.armed[raw] = candidate
+    }
 
     /// True while a drain is pending/imminent; producers elide the wakeup when they
     /// lose the false→true race. RMW-only (see `handleReadable`).
@@ -79,7 +103,7 @@ final class KQScheduler: @unchecked Sendable {
 
     /// - Parameter taskRef: the facade's task-executor reference (its
     ///   `asUnownedTaskExecutor()._executor`) on the iOS-18 `TaskExecutor` path, or
-    ///   `nil` on the iOS-13 `SerialExecutor`-only path. When non-nil, `runBatch`
+    ///   `nil` on the iOS-13 `SerialExecutor`-only path. When non-nil, `processLane`
     ///   runs jobs via `runSynchronously(isolatedTo:taskExecutor:)` so a task's
     ///   preferred task executor is respected (Task 5).
     init(facade: StackBoundRunLoopExecutor, serial: UnownedSerialExecutor,
@@ -135,26 +159,24 @@ final class KQScheduler: @unchecked Sendable {
         }
     }
 
-    /// Inserts a delayed job and, if it became a strictly-earlier deadline for its
-    /// domain, arms that domain's kqueue timer and posts a wakeup so the pump re-arms.
-    /// The timestamp computation was MOVED here from `SlicedJobQueue.enqueue(_:after:...)`.
+    /// Inserts a delayed job and, if it is a strictly-earlier deadline for its domain,
+    /// arms that domain's kqueue timer right here, under the lock — no `EVFILT_USER`
+    /// wakeup round trip (an already-due deadline arms `0` and fires immediately, so
+    /// the kernel itself wakes the pump). The timestamp computation was MOVED here
+    /// from `SlicedJobQueue.enqueue(_:after:...)`.
     @available(iOS 16, macOS 13, watchOS 9, tvOS 16, visionOS 1, *)
     func enqueueTimer(_ job: UnownedJob, after delay: Duration, tolerance: Duration?, index: SlicedJobQueue.ClockIndex) {
         guard phase == .live else {
             preconditionFailure("StackBoundRunLoopExecutor.enqueue(_:after:...) called while shutting down.")
         }
         let timestamp = Self.timestamp(after: delay, tolerance: tolerance, index: index)
-        let becameNewMin: Bool = delayedJobs.withLock { heaps in
-            let raw = index.rawValue
-            let oldStamp = heaps[raw].min?.timestamp
-            heaps[raw].insert(TimestampJob(job: job, timestamp: timestamp))
-            let newStamp = heaps[raw].min?.timestamp
-            return oldStamp != newStamp
-        }
-        if becameNewMin {
-            // Arming is owning-thread-only; just wake the pump, which re-arms via
-            // `armNextDeadlines`. (No producer-side `kevent64` / `armed` mutation.)
-            KQueueSelector.wakeup(fileDescriptor: kqueueFD)
+        timerCount.wrappingIncrement(ordering: .releasing)
+        timers.withLock { state in
+            state.sequence &+= 1
+            state.heaps[index.rawValue].insert(
+                TimestampJob(job: job, sequence: state.sequence, timestamp: timestamp)
+            )
+            armIfEarlierLocked(&state, index: index, candidate: timestamp)
         }
     }
 
@@ -218,15 +240,22 @@ final class KQScheduler: @unchecked Sendable {
         }
         deferredReadable = false
         pendingJobPop.store(true, ordering: .relaxed)
-        let fired = KQueueSelector.drainEvents(fileDescriptor: kqueueFD)   // consume wake + timer fires
-        // A one-shot EVFILT_TIMER that fired is now disarmed in the kernel; clear our
-        // record so `armNextDeadlines` re-arms the domain's next deadline.
-        if fired.continuous { armed[0] = nil }
-        if fired.suspending { armed[1] = nil }
-        if fired.wall       { armed[2] = nil }
-        fireDueTimers()                                            // pop due timers -> ready lanes
-        ready.runBatch(executor: serial, taskRef: taskRefOrNil)    // drain the 5 ready lanes only
-        armNextDeadlines()                                         // arm EVFILT_TIMER from delayedJobs mins
+        // The explicit pool bounds job-autoreleased objects to this pass — a bare
+        // thread's CFRunLoop is not guaranteed to push one of its own on every OS
+        // Tetra supports.
+        autoreleasepool {
+            let fired = KQueueSelector.drainEvents(fileDescriptor: kqueueFD)   // consume wake + timer fires
+            let hadTimers = timerCount.load(ordering: .acquiring) > 0
+            // Fire the due pass whenever timers exist OR the kqueue reported a timer
+            // firing (so a fire is never dropped even if the count just changed).
+            if hadTimers || fired.continuous || fired.suspending || fired.wall {
+                fireDueTimers(fired)                                   // pop due timers -> ready lanes
+            }
+            drainReadyJobs()                                           // drain the 5 ready lanes only
+            if timerCount.load(ordering: .acquiring) > 0 {
+                armNextDeadlines()                                     // arm EVFILT_TIMER from heap mins
+            }
+        }
         var refire = !readyLanesEmpty()
         if !refire {
             _ = pendingJobPop.exchange(false, ordering: .acquiringAndReleasing)
@@ -253,36 +282,90 @@ final class KQScheduler: @unchecked Sendable {
         CFFileDescriptorEnableCallBacks(fd, kCFFileDescriptorReadCallBack)
     }
 
-    /// Pop due entries (per domain, `timestamp.target <= now`) and feed them to the
-    /// ready lanes.
-    private func fireDueTimers() {
-        delayedJobs.withLockUnchecked { heaps in
+    /// Pop due entries (per domain, `timestamp.target <= now`) into `dueBuffer` and
+    /// feed them to the ready lanes OUTSIDE the lock, so no MPSC push (or override
+    /// syscall) ever happens while producers wait on `timers`. Also clears the armed
+    /// record for domains the kqueue reported as fired — a one-shot EVFILT_TIMER that
+    /// fired is disarmed in the kernel, so the next arm pass must re-arm that domain.
+    /// Clock reads happen lazily, only for non-empty heaps.
+    private func fireDueTimers(_ fired: KQueueSelector.FiredDomains) {
+        dueBuffer.removeAll(keepingCapacity: true)
+        var firedCount = 0
+        timers.withLockUnchecked { state in
+            if fired.continuous { state.armed[0] = nil }
+            if fired.suspending { state.armed[1] = nil }
+            if fired.wall       { state.armed[2] = nil }
             for raw in 0..<3 {
+                guard state.heaps[raw].min != nil else { continue }
                 let now = KQueueSelector.now(index: SlicedJobQueue.ClockIndex(rawValue: raw)!)
                 var popped = false
-                while let box = heaps[raw].min, box.timestamp.target <= now {
-                    heaps[raw].removeMin(); ready.enqueue(box.job, thread); popped = true
+                while let box = state.heaps[raw].min, box.timestamp.target <= now {
+                    state.heaps[raw].removeMin()
+                    dueBuffer.append(box.job)
+                    firedCount &+= 1
+                    popped = true
                 }
-                // The armed min was just consumed — clear so `armNextDeadlines` re-arms
+                // The armed min was just consumed — clear so the next arm pass re-arms
                 // the new min (guards against a stale `armed` skipping the next deadline).
-                if popped { armed[raw] = nil }
+                if popped { state.armed[raw] = nil }
+            }
+        }
+        if firedCount > 0 {
+            timerCount.wrappingDecrement(by: firedCount, ordering: .releasing)
+        }
+        // `thread: nil`: the pump is about to drain these itself — no boost install.
+        for job in dueBuffer {
+            ready.enqueue(job, nil)
+        }
+        dueBuffer.removeAll(keepingCapacity: true)
+    }
+
+    /// Arm the earliest not-yet-due deadline per domain — but only when it is strictly
+    /// earlier than what is already armed, so a steady state with an unchanged min
+    /// issues no `kevent64` per pump pass.
+    private func armNextDeadlines() {
+        timers.withLockUnchecked { state in
+            for raw in 0..<3 {
+                let index = SlicedJobQueue.ClockIndex(rawValue: raw)!
+                guard let stamp = state.heaps[raw].min?.timestamp else { continue }
+                armIfEarlierLocked(&state, index: index, candidate: stamp)
             }
         }
     }
 
-    /// Arm the earliest not-yet-due deadline per domain — but only when it is strictly
-    /// earlier than what is already armed (`armed[raw]`), so a steady state with an
-    /// unchanged min issues no `kevent64` per pump pass.
-    private func armNextDeadlines() {
-        delayedJobs.withLockUnchecked { heaps in
-            for raw in 0..<3 {
-                let index = SlicedJobQueue.ClockIndex(rawValue: raw)!
-                guard let stamp = heaps[raw].min?.timestamp else { continue }
-                if let armedStamp = armed[raw], armedStamp.deadline <= stamp.deadline { continue }
-                KQueueSelector.armTimer(fileDescriptor: kqueueFD, index: index,
-                                        target: stamp.target, leeway: stamp.leeway,
-                                        now: KQueueSelector.now(index: index))
-                armed[raw] = stamp
+    /// Drains the 5 ready lanes on the owning thread, highest-priority-first.
+    ///
+    /// Two disciplines ported from the reference engine:
+    ///   * I4a (QoS-once): the per-lane `pthread_override` boosts are NOT ended
+    ///     here. They are held across drains and released ONCE by `endAllBoosts()`
+    ///     on the idle path (no refire) / at teardown — avoiding per-drain start/end
+    ///     syscall thrash and a mid-busy priority drop. The drain never alters the
+    ///     owning thread's own QoS: effective priority is thread base + overrides,
+    ///     matching libdispatch's runloop-queue discipline — low-QoS jobs are not
+    ///     demoted below the thread's base.
+    ///   * I4b (fairness cap): each lane's dequeue loop is capped at
+    ///     `getDrainIterations(queueIndex:)`, so a high-priority flood cannot starve
+    ///     the run loop's other CFRunLoop sources. A capped lane may leave jobs; the
+    ///     pump re-checks `readyLanesEmpty()` and re-fires until empty.
+    private func drainReadyJobs() {
+        for index in 0..<5 {
+            processLane(index)
+        }
+    }
+
+    private func processLane(_ index: Int) {
+        let iterations = getDrainIterations(queueIndex: index)
+        var count = 0
+        if #available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *), let t = taskRefOrNil {
+            let taskExecutor = UnownedTaskExecutor(t)
+            while count < iterations, let j = ready.jobs[index].dequeue() {
+                j.runSynchronously(isolatedTo: serial, taskExecutor: taskExecutor)
+                count &+= 1
+            }
+        } else {
+            while count < iterations, let j = ready.jobs[index].dequeue() {
+                j.runSynchronously(on: serial)
+                count &+= 1
             }
         }
     }
@@ -303,9 +386,9 @@ final class KQScheduler: @unchecked Sendable {
     /// any not-yet-due timers, and transitions to `.dead`.
     func finishAndDie() {
         while true {
-            drainReadyLanes()
+            drainReadyJobs()
             if facade.producerGate.load(ordering: .acquiring) == 0 {
-                drainReadyLanes()
+                drainReadyJobs()
                 if readyLanesEmpty() {
                     // Final teardown release of any QoS overrides (I4a backstop before
                     // the SlicedJobQueue.deinit backstop).
@@ -320,18 +403,17 @@ final class KQScheduler: @unchecked Sendable {
         }
     }
 
-    private func drainReadyLanes() {
-        ready.runBatch(executor: serial, taskRef: taskRefOrNil)
-    }
 
     /// Not-yet-due timers are dropped at unwind (lifecycle contract). The kqueue
     /// timers themselves die when the descriptor is invalidated in the frame's defer.
     private func dropPendingTimers() {
-        delayedJobs.withLockUnchecked { heaps in
+        timers.withLockUnchecked { state in
             for raw in 0..<3 {
-                heaps[raw] = .init()
+                state.heaps[raw] = .init()
+                state.armed[raw] = nil
             }
         }
+        timerCount.store(0, ordering: .releasing)
     }
 
     // MARK: Run-loop source

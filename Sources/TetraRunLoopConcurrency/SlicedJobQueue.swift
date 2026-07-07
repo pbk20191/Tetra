@@ -15,10 +15,10 @@ import Builtin
 
 internal struct SlicedJobQueue: ~Copyable, Sendable {
     
+    
+    let jobs:FiveElement<__MPSCQueue<UnownedJob>>
     nonisolated(unsafe)
-    let jobs:FiveArray<__MPSCQueue<UnownedJob>>
-    nonisolated(unsafe)
-    let boost:FiveArray<AtomicStore<UnsafeRawPointer?>>
+    let boost:FiveElement<AtomicStore<UnsafeRawPointer?>>
 
     let cache1:__MPSCQueue<UnownedJob>.NodeCache
 //    let cache2:__MPSCQueue<TimestampJob>.NodeCache
@@ -28,90 +28,14 @@ internal struct SlicedJobQueue: ~Copyable, Sendable {
 //        let cache2 = __MPSCQueue<TimestampJob>.NodeCache(size: cacheSize / 2)
         self.cache1 = cache1
 //        self.cache2 = cache2
-        boost = .init(initializingWith: {
-            while !$0.isFull {
-                $0.append(.init(nil))
-            }
+        boost = .init({ _ in
+            .init(nil)
         })
-        jobs = .init(initializingWith: {
-            while !$0.isFull {
-                $0.append(.init(cache: cache1))
-            }
+        jobs = .init({ _ in
+                .init(cache: cache1)
         })
     }
     
-    /// Drains the 5 ready lanes on the owning thread, highest-priority-first.
-    ///
-    /// Two disciplines ported from the reference engine:
-    ///   * I4a (QoS-once): the per-lane `pthread_override` boosts are NOT ended
-    ///     here. They are held across drains and released ONCE by the engine's
-    ///     `endAllBoosts()` on the idle path (no refire) / at teardown — avoiding
-    ///     per-drain start/end syscall thrash and a mid-busy priority drop. This
-    ///     method only sets the *thread* QoS floor (`pthread_set_qos_class_self_np`)
-    ///     per lane so the owning thread runs each lane's jobs at that lane's class.
-    ///   * I4b (fairness cap): each lane's dequeue loop is capped at
-    ///     `getDrainIterations(queueIndex:)`, so a high-priority flood cannot starve
-    ///     the run loop's other CFRunLoop sources. A capped lane may leave jobs; the
-    ///     engine pump re-checks `readyLanesEmpty()` and re-fires until empty.
-    internal func runBatch(
-        executor:UnownedSerialExecutor,
-        taskRef: Builtin.Executor? = nil
-    ) {
-
-        let qos:DispatchQoS
-        do {
-            var _qos = QOS_CLASS_UNSPECIFIED
-            var priority = Int32(0)
-            pthread_get_qos_class_np(pthread_self(), &_qos, &priority)
-            qos = .init(qosClass: .init(rawValue: _qos)!, relativePriority: .init(priority))
-        }
-        var currentQos = qos.qosClass.rawValue
-        defer {
-            pthread_set_qos_class_self_np(qos.qosClass.rawValue, .init(qos.relativePriority))
-        }
-        do {
-
-            for i in 0..<5 {
-                let laneQos = switch i {
-                case 0:
-                    QOS_CLASS_USER_INTERACTIVE
-                case 1:
-                    QOS_CLASS_USER_INITIATED
-                case 2:
-                    QOS_CLASS_DEFAULT
-                case 3:
-                    QOS_CLASS_UTILITY
-                case 4:
-                    fallthrough
-                default:
-                    QOS_CLASS_BACKGROUND
-                }
-                let iterations = getDrainIterations(queueIndex: i)
-                var count = 0
-                if #available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *), let t = taskRef {
-                    let taskExecutor = UnownedTaskExecutor(t)
-                    while count < iterations, let j = self.jobs[i].dequeue() {
-                        if count == 0, laneQos != currentQos {
-                            pthread_set_qos_class_self_np(laneQos, 0)
-                            currentQos = laneQos
-                        }
-                        j.runSynchronously(isolatedTo: executor, taskExecutor: taskExecutor)
-                        count &+= 1
-                    }
-                } else {
-                    while count < iterations, let j = self.jobs[i].dequeue() {
-                        if count == 0, laneQos != currentQos {
-                            pthread_set_qos_class_self_np(laneQos, 0)
-                            currentQos = laneQos
-                        }
-                        j.runSynchronously(on: executor)
-                        count &+= 1
-                    }
-                }
-            }
-        }
-    }
-
     /// Release every active QoS override. Called by the engine ONLY when the busy
     /// period ends (no refire) or at teardown — NOT per drain. Holding overrides
     /// across drains mirrors libdispatch's runloop-queue discipline
@@ -126,7 +50,10 @@ internal struct SlicedJobQueue: ~Copyable, Sendable {
         }
     }
     
-    nonisolated func enqueue(_ job:UnownedJob, _ thread:pthread_t) {
+    /// `thread == nil` skips the QoS-override install: the pump passes nil when moving
+    /// its own fired timer jobs into the lanes (it is about to drain them itself, so
+    /// boosting its own thread would only buy a wasted syscall pair).
+    nonisolated func enqueue(_ job:UnownedJob, _ thread:pthread_t?) {
         if #available(macOS 14.0, iOS 17.0, watchOS 10.0, tvOS 17.0, *){
             let priority = TaskPriority(job.priority)
             let index = priority?.jobQueueIndex ?? 4
@@ -134,7 +61,7 @@ internal struct SlicedJobQueue: ~Copyable, Sendable {
             // Install a QoS override for this lane only when none is active yet — the
             // hot path (a burst of same-priority jobs) then costs one acquiring load and
             // no syscall. (Was inverted `!= nil`, which never installed an override.)
-            if boost[index].load(ordering: .acquiring) == nil {
+            if let thread, boost[index].load(ordering: .acquiring) == nil {
                 let qos = switch index {
                 case 0:
                     QOS_CLASS_USER_INTERACTIVE
@@ -345,25 +272,28 @@ internal struct SlicedJobQueue: ~Copyable, Sendable {
 
     
 }
+/// A delayed job, ordered by fire deadline; `sequence` breaks deadline ties so
+/// equal-deadline timers pop in enqueue (FIFO) order.
 struct TimestampJob: Comparable {
-    
+
     static func < (lhs: Self, rhs: Self) -> Bool {
-        lhs.timestamp.deadline < rhs.timestamp.deadline
+        if lhs.timestamp.deadline != rhs.timestamp.deadline {
+            return lhs.timestamp.deadline < rhs.timestamp.deadline
+        }
+        return lhs.sequence < rhs.sequence
     }
-    
-    static func > (lhs: Self, rhs: Self) -> Bool {
-        lhs.timestamp.deadline > rhs.timestamp.deadline
-    }
-    
+
     static func == (lhs: Self, rhs: Self) -> Bool {
-        lhs.timestamp == rhs.timestamp
+        lhs.sequence == rhs.sequence
     }
-    
+
     let timestamp:Timestamp
+    let sequence:UInt64
     let job:UnownedJob
-    
-    init(job:consuming UnownedJob, timestamp:Timestamp) {
+
+    init(job:consuming UnownedJob, sequence:UInt64, timestamp:Timestamp) {
         self.job = job
+        self.sequence = sequence
         self.timestamp = timestamp
     }
 }
@@ -402,22 +332,25 @@ struct Timestamp:BitwiseCopyable, Hashable, Sendable, Copyable {
 }
 
 extension TaskPriority {
-    
+
+    /// Reference-engine band mapping (`>=` boundaries): a priority lands in the lane
+    /// of the highest named priority it meets or exceeds. `.userInteractive` (33) is
+    /// spelled via rawValue — the named stdlib symbol is newer than Tetra's iOS 13 floor.
     var jobQueueIndex:Int {
-        
-        if self > .high {
+
+        if self >= .init(rawValue: 33) {
             0
-        } else if self > .medium {
+        } else if self >= .high {
             1
-        } else if self > .low {
+        } else if self >= .medium {
             2
-        } else if self > .background {
+        } else if self >= .low {
             3
         } else {
             4
         }
     }
-    
+
 }
 
 /// Per-lane drain cap (I4b fairness). Ported from the reference engine's exact
@@ -500,7 +433,25 @@ class Backing {
     }
     
     func dispatch() {
-        store.runBatch(executor: serialExecutor.unsafelyUnwrapped, taskRef: taskRef)
+        // Same capped lane drain as the engine's `drainReadyJobs`/`processLane`,
+        // inlined: this experimental CFRunLoopSource backing has no engine to host it.
+        let executor = serialExecutor.unsafelyUnwrapped
+        for index in 0..<5 {
+            let iterations = getDrainIterations(queueIndex: index)
+            var count = 0
+            if #available(macOS 15.0, iOS 18.0, watchOS 11.0, tvOS 18.0, visionOS 2.0, *), let t = taskRef {
+                let taskExecutor = UnownedTaskExecutor(t)
+                while count < iterations, let j = store.jobs[index].dequeue() {
+                    j.runSynchronously(isolatedTo: executor, taskExecutor: taskExecutor)
+                    count &+= 1
+                }
+            } else {
+                while count < iterations, let j = store.jobs[index].dequeue() {
+                    j.runSynchronously(on: executor)
+                    count &+= 1
+                }
+            }
+        }
     }
     
     func schedule(_ runloop:CFRunLoop, _ mode:CFRunLoopMode) {
